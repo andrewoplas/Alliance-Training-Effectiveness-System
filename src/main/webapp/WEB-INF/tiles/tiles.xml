@@ -1,24 +1,37 @@
-<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<!DOCTYPE tiles-definitions PUBLIC
+      "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+      "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+      
 <tiles-definitions>
-	
 	<!-- Base Definition -->
-   <definition name="default" template="/WEB-INF/layout/master.jsp">  
+   <definition name="default" template="/WEB-INF/master.jsp">  
        <put-attribute name="title" value="" />  
-       <put-list-attribute name="stylesheets"></put-list-attribute>
-       <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />  
-       <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp" />  
+       <put-attribute name="header" value="/WEB-INF/header.jsp" />  
+       <put-attribute name="sidebar" value="/WEB-INF/sidebar.jsp" />  
        <put-attribute name="body" value="" />  
-       <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
-       <put-list-attribute name="javascripts"></put-list-attribute>
+       <put-attribute name="footer" value="/WEB-INF/footer.jsp" />
+       <put-list-attribute name="stylesheets">
+			<add-attribute value="/tiles/banner.jsp" />
+	    	<add-attribute value="/tiles/common_menu.jsp" />
+	    	<add-attribute value="/tiles/credits.jsp" />
+	   </put-list-attribute>
+	   <put-list-attribute name="javascripts">
+			<add-attribute value="/tiles/banner.jsp" />
+	    	<add-attribute value="/tiles/common_menu.jsp" />
+	    	<add-attribute value="/tiles/credits.jsp" />
+	   </put-list-attribute>
    </definition>  
 
 	<!-- Dashboard Pages -->
 	<definition name="/ates/*" extends="default">
 	    <put-attribute name="title" value="ATES - Dashboard" />
 	    <put-attribute name="body" value="/WEB-INF/pages/{1}.jsp" />
-	    <put-list-attribute name="stylesheets">
-	        <add-attribute value="/static/stylesheets/sign-in.css" />
-	    </put-list-attribute>
+	    <put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/tiles/greetings.jsp" />
+		</put-list-attribute>
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/tiles/greetings.jsp" />
+		</put-list-attribute>
 	</definition>
 	
 </tiles-definitions>

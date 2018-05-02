@@ -56,7 +56,7 @@
 	    
 	    <!-- Custom JS Links -->
 	    <c:forEach var="script" items="${javascripts}">
-	        <script type="text/javascript" src="${script} }"></script>
+	        <script type="text/javascript" src="${script}"></script>
 	    </c:forEach>
 	    
 	    <!-- Custom Theme JavaScript -->
