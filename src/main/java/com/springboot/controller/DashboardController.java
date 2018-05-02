@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/register")
-public class RegisterController {
+@RequestMapping("/ates/dashboard")
+public class DashboardController {
 		
-	@RequestMapping(value = { "", "/" }, method=RequestMethod.GET)
+	@RequestMapping(value = { "", "/" })
 	public String index() {
-		return "/auth/register";
+		return "pages/index";
 	}
 }

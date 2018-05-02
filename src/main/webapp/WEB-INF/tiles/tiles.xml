@@ -1,13 +1,24 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
+	
+	<!-- Base Definition -->
+   <definition name="default" template="/WEB-INF/layout/master.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-list-attribute name="stylesheets"></put-list-attribute>
+       <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />  
+       <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp" />  
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
+       <put-list-attribute name="javascripts"></put-list-attribute>
+   </definition>  
 
-	<definition name="mainLayout" template="/WEB-INF/tiles/main.jsp">
-		<put-attribute name="title" value="" />
-		<put-attribute name="cssLinks" value="" />
-		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
-		<put-attribute name="body" value="" />
-		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
-		<put-attribute name="jsLinks" value="" />
+	<!-- Dashboard Pages -->
+	<definition name="/ates/*" extends="default">
+	    <put-attribute name="title" value="ATES - Dashboard" />
+	    <put-attribute name="body" value="/WEB-INF/pages/{1}.jsp" />
+	    <put-list-attribute name="stylesheets">
+	        <add-attribute value="/static/stylesheets/sign-in.css" />
+	    </put-list-attribute>
 	</definition>
 	
 </tiles-definitions>
