@@ -71,20 +71,19 @@ INSERT INTO `trainingplan` (`id`, `title`, `description`, `sid`) VALUES
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `age` int(3) NOT NULL,
   `position` varchar(50) NOT NULL,
-  `status` enum('approved','pending','','') NOT NULL DEFAULT 'pending',
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `status` enum('approved','pending') NOT NULL DEFAULT 'pending',
   `is_admin` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
-
-INSERT INTO `user` (`id`, `name`, `age`, `position`, `status`, `is_admin`) VALUES
-(1, 'andrew', 19, 'beggar', 'approved', 1),
-(2, 'giselle', 50, 'HR', 'approved', 0);
-
+INSERT INTO `user` (`id`, `name`, `position`, `email`, `password`, `status`, `is_admin`) VALUES
+(1, 'andrew', 'beggar', '', '', 'approved', 1),
+(2, 'giselle', 'HR', '', '', 'approved', 0);
 --
 -- Indexes for dumped tables
 --
