@@ -57,8 +57,7 @@
 								Login
 							</button>
 						</div>
-					</div>
-					
+					</div>					
 				</form>
 			</div>
 		</div>
@@ -70,30 +69,5 @@
 	<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
 	<script src="/js/login.js"></script>
-	
-	<script>
-		/*var logged_in = $("#logged_in").val();
-		if(logged_in == "true"){
-			swal({   
-	            title: "Success!",   
-	            text: "Redirecting you somewhere! (Login Page)",   
-	            type: "success",   
-	            timer: 2000,
-			}, function(){   
-				window.location.replace("/login"); 
-	        });
-		} else if (logged_in == "false"){
-			swal({   
-	            title: "Error!",   
-	            text: "You have entered an invalid username or password",   
-	            type: "error",   
-	            showCancelButton: false,   
-	            confirmButtonColor: "#DD6B55",   
-	            confirmButtonText: "Close",   
-	            closeOnConfirm: true 
-	        });
-		}*/
-		
-	</script>
 </body>
 </html>

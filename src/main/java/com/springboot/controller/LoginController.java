@@ -21,7 +21,7 @@ public class LoginController{
 	
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public String index() {
-		return "auth/login";
+		return "/auth/login";
 	}
 	
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.POST)
