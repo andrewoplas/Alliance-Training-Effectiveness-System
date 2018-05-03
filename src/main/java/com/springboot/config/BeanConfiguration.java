@@ -11,6 +11,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 
+import com.springboot.interceptor.AuthInterceptor;
 import com.springboot.interceptor.LoginInterceptor;
 
 @Configuration
@@ -22,8 +23,10 @@ public class BeanConfiguration extends WebMvcConfigurerAdapter {
 	//
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		// LogInterceptor apply to all URLs.
-		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/login/**");
+		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/ates/**");
+		registry.addInterceptor(new AuthInterceptor())
+			.addPathPatterns("/login")
+			.addPathPatterns("/register");
 	}
 
 	@Bean

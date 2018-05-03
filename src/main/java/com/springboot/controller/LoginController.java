@@ -1,15 +1,19 @@
 package com.springboot.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.springboot.entities.User;
 import com.springboot.service.LoginService;
-import com.springboot.service.RegisterService;
 
 @Controller
 @RequestMapping("login")
@@ -17,27 +21,49 @@ public class LoginController{
 		
 	@Autowired
 	private LoginService loginService;
+		
 	
-	
-	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "", "/" })
 	public String index() {
 		return "login";
 	}
 	
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.POST)
-	public String check(HttpServletRequest request, ModelMap map) {
+	public String login(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		boolean error = loginService.searchUser(email, password);
+		User user = loginService.searchUser(email, password);
 		
-		// User exists
-		if(error == false) {
+		// User exists and approved
+		if(user != null && !(user.getStatus().equals("pending"))) {
+			// Set the session
+			request.getSession().setAttribute("isLoggedIn", user);
 			
+			// Redirect to user's dashboard
+			try {
+				response.sendRedirect(request.getContextPath() + "/ates/dashboard");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		// Display error
-		map.addAttribute("response", error);
+		map.addAttribute("response", (user == null));
+		
 		return "login";
+	}
+	
+	@RequestMapping(value = "/logout")
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		// Invalidate session
+		request.getSession().invalidate();
+		
+		try {
+			// Redirect to login page
+			response.sendRedirect(request.getContextPath() + "/login");
+		} catch(IOException ex) {
+			ex.printStackTrace();
+		}
 	}
 }

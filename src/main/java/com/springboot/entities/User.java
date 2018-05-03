@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.springframework.context.annotation.Scope;
+
 import java.util.List;
 
 

@@ -27,7 +27,7 @@
 						Registration
 					</span>
 					
-					<span class="login100-form-title p-b-20">
+					<span class="login100-form-title p-b-10">
 						<i class="zmdi zmdi-font"></i>
 					</span>
 					
@@ -54,7 +54,7 @@
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
 						
-					<div class="wrap-input100 validate-input" data-validate="Enter confirm password" data-confirm-password="Password doesn't match">
+					<div class="wrap-input100 validate-input" data-validate="Enter confirm password" data-confirm-password="Password doesn't match" style="margin-bottom: 10px;">
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye-off"></i>
 						</span>
@@ -70,6 +70,10 @@
 							</button>
 						</div>
 					</div>
+					
+					<div class="text-center m-t-10">
+						<a href="login" class="text-info">Already have an account</a>
+					</div>	
 				</form>
 			</div>
 		</div>

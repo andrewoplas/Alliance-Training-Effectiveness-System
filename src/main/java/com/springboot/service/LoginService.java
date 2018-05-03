@@ -19,11 +19,10 @@ public class LoginService {
 	@Autowired
 	private LoginRepository loginRepository;
 
-	public boolean searchUser(String email, String password) {
+	public User searchUser(String email, String password) {
 		User user = loginRepository.searchUser(em, email, password);
-		boolean response = (user == null);
 		
-		return response;
+		return user;
 	}
 
 }

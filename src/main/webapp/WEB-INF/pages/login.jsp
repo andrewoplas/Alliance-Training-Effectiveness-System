@@ -44,11 +44,20 @@
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
 					
-					<c:if test="${response == true}">
-         				<div class="error-container text-center">
-							<p class="text-danger">Invalid username / password</p>
-						</div>
-      				</c:if>
+					<c:choose>
+						<c:when test="${response == true}">
+	         				<div class="error-container text-center">
+								<p class="text-danger">Invalid username / password</p>
+							</div>
+	      				</c:when>
+	      				
+	      				<c:when test="${response == false}">
+	         				<div class="error-container text-center">
+								<p class="text-danger">Your account is still pending</p>
+							</div>
+	      				</c:when>
+					</c:choose>
+					
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
@@ -57,7 +66,11 @@
 								Login
 							</button>
 						</div>
-					</div>					
+					</div>		
+					
+					<div class="text-center m-t-10">
+						<a href="/register" class="text-info">Create an account</a>
+					</div>			
 				</form>
 			</div>
 		</div>
