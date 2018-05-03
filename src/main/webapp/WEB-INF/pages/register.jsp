@@ -35,7 +35,7 @@
 						<span class="focus-input100" data-placeholder="Name"></span>
 					</div>
 					
-					<div class="wrap-input100 validate-input" data-validate="Enter valid email">
+					<div class="wrap-input100 validate-input" data-validate="Enter valid email" data-email="Email already exist">
 						<input class="input100" type="email" name="email">
 						<span class="focus-input100" data-placeholder="Email"></span>
 					</div>
@@ -53,7 +53,7 @@
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
 						
-					<div class="wrap-input100 validate-input" data-validate="Enter confirm password">
+					<div class="wrap-input100 validate-input" data-validate="Enter confirm password" data-confirm-password="Password doesn't match">
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye-off"></i>
 						</span>

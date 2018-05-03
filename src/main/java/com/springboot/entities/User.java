@@ -33,10 +33,6 @@ public class User implements Serializable {
 
 	private String status;
 
-	//bi-directional many-to-one association to Participant
-	@OneToMany(mappedBy="user")
-	private List<Participant> participants;
-
 	public User() {
 	}
 
@@ -94,28 +90,6 @@ public class User implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public List<Participant> getParticipants() {
-		return this.participants;
-	}
-
-	public void setParticipants(List<Participant> participants) {
-		this.participants = participants;
-	}
-
-	public Participant addParticipant(Participant participant) {
-		getParticipants().add(participant);
-		participant.setUser(this);
-
-		return participant;
-	}
-
-	public Participant removeParticipant(Participant participant) {
-		getParticipants().remove(participant);
-		participant.setUser(null);
-
-		return participant;
 	}
 
 }

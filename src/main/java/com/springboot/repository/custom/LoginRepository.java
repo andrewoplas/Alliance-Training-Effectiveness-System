@@ -16,17 +16,20 @@ import com.springboot.entities.User;
 @Transactional
 public class LoginRepository {
 
-	public List<User> checkCredentials(EntityManager em, String email, String password) {
-		// TODO Auto-generated method stub
-		List<User> ListOfUser =null;
-		StringBuilder employeeQuery = new StringBuilder("FROM USER WHERE email= :email AND password= :password");
-		Query query = em.createQuery(employeeQuery.toString());
+	public User searchUser(EntityManager em, String email, String password) {
+		User user = null;
+		StringBuilder stringQuery = new StringBuilder("FROM User WHERE email = :email AND password = :password");
+		Query query = em.createQuery(stringQuery.toString());
 		query.setParameter("email", email);
 		query.setParameter("password", password);
-		ListOfUser = query.getResultList();
-		return ListOfUser;
 		
+		try {
+			user = (User)query.getSingleResult();
+		} catch(Exception ex) {
+			user = null;
+		}
 		
+		return user;		
 	}
 
 }

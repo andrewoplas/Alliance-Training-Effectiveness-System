@@ -20,8 +20,10 @@
     /*==================================================================
     [ Validate ]*/
     var input = $('.validate-input .input100');
+    var password = $("[name='password']");
+    var confirm = $("[name='confirm_password']");
 
-    $('.validate-form').on('submit',function(){
+    $('.validate-form').on('submit',function(e){
         var check = true;
 
         for(var i=0; i<input.length; i++) {
@@ -30,10 +32,61 @@
                 check=false;
             }
         }
-
-        return check;
+        
+        
+        if(validate(confirm) && password.val() != confirm.val()){
+        	showValidatePassword(confirm);
+        	check = false;
+        } else {
+        	removeValidatePassword(confirm);
+        }
+        
+        if($('[name=email]').parent().hasClass('alert-email')){
+        	check = false;
+        }
+        
+        if(check){
+	    	var data = $(this).serialize();
+	    	
+	    	$.ajax({
+	            url: "/register/saveRegistration",
+	            type: 'POST',
+	            data: data,
+	            success: function(data, textStatus, jqXHR) {
+	            	console.log(data);
+	                if(data == true){
+                        swal({   
+                           title: "Successfully Registered",
+                           type: "success",
+                           text: "You will be redirected to the login page...",   
+                           timer: 3000,
+                           showConfirmButton: false 
+                       }, function(){   
+                    	   	 window.location.href = "/login";
+                       });
+	                } 
+	            }
+	        });
+        }
+    	
+    	e.preventDefault();
     });
-
+    
+    confirm.on('keyup', function(){
+    	if(validate(confirm) && password.val() != confirm.val()){
+        	showValidatePassword(confirm);
+        } else {
+        	removeValidatePassword(confirm);
+        }
+    });   
+    
+    confirm.on('focus', function(){
+    	if(validate(confirm) && password.val() != confirm.val()){
+        	showValidatePassword(confirm);
+        } else {
+        	removeValidatePassword(confirm);
+        }
+    });   
 
     $('.validate-form .input100').each(function(){
         $(this).focus(function(){
@@ -52,6 +105,33 @@
                 return false;
             }
         }
+        
+        return true;
+    }
+    
+    function showValidateEmail(input){
+    	var thisAlert = $(input).parent();
+
+        $(thisAlert).addClass('alert-email');
+    }
+    
+    function removeValidateEmail(input){
+    	var thisAlert = $(input).parent();
+
+        $(thisAlert).removeClass('alert-email');
+    }
+
+    
+    function showValidatePassword(input){
+    	var thisAlert = $(input).parent();
+
+        $(thisAlert).addClass('alert-confirm');
+    }
+    
+    function removeValidatePassword(input){
+    	var thisAlert = $(input).parent();
+
+        $(thisAlert).removeClass('alert-confirm');
     }
 
     function showValidate(input) {
@@ -84,6 +164,33 @@
         }
         
     });
-
+    
+    /*==================================================================
+    [ Check email validity ]*/
+    var timeoutSearchInput;
+	$('[name=email]').on('keyup', function() {
+	    if (timeoutSearchInput) {
+	        clearTimeout(timeoutSearchInput);
+	        timeoutSearchInput = null;
+	    }
+	    
+	    var elem = $('[name=email]');
+	    timeoutSearchInput = setTimeout(function() {
+	        var input = elem.val();
+	        $.ajax({
+	        	url: '/register/checkEmail',
+	            type: "POST",
+	            data: {email: input},
+	            success: function(data) {
+	            	console.log(data);
+	                if(data == false){
+	                	showValidateEmail(elem);
+	                } else {
+	                	removeValidateEmail(elem);
+	                }
+	            }
+	        });
+	    }, 500);
+	});
 
 })(jQuery);

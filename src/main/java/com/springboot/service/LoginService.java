@@ -11,24 +11,19 @@ import org.springframework.stereotype.Service;
 import com.springboot.entities.User;
 import com.springboot.repository.custom.LoginRepository;
 
-@Service("loginService")
+@Service
 public class LoginService {
 	@PersistenceContext
 	private EntityManager em;
 	
 	@Autowired
-	LoginRepository loginRepository;
+	private LoginRepository loginRepository;
 
-	public boolean checkCredentials(String email, String password) {
-		// TODO Auto-generated method stub
+	public boolean searchUser(String email, String password) {
+		User user = loginRepository.searchUser(em, email, password);
+		boolean response = (user == null);
 		
-		List<User> listOfUser = loginRepository.checkCredentials(em,email,password);
-		if(listOfUser==null)
-		{
-			return false;
-		}else{
-		return false;
-		}
+		return response;
 	}
 
 }

@@ -13,30 +13,32 @@ import com.springboot.service.RegisterService;
 
 @Controller
 @RequestMapping("/login")
-public class LoginController {
+public class LoginController{
 		
 	@Autowired
-	LoginService loginService;
+	private LoginService loginService;
 	
 	
-	@RequestMapping(value = { "", "/" }, method=RequestMethod.GET)
+	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public String index() {
 		return "login";
 	}
 	
-	@RequestMapping(value ="/checkCredentials", method=RequestMethod.POST)
-	public String index(HttpServletRequest request, ModelMap map) {
+	@RequestMapping(value = { "", "/" }, method = RequestMethod.POST)
+	public String check(HttpServletRequest request, ModelMap map) {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		if(loginService.checkCredentials(email,password))
-		{
-			//PERFORM NEXT ACTION
-		}else{
-			//SEND MESSAGE  THAT CREDENTIALS ARE WRONG!
-		}
-		return "login";
+		boolean error = loginService.searchUser(email, password);
 		
+		// User exists
+		if(error == false) {
+			
+		}
+		
+		// Display error
+		map.addAttribute("response", error);
+		return "login";
 	}
 
 	
