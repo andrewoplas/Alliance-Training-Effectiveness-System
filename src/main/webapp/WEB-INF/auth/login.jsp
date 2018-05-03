@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
 <html lang="en">
 <head>
-	<title>ATES - Register</title>
+	<title>ATES - Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -42,6 +43,12 @@
 						<input class="input100" type="password" name="password">
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
+					
+					<c:if test="${response == true}">
+         				<div class="error-container text-center">
+							<p class="text-danger">Invalid username / password</p>
+						</div>
+      				</c:if>
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
@@ -62,7 +69,7 @@
 	<script src="/plugins/bootstrap/js/popper.js"></script>
 	<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
-	<script src="/js/register.js"></script>
+	<script src="/js/login.js"></script>
 	
 	<script>
 		/*var logged_in = $("#logged_in").val();

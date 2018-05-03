@@ -3,7 +3,15 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: May 02, 2018 at 10:18 AM
+=======
+<<<<<<< HEAD
+-- Generation Time: May 02, 2018 at 10:18 AM
+=======
+-- Generation Time: May 02, 2018 at 01:53 PM
+>>>>>>> 3bd0d851d351052d08afcf1361e31be2eacf3c53
+>>>>>>> 335960f5cc88f97ed6cc2b9da3c7bb89b0ad90b3
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -71,19 +79,45 @@ INSERT INTO `trainingplan` (`id`, `title`, `description`, `sid`) VALUES
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
+<<<<<<< HEAD
   `position` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `status` enum('approved','pending') NOT NULL DEFAULT 'pending',
+=======
+<<<<<<< HEAD
+  `age` int(3) NOT NULL,
+  `position` varchar(50) NOT NULL,
+=======
+  `position` varchar(50) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+>>>>>>> 3bd0d851d351052d08afcf1361e31be2eacf3c53
+  `status` enum('approved','pending','','') NOT NULL DEFAULT 'pending',
+>>>>>>> 335960f5cc88f97ed6cc2b9da3c7bb89b0ad90b3
   `is_admin` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
+<<<<<<< HEAD
 INSERT INTO `user` (`id`, `name`, `position`, `email`, `password`, `status`, `is_admin`) VALUES
 (1, 'andrew', 'beggar', '', '', 'approved', 1),
 (2, 'giselle', 'HR', '', '', 'approved', 0);
+=======
+
+<<<<<<< HEAD
+INSERT INTO `user` (`id`, `name`, `age`, `position`, `status`, `is_admin`) VALUES
+(1, 'andrew', 19, 'beggar', 'approved', 1),
+(2, 'giselle', 50, 'HR', 'approved', 0);
+=======
+INSERT INTO `user` (`id`, `name`, `position`, `email`, `password`, `status`, `is_admin`) VALUES
+(1, 'andrew', 'beggar', '', '', 'approved', 1),
+(2, 'giselle', 'HR', '', '', 'approved', 0);
+>>>>>>> 3bd0d851d351052d08afcf1361e31be2eacf3c53
+
+>>>>>>> 335960f5cc88f97ed6cc2b9da3c7bb89b0ad90b3
 --
 -- Indexes for dumped tables
 --

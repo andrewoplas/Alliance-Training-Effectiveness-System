@@ -21,7 +21,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form action="/login" method="post" class="login100-form validate-form" autocomplete=off>
+				<form action="http://localhost:8080/register/saveRegistration" method="post" class="login100-form validate-form" autocomplete=off>
 					<span class="login100-form-title p-b-10">
 						Registration
 					</span>
@@ -35,7 +35,7 @@
 						<span class="focus-input100" data-placeholder="Name"></span>
 					</div>
 					
-					<div class="wrap-input100 validate-input" data-validate="Enter valid email">
+					<div class="wrap-input100 validate-input" data-validate="Enter valid email" data-email="Email already exist">
 						<input class="input100" type="email" name="email">
 						<span class="focus-input100" data-placeholder="Email"></span>
 					</div>
@@ -53,7 +53,7 @@
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
 						
-					<div class="wrap-input100 validate-input" data-validate="Enter confirm password">
+					<div class="wrap-input100 validate-input" data-validate="Enter confirm password" data-confirm-password="Password doesn't match">
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye-off"></i>
 						</span>
