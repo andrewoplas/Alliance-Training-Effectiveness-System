@@ -16,7 +16,10 @@
 	                    <li><a href="javascript:void(0)"><i class="ti-settings"></i> <span class="hide-menu">Account Setting</span></a></li>
 	                    <li><a href="javascript:void(0)"><i class="fa fa-power-off"></i> <span class="hide-menu">Logout</span></a></li>
 	                </ul>
-	            </li>
+	            </li>	            
+	                
+	            <li> <a href="/ates/users" class="waves-effect"><i  class="mdi mdi-account-settings-variant fa-fw"></i> <span class="hide-menu">Users</span></a> </li>
+	            
 	            <li> <a href="index.html" class="waves-effect"><i class="mdi mdi-av-timer fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard <span class="fa arrow"></span> <span class="label label-rouded label-inverse pull-right">4</span></span></a>
 	                <ul class="nav nav-second-level">
 	                    <li> <a href="index.html"><i class=" fa-fw">1</i><span class="hide-menu">Dashboard 1</span></a> </li>
