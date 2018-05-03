@@ -12,7 +12,7 @@ import com.springboot.service.LoginService;
 import com.springboot.service.RegisterService;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("login")
 public class LoginController{
 		
 	@Autowired
@@ -21,7 +21,7 @@ public class LoginController{
 	
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public String index() {
-		return "/auth/login";
+		return "login";
 	}
 	
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.POST)
@@ -38,23 +38,6 @@ public class LoginController{
 		
 		// Display error
 		map.addAttribute("response", error);
-		return "auth/login";
+		return "login";
 	}
-
-	
-
-//	@RequestMapping(method = RequestMethod.POST)
-//	public String executeLogin(HttpServletRequest request, ModelMap map) {
-//		// Accept inputs
-//		String username = request.getParameter("username");
-//		String password = request.getParameter("password");
-//		
-//		// Validate
-//		boolean isValid = loginService.validate(username, password);
-//		
-//		// Map response
-//		map.addAttribute("isValid", isValid);
-//		
-//		return "login";
-//	}
 }

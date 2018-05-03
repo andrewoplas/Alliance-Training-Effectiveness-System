@@ -4,15 +4,25 @@
       
 <tiles-definitions>
 	<!-- Base Definition -->
-   <definition name="default" template="/WEB-INF/tiles/master.jsp">  
+   	<definition name="default" template="/WEB-INF/layout/master.jsp">  
        <put-attribute name="title" value="" />  
-       <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />  
-       <put-attribute name="sidebar" value="/WEB-INF/tiles/sidebar.jsp" />  
+       <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />  
+       <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp" />  
        <put-attribute name="body" value="" />  
-       <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+       <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
        <put-list-attribute name="stylesheets"></put-list-attribute>
 	   <put-list-attribute name="javascripts"></put-list-attribute>
-   </definition>  
+   	</definition>  
+   
+   	<!-- Auth - Login -->
+	<definition name="login" template="/WEB-INF/layout/auth.jsp">
+	    <put-attribute name="content" value="/WEB-INF/pages/login.jsp" />
+	</definition>
+	
+	<!-- Auth - Register -->
+	<definition name="register" template="/WEB-INF/layout/auth.jsp">
+	    <put-attribute name="content" value="/WEB-INF/pages/register.jsp" />
+	</definition>
 
 	<!-- Dashboard Pages -->
 	<definition name="pages/index" extends="default">

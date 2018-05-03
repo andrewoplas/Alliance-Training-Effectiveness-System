@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html lang="en">
 <head>
@@ -10,7 +9,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" type="text/css" href="/plugins/bootstrap/css/bootstrap.min.css">
+	<link type="text/css" rel="stylesheet" href="/plugins/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/plugins/sweetalert/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/fonts/iconic/css/material-design-iconic-font.min.css">
@@ -64,10 +63,10 @@
 	</div>
 	
 	<!-- JS SCRIPTS -->	
-	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
-	<script src="/plugins/bootstrap/js/popper.js"></script>
-	<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
-	<script src="/js/login.js"></script>
+	<script type="text/javascript" src="/plugins/jquery/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/plugins/bootstrap/js/popper.min.js"></script>
+	<script type="text/javascript" src="/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/plugins/sweetalert/sweetalert.min.js"></script>
+	<script type="text/javascript" src="/js/login.js"></script>
 </body>
 </html>

@@ -20,7 +20,7 @@ public class RegisterController {
 	
 	@RequestMapping(value = { "", "/" }, method=RequestMethod.GET)
 	public String index() {
-		return "/auth/register";
+		return "register";
 	}
 	
 	@RequestMapping(value = "/saveRegistration", method = RequestMethod.POST)
