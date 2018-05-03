@@ -12,16 +12,17 @@
 	    
 		<title><tiles:getAsString name="title" /></title>
 		
-		    <link type="text/css" rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+		    <link type="text/css" rel="stylesheet" href="/plugins/bootstrap/dist/css/bootstrap.min.css">
 		    <link type="text/css" rel="stylesheet" href="/plugins/sidebar-nav/dist/sidebar-nav.min.css">
 		    
-		    <c:forEach var="css" items="${stylesheets}">
+		    <!--<c:forEach var="css" items="${stylesheets}">
 		        <link type="text/css" rel="stylesheet" href="<c:url value='${css}'/>">
 		    </c:forEach>
+		     -->
 		    
-		    <link type="text/css" rel="stylesheet" href="/static/css/animate.css">
-		    <link type="text/css" rel="stylesheet" href="css/style.css">
-		    <link type="text/css" rel="stylesheet" href="css/default.css">
+		    <link type="text/css" rel="stylesheet" href="/css/animate.css">
+		    <link type="text/css" rel="stylesheet" href="/css/style.css">
+		    <link type="text/css" rel="stylesheet" href="/css/default.css">
 	    
 		    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		    <!--[if lt IE 9]>
@@ -37,8 +38,9 @@
         <tiles:insertAttribute name="body" />	    
         <tiles:insertAttribute name="footer" />	    
 	    
-	    <script type="text/javascript" src="/static/plugins/jquery/jquery-3.2.1.min.js"></script>
-	    <script type="text/javascript" src="/plugins/bootstrap/css/bootstrap.min.js"></script>
+	    <script type="text/javascript" src="/plugins/jquery/jquery-3.2.1.min.js"></script>
+	    <script type="text/javascript" src="/plugins/bootstrap/js/popper.min.js"></script>
+	    <script type="text/javascript" src="/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
 	    <script type="text/javascript" src="/plugins/sidebar-nav/dist/sidebar-nav.min.js"></script>
 	    <script type="text/javascript" src="/js/jquery.slimscroll.js"></script>
 	    <script type="text/javascript" src="/js/waves.js"></script>
@@ -46,8 +48,10 @@
 	    <c:forEach var="script" items="${javascripts}">
 	        <script type="text/javascript" src="${script}"></script>
 	    </c:forEach>
+	    
+	    <script type="text/javascript" src="/js/custom.min.js"></script>
 	  	    
 	    <!--Style Switcher -->
-	    <!-- <script src="../plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script> -->	
+	     <script src="/plugins/styleswitcher/jQuery.style.switcher.js"></script>	
 	</body>
 </html>
