@@ -11,24 +11,25 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    
 		<title><tiles:getAsString name="title" /></title>
-		
-		    <link type="text/css" rel="stylesheet" href="/plugins/bootstrap/dist/css/bootstrap.min.css">
-		    <link type="text/css" rel="stylesheet" href="/plugins/sidebar-nav/dist/sidebar-nav.min.css">
-		    
-		    <!--<c:forEach var="css" items="${stylesheets}">
-		        <link type="text/css" rel="stylesheet" href="<c:url value='${css}'/>">
-		    </c:forEach>
-		     -->
-		    
-		    <link type="text/css" rel="stylesheet" href="/css/animate.css">
-		    <link type="text/css" rel="stylesheet" href="/css/style.css">
-		    <link type="text/css" rel="stylesheet" href="/css/default.css">
+			
+		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
+	    <link type="text/css" rel="stylesheet" href="/plugins/bootstrap/dist/css/bootstrap.min.css">
+	    <link type="text/css" rel="stylesheet" href="/plugins/sidebar-nav/dist/sidebar-nav.min.css">
 	    
-		    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		    <!--[if lt IE 9]>
-		    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-			<![endif]-->
+	    <!--<c:forEach var="css" items="${stylesheets}">
+	        <link type="text/css" rel="stylesheet" href="<c:url value='${css}'/>">
+	    </c:forEach>
+	     -->
+	    
+	    <link type="text/css" rel="stylesheet" href="/css/animate.css">
+	    <link type="text/css" rel="stylesheet" href="/css/style.css">
+	    <link type="text/css" rel="stylesheet" href="/css/default.css">
+    
+	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	    <!--[if lt IE 9]>
+	    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
 	</head>
 
 	<body class="fix-header">
