@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles-extras" prefix="tilesx" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -16,10 +17,10 @@
 	    <link type="text/css" rel="stylesheet" href="/plugins/bootstrap/dist/css/bootstrap.min.css">
 	    <link type="text/css" rel="stylesheet" href="/plugins/sidebar-nav/dist/sidebar-nav.min.css">
 	    
-	    <!--<c:forEach var="css" items="${stylesheets}">
-	        <link type="text/css" rel="stylesheet" href="<c:url value='${css}'/>">
-	    </c:forEach>
-	     -->
+	    <tiles:importAttribute name="stylesheets" />
+	    <c:forEach var="css" items="${stylesheets}">
+		    <link type="text/css" rel="stylesheet" href="<c:out value='${css}' /> " />
+		</c:forEach>
 	    
 	    <link type="text/css" rel="stylesheet" href="/css/animate.css">
 	    <link type="text/css" rel="stylesheet" href="/css/style.css">
@@ -35,8 +36,8 @@
 	<body class="fix-header">
 	
 		<tiles:insertAttribute name="header" />   	    
-        <tiles:insertAttribute name="sidebar" />	    
-        <tiles:insertAttribute name="body" />	    
+        <tiles:insertAttribute name="sidebar" />
+        <tiles:insertAttribute name="body" />
         <tiles:insertAttribute name="footer" />	    
 	    
 	    <script type="text/javascript" src="/plugins/jquery/jquery-3.2.1.min.js"></script>
@@ -45,12 +46,13 @@
 	    <script type="text/javascript" src="/plugins/sidebar-nav/dist/sidebar-nav.min.js"></script>
 	    <script type="text/javascript" src="/js/jquery.slimscroll.js"></script>
 	    <script type="text/javascript" src="/js/waves.js"></script>
-	    	    
-	    <c:forEach var="script" items="${javascripts}">
-	        <script type="text/javascript" src="${script}"></script>
-	    </c:forEach>
-	    
 	    <script type="text/javascript" src="/js/custom.min.js"></script>
+	    	    
+	    	    
+		<tiles:importAttribute name="javascripts" />
+	    <c:forEach var="script" items="${javascripts}">
+		    <script type="text/javascript" src="<c:out value='${script}' />"></script>
+		</c:forEach>
 	  	    
 	    <!--Style Switcher -->
 	     <script src="/plugins/styleswitcher/jQuery.style.switcher.js"></script>	

@@ -1,0 +1,24 @@
+
+#pending-users-table_wrapper select{
+	background-color: #fff;
+    border: 1px solid #e4e7ea;
+    border-radius: 4px;
+    box-shadow: none;
+    color: #565656;
+    height: 38px;
+    max-width: 100%;
+    padding: 7px 12px;
+    text-align: center;
+}
+
+#pending-users-table_wrapper input{
+	background-color: #fff;
+    border: 1px solid #e4e7ea;
+    border-radius: 4px;
+    box-shadow: none;
+    color: #565656;
+    height: 38px;
+    max-width: 100%;
+    padding: 7px 12px;
+    text-align: center;
+}

@@ -29,10 +29,38 @@
 	    <put-attribute name="title" value="ATES - Dashboard" />
 	    <put-attribute name="body" value="/WEB-INF/pages/index.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
-	    	<add-attribute value="/static/css/bootstrap.css" />
+	    	
 		</put-list-attribute>
 		<put-list-attribute name="javascripts" inherit="true">
 			
+		</put-list-attribute>
+	</definition>
+	
+	<!-- User Page -->
+	<definition name="pages/users" extends="default">
+	    <put-attribute name="title" value="ATES - Users" />
+	    <put-attribute name="body" value="/WEB-INF/pages/users.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	
+		</put-list-attribute>
+		<put-list-attribute name="javascripts" inherit="true">
+			
+		</put-list-attribute>
+	</definition>
+	
+	<!-- User's Request Page -->
+	<definition name="pages/usersRequest" extends="default">
+	    <put-attribute name="title" value="ATES - User Request" />
+	    <put-attribute name="body" value="/WEB-INF/pages/usersRequest.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
+	    	<add-attribute value="/plugins/toast-master/css/jquery.toast.css" />
+	    	<add-attribute value="/css/pages/users.css" />
+		</put-list-attribute>
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
+			<add-attribute value="/plugins/toast-master/js/jquery.toast.js" />
+			<add-attribute value="/js/pages/users.js" />
 		</put-list-attribute>
 	</definition>
 	

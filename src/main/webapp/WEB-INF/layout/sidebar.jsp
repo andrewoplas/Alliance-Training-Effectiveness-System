@@ -18,7 +18,14 @@
 	                </ul>
 	            </li>	            
 	                
-	            <li> <a href="/ates/users" class="waves-effect"><i  class="mdi mdi-account-settings-variant fa-fw"></i> <span class="hide-menu">Users</span></a> </li>
+	            <li> <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-settings-variant fa-fw" data-icon="v"></i> <span class="hide-menu"> Users <span class="fa arrow"></span> </span></a>
+	                <ul class="nav nav-second-level">
+	                    <li><a href="/ates/users"><i class="mdi mdi-account-multiple fa-fw"></i><span class="hide-menu">All User</span></a></li>
+	                    <li><a href="/ates/users/facilitators"><i class="mdi mdi-account-network fa-fw"></i><span class="hide-menu">Facilitators</span></a></li>
+	                    <li><a href="/ates/users/participants"><i class="mdi mdi-account fa-fw"></i><span class="hide-menu">Participants</span></a></li>
+	                    <li><a href="/ates/users/request"><i class="mdi mdi-account-multiple-plus fa-fw"></i><span class="hide-menu">Registration Request</span></a></li>
+	                </ul>
+	            </li>
 	            
 	            <li> <a href="index.html" class="waves-effect"><i class="mdi mdi-av-timer fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard <span class="fa arrow"></span> <span class="label label-rouded label-inverse pull-right">4</span></span></a>
 	                <ul class="nav nav-second-level">
