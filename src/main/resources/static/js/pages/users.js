@@ -17,6 +17,7 @@
             	var row = table.row(elem).remove().draw();
             	
             	// Alert Position Bottom Left
+            	$(".myadmin-alert").fadeOut(100);
             	$("#alert-approve").find('.name').text(name);
                 $("#alert-approve").fadeToggle(350);
             },
@@ -37,6 +38,7 @@
             	var row = table.row(elem).remove().draw();
             	
             	// Alert Position Bottom Left
+            	$(".myadmin-alert").fadeOut(100);
             	$("#alert-decline").find('.name').text(name);
                 $("#alert-decline").fadeToggle(350);
             },

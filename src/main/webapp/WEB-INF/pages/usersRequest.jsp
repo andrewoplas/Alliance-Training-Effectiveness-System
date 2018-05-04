@@ -52,19 +52,15 @@
 			</div>
 			
 			<!-- Toast Approve -->
-			<div id="alert-approve" class="myadmin-alert myadmin-alert-img alert-info myadmin-alert-top-right"> 
-				<img src="/plugins/images/user_notification.png" class="img" alt="img">
+			<div id="alert-approve" class="myadmin-alert alert-info myadmin-alert-top-right"> 
 				<a href="#" class="closed">&times;</a>
-				<h4>Notification!</h4> 
-				<b class="name"></b> was approved.
+				<i class="mdi mdi-check m-r-5"></i><b class="name"></b> was approved.
 			</div>
 			
 			<!-- Toast Decline -->
-			<div id="alert-decline" class="myadmin-alert myadmin-alert-img alert-warning myadmin-alert-top-right"> 
-				<img src="/plugins/images/user_notification.png" class="img" alt="img">
+			<div id="alert-decline" class="myadmin-alert alert-warning myadmin-alert-top-right"> 
 				<a href="#" class="closed">&times;</a>
-				<h4>Notification!</h4> 
-				<b class="name"></b> was declined.
+				<i class="mdi mdi-close m-r-5"></i><b class="name"></b> was declined.
 			</div>
 		</div>
 	</div>
