@@ -5,9 +5,10 @@ import java.util.List;
 
 
 /**
- * The persistent class for the user database table.
+ * Custom Class for User
  * 
  */
+
 public class CustomUser{
 	private int id;
 
