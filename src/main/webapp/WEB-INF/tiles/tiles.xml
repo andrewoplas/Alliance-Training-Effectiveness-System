@@ -74,30 +74,17 @@
 	    <put-attribute name="body" value="/WEB-INF/pages/trainingPlan.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/steps/steps.css" />
+	    	<add-attribute value="/plugins/nestable/nestable.css" />
+	    	<add-attribute value="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" />
 	    	<add-attribute value="/css/pages/trainingPlan.css" />
 		</put-list-attribute>
 		<put-list-attribute name="javascripts" inherit="true">
 			<add-attribute value="/plugins/steps/jquery.easing.min.js" />
 			<add-attribute value="/plugins/steps/register-init.js" />
+			<add-attribute value="/plugins/nestable/jquery.nestable.js" />
+			<add-attribute value="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js" />
 			<add-attribute value="/js/pages/trainingPlan.js" />
 		</put-list-attribute>
 	</definition>
-	
-	
-	
-	<definition name="CourseOutline" extends="default">
-	    <put-attribute name="title" value="ATES - CourseOutline" />
-	    <put-attribute name="body" value="/WEB-INF/pages/CourseOutline.jsp" />
-	    <put-list-attribute name="stylesheets" inherit="true">
-	    	<add-attribute value="/plugins/nestable/nestable.css" />
-	    	<add-attribute value="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" />
-	    	
-		</put-list-attribute>
-		<put-list-attribute name="javascripts" inherit="true">
-			<add-attribute value="/plugins/nestable/jquery.nestable.js" />
-			<add-attribute value="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js" />
-			<add-attribute value="/js/pages/courseOutline.js" />			
-		</put-list-attribute>
-	</definition>
-	
+		
 </tiles-definitions>

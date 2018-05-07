@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<!-- multistep form -->
-				<form id="msform" class="floating-labels">
+				<form id="msform">
 					<!-- progressbar -->
 					<ul id="eliteregister">
 						<li class="active">Schedule</li>
@@ -15,20 +15,23 @@
 					<fieldset>
 						<h2 class="fs-title">Title and Schedule</h2>
 						
-						<div class="form-group m-b-40">
-	                       	<input type="text" class="form-control" id="input1" required><span class="highlight"></span> <span class="bar"></span>
-	                       	<label for="input1" class="text-left>Regular Input</label>
-	                   	</div>
-						
 						
 						<input type="button" name="next" class="next action-button" value="Next" />
 					</fieldset>
 					
 					<fieldset>
 						<h2 class="fs-title">Objectives and Course Outline</h2>
-						<input type="text" name="twitter" placeholder="Twitter" />
-						<input type="text" name="facebook" placeholder="Facebook" />
-						<input type="text" name="gplus" placeholder="Google Plus" />
+						<input type="button" id="nice" class="btn btn-primary" />                    	
+                    	<div class="p-10 m-t-5 m-b-10" style="border: 1px solid #eee">
+		                    <div class="myadmin-dd-empty dd" id="nestable2">
+		                        <ol class="dd-list"></ol>
+		                    </div>
+		                    
+							<a href="javascript:void(0)" class="btn-add-item btn-block text-center"> 
+								<i class="mdi mdi-plus"></i> Add Item
+							</a>
+						</div>
+						
 						<input type="button" name="previous" class="previous action-button" value="Previous" />
 						<input type="button" name="next" class="next action-button" value="Next" />
 					</fieldset>
@@ -43,6 +46,7 @@
 						<input type="submit" name="submit" class="submit action-button" value="Submit" />
 					</fieldset>
 				</form>
+				<div class="clearfix"></div>
 			</div>
 		</div>		
 	</div>

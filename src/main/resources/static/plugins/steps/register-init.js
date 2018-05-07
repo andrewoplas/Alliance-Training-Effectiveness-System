@@ -30,7 +30,7 @@ $(".next").click(function(){
 			current_fs.css({'transform': 'scale('+scale+')'});
 			next_fs.css({'left': left, 'opacity': opacity});
 		}, 
-		duration: 800, 
+		duration: 600, 
 		complete: function(){
 			current_fs.hide();
 			animating = false;

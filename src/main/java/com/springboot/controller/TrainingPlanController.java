@@ -26,11 +26,6 @@ public class TrainingPlanController {
 		return "pages/trainingPlan";
 	}
 
-	@RequestMapping(value = "/description", method = RequestMethod.GET)
-	public String  showCourseOutline(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
-		return "CourseOutline";
-	}
-	
 	@RequestMapping(value = "/descriptionSave", method = RequestMethod.POST)
 	public String  SaveCourseOutline(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
 		
