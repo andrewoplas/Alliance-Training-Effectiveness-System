@@ -1,5 +1,6 @@
 package com.springboot.service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.hash.Hashing;
 import com.springboot.entities.User;
 import com.springboot.repository.custom.LoginRepository;
 
@@ -20,6 +22,7 @@ public class LoginService {
 	private LoginRepository loginRepository;
 
 	public User searchUser(String email, String password) {
+		password = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
 		User user = loginRepository.searchUser(em, email, password);
 		
 		return user;

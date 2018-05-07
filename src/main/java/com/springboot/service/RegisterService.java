@@ -1,12 +1,14 @@
 package com.springboot.service;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springboot.entities.User;
+import com.google.common.hash.Hashing;
 import com.springboot.repository.custom.RegisterRepository;
 
 @Service("registerService")
@@ -29,7 +31,8 @@ public class RegisterService {
 		} else if (!password.equals(confirm)) {
 			response = "password_does_not_match";
 		} else {
-			registerRepository.insertUser(em, name, email, position, password);
+			String hashedPassword = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
+			registerRepository.insertUser(em, name, email, position, hashedPassword);
 		}
 		
 		return response;
