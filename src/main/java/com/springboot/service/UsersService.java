@@ -64,6 +64,16 @@ public class UsersService {
 		return users;
 	}
 	
+	public void removeUser(String id) {
+		try {
+			int uid = Integer.parseInt(id);
+			usersRepository.removeUser(em, uid);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	
 	public void approveUser(String id) {
 		try {
 			int uid = Integer.parseInt(id);

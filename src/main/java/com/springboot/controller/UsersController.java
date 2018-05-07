@@ -37,6 +37,14 @@ public class UsersController {
 		return "pages/usersRequest";
 	}
 	
+	@RequestMapping(value = {"/remove"}, method = RequestMethod.POST)
+	public ResponseEntity remove(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		
+		usersService.removeUser(id);
+		return ResponseEntity.ok(id);
+	}	
+	
 	@RequestMapping(value = {"/approve"}, method = RequestMethod.POST)
 	public ResponseEntity<?> approve(HttpServletRequest request) {
 		String id = request.getParameter("id");
@@ -45,11 +53,12 @@ public class UsersController {
 		return ResponseEntity.ok(id);
 	}
 	
-	@RequestMapping(value = {"/decline"})
+	@RequestMapping(value = {"/decline"}, method = RequestMethod.POST)
 	public ResponseEntity<?> decline(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		
 		usersService.declineUser(id);
 		return ResponseEntity.ok(id);
 	}
+		
 }

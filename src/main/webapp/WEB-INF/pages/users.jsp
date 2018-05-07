@@ -16,8 +16,8 @@
               
               <!-- /row -->
               <div class="row">
-	              <div class="col-md-9 col-lg-9 col-sm-7">
-	               <div class="white-box">
+	              <div class="col-xs-12">
+              		<div class="white-box">
 	                   <h3 class="box-title m-b-20">Users and Information</h3>
 	                   <div class="table-responsive">
 	                   
@@ -102,17 +102,7 @@
 	                   </div>
 	               </div>
 				</div>
-				
-				<div class="col-md-3 col-lg-3 col-sm-5">
-                    <div class="white-box">
-                        <h3 class="box-title">Cart Summary</h3>
-                        <hr> <small>Total Price</small>
-                        <h2>$612</h2>
-                        <hr>
-                        <button class="btn btn-success">Checkout</button>
-                        <button class="btn btn-default btn-outline">Cancel</button>
-                    </div>
-                </div>
+
 			</div>
 		</div>
 	</div>

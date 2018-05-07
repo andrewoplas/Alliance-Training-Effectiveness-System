@@ -44,7 +44,7 @@ $(document).ready(function() {
 			parent.addClass('zoomOut animated');
 			setTimeout(function(){
 				parent.remove();
-			}, 510);
+			}, 500);
 	});
 	
 	$("#nice").on('click', function(){

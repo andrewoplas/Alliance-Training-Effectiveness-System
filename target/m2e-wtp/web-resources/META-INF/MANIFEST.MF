@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Implementation-Title: Spring Boot Web JSP Example
 Implementation-Version: 1.0
 Built-By: carldrew
-Implementation-Vendor-Id: org.springframework.boot
+Implementation-Vendor-Id: com.logicbig.example
 Build-Jdk: 1.8.0_131
 Implementation-URL: https://www.mkyong.com
 Created-By: Maven Integration for Eclipse

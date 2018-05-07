@@ -22,9 +22,9 @@ public class UsersRepository {
 		List data = null;
 		
 		Session session = em.unwrap(Session.class);		
-		StringBuilder stringQuery = new StringBuilder("SELECT u.id, u.name, u.position, u.email, t.title, p.role FROM Participant p INNER JOIN trainingplan t ON t.id = p.training_id RIGHT JOIN User u ON p.user_id = u.id");
+		StringBuilder stringQuery = new StringBuilder("SELECT u.id, u.name, u.position, u.email, t.title, p.role FROM Participant p INNER JOIN trainingplan t ON t.id = p.training_id RIGHT JOIN User u ON p.user_id = u.id WHERE u.status = :status");
 		SQLQuery query = session.createSQLQuery(stringQuery.toString());
-		
+		query.setParameter("status", "approved");
 		data = query.list();		
 		
 		return data;		
@@ -39,6 +39,13 @@ public class UsersRepository {
 		
 		users = query.getResultList();
 		return users;		
+	}
+	
+	public void removeUser(EntityManager em, int id) {
+		StringBuilder stringQuery = new StringBuilder("DELETE User WHERE id = :id");
+		Query query = em.createQuery(stringQuery.toString());
+		query.setParameter("id", id);
+		query.executeUpdate();
 	}
 	
 	public void approveUser(EntityManager em, int id) {
