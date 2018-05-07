@@ -64,4 +64,18 @@
 		</put-list-attribute>
 	</definition>
 	
+	<!-- User's Request Page -->
+	<definition name="CourseOutline" extends="default">
+	    <put-attribute name="title" value="ATES - CourseOutline" />
+	    <put-attribute name="body" value="/WEB-INF/pages/CourseOutline.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/nestable/nestable.css" />
+	    	
+		</put-list-attribute>
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/nestable/jquery.nestable.js" />
+			<add-attribute value="/js/pages/courseOutline.js" />
+		</put-list-attribute>
+	</definition>
+	
 </tiles-definitions>
