@@ -36,19 +36,23 @@
 		</put-list-attribute>
 	</definition>
 	
-	<!-- User Page -->
+	<!-- User - Users List -->
 	<definition name="pages/users" extends="default">
 	    <put-attribute name="title" value="ATES - Users" />
 	    <put-attribute name="body" value="/WEB-INF/pages/users.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
-	    	
+	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
+	    	<add-attribute value="/plugins/footable/css/footable.core.css" />
+	    	<add-attribute value="/css/pages/users.css" />
 		</put-list-attribute>
 		<put-list-attribute name="javascripts" inherit="true">
-			
+			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
+			<add-attribute value="/plugins/footable/js/footable.all.min.js" />
+			<add-attribute value="/js/pages/users.js" />
 		</put-list-attribute>
 	</definition>
 	
-	<!-- User's Request Page -->
+	<!-- User -  Registration Request -->
 	<definition name="pages/usersRequest" extends="default">
 	    <put-attribute name="title" value="ATES - User Request" />
 	    <put-attribute name="body" value="/WEB-INF/pages/usersRequest.jsp" />
@@ -60,7 +64,22 @@
 		<put-list-attribute name="javascripts" inherit="true">
 			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
 			<add-attribute value="/plugins/toast-master/js/jquery.toast.js" />
-			<add-attribute value="/js/pages/users.js" />
+			<add-attribute value="/js/pages/usersRequest.js" />
+		</put-list-attribute>
+	</definition>
+	
+	<!-- Training Plan - Create -->
+	<definition name="pages/trainingPlan" extends="default">
+	    <put-attribute name="title" value="ATES - Training Plan" />
+	    <put-attribute name="body" value="/WEB-INF/pages/trainingPlan.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/steps/steps.css" />
+	    	<add-attribute value="/css/pages/trainingPlan.css" />
+		</put-list-attribute>
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/steps/jquery.easing.min.js" />
+			<add-attribute value="/plugins/steps/register-init.js" />
+			<add-attribute value="/js/pages/trainingPlan.js" />
 		</put-list-attribute>
 	</definition>
 	

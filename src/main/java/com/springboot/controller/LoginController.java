@@ -38,11 +38,15 @@ public class LoginController{
 		// User exists and approved
 		if(user != null && !(user.getStatus().equals("pending"))) {
 			// Set the session
-			request.getSession().setAttribute("isLoggedIn", user);
+			request.getSession().setAttribute("isLoggedIn", user);			
 			
-			// Redirect to user's dashboard
 			try {
-				response.sendRedirect(request.getContextPath() + "/ates/dashboard");
+				// Redirect to user's dashboard
+				if(user.getIsAdmin() == 1) {
+					response.sendRedirect(request.getContextPath() + "/ates/dashboard");
+				} else {
+					response.sendRedirect(request.getContextPath() + "/ates/training");
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

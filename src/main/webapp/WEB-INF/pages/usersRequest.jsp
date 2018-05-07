@@ -8,7 +8,7 @@
                   <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                       <ol class="breadcrumb">
                           <li><a href="/ates/dashboard">Dashboard</a></li>
-                          <li><a href="/ates/users">Users</a></li>
+                          <li><a href="/ates/users/list">Users</a></li>
                           <li class="active">Registration Request</li>
                       </ol>
                   </div>

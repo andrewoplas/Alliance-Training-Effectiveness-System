@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.springboot.entities.User;
+import com.springboot.entities.custom.CustomUser;
 import com.springboot.service.UsersService;
 
 @Controller
@@ -20,14 +21,17 @@ public class UsersController {
 	@Autowired
 	UsersService usersService;
 		
-	@RequestMapping(value = {"", "/"})
-	public String index() {
+	@RequestMapping(value = "/list")
+	public String index(ModelMap map) {
+		List<CustomUser> users = usersService.retrieveUsers();
+		
+		map.addAttribute("users", users);
 		return "pages/users";
 	}
 	
 	@RequestMapping(value = {"/request"})
 	public String request(ModelMap map) {
-		List<User> users = usersService.retrievePendingUser();
+		List<User> users = usersService.retrievePendingUsers();
 		
 		map.addAttribute("users", users);
 		return "pages/usersRequest";

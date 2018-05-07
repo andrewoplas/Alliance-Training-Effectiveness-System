@@ -1,3 +1,6 @@
+	<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+	<c:set var="user" scope="page" value="${sessionScope.isLoggedIn}"/>
+	
 	<!-- ============================================================== -->
 	<!-- Preloader -->
 	<!-- ============================================================== -->
@@ -6,6 +9,7 @@
 	        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
 	    </svg>
 	</div>
+	
 	<!-- ============================================================== -->
 	<!-- Wrapper -->
 	<!-- ============================================================== -->
@@ -128,23 +132,28 @@
 	                        <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a> </form>
 	                </li>
 	                <li class="dropdown">
-	                    <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="/plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Steave</b><span class="caret"></span> </a>
+	                    <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> 
+	                    	<img src="/plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle" 
+	                    		 onerror="if (this.src != '/plugins/images/default_user.png') this.src = '/plugins/images/default_user.png';"/>
+	                    	<span class="caret"></span> 
+						</a>
+						
 	                    <ul class="dropdown-menu dropdown-user animated flipInY">
 	                        <li>
 	                            <div class="dw-user-box">
-	                                <div class="u-img"><img src="/plugins/images/users/varun.jpg" alt="user" /></div>
+	                                <div class="u-img">
+	                                	<img src="/plugins/images/users/varun.jpg" alt="user" 
+	                                		 onerror="if (this.src != '/plugins/images/default_user.png') this.src = '/plugins/images/default_user.png';" />
+									</div>
 	                                <div class="u-text">
-	                                    <h4>Steave Jobs</h4>
-	                                    <p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+	                                    <h4>${user.name}</h4>
+	                                    <p class="text-muted">${user.email}</p>
+	                                    <a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+									</div>
 	                            </div>
 	                        </li>
 	                        <li role="separator" class="divider"></li>
 	                        <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-	                        <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
-	                        <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
-	                        <li role="separator" class="divider"></li>
-	                        <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
-	                        <li role="separator" class="divider"></li>
 	                        <li><a href="/login/logout"><i class="fa fa-power-off"></i> Logout</a></li>
 	                    </ul>
 	                    <!-- /.dropdown-user -->
