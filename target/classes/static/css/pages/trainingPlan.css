@@ -63,3 +63,7 @@ footer.footer {
 .btn-remove-item:before {
 	content: none !important;	
 }
+
+#msform .action-button{
+	font-family: Poppins;
+}
