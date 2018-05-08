@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<!-- multistep form -->
-				<form id="msform">
+				<form id="msform" class="floating-labels">
 					<!-- progressbar -->
 					<ul id="eliteregister">
 						<li class="active">Schedule</li>
@@ -15,6 +15,22 @@
 					<fieldset>
 						<h2 class="fs-title">Title and Schedule</h2>
 						
+						<br/>
+						<div class="form-group">
+			                <input type="text" id="training" class="form-control" required="">
+			                <span class="highlight"></span>
+			                <span class="bar"></span>
+			                <label for="training">Training Name <span class="text-danger">*</span></label>
+			            </div>
+			            
+						<div class="form-group">
+			                <input type="text" id="subject" class="form-control" required="">
+			                <label for="subject">Subject <span class="text-danger">*</span></label>
+			            </div>
+						<div class="form-group">
+							<textarea id="message" maxlength="300" class="form-control" required=""></textarea>
+			      			<label for="message">Message <span class="text-danger">*</span></label>
+						</div>
 						
 						<input type="button" name="next" class="next action-button" value="Next" />
 					</fieldset>

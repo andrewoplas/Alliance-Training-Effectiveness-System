@@ -14,15 +14,15 @@ html {
 	font-family : Rubik,sans-serif;
 }
 
-.dd-list{
+.dd-list {
 	text-align: left;
 }
 
-.editable-input input{
+.editable-input input {
 	margin-bottom: 0 !important;
 }
 
-.editable-buttons button{
+.editable-buttons button {
 	width: auto !important;
 	height: auto !important;
 	padding: 7px 10px;
@@ -30,7 +30,7 @@ html {
     border-radius: 3px;
 }
 
-#msform fieldset{
+#msform fieldset {
 	margin-bottom: 30px;
 }
 
@@ -38,21 +38,21 @@ footer.footer {
 	display: none !important;
 }
 
-.fs-title{
+.fs-title {
 	font-weight: bold;
 	font-family: Poppins;
 }
 
-.dd3-item:last-child{
+.dd3-item:last-child {
 	margin-bottom: 15px;
 }
 
-.dd3-content{
+.dd3-content {
 	word-wrap: break-word;
 }
 
 
-.btn-remove-item{
+.btn-remove-item {
 	text-indent: 0 !important;
 	position: absolute !important;
     top: 6px !important;
@@ -64,6 +64,10 @@ footer.footer {
 	content: none !important;	
 }
 
-#msform .action-button{
+#msform .action-button {
 	font-family: Poppins;
+}
+
+#msform .form-group{
+	text-align: left !important;
 }
