@@ -17,7 +17,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 		if(session.getAttribute("isLoggedIn") != null) {
 			User user = (User) session.getAttribute("isLoggedIn");
 			if(user.getIsAdmin() == 0) {
-				response.sendRedirect(request.getContextPath() + "/ates/dashboard");
+				response.sendRedirect(request.getContextPath() + "/error-404");
 				return false;
 			}
 		}
