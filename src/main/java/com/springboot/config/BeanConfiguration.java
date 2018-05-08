@@ -11,6 +11,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 
+import com.springboot.interceptor.AdminInterceptor;
 import com.springboot.interceptor.AuthInterceptor;
 import com.springboot.interceptor.LoginInterceptor;
 
@@ -27,6 +28,10 @@ public class BeanConfiguration extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(new AuthInterceptor())
 			.addPathPatterns("/login")
 			.addPathPatterns("/register");
+		
+		registry.addInterceptor(new AdminInterceptor())
+			.addPathPatterns("/ates/users/**")
+			.addPathPatterns("/ates/training/**");
 	}
 
 	@Bean
