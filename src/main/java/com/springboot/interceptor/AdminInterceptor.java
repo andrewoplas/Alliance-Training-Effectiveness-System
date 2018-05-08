@@ -8,15 +8,18 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.springboot.entities.User;
 
-public class LoginInterceptor extends HandlerInterceptorAdapter {
+public class AdminInterceptor extends HandlerInterceptorAdapter {
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("isLoggedIn") == null) {
-			response.sendRedirect(request.getContextPath() + "/login");
-			return false;
+		if(session.getAttribute("isLoggedIn") != null) {
+			User user = (User) session.getAttribute("isLoggedIn");
+			if(user.getIsAdmin() == 0) {
+				response.sendRedirect(request.getContextPath() + "/ates/dashboard");
+				return false;
+			}
 		}
 		
 		return true;

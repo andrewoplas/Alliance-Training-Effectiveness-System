@@ -22,7 +22,7 @@ public class UsersRepository {
 		List data = null;
 		
 		Session session = em.unwrap(Session.class);		
-		StringBuilder stringQuery = new StringBuilder("SELECT u.id, u.name, u.position, u.email, t.title, p.role FROM Participant p INNER JOIN trainingplan t ON t.id = p.training_id RIGHT JOIN User u ON p.user_id = u.id WHERE u.status = :status");
+		StringBuilder stringQuery = new StringBuilder("SELECT u.id, u.name, u.position, u.email, t.title, p.role FROM user_event p INNER JOIN training_plan t ON t.id = p.trainingPlanID RIGHT JOIN User u ON p.userID = u.id WHERE u.status = :status");
 		SQLQuery query = session.createSQLQuery(stringQuery.toString());
 		query.setParameter("status", "approved");
 		data = query.list();		
