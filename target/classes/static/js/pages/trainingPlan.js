@@ -24,11 +24,11 @@ $(document).ready(function() {
 	    }
 	});
 	
-	var counter = 0;
+	var counter = 1;
 	$('.btn-add-item').on('click', function(){
 		var nestableList = '<li class="dd-item dd3-item" data-id="' + counter + '">' +
 	        '<div class="dd-handle dd3-handle"></div>' +
-	        '<div class="dd3-content" id="id-' + counter + '"> New Item</div>' +
+	        '<div class="dd3-content" id="id-' + counter + '">New Item</div>' +
 	        '<button type="button" class="btn-remove-item btn btn-danger btn-outline btn-circle">'+
 	        	'<i class="mdi mdi-close"></i></button>' +
         	'</li>';
@@ -37,7 +37,13 @@ $(document).ready(function() {
 		$('#id-' + counter).editable();
 		
 		counter++;
+		
+		if(!$('.help-block-outline').hasClass('hide')) {
+			$('.help-block-outline').addClass('hide');
+		}
 	})
+	
+	$('#id-0').editable();
 	
 	$(document).on('click', '.btn-remove-item', function(){
 		var parent = $(this).parents('li');
@@ -71,4 +77,60 @@ $(document).ready(function() {
 	
 	//turn to inline mode
 	$.fn.editable.defaults.mode = 'popup';
+	
+    
+//	var dateOutputField;
+//	var dateStart = $('#date_start');
+//	var dateEnd = $('#date_end');
+//	
+//	var picker = new MaterialDatetimePicker().on('submit', function(d) {
+//		dateOutputField.val(d.format('MMMM DD, YYYY'));
+//		
+//		if(dateStart.val() != '' && dateEnd.val() != ''){
+//			var dateStartObj = moment(dateStart.val(), 'MMMM DD, YYYY');
+//			var dateEndObj = moment(dateEnd.val(), 'MMMM DD, YYYY');
+//			
+//			
+//			if(dateStart.attr('id') === dateOutputField.attr('id') && dateStartObj.isAfter(dateEndObj)) {
+//				dateOutputField.parents('.form-group').addClass('has-error')
+//					.find('.help-block-date').removeClass('hide');
+//			} else if(dateEnd.attr('id') === dateOutputField.attr('id') && dateEndObj.isBefore(dateStartObj)) {
+//				dateOutputField.parents('.form-group').addClass('has-error')
+//					.find('.help-block-date').removeClass('hide');
+//			} else {
+//				dateStart.parents('.form-group').removeClass('has-error')
+//					.find('.help-block-date').addClass('hide');
+//				dateEnd.parents('.form-group').removeClass('has-error')
+//					.find('.help-block-date').addClass('hide');
+//			}
+//		}
+//	}).on('close', function() {
+//		if($.trim(dateOutputField.val()).length == 0) {
+//			dateOutputField.parents('.form-group').addClass('has-error');
+//			dateOutputField.parents('.form-group').find('.help-block-empty').removeClass('hide');
+//			$('#first-step').addClass('disabled');
+//		} else {
+//			if(!dateOutputField.parents('.form-group').find('.help-block-date').hasClass('hide')) {
+//				dateOutputField.parents('.form-group').removeClass('has-error');
+//			}
+//			dateOutputField.parents('.form-group').find('.help-block-empty').addClass('hide');
+//		}
+//	});
+//	
+//	$('#date_start, #date_end').click(function(){
+//		picker.open();
+//		dateOutputField = $(this);
+//	})
+//	
+//	
+	// Validation First Fieldset
+	$('.first-fieldset .validate-empty').blur(function(){
+		if($.trim($(this).val()).length == 0) {
+			$(this).parents('.form-group').addClass('has-error');
+			$(this).parents('.form-group').find('.help-block').removeClass('hide');
+		} else {
+			$(this).parents('.form-group').removeClass('has-error');
+			$(this).parents('.form-group').find('.help-block').addClass('hide');
+		}
+	})	
 });

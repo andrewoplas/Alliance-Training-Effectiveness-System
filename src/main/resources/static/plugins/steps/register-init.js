@@ -7,6 +7,37 @@ var animating; //flag to prevent quick multi-click glitches
 
 $(".next").click(function(){
 	if(animating) return false;
+	
+	var error = false;
+	$('.first-fieldset .form-control').each(function(){
+		if($.trim($(this).val()).length == 0) {
+			$(this).parents('.form-group').addClass('has-error');
+			$(this).parents('.form-group').find('.help-block-empty').removeClass('hide');
+			error = true;
+		} else if ($(this).parents('.form-group').hasClass('has-error')) {
+			error = true;
+		}
+	});
+	
+	// First fieldset
+	if($('#calendar').fullCalendar('clientEvents').length == 0 && $(this).attr('id') == 'first-step') {
+		$('#calendar').parent().find('.help-block-schedule').removeClass('hide');
+		error = true;
+	}
+	
+	// Second fieldset
+	//console.log($('#nestable2').nestable('serialize').length);
+	if($('#nestable2').nestable('serialize').length == 0 && $(this).attr('id') == 'second-step') {
+		$('#nestable2').parents('fieldset').find('.help-block-outline').removeClass('hide');
+		error = true;
+	}
+	
+	if(error){
+		return false;
+	}
+
+	
+	
 	animating = true;
 	
 	current_fs = $(this).parent();

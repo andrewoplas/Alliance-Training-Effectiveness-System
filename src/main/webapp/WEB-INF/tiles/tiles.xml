@@ -29,10 +29,15 @@
 	    <put-attribute name="title" value="ATES - Dashboard" />
 	    <put-attribute name="body" value="/WEB-INF/pages/index.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
-	    	
+			<add-attribute value="/plugins/calendar/dist/fullcalendar.css" />
 		</put-list-attribute>
+		
 		<put-list-attribute name="javascripts" inherit="true">
-			
+			<add-attribute value="/plugins/calendar/jquery-ui.min.js" />
+			<add-attribute value="/plugins/moment/moment.js" />
+			<add-attribute value="/plugins/calendar/dist/fullcalendar.min.js" />
+			<add-attribute value="/plugins/calendar/dist/jquery.fullcalendar.js" />
+			<add-attribute value="/plugins/calendar/dist/cal-init.js" />
 		</put-list-attribute>
 	</definition>
 	
@@ -75,14 +80,22 @@
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/steps/steps.css" />
 	    	<add-attribute value="/plugins/nestable/nestable.css" />
-	    	<add-attribute value="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" />
+	    	<add-attribute value="/plugins/editable/bootstrap3-editable/css/bootstrap-editable.css" />
+			<add-attribute value="/plugins/timepicker/dist/wickedpicker.min.css" />
+			<add-attribute value="/plugins/calendar/dist/fullcalendar.css" />
 	    	<add-attribute value="/css/pages/trainingPlan.css" />
 		</put-list-attribute>
+		
 		<put-list-attribute name="javascripts" inherit="true">
 			<add-attribute value="/plugins/steps/jquery.easing.min.js" />
 			<add-attribute value="/plugins/steps/register-init.js" />
 			<add-attribute value="/plugins/nestable/jquery.nestable.js" />
-			<add-attribute value="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js" />
+			<add-attribute value="/plugins/editable/bootstrap3-editable/js/bootstrap-editable.min.js" />
+			<add-attribute value="/plugins/moment/moment.js" />
+			<add-attribute value="/plugins/timepicker/dist/wickedpicker.min.js" />
+			<add-attribute value="/plugins/calendar/dist/fullcalendar.min.js" />
+			<add-attribute value="/plugins/calendar/dist/jquery.fullcalendar.js" />
+			<add-attribute value="/plugins/calendar/dist/cal-init.js" />
 			<add-attribute value="/js/pages/trainingPlan.js" />
 		</put-list-attribute>
 	</definition>

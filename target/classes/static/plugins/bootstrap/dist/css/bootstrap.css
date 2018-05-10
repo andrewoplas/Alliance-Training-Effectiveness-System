@@ -3003,6 +3003,8 @@ select[multiple].input-lg {
 .btn {
   display: inline-block;
   padding: 6px 12px;
+  min-height: 40px;
+  min-width: 120px;
   margin-bottom: 0;
   font-size: 14px;
   font-weight: normal;
@@ -3019,7 +3021,9 @@ select[multiple].input-lg {
           user-select: none;
   background-image: none;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 3px !important;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12) !important;
+  transition: 250ms;
 }
 .btn:focus,
 .btn:active:focus,
@@ -3029,12 +3033,17 @@ select[multiple].input-lg {
 .btn.active.focus {
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
+  box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+  outline: 0;
 }
 .btn:hover,
 .btn:focus,
 .btn.focus {
   color: #333;
   text-decoration: none;
+  transition: 250ms;
+  box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15) !important;
+  outline: 0;
 }
 .btn:active,
 .btn.active {
