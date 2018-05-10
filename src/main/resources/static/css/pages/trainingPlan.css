@@ -230,3 +230,7 @@ footer.footer {
 	font-weight: bold;
     color: orange;
 }
+
+#eliteregister li {
+    width: 25%;
+}

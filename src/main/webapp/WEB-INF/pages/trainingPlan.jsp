@@ -6,9 +6,9 @@
 				<form id="msform">
 					<!-- progressbar -->
 					<ul id="eliteregister">
-						<li class="active">Schedule</li>
-						<li>Course Outline</li>
-						<li>Invite People</li>
+						<li class="active first-li">Schedule</li>
+						<li class="second-li">Course Outline</li>
+						<li class="third-li">Invite People</li>
 						<li>Finalize</li>
 					</ul>
 					
@@ -120,6 +120,13 @@
 					<!-- fieldsets 4 -->
 					<fieldset class="fourth-fieldset">
 						<h2 class="fs-title">Finalize</h2>
+						
+						<button type="button" class="btn btn-info fieldset-goto" fieldset='first'>First</button>
+						<button type="button" class="btn btn-info fieldset-goto" fieldset='second'>Second</button>
+						<button type="button" class="btn btn-info fieldset-goto" fieldset='third'>Third</button>
+						
+						<br/>
+						
 						<button type="button" name="previous" class="btn waves-effect waves-light previous action-button btn-raised btn-fixed">
 							Previous
 						</button>
