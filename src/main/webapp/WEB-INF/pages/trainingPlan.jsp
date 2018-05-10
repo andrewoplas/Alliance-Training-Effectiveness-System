@@ -95,9 +95,7 @@
 						</div>
 						<span class="help-block help-block-outline text-left hide">
 		                	<small class="text-danger"><i class="mdi mdi-close-circle-outline"></i> You haven't set a course outline yet.</small>
-		                </span>
-		                
-		                
+		                </span>                
 		                
 						<button type="button" name="previous" class="m-t-30 btn waves-effect waves-light previous action-button btn-raised btn-fixed">
 							Previous
