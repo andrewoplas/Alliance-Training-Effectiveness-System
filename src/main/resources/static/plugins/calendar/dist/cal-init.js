@@ -152,32 +152,37 @@
                 var beginning = form.find("input[name='start_time']").val();
                 var ending = form.find("input[name='end_time']").val();
                 var categoryClass = form.find("select[name='category'] option:checked").val();
+                
                 if (title !== null && title.length != 0) {
                 	var beginningObj = moment(beginning, 'hh : mm A');
-                	var beginningMS = (beginningObj.get('hour')*3600) + (beginningObj.get('minute') * 60);
-                	beginningMS *= 1000;
-                	
+                	var beginningMS = ((beginningObj.get('hour')*3600) + (beginningObj.get('minute') * 60)) * 1000;                	
                 	var endingObj = moment(ending, 'hh : mm A');
-                	var endingMS = (endingObj.get('hour')*3600) + (endingObj.get('minute') * 60);
-                	endingMS *= 1000;
+                	var endingMS = ((endingObj.get('hour')*3600) + (endingObj.get('minute') * 60)) * 1000;
+                	var day = 0;
                 	
+                	// Loop                	
                 	var numberOfDays = Math.abs(start.diff(end, 'days')) - 1;
-                	for(var i=0; i<=numberOfDays; i++){
-	                    $this.$calendarObj.fullCalendar('renderEvent', {
-	                        title: title,
-	                        start: start.add('day', i>0 ? 1 : 0) + beginningMS,
-	                        end: start + endingMS,
-	                        allDay: false,
-	                        className: 'bg-warning'
-	                    }, true);  
-                	}
+                	var processing = function() {
+                		if ((numberOfDays--) > 0 ) {
+                			setTimeout(processing, 5);
+                		}
+                		
+                		$this.$calendarObj.fullCalendar('renderEvent', {
+		                        title: title,
+		                        start: start.add('day', day) + beginningMS,
+		                        end: start + endingMS,
+		                        allDay: false,
+		                        className: 'bg-warning'
+        				}, true);
+                		
+                		day = 1; 
+            		}
+            		processing();
 	                    
                 	$('#calendar').parent().find('.help-block-schedule').addClass('hide');
                     $this.$modal.modal('hide');
                 }
-                else{
-                    //$("#title").parents('.form-group').find('help-block-empty').removeClass('hide');
-                }
+                
                 return false;
                 
             });

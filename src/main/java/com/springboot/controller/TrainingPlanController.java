@@ -1,20 +1,26 @@
 package com.springboot.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.springboot.entities.User;
+import com.springboot.service.UsersService;
+
 
 @Controller
 @RequestMapping("/ates/training")
 public class TrainingPlanController {
+	
+	@Autowired
+	UsersService usersService;
 	
 	@RequestMapping(value = { "", "/" })
 	public String index() {
@@ -22,7 +28,10 @@ public class TrainingPlanController {
 	}
 	
 	@RequestMapping(value = "/create")
-	public String create() {
+	public String create(ModelMap map) {
+		List<User> users = usersService.retrieveApprovedUsers();
+		
+		map.addAttribute("users", users);
 		return "pages/trainingPlan";
 	}
 

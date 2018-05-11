@@ -29,6 +29,17 @@ public class UsersRepository {
 		
 		return data;		
 	}
+	
+	public List<User> retrieveApprovedUsers(EntityManager em) {
+		List<User> users = null;
+		StringBuilder stringQuery = new StringBuilder("FROM User WHERE status = :status AND is_admin = :is_admin");
+		Query query = em.createQuery(stringQuery.toString());
+		query.setParameter("status", "approved");
+		query.setParameter("is_admin", 0);
+		
+		users = query.getResultList();
+		return users;		
+	}
 
 	public List<User> retrievePendingUsers(EntityManager em) {
 		List<User> users = null;

@@ -1,9 +1,7 @@
 package com.springboot.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -56,6 +54,12 @@ public class UsersService {
 		}	
 		
 		return cUsers;
+	}
+	
+	public List<User> retrieveApprovedUsers() {
+		List<User> users = usersRepository.retrieveApprovedUsers(em);
+		
+		return users;
 	}
 
 	public List<User> retrievePendingUsers() {

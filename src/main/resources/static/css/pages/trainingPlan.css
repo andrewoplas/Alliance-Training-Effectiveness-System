@@ -234,3 +234,47 @@ footer.footer {
 #eliteregister li {
     width: 25%;
 }
+
+button, input, optgroup, select, textarea {
+	font-family: Rubik !important;
+}
+
+.dropdown .item {
+	font-size: 14px !important;
+}
+
+.bordered-box {
+	padding: 10px;
+	margin-top: 5px;
+	border: 1px solid #eee;
+}
+
+.ui.dropdown {
+	width: 100%;
+}
+
+.panel-title {
+	font-family: Poppins !important;
+}
+
+.panel .panel-heading a i {
+	font-size: 25px !important;
+	float: left;
+}
+
+.panel-title a {
+	color: #fff !important;
+}
+
+.panel-info .panel-heading:hover {
+	background-color: #1360a4;
+	border-color: #1360a4; 
+}
+
+.panel-info .panel-body {
+	background-color: #eeeeee5c;
+}
+
+.line-height-span {
+	line-height: 2.2 !important;
+}

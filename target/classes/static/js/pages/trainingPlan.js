@@ -133,4 +133,34 @@ $(document).ready(function() {
 			$(this).parents('.form-group').find('.help-block').addClass('hide');
 		}
 	})	
+	
+	$('.multi-select').dropdown({
+	    onAdd: function(value, text, $selectedItem) {
+	    	$('.multi-select .menu').find('[data-value='+ value +']').hide();
+	    	
+	    	$(this).parents('.panel').find('.help-block').addClass('hide');
+	    },
+	    onRemove: function(value, text, $selectedItem) {
+	    	$('.multi-select .menu').find('[data-value='+ value +']').show();
+	    },
+	    onLabelRemove: function(e) {
+	    	$(this).tooltip('destroy');
+	    	
+            return !0
+        },
+	    onLabelCreate: function(t, n) {
+	    	var value = $(this).attr('data-value');
+	    	var option = $('.multi-select select').find('[value='+value+']');
+	    	var email = option.attr('data-email');
+	    	
+	    	$(this).attr('data-toggle', 'tooltip');
+	    	$(this).attr('data-placement', 'top');
+	    	$(this).attr('title', email);
+	    	$(this).tooltip();
+	    	
+	    	return $(this);
+        },
+	  });
+	
+	
 });

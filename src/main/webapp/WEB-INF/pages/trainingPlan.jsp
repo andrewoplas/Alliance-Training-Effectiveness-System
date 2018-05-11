@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+
 <div id="page-wrapper">
 	<div class="container-fluid full-height">		
 		<div class="row">
@@ -26,6 +28,7 @@
 				                <span class="help-block help-block-empty hide">
 				                	<small class="text-danger"><i class="mdi mdi-close-circle-outline"></i> Don't leave this field empty</small>
 				                </span>
+				                
 				            </div>
 				            
 							<div class="form-group m-b-30">
@@ -48,24 +51,6 @@
 				                </span>
 							</div>							
 						</div>					 	
-		                
-		                <div class="modal fade none-border material-design" id="my-event">
-		                    <div class="modal-dialog">
-		                        <div class="modal-content">
-		                            <div class="modal-header">
-		                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                                <h4 class="modal-title text-left">Add Event</h4>
-		                            </div>
-		                            <div class="modal-body"></div>
-		                            <div class="modal-footer">
-		                                <button type="button" class="btn btn-raised btn-fix btn-default waves-light btn-outline waves-effect m-r-5" data-dismiss="modal">Close</button>
-		                                <button type="button" class="btn btn-raised btn-fix btn-info waves-light save-event waves-effect waves-light">Create</button>
-		                                <button type="button" class="btn btn-raised btn-fix btn-danger waves-light delete-event waves-effect waves-light pull-left" data-dismiss="modal">Delete</button>
-		                                <button type="button" class="btn btn-raised btn-fix btn-info waves-light save-event2 waves-effect waves-light">Save</button>
-		                            </div>
-		                        </div>
-		                    </div>
-		                </div>
 						
 						<button type="button" class="btn waves-effect waves-light next action-button btn-raised btn-fixed" id="first-step" name="next">
 							Next
@@ -76,8 +61,9 @@
 					<fieldset class="second-fieldset">
 						<h2 class="fs-title">Objectives and Course Outline</h2>
 						                    	
-                    	<div class="p-10 m-t-5" style="border: 1px solid #eee">
-		                    <div class="myadmin-dd-empty dd" id="nestable2">
+						                    	
+						<div class="bordered-box">
+							<div class="myadmin-dd-empty dd" id="nestable2">
 		                        <ol class="dd-list">
 		                        	<li class="dd-item dd3-item" data-id="0">
 			                        	<div class="dd-handle dd3-handle"></div>
@@ -93,6 +79,7 @@
 								<i class="mdi mdi-plus"></i> Add Item
 							</a>
 						</div>
+                    	
 						<span class="help-block help-block-outline text-left hide">
 		                	<small class="text-danger"><i class="mdi mdi-close-circle-outline"></i> You haven't set a course outline yet.</small>
 		                </span>                
@@ -108,6 +95,95 @@
 					<!-- fieldsets 3 -->
 					<fieldset class="third-fieldset">
 						<h2 class="fs-title">Invite People</h2>
+							<div class="panel-group" role="tablist" aria-multiselectable="true">
+								
+								<div class="panel panel-info">
+									<div class="panel-heading active" role="tab">
+									    <h4 class="panel-title"> 
+									    	<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="true" aria-controls="collapse2" class="font-bold text-left"> 
+									    		<i class="mdi mdi-account-check m-r-5"></i><span>Supervisors</span>
+									    	</a> 
+								    	</h4> 
+								    </div>
+									<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+									    <div class="panel-body">
+									    	<select class="ui search dropdown multi-select" multiple="" id="supervisor-select">
+											  	<option value="">Choose Supervisors</option>
+											  	<c:forEach var="user" items="${users}">
+											  		<option value="${user.id}" data-email="${user.email}">${user.name} [${user.position}]</option>
+								    			</c:forEach>
+											</select>
+											
+											<br/>
+											<span class="help-block help-block-supervisors text-left hide">
+							                	<small class="text-danger">
+							                		<i class="mdi mdi-close-circle-outline pull-left m-r-5"></i> 
+							                		<span class="line-height-span">You haven't selected Supervisors yet.</span>
+							                	</small>
+							                </span>
+									    </div>
+									</div>
+								</div>
+							
+								<div class="panel panel-info m-t-20">
+									<div class="panel-heading active" role="tab">
+									    <h4 class="panel-title"> 
+									    	<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="true" aria-controls="collapse3" class="font-bold text-left"> 
+									    		<i class="mdi mdi-account m-r-5"></i><span>Facilitators</span>
+									    	</a> 
+								    	</h4> 
+								    </div>
+									<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+									    <div class="panel-body">
+								    		<select class="ui search dropdown multi-select" multiple="" id="facilitator-select">
+											  	<option value="">Choose Facilitators</option>
+											  	<c:forEach var="user" items="${users}">
+											  		<option value="${user.id}" data-email="${user.email}">${user.name} [${user.position}]</option>
+								    			</c:forEach>
+											</select>
+											
+											<br/>
+											<span class="help-block help-block-facilitators text-left hide">
+							                	<small class="text-danger">
+							                		<i class="mdi mdi-close-circle-outline pull-left m-r-5"></i> 
+							                		<span class="line-height-span">You haven't selected Facilitators yet.</span>
+							                	</small>
+							                </span>
+									    </div>
+									</div>
+								</div>
+								
+								<div class="panel panel-info m-t-20">
+									<div class="panel-heading active" role="tab">
+									    <h4 class="panel-title"> 
+									    	<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1" class="font-bold text-left"> 
+									    		<i class="mdi mdi-account-multiple m-r-5"></i><span>Participants</span>
+									    	</a> 
+								    	</h4> 
+								    </div>
+									<div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+									    <div class="panel-body">
+									    	<select class="ui search dropdown multi-select" multiple="" id="participant-select">
+											  	<option value="">Choose Participants</option>
+											  	<c:forEach var="user" items="${users}">
+											  		<option value="${user.id}" data-email="${user.email}">${user.name} [${user.position}]</option>
+								    			</c:forEach>
+											</select>
+											
+											<br/>
+											<span class="help-block help-block-participants text-left hide">
+							                	<small class="text-danger">
+							                		<i class="mdi mdi-close-circle-outline pull-left m-r-5"></i> 
+							                		<span class="line-height-span">You haven't selected Participants yet.</span>
+							                	</small>
+							                </span>
+									    </div>
+									</div>
+								</div>
+                        	</div>
+						
+						<div class="clear"></div>
+						
 						<button type="button" name="previous" class="m-t-30 btn waves-effect waves-light previous action-button btn-raised btn-fixed">
 							Previous
 						</button>
@@ -119,13 +195,49 @@
 					
 					<!-- fieldsets 4 -->
 					<fieldset class="fourth-fieldset">
-						<h2 class="fs-title">Finalize</h2>
+						<div class="panel panel-info m-t-20">
+							<div class="panel-heading" role="tab">
+							    <h4 class="panel-title">Summary</h4> 
+						    </div>
+						</div>
 						
-						<button type="button" class="btn btn-info fieldset-goto" fieldset='first'>First</button>
-						<button type="button" class="btn btn-info fieldset-goto" fieldset='second'>Second</button>
-						<button type="button" class="btn btn-info fieldset-goto" fieldset='third'>Third</button>
+						<div class="panel panel-default">
+                            <div class="panel-heading"> Information and Schedule
+                                <div class="pull-right"><a href="#" data-perform="panel-collapse"><i class="ti-minus"></i></a></div>
+                            </div>
+                            <div class="panel-wrapper collapse in" aria-expanded="true">
+                                <div class="panel-body">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="panel panel-default">
+                            <div class="panel-heading"> Information and Schedule
+                                <div class="pull-right"><a href="#" data-perform="panel-collapse"><i class="ti-minus"></i></a></div>
+                            </div>
+                            <div class="panel-wrapper collapse in" aria-expanded="true">
+                                <div class="panel-body">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="panel panel-default">
+                            <div class="panel-heading"> Information and Schedule
+                                <div class="pull-right"><a href="#" data-perform="panel-collapse"><i class="ti-minus"></i></a></div>
+                            </div>
+                            <div class="panel-wrapper collapse in" aria-expanded="true">
+                                <div class="panel-body">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                                </div>
+                            </div>
+                        </div>
+	                    
+<!-- 						<button type="button" class="btn btn-info fieldset-goto" fieldset='first'>First</button> -->
+<!-- 						<button type="button" class="btn btn-info fieldset-goto" fieldset='second'>Second</button> -->
+<!-- 						<button type="button" class="btn btn-info fieldset-goto" fieldset='third'>Third</button> -->
 						
-						<br/>
 						
 						<button type="button" name="previous" class="btn waves-effect waves-light previous action-button btn-raised btn-fixed">
 							Previous
@@ -135,8 +247,28 @@
 						</button>
 					</fieldset>
 				</form>
+				
 				<div class="clearfix"></div>
 			</div>
 		</div>		
 	</div>
+</div>
+
+
+<div class="modal fade none-border material-design" id="my-event">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-left">Add Event</h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-raised btn-fix btn-default waves-light btn-outline waves-effect m-r-5" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-raised btn-fix btn-info waves-light save-event waves-effect waves-light1">Create</button>
+                <button type="button" class="btn btn-raised btn-fix btn-danger waves-light delete-event waves-effect waves-light pull-left" data-dismiss="modal">Delete</button>
+                <button type="button" class="btn btn-raised btn-fix btn-info waves-light save-event2 waves-effect waves-light">Save</button>
+            </div>
+        </div>
+    </div>
 </div>

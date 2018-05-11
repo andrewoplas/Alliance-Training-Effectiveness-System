@@ -32,6 +32,16 @@ $(".next").click(function(){
 		error = true;
 	}
 	
+	// Third fieldset
+	if($(this).attr('id') == 'third-step') {
+		$('.multi-select').each(function(){
+			if(($(this).dropdown('get value')).length == 0) {
+				$(this).parents('.panel').find('.help-block').removeClass('hide');
+				error = true;
+			}
+		});
+	}
+	
 	if(error){
 		return false;
 	}	
