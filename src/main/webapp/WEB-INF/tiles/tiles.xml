@@ -79,6 +79,7 @@
 	    	<add-attribute value="/plugins/editable/bootstrap3-editable/css/bootstrap-editable.css" />
 			<add-attribute value="/plugins/timepicker/dist/wickedpicker.min.css" />
 			<add-attribute value="/plugins/calendar/dist/fullcalendar.css" />
+			<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
 	    	<add-attribute value="/css/pages/trainingPlan.css" />
 		</put-list-attribute>
 		
@@ -94,6 +95,7 @@
 			<add-attribute value="/plugins/calendar/dist/fullcalendar.min.js" />
 			<add-attribute value="/plugins/calendar/dist/jquery.fullcalendar.js" />
 			<add-attribute value="/plugins/calendar/dist/cal-init.js" />
+			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
 			<add-attribute value="/js/pages/trainingPlan.js" />
 		</put-list-attribute>
 	</definition>

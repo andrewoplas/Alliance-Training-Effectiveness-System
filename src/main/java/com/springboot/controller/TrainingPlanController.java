@@ -3,9 +3,9 @@ package com.springboot.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,13 +34,14 @@ public class TrainingPlanController {
 		map.addAttribute("users", users);
 		return "pages/trainingPlan";
 	}
-
-	@RequestMapping(value = "/descriptionSave", method = RequestMethod.POST)
-	public String  SaveCourseOutline(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
+	
+	@RequestMapping(value = {"/save"}, method = RequestMethod.POST)
+	public ResponseEntity<?> create(HttpServletRequest request) {
+		System.out.println(request.getParameter("trainingPlan"));
 		
-		String courseOutline = request.getParameter("serialize");
-		System.out.println(courseOutline);
-
-		return "CourseOutline";
+		
+		return ResponseEntity.ok(true);
 	}
+
+	
 }

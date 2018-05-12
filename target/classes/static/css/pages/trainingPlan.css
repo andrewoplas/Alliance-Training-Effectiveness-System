@@ -278,3 +278,73 @@ button, input, optgroup, select, textarea {
 .line-height-span {
 	line-height: 2.2 !important;
 }
+
+.remove-card {
+	padding: 0 !important;
+	background: transparent !important;
+	box-shadow: none !important;
+}
+
+.panel, .panel-heading {
+	border-radius: 3px !important;
+}
+
+.remove-hover .panel-info .panel-heading:hover {
+	background-color: #1e88e5;
+	border-color: #1e88e5;
+}
+
+.summary-container {
+	padding: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 3px;
+    color: #fff;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);	
+}
+
+#schedule-table tr {
+	padding-top: 0 !important;
+}
+
+#parent-outline {
+	list-style-type: upper-roman;
+}
+
+#parent-outline li{
+	font-weight: bold;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+#parent-outline ol{
+	list-style-type: upper-latin;
+	margin-top: 3px;
+}
+
+#parent-outline ol li{
+	font-weight: normal;
+	font-size: 14px;
+}
+
+#parent-outline ol ol{
+	list-style-type: lower-latin;
+}
+
+parent-outline ol ol li{
+	font-weight: normal;
+	font-size: 14px;
+}
+
+#parent-outline ol ol ol{
+	list-style-type: decimal;
+}
+
+#parent-outline ol ol ol li{
+	font-weight: normal;
+	font-size: 12px;
+}
+
+[data-value='description'], [data-value='description'] {
+	word-wrap: break-word;
+}

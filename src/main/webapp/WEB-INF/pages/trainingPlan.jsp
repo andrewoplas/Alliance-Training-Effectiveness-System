@@ -32,10 +32,10 @@
 				            </div>
 				            
 							<div class="form-group m-b-30">
-								<textarea id="message" maxlength="300" class="form-control validate-empty" required="" style="font-size: 16px;height: 130px;"></textarea>
+								<textarea id="description" maxlength="300" class="form-control validate-empty" required="" style="font-size: 16px;height: 130px;"></textarea>
 								<span class="highlight"></span>
 				                <span class="bar"></span>
-				      			<label for="message">Description</label>
+				      			<label for="description">Description</label>
 				      			<span class="help-block help-block-empty hide">
 				                	<small class="text-danger"><i class="mdi mdi-close-circle-outline"></i> Don't leave this field empty</small>
 				                </span>
@@ -110,7 +110,7 @@
 									    	<select class="ui search dropdown multi-select" multiple="" id="supervisor-select">
 											  	<option value="">Choose Supervisors</option>
 											  	<c:forEach var="user" items="${users}">
-											  		<option value="${user.id}" data-email="${user.email}">${user.name} [${user.position}]</option>
+											  		<option value="${user.id}" data-email="${user.email}">${user.name}</option>
 								    			</c:forEach>
 											</select>
 											
@@ -138,7 +138,7 @@
 								    		<select class="ui search dropdown multi-select" multiple="" id="facilitator-select">
 											  	<option value="">Choose Facilitators</option>
 											  	<c:forEach var="user" items="${users}">
-											  		<option value="${user.id}" data-email="${user.email}">${user.name} [${user.position}]</option>
+											  		<option value="${user.id}" data-email="${user.email}">${user.name}</option>
 								    			</c:forEach>
 											</select>
 											
@@ -166,7 +166,7 @@
 									    	<select class="ui search dropdown multi-select" multiple="" id="participant-select">
 											  	<option value="">Choose Participants</option>
 											  	<c:forEach var="user" items="${users}">
-											  		<option value="${user.id}" data-email="${user.email}">${user.name} [${user.position}]</option>
+											  		<option value="${user.id}" data-email="${user.email}">${user.name}</option>
 								    			</c:forEach>
 											</select>
 											
@@ -194,57 +194,122 @@
 					</fieldset>
 					
 					<!-- fieldsets 4 -->
-					<fieldset class="fourth-fieldset">
-						<div class="panel panel-info m-t-20">
-							<div class="panel-heading" role="tab">
-							    <h4 class="panel-title">Summary</h4> 
-						    </div>
+					<fieldset class="fourth-fieldset remove-card">
+						<div class="row m-b-30">
+							<div class="col-md-12 "> 
+								<p class="bg-info summary-container"> SUMMARY </p>
+							</div>
 						</div>
 						
 						<div class="panel panel-default">
-                            <div class="panel-heading"> Information and Schedule
-                                <div class="pull-right"><a href="#" data-perform="panel-collapse"><i class="ti-minus"></i></a></div>
+                            <div class="panel-heading">
+                            	<div class="pull-left"> 
+                            		<a href="javascript:void(0)" data-perform="panel-collapse"><i class="ti-minus"></i></a>
+                            	</div>
+                            	Information and Schedule
+                                <div class="pull-right">
+                                	<a href="javascript:void(0)" class="fieldset-goto" fieldset="first" data-toggle="tooltip" title="Edit Section" data-placement="left">
+                                		<i class="ti-pencil-alt"></i>
+                               		</a>
+                                </div>
                             </div>
                             <div class="panel-wrapper collapse in" aria-expanded="true">
-                                <div class="panel-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                                <div class="panel-body text-left">
+                                	<div class="row m-b-20">
+                                		<div class="col-md-3"><b>Training</b></div>
+                                		<div class="col-md-9"><span data-value="training"></span></div>
+                                	</div>
+                                	
+                                	<div class="row m-b-20">
+                                		<div class="col-md-3"><b>Description</b></div>
+                                		<div class="col-md-9"><span data-value="description"></span></div>
+                                	</div>
+                                    
+                                    <div class="row">
+                                		<div class="col-md-3"><b>Schedule</b></div>
+                                		<div class="col-md-9">
+                                			<div class="table-responsive">
+												<table id="schedule-table" class="table table-striped m-t-0">
+						                           <thead>
+						                               <tr>
+						                                   <th>#</th>
+						                                   <th>Date</th>
+						                                   <th>Start Time</th>
+						                                   <th>End Time</th>
+						                                   <th>Day</th>	                                   
+						                               </tr>
+						                           </thead>
+						                           <tbody></tbody>
+						                       </table>
+											</div>
+										</div>
+                                	</div>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="panel panel-default">
-                            <div class="panel-heading"> Information and Schedule
-                                <div class="pull-right"><a href="#" data-perform="panel-collapse"><i class="ti-minus"></i></a></div>
+                            <div class="panel-heading"> 
+                            	<div class="pull-left"> 
+                            		<a href="javascript:void(0)" data-perform="panel-collapse"><i class="ti-minus"></i></a>
+                            	</div>
+                            	Course Outline
+                                <div class="pull-right">
+                                	<a href="javascript:void(0)" class="fieldset-goto" fieldset="second" data-toggle="tooltip" title="Edit Section" data-placement="left">
+                                		<i class="ti-pencil-alt"></i>
+                               		</a>
+                                </div>
                             </div>
                             <div class="panel-wrapper collapse in" aria-expanded="true">
                                 <div class="panel-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                                    <div data-value="courseOutline" class="text-left"></div>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="panel panel-default">
-                            <div class="panel-heading"> Information and Schedule
-                                <div class="pull-right"><a href="#" data-perform="panel-collapse"><i class="ti-minus"></i></a></div>
+                            <div class="panel-heading"> 
+                            	<div class="pull-left"> 
+                            		<a href="javascript:void(0)" data-perform="panel-collapse">
+                            			<i class="ti-minus"></i>
+                           			</a>
+                            	</div>
+                            	People
+                                <div class="pull-right">
+                                	<a href="javascript:void(0)" class="fieldset-goto" fieldset="third" data-toggle="tooltip" title="Edit Section" data-placement="left">
+                                		<i class="ti-pencil-alt"></i>
+                               		</a>
+                                </div>
                             </div>
                             <div class="panel-wrapper collapse in" aria-expanded="true">
-                                <div class="panel-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                                <div class="panel-body text-left">
+                                    <div class="row m-b-20">
+                                		<div class="col-md-3"><b>Supervisors</b></div>
+                                		<div class="col-md-9"><div data-value="supervisors"></div></div>
+                                	</div>
+                                	
+                                	<div class="row m-b-20">
+                                		<div class="col-md-3"><b>Facilitators</b></div>
+                                		<div class="col-md-9"><div data-value="facilitators"></div></div>
+                                	</div>
+                                	
+                                	<div class="row m-b-20">
+                                		<div class="col-md-3"><b>Participants</b></div>
+                                		<div class="col-md-9"><div data-value="participants"></div></div>
+                                	</div>
+                                	
                                 </div>
                             </div>
                         </div>
-	                    
-<!-- 						<button type="button" class="btn btn-info fieldset-goto" fieldset='first'>First</button> -->
-<!-- 						<button type="button" class="btn btn-info fieldset-goto" fieldset='second'>Second</button> -->
-<!-- 						<button type="button" class="btn btn-info fieldset-goto" fieldset='third'>Third</button> -->
 						
-						
-						<button type="button" name="previous" class="btn waves-effect waves-light previous action-button btn-raised btn-fixed">
-							Previous
-						</button>
-						<button type="button" name="submit" class="btn waves-effect waves-light submit action-button btn-raised btn-fixed">
-							Submit
-						</button>
+						<div class="white-box">
+							<button type="button" name="previous" class="btn waves-effect waves-light previous action-button btn-raised btn-fixed">
+								Previous
+							</button>
+							<button type="button" name="submit" class="btn waves-effect waves-light submit action-button btn-raised btn-fixed">
+								Submit
+							</button>
+						</div>
 					</fieldset>
 				</form>
 				

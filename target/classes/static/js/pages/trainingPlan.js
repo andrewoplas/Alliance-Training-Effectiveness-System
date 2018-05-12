@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	var trainingPlanObject = {};
+	
 	// Nestable
 	var updateOutput = function(e) {
 	    var list = e.length ? e : $(e.target),
@@ -24,6 +26,7 @@ $(document).ready(function() {
 	    }
 	});
 	
+	// Add item to nestable
 	var counter = 1;
 	$('.btn-add-item').on('click', function(){
 		var nestableList = '<li class="dd-item dd3-item" data-id="' + counter + '">' +
@@ -43,8 +46,11 @@ $(document).ready(function() {
 		}
 	})
 	
+	// Initialize editable
 	$('#id-0').editable();
 	
+	
+	// Remove item to nestable
 	$(document).on('click', '.btn-remove-item', function(){
 		var parent = $(this).parents('li');
 			parent.addClass('zoomOut animated');
@@ -53,27 +59,6 @@ $(document).ready(function() {
 			}, 500);
 	});
 	
-	$("#nice").on('click', function(){
-		var item = $('#nestable2').nestable('serialize');
-		
-		$.each(item, function(index, value){
-			value['content'] = $('[data-id=' + value.id + ']').find('.dd3-content').first().text();
-			if ('children' in value){
-				addContent(value.children);
-			}
-		});
-		
-		console.log(item);
-	});
-	
-	function addContent(items){
-		$.each(items, function(index, value){
-			value['content'] = $('[data-id=' + value.id + ']').find('.dd3-content').first().text();
-			if ('children' in value){
-				addContent(value.children);
-			}
-		});
-	}
 	
 	//turn to inline mode
 	$.fn.editable.defaults.mode = 'popup';
@@ -134,6 +119,7 @@ $(document).ready(function() {
 		}
 	})	
 	
+	// Multi-select (Semantic) Configuration
 	$('.multi-select').dropdown({
 	    onAdd: function(value, text, $selectedItem) {
 	    	$('.multi-select .menu').find('[data-value='+ value +']').hide();
@@ -161,6 +147,150 @@ $(document).ready(function() {
 	    	return $(this);
         },
 	  });
+	
+	// Initialize tooltip
+	$('[data-toggle=tooltip]').tooltip();
+	
+	// Gather Summary Information
+	$('#third-step').on('click', function(){
+		// First Fieldset
+		var title = $('#training').val();
+		var description = $('#description').val();
+		var calendar = $('#calendar').fullCalendar('clientEvents');			
+		
+		// Second Fieldset				
+		var item = $('#nestable2').nestable('serialize');
+		$.each(item, function(index, value){
+			value['content'] = $('[data-id=' + value.id + ']').find('.dd3-content').first().text();
+			if ('children' in value){
+				addContent(value.children);
+			}
+		});
+		
+		// Third Fieldset
+		var supervisors = [], facilitators = [], participants  = [];				
+		$.each($('#supervisor-select').dropdown('get activeItem'), function(index, value){
+			supervisors.push($(value).text());
+		});
+		
+		$.each($('#facilitator-select').dropdown('get activeItem'), function(index, value){
+			facilitators.push($(value).text());
+		});
+		
+		$.each($('#participant-select').dropdown('get activeItem'), function(index, value){
+			participants.push($(value).text());
+		});
+		
+		
+		// Set it!
+		$('[data-value=training]').text(title);
+		$('[data-value=description]').text(description);
+		
+		var scheduleHTML = "";
+		$.each(calendar, function(index, item) {
+			scheduleHTML += 
+				'<tr>' +
+					'<td>'+ (index+1) +'</td>' +
+					'<td>'+ item.start.format('MMM D, YYYY') +'</td>' +
+					'<td>'+ item.start.format('h:mm A') +'</td>' +
+					'<td>'+ item.end.format('h:mm A') +'</td>' +
+					'<td>'+ item.start.format('dddd') +'</td>' +
+				'</tr>';
+		});
+		
+		$('#schedule-table tbody').html(scheduleHTML);
+		if (!$.fn.dataTable.isDataTable('#schedule-table')) {
+			$('#schedule-table').DataTable({
+		        "paging":   false,
+		        "info":     false,
+		        "searching": false
+		    });
+		}
+		
+		var courseOutlineHTML = $('<ol id="parent-outline"></ol>');
+		$.each(item, function(index, value){
+			courseOutlineHTML.append('<li>' + value.content + '</li>')
+			if ('children' in value){
+				courseOutlineHTML.find('li:last').append(addContentHTML(value.children));
+			}
+		});
+		$('[data-value=courseOutline]').html(courseOutlineHTML);
+		
+		var supervisorHTML = "";
+		for(var i=0; i<supervisors.length; i++) {
+			supervisorHTML += 
+				'<span class="m-b-10">' +
+					supervisors[i] +
+				'</span><br/>';
+		}
+		
+		var facilitatorHTML = "";
+		for(var i=0; i<facilitators.length; i++) {
+			facilitatorHTML += 
+				'<span class="m-b-10">' +
+					facilitators[i] +
+				'</span><br/>';
+		}
+		
+		var participantHTML = "";
+		for(var i=0; i<participants.length; i++) {
+			participantHTML += 
+				'<span class="m-b-10">' +
+					participants[i] +
+				'</span><br/>';
+		}
+		
+		$('[data-value=supervisors]').html(supervisorHTML);
+		$('[data-value=facilitators]').html(facilitatorHTML);
+		$('[data-value=participants]').html(participantHTML);	
+		
+		
+		// Setup the Object
+		trainingPlanObject['title'] = title;
+		trainingPlanObject['description'] = description;
+		trainingPlanObject['calendar'] = calendar;
+		trainingPlanObject['courseOutline'] = item;
+		trainingPlanObject['supervisors'] = $('#supervisor-select').dropdown('get value');
+		trainingPlanObject['facilitators'] = $('#facilitator-select').dropdown('get value');
+		trainingPlanObject['participants'] = $('#participant-select').dropdown('get value');
+	});
+	
+	function addContent(items){
+		$.each(items, function(index, value){
+			value['content'] = $('[data-id=' + value.id + ']').find('.dd3-content').first().text();
+			if ('children' in value){
+				addContent(value.children);
+			}
+		});
+	}
+	
+	function addContentHTML(items){
+		var parent = $("<ol></ol>");
+		$.each(items, function(index, value){
+			parent.append('<li>' + value.content + '</li>');
+			if ('children' in value){
+				parent.find('li:last').append(addContentHTML(value.children));
+			}
+		});
+		
+		return parent;
+	}
+	
+	$(".submit").on('click', function(){
+		console.log(trainingPlanObject);
+		
+		$.ajax({
+			url: "/ates/save",
+			type: 'POST',
+			data: { trainingPlan: trainingPlanObject },
+			success: function(data, textStatus, jqXHR) {
+                 console.log(data);
+             },
+             error: function(jqXHR, status, error) {
+                 console.log(status + ": " + error);
+             }
+         });
+	});
 	
 	
 });

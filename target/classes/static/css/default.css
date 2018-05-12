@@ -167,8 +167,12 @@ body {
 	height: 40px;
 }
 
-.btn-outline {
-	border-color: transparent;
+/* .btn-outline { */
+/* 	border-color: transparent; */
+/* } */
+
+.white-box {
+	border-radius: 3px;	
 }
 
 @keyframes spinner {
