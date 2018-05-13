@@ -156,7 +156,8 @@ $(document).ready(function() {
 		// First Fieldset
 		var title = $('#training').val();
 		var description = $('#description').val();
-		var calendar = $('#calendar').fullCalendar('clientEvents');			
+		var calendar = $('#calendar').fullCalendar('clientEvents');
+		
 		
 		// Second Fieldset				
 		var item = $('#nestable2').nestable('serialize');
@@ -187,6 +188,7 @@ $(document).ready(function() {
 		$('[data-value=description]').text(description);
 		
 		var scheduleHTML = "";
+		var dateArr = [];
 		$.each(calendar, function(index, item) {
 			scheduleHTML += 
 				'<tr>' +
@@ -196,6 +198,13 @@ $(document).ready(function() {
 					'<td>'+ item.end.format('h:mm A') +'</td>' +
 					'<td>'+ item.start.format('dddd') +'</td>' +
 				'</tr>';
+			
+			dateArr.push({
+				date: item.start.format('YYYY-MM-DD'), 
+				startTime: item.start.format('HH:mm:00'), 
+				endTime: item.end.format('HH:mm:00'), 
+				className: item.className[0]
+			});
 		});
 		
 		$('#schedule-table tbody').html(scheduleHTML);
@@ -248,8 +257,8 @@ $(document).ready(function() {
 		// Setup the Object
 		trainingPlanObject['title'] = title;
 		trainingPlanObject['description'] = description;
-		trainingPlanObject['calendar'] = calendar;
-		trainingPlanObject['courseOutline'] = item;
+		trainingPlanObject['calendar'] = dateArr;
+		trainingPlanObject['courseOutline'] = JSON.stringify(item);
 		trainingPlanObject['supervisors'] = $('#supervisor-select').dropdown('get value');
 		trainingPlanObject['facilitators'] = $('#facilitator-select').dropdown('get value');
 		trainingPlanObject['participants'] = $('#participant-select').dropdown('get value');
@@ -280,15 +289,17 @@ $(document).ready(function() {
 		console.log(trainingPlanObject);
 		
 		$.ajax({
-			url: "/ates/save",
+			url: "/ates/training/create",
 			type: 'POST',
-			data: { trainingPlan: trainingPlanObject },
+			contentType : 'application/json; charset=utf-8',
+			dataType : 'json',
+			data: JSON.stringify(trainingPlanObject),
 			success: function(data, textStatus, jqXHR) {
                  console.log(data);
-             },
-             error: function(jqXHR, status, error) {
+            },
+            error: function(jqXHR, status, error) {
                  console.log(status + ": " + error);
-             }
+            }
          });
 	});
 	

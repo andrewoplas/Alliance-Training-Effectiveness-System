@@ -8,10 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.springboot.body.Training;
 import com.springboot.entities.User;
+import com.springboot.service.TrainingPlanService;
 import com.springboot.service.UsersService;
 
 
@@ -21,6 +25,9 @@ public class TrainingPlanController {
 	
 	@Autowired
 	UsersService usersService;
+	
+	@Autowired
+	TrainingPlanService tpService;
 	
 	@RequestMapping(value = { "", "/" })
 	public String index() {
@@ -35,12 +42,11 @@ public class TrainingPlanController {
 		return "pages/trainingPlan";
 	}
 	
-	@RequestMapping(value = {"/save"}, method = RequestMethod.POST)
-	public ResponseEntity<?> create(HttpServletRequest request) {
-		System.out.println(request.getParameter("trainingPlan"));
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<?> insertTraining(@RequestBody Training training, HttpServletRequest request) {		
+		boolean result = tpService.insertTraining(training);
 		
-		
-		return ResponseEntity.ok(true);
+		return ResponseEntity.ok(result);
 	}
 
 	
