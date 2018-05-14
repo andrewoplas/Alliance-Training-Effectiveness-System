@@ -18,36 +18,42 @@
               <!-- /row -->
               <div class="row">
 	              <div class="col-sm-12">
-	               <div class="white-box">
-	                   <h3 class="box-title m-b-20">Pending Users</h3>
-	                   <div class="table-responsive">
+	              
+	              <div class="panel panel-info">
+					   <div class="panel-heading">Pending Users</div>
+                            
+                       <div class="panel-wrapper collapse in" aria-expanded="true">
+                       		<div class="panel-body">
+                       			<div class="table-responsive">
 	                   
-	                       <table id="pending-users-table" class="table table-striped">
-	                           <thead>
-	                               <tr>
-	                                   <th>Name</th>
-	                                   <th>Position</th>
-	                                   <th>Email</th>
-	                                   <th>Action</th>	                                   
-	                               </tr>
-	                           </thead>
-	                           <tbody>
-									<c:forEach var="user" items="${users}">
-										<tr data-id="${user.id}">
-											<td class="name" width="25%">${user.name}</td>
-											<td width="25%">${user.position}</td>
-											<td width="25%">${user.email}</td>
-											<td width="25%">
-												<button type="button" class="btn-accept btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0"><i class="mdi mdi-check"></i></button>
-												<button type="button" class="btn-decline btn btn-danger btn-outline btn-circle p-t-0 p-b-0"><i class="mdi mdi-close"></i></button>
-											</td>
-		                               	</tr>
-								    </c:forEach>
-	                           </tbody>
-	                       </table>
-	                       
-	                   </div>
-	               </div>
+			                       <table id="pending-users-table" class="table table-striped">
+			                           <thead>
+			                               <tr>
+			                                   <th>Name</th>
+			                                   <th>Position</th>
+			                                   <th>Email</th>
+			                                   <th>Action</th>	                                   
+			                               </tr>
+			                           </thead>
+			                           <tbody>
+											<c:forEach var="user" items="${users}">
+												<tr data-id="${user.id}">
+													<td class="name" width="25%">${user.name}</td>
+													<td width="25%">${user.position}</td>
+													<td width="25%">${user.email}</td>
+													<td width="25%">
+														<button type="button" class="btn-accept btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0"><i class="mdi mdi-check"></i></button>
+														<button type="button" class="btn-decline btn btn-danger btn-outline btn-circle p-t-0 p-b-0"><i class="mdi mdi-close"></i></button>
+													</td>
+				                               	</tr>
+										    </c:forEach>
+			                           </tbody>
+			                       </table>
+			                       
+			                   </div>
+                       		</div>
+                       </div>
+                 </div>
 				</div>
 			</div>
 			
