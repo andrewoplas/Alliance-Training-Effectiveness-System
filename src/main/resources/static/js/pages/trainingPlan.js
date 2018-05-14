@@ -63,51 +63,6 @@ $(document).ready(function() {
 	//turn to inline mode
 	$.fn.editable.defaults.mode = 'popup';
 	
-    
-//	var dateOutputField;
-//	var dateStart = $('#date_start');
-//	var dateEnd = $('#date_end');
-//	
-//	var picker = new MaterialDatetimePicker().on('submit', function(d) {
-//		dateOutputField.val(d.format('MMMM DD, YYYY'));
-//		
-//		if(dateStart.val() != '' && dateEnd.val() != ''){
-//			var dateStartObj = moment(dateStart.val(), 'MMMM DD, YYYY');
-//			var dateEndObj = moment(dateEnd.val(), 'MMMM DD, YYYY');
-//			
-//			
-//			if(dateStart.attr('id') === dateOutputField.attr('id') && dateStartObj.isAfter(dateEndObj)) {
-//				dateOutputField.parents('.form-group').addClass('has-error')
-//					.find('.help-block-date').removeClass('hide');
-//			} else if(dateEnd.attr('id') === dateOutputField.attr('id') && dateEndObj.isBefore(dateStartObj)) {
-//				dateOutputField.parents('.form-group').addClass('has-error')
-//					.find('.help-block-date').removeClass('hide');
-//			} else {
-//				dateStart.parents('.form-group').removeClass('has-error')
-//					.find('.help-block-date').addClass('hide');
-//				dateEnd.parents('.form-group').removeClass('has-error')
-//					.find('.help-block-date').addClass('hide');
-//			}
-//		}
-//	}).on('close', function() {
-//		if($.trim(dateOutputField.val()).length == 0) {
-//			dateOutputField.parents('.form-group').addClass('has-error');
-//			dateOutputField.parents('.form-group').find('.help-block-empty').removeClass('hide');
-//			$('#first-step').addClass('disabled');
-//		} else {
-//			if(!dateOutputField.parents('.form-group').find('.help-block-date').hasClass('hide')) {
-//				dateOutputField.parents('.form-group').removeClass('has-error');
-//			}
-//			dateOutputField.parents('.form-group').find('.help-block-empty').addClass('hide');
-//		}
-//	});
-//	
-//	$('#date_start, #date_end').click(function(){
-//		picker.open();
-//		dateOutputField = $(this);
-//	})
-//	
-//	
 	// Validation First Fieldset
 	$('.first-fieldset .validate-empty').blur(function(){
 		if($.trim($(this).val()).length == 0) {
@@ -286,7 +241,7 @@ $(document).ready(function() {
 	}
 	
 	$(".submit").on('click', function(){
-		console.log(trainingPlanObject);
+		$("#ajax-process").modal('show');
 		
 		$.ajax({
 			url: "/ates/training/create",
@@ -295,7 +250,22 @@ $(document).ready(function() {
 			dataType : 'json',
 			data: JSON.stringify(trainingPlanObject),
 			success: function(data, textStatus, jqXHR) {
-                 console.log(data);
+				$("#ajax-process").modal('hide');
+                 if(data == true) {
+                	 swal({   
+                         title: "Success!",
+                         type: "success",
+                         text: "We have successfully created the training plan",
+                         confirmButtonColor: "#1e88e5",
+                         showConfirmButton: true,
+                	 }, function(isConfirm){   
+                         if (isConfirm) {     
+                        	 window.location.href = "/ates/training/list";   
+                         } 
+                     });               	 
+                 } else {
+                	 
+                 }
             },
             error: function(jqXHR, status, error) {
                  console.log(status + ": " + error);

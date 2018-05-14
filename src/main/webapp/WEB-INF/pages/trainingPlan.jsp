@@ -319,6 +319,17 @@
 	</div>
 </div>
 
+<div class="modal fade none-border material-design" id="ajax-process">
+    <div class="modal-dialog" style="width: 30%;">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+            	Processing your request...
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="modal fade none-border material-design" id="my-event">
     <div class="modal-dialog">
@@ -330,9 +341,9 @@
             <div class="modal-body"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-raised btn-fix btn-default waves-light btn-outline waves-effect m-r-5" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-raised btn-fix btn-info waves-light save-event waves-effect waves-light1">Create</button>
-                <button type="button" class="btn btn-raised btn-fix btn-danger waves-light delete-event waves-effect waves-light pull-left" data-dismiss="modal">Delete</button>
-                <button type="button" class="btn btn-raised btn-fix btn-info waves-light save-event2 waves-effect waves-light">Save</button>
+                <button type="button" class="btn btn-raised btn-fix btn-info save-event waves-effect waves-light">Create</button>
+                <button type="button" class="btn btn-raised btn-fix btn-danger delete-event waves-effect waves-light pull-left" data-dismiss="modal">Delete</button>
+                <button type="button" class="btn btn-raised btn-fix btn-info save-event2 waves-effect waves-light">Save</button>
             </div>
         </div>
     </div>

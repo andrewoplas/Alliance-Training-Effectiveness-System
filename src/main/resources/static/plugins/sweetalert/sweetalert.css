@@ -21,7 +21,7 @@ body.stop-scrolling {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   width: 478px;
   padding: 17px;
-  border-radius: 2px;
+  border-radius: 10px;
   text-align: center;
   position: fixed;
   left: 50%;
@@ -178,7 +178,7 @@ body.stop-scrolling {
     font-weight: 500;
     -webkit-border-radius: 2px;
     border-radius: 2px;
-    padding: 10px 32px;
+/*     padding: 10px 32px; */
     margin: 26px 5px 0 5px;
     cursor: pointer; }
     .sweet-alert button:focus {

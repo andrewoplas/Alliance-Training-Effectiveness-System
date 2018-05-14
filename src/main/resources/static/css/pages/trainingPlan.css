@@ -231,6 +231,10 @@ footer.footer {
     color: orange;
 }
 
+.fc-other-month .fc-day-number {
+	color: #cecece;	
+}
+
 #eliteregister li {
     width: 25%;
 }
@@ -347,4 +351,9 @@ parent-outline ol ol li{
 
 [data-value='description'], [data-value='description'] {
 	word-wrap: break-word;
+}
+
+#ajax-process .circular {
+	position: relative !important;
+	width: 60px !important;
 }
