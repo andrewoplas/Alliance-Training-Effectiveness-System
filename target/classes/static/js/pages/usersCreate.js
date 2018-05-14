@@ -5,7 +5,7 @@
     	if(!$(".help-block").hasClass('hide')) {
     		return false;
     	}
-    	
+    	var name = $(this).find('#name').val();
     	var formData = $(this).serialize();
     	
     	$.ajax({
@@ -17,7 +17,7 @@
                 	swal({   
                         title: "Success!",
                         type: "success",
-                        text: "We have successfully created a user",
+                        text: "We have successfully created " + name + "'s account.",
                         confirmButtonColor: "#1e88e5",
                         showConfirmButton: true,
                	 	});
