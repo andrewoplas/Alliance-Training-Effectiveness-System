@@ -37,7 +37,7 @@
 	</definition>
 	
 	<!-- User - Users List -->
-	<definition name="pages/users" extends="default">
+	<definition name="/users/list" extends="default">
 	    <put-attribute name="title" value="ATES - Users" />
 	    <put-attribute name="body" value="/WEB-INF/pages/users.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
@@ -52,8 +52,22 @@
 		</put-list-attribute>
 	</definition>
 	
+	<!-- User - Users Create -->
+	<definition name="/users/create" extends="default">
+	    <put-attribute name="title" value="ATES - User Create" />
+	    <put-attribute name="body" value="/WEB-INF/pages/usersCreate.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/css/pages/users.css" />
+		</put-list-attribute>
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/js/pages/usersCreate.js" />
+		</put-list-attribute>
+	</definition>
+	
 	<!-- User -  Registration Request -->
-	<definition name="pages/usersRequest" extends="default">
+	<definition name="/users/request" extends="default">
 	    <put-attribute name="title" value="ATES - User Request" />
 	    <put-attribute name="body" value="/WEB-INF/pages/usersRequest.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">

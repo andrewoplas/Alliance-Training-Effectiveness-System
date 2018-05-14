@@ -1,7 +1,9 @@
 package com.springboot.service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,8 +11,10 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.hash.Hashing;
 import com.springboot.entities.User;
 import com.springboot.entities.custom.CustomUser;
+import com.springboot.repository.custom.RegisterRepository;
 import com.springboot.repository.custom.UsersRepository;
 
 @Service
@@ -20,6 +24,9 @@ public class UsersService {
 	
 	@Autowired
 	private UsersRepository usersRepository;
+	
+	@Autowired
+	private RegisterRepository registerRepository;
 	
 	
 	public List<CustomUser> retrieveUsers() {
@@ -95,5 +102,30 @@ public class UsersService {
 			ex.printStackTrace();
 		}
 	}
+	
+	public String insertUser(String name, String email, String position) {
+		String result = "success";
+		String password = getRandomPassword();
+		if(registerRepository.contains(em, email)) {
+			result = "email_exists";
+		} else {
+			String hashedPassword = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
+			registerRepository.insertUser(em, name, email, position, hashedPassword, "approved");
+		}
+		
+		return result;
+	}
+	
+	protected String getRandomPassword() {
+        String PasswordChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        StringBuilder sb = new StringBuilder();
+        Random rnd = new Random();
+        while (sb.length() < 6) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * PasswordChars.length());
+            sb.append(PasswordChars.charAt(index));
+        }
+        String generatedPassword = sb.toString();
+        return generatedPassword;
+    }
 
 }

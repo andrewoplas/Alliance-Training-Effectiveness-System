@@ -26,13 +26,13 @@ public class RegisterService {
 	
 	public String insertUser(String name, String email, String position, String password, String confirm) {
 		String response = null;
-		if(!registerRepository.contains(em, email)) {
+		if(registerRepository.contains(em, email)) {
 			response = "exist";
 		} else if (!password.equals(confirm)) {
 			response = "password_does_not_match";
 		} else {
 			String hashedPassword = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
-			registerRepository.insertUser(em, name, email, position, hashedPassword);
+			registerRepository.insertUser(em, name, email, position, hashedPassword, "pending");
 		}
 		
 		return response;

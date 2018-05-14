@@ -49,7 +49,7 @@
 		            		<span class="hide-menu"> Training Plan <span class="fa arrow"></span></span>
 		            	</a>
 		                <ul class="nav nav-second-level">
-		                    <li><a href="/ates/training"><i class="mdi mdi-calendar-blank fa-fw"></i><span class="hide-menu">Training Plan</span></a></li>
+		                    <li><a href="/ates/training/list"><i class="mdi mdi-calendar-blank fa-fw"></i><span class="hide-menu">Training Plan</span></a></li>
 		                    <li><a href="/ates/training/create"><i class="mdi mdi-calendar-plus fa-fw"></i><span class="hide-menu">Create Training</span></a></li>
 		                </ul>
 		            </li>

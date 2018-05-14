@@ -9,6 +9,7 @@
     max-width: 100%;
     padding: 7px 12px;
     text-align: center;
+    font-size: 14px !important;
 }
 
 #pending-users-table_wrapper input, #table-search {
@@ -33,7 +34,7 @@
 	border: none;
 }
 
-.label.Trainee{
+.label.Participant{
 	background-color: #4caf50; 
 }
 
@@ -43,4 +44,18 @@
 
 .label.Supervisor{
 	background-color: #f44336; 
+}
+
+.notification-create {
+    border: 1px solid #1e88e5;
+    padding: 10px;
+}
+
+.notification-create i {
+	vertical-align: middle;
+	font-size: 20px;
+}    
+
+.help-block i {
+	vertical-align: middle;
 }
