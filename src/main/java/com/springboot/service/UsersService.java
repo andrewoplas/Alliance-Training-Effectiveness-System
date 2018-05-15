@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.hash.Hashing;
+import com.springboot.entities.Position;
 import com.springboot.entities.User;
 import com.springboot.entities.custom.CustomUser;
 import com.springboot.repository.custom.RegisterRepository;
@@ -111,6 +112,31 @@ public class UsersService {
 		} else {
 			String hashedPassword = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
 			registerRepository.insertUser(em, name, email, position, hashedPassword, "approved");
+		}
+		
+		return result;
+	}
+	
+	public String editUser(String id, String name, String email, String position, String password) {
+		String result = "success";
+		
+		if(usersRepository.containsByIdAndString(em, email, id)) {
+			result = "email_exists";
+		} else {
+			User user = new User();
+			Position pos = new Position();
+			user.setId(Integer.parseInt(id));
+			user.setName(name);
+				pos.setId(Integer.parseInt(position));
+			user.setPosition(pos);
+			user.setEmail(email);
+			
+			if(password != null && password.equals("on")) {
+				String hashedPassword = Hashing.sha256().hashString(getRandomPassword(), StandardCharsets.UTF_8).toString();
+				user.setPassword(hashedPassword);
+			} 
+			
+			usersRepository.editUser(em, user);
 		}
 		
 		return result;

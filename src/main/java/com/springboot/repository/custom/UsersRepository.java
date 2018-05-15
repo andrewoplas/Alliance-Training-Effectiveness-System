@@ -18,6 +18,16 @@ import com.springboot.entities.User;
 @Transactional
 public class UsersRepository {
 	
+	public boolean containsByIdAndString(EntityManager em, String email, String id) {
+		// Check if user exist through checking email
+		StringBuilder stringQuery = new StringBuilder("FROM User WHERE email = :email AND id != :id");
+		Query query = em.createQuery(stringQuery.toString());
+		query.setParameter("email", email);
+		query.setParameter("id", Integer.parseInt(id));
+		
+		return !query.getResultList().isEmpty();
+	}
+	
 	public List retrieveUsers(EntityManager em) {
 		List data = null;
 		
@@ -53,25 +63,21 @@ public class UsersRepository {
 	}
 	
 	public void removeUser(EntityManager em, int id) {
-		StringBuilder stringQuery = new StringBuilder("DELETE User WHERE id = :id");
-		Query query = em.createQuery(stringQuery.toString());
-		query.setParameter("id", id);
-		query.executeUpdate();
+		User user = em.find(User.class, id);
+		
+		em.remove(user);
 	}
 	
-	public void approveUser(EntityManager em, int id) {
-		StringBuilder stringQuery = new StringBuilder("UPDATE User SET status = :status WHERE id = :id");
-		Query query = em.createQuery(stringQuery.toString());
-		query.setParameter("status", "approved");
-		query.setParameter("id", id);
-		query.executeUpdate();
+	public void approveUser(EntityManager em, int id) {		
+		User user = em.find(User.class, id);
+		
+		user.setStatus("approved");
 	}
 	
 	public void declineUser(EntityManager em, int id) {
-		StringBuilder stringQuery = new StringBuilder("DELETE FROM User WHERE id = :id");
-		Query query = em.createQuery(stringQuery.toString());
-		query.setParameter("id", id);
-		query.executeUpdate();
+		User user = em.find(User.class, id);
+		
+		em.remove(user);
 	}
 
 	public User retrieveUser(EntityManager em, String id) {
@@ -88,4 +94,19 @@ public class UsersRepository {
 		
 		return user;
 	}
+
+
+	public void editUser(EntityManager em, User user) {
+		User updateUser = em.find(User.class, user.getId());
+			
+		updateUser.setName(user.getName());
+		updateUser.setPosition(user.getPosition());
+		updateUser.setEmail(user.getEmail());
+		
+		if(user.getPassword() != null && !user.getPassword().isEmpty()) {
+			updateUser.setPassword(user.getPassword());
+		}		
+	}
+	
+	
 }

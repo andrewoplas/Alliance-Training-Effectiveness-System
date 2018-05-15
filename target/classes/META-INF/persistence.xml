@@ -6,5 +6,6 @@
 		<class>com.springboot.entities.Schedule</class>
 		<class>com.springboot.entities.TrainingPlan</class>
 		<class>com.springboot.entities.UserEvent</class>
+		<class>com.springboot.entities.User</class>
 	</persistence-unit>
 </persistence>

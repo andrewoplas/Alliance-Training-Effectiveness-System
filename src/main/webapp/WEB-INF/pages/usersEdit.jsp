@@ -25,9 +25,9 @@
                             
                             <div class="panel-wrapper collapse in" aria-expanded="true">
                                 <div class="panel-body">
-                                    <form action="/ates/users/edit" method="POST" class="floating-labels" id="form-edit-user">
+                                    <form action="/ates/users/edit/${user.id}" method="POST" class="floating-labels" id="form-edit-user">
 										<input type="hidden" name="id" value="${user.id}"/>
-										<input type="hidden" name="position-id" value="${user.position}"/>
+										<input type="hidden" name="position-id" value="${user.position.id}"/>
 										
                                         <div class="row m-t-30">
                                         	<div class="col-md-6 col-md-offset-3 col-xs-12">
@@ -54,7 +54,7 @@
                                         	</div>
                                         	
                                         	<div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
-                                        		<div class="form-group m-b-30">
+                                        		<div class="form-group m-b-20">
 									                <input type="email" id="email" name="email" class="form-control validate-empty" required="" value="${user.email}">
 									                <span class="highlight"></span>
 									                <span class="bar"></span>
@@ -66,16 +66,18 @@
                                         	</div>
                                         	
                                         	<div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
-                                        		<div class="form-group m-b-30">
-									                <div class="notification-create">
-									                	<i class="m-r-5 mdi mdi-alert-circle-outline"></i>
-									                	<span>Password is generated and will be sent to user's email.</span>
-									                </div>
-									            </div>
+											  	<div class="form-group m-b-40">
+												  	<input class="magic-checkbox" type="checkbox" name="password" id="password">
+												  	<label for="password" class="cursor-pointer">Generate a new password</label>
+												</div>
+												<div class="notification-create animated">
+								                	<i class="m-r-5 mdi mdi-alert-circle-outline"></i>
+								                	<span>Password that will generated will be sent to user's email.</span>
+								                </div>
                                         	</div>
                                         	
                                         	<div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
-                                        		<div class="form-group m-b-30">
+                                        		<div class="form-group m-b-30 m-t-10">
 									                 <button type="submit" class="btn btn-raised btn-fix btn-info waves-effect waves-light pull-right">
 			                                        	Submit
 			                                       	</button>

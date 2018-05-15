@@ -1,12 +1,7 @@
 package com.springboot.entities;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
-import org.springframework.context.annotation.Scope;
-
-import java.util.List;
 
 
 /**
@@ -14,12 +9,12 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="user")
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private String email;
@@ -31,10 +26,12 @@ public class User implements Serializable {
 
 	private String password;
 
-	private String position;
-
 	private String status;
-	
+
+	//bi-directional many-to-one association to Position
+	@ManyToOne
+	@JoinColumn(name="position")
+	private Position position;
 
 	public User() {
 	}
@@ -79,14 +76,6 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public String getPosition() {
-		return this.position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
-	}
-
 	public String getStatus() {
 		return this.status;
 	}
@@ -94,4 +83,13 @@ public class User implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public Position getPosition() {
+		return this.position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
 }

@@ -39,7 +39,7 @@
 											<c:forEach var="user" items="${users}">
 												<tr data-id="${user.id}">
 													<td class="name" width="25%">${user.name}</td>
-													<td width="25%">${user.position}</td>
+													<td width="25%">${user.position.description}</td>
 													<td width="25%">${user.email}</td>
 													<td width="25%">
 														<button type="button" class="btn-accept btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Accept" data-placement="top"><i class="mdi mdi-check"></i></button>

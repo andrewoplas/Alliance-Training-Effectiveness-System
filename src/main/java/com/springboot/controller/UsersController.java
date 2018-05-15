@@ -76,7 +76,7 @@ public class UsersController {
 		return ResponseEntity.ok(result);
 	}
 	
-	@RequestMapping(value = {"/remove"}, method = RequestMethod.POST)
+	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 	public ResponseEntity remove(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		
@@ -84,7 +84,20 @@ public class UsersController {
 		return ResponseEntity.ok(id);
 	}	
 	
-	@RequestMapping(value = {"/approve"}, method = RequestMethod.POST)
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+	public ResponseEntity editUser(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String position = request.getParameter("position");
+		String password = request.getParameter("password");
+		
+		String result = usersService.editUser(id, name, email, position, password);	
+		
+		return ResponseEntity.ok(result);
+	}
+	
+	@RequestMapping(value = "/approve", method = RequestMethod.POST)
 	public ResponseEntity<?> approve(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		
@@ -92,7 +105,7 @@ public class UsersController {
 		return ResponseEntity.ok(id);
 	}
 	
-	@RequestMapping(value = {"/decline"}, method = RequestMethod.POST)
+	@RequestMapping(value = "/decline", method = RequestMethod.POST)
 	public ResponseEntity<?> decline(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		
