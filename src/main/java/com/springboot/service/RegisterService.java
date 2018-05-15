@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.hash.Hashing;
+import com.springboot.entities.Position;
+import com.springboot.entities.User;
 import com.springboot.repository.custom.RegisterRepository;
 
 @Service("registerService")
@@ -32,7 +34,17 @@ public class RegisterService {
 			response = "password_does_not_match";
 		} else {
 			String hashedPassword = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
-			registerRepository.insertUser(em, name, email, position, hashedPassword, "pending");
+			
+			User user = new User();
+			Position pos = new Position();
+			pos.setId(Integer.parseInt(position));
+			user.setName(name);
+			user.setPosition(pos);
+			user.setEmail(email);
+			user.setPassword(hashedPassword);
+			user.setStatus("pending");
+			
+			registerRepository.insertUser(em, user);
 		}
 		
 		return response;

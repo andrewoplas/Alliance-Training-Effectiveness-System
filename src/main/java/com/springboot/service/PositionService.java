@@ -47,7 +47,7 @@ public class PositionService {
 		if(positionRepository.contains(em, description)) {
 			result = "already_exists";
 		} else {
-			positionRepository.editPosition(em, id, description);
+			positionRepository.editPosition(em, Integer.parseInt(id), description);
 		}
 		
 		return result;
@@ -57,7 +57,7 @@ public class PositionService {
 		String result = "success";
 		
 		try {
-			positionRepository.removePosition(em, id);
+			positionRepository.removePosition(em, Integer.parseInt(id));
 		} catch (DataIntegrityViolationException ex) {
 			result = "error";
 		}

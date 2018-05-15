@@ -111,7 +111,17 @@ public class UsersService {
 			result = "email_exists";
 		} else {
 			String hashedPassword = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
-			registerRepository.insertUser(em, name, email, position, hashedPassword, "approved");
+			
+			User user = new User();
+			Position pos = new Position();
+			pos.setId(Integer.parseInt(position));
+			user.setName(name);
+			user.setPosition(pos);
+			user.setEmail(email);
+			user.setPassword(hashedPassword);
+			user.setStatus("approved");
+			
+			registerRepository.insertUser(em, user);
 		}
 		
 		return result;

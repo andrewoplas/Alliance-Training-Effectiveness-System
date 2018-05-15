@@ -13,6 +13,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 
 import com.springboot.entities.Position;
+import com.springboot.entities.User;
 
 
 @Repository
@@ -21,15 +22,11 @@ public class PositionRepository {
 	
 	public List<Position> retrievePositions(EntityManager em) {
 		List<Position> data = null;
+		StringBuilder sql = new StringBuilder("FROM Position");
+		Query query = em.createQuery(sql.toString());
+		data = query.getResultList();		
 		
-		Session session = em.unwrap(Session.class);		
-		StringBuilder stringQuery = new StringBuilder("SELECT * FROM Position");
-		SQLQuery query = session.createSQLQuery(stringQuery.toString());
-		
-		query.setResultTransformer(Transformers.aliasToBean(Position.class));
-		data = query.list();		
-		
-		return data;		
+		return data;
 	}
 	
 	public int insertPosition(EntityManager em, Position position) {
@@ -47,18 +44,15 @@ public class PositionRepository {
 		return !query.getResultList().isEmpty();
 	}
 
-	public void editPosition(EntityManager em, String id, String description) {
-		StringBuilder stringQuery = new StringBuilder("UPDATE Position SET description = :description WHERE id = :id");
-		Query query = em.createQuery(stringQuery.toString());
-		query.setParameter("description", description);
-		query.setParameter("id", Integer.parseInt(id));
-		query.executeUpdate();
+	public void editPosition(EntityManager em, int id, String description) {
+		Position position = em.find(Position.class, id);
+			
+		position.setDescription(description);
 	}
 	
-	public int removePosition(EntityManager em, String id) throws DataIntegrityViolationException {
-		StringBuilder stringQuery = new StringBuilder("DELETE Position WHERE id = :id");
-		Query query = em.createQuery(stringQuery.toString());
-		query.setParameter("id", Integer.parseInt(id));
-		return query.executeUpdate();
+	public void removePosition(EntityManager em, int id) throws DataIntegrityViolationException {
+		Position position = em.find(Position.class, id);
+		
+		em.remove(position);
 	}
 }
