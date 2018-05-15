@@ -37,9 +37,10 @@
 		            		<span class="hide-menu"> Users <span class="fa arrow"></span></span>
 						</a>
 		                <ul class="nav nav-second-level">
-		                    <li><a href="/ates/users/list"><i class="mdi mdi-account-multiple fa-fw"></i><span class="hide-menu">User List</span></a></li>
-		                    <li><a href="/ates/users/create"><i class="mdi mdi-account-plus fa-fw"></i><span class="hide-menu">Create User</span></a></li>
-		                    <li><a href="/ates/users/request"><i class="mdi mdi-account-multiple-plus fa-fw"></i><span class="hide-menu">Registration Request</span></a></li>
+		                    <li><a href="/ates/users/list"><i class="icon-people fa-fw"></i><span class="hide-menu">User List</span></a></li>
+		                    <li><a href="/ates/users/create"><i class="icon-user-follow fa-fw"></i><span class="hide-menu">Create User</span></a></li>
+		                    <li><a href="/ates/users/request"><i class="icon-user-following fa-fw"></i><span class="hide-menu">Registration Request</span></a></li>
+		                    <li><a href="/ates/users/position"><i class="icon-badge fa-fw"></i><span class="hide-menu">Position</span></a></li>		                     
 		                </ul>
 		            </li>
 		            
@@ -49,8 +50,8 @@
 		            		<span class="hide-menu"> Training Plan <span class="fa arrow"></span></span>
 		            	</a>
 		                <ul class="nav nav-second-level">
-		                    <li><a href="/ates/training/list"><i class="mdi mdi-calendar-blank fa-fw"></i><span class="hide-menu">Training Plan</span></a></li>
-		                    <li><a href="/ates/training/create"><i class="mdi mdi-calendar-plus fa-fw"></i><span class="hide-menu">Create Training</span></a></li>
+		                    <li><a href="/ates/training/list"><i class="ti-calendar fa-fw"></i><span class="hide-menu">Training Plan</span></a></li>
+		                    <li><a href="/ates/training/create"><i class="ti-write fa-fw"></i><span class="hide-menu">Create Training</span></a></li>
 		                </ul>
 		            </li>
 		            

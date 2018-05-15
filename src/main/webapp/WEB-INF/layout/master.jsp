@@ -48,13 +48,11 @@
 	    <script type="text/javascript" src="/js/waves.js"></script>
 	    <script type="text/javascript" src="/js/custom.min.js"></script>
 	    	    
-	    	    
 		<tiles:importAttribute name="javascripts" />
 	    <c:forEach var="script" items="${javascripts}">
 		    <script type="text/javascript" src="<c:out value='${script}' />"></script>
 		</c:forEach>
 	  	    
-	    <!--Style Switcher -->
-	     <script src="/plugins/styleswitcher/jQuery.style.switcher.js"></script>	
+	    <script src="/plugins/styleswitcher/jQuery.style.switcher.js"></script>	
 	</body>
 </html>

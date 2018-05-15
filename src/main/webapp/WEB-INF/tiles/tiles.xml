@@ -82,6 +82,23 @@
 		</put-list-attribute>
 	</definition>
 	
+	<!-- User -  Position -->
+	<definition name="/users/position" extends="default">
+	    <put-attribute name="title" value="ATES - Position" />
+	    <put-attribute name="body" value="/WEB-INF/pages/usersPosition.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+		    <add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
+	    	<add-attribute value="/plugins/toast-master/css/jquery.toast.css" />
+	    	<add-attribute value="/css/pages/users.css" />
+		</put-list-attribute>
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
+			<add-attribute value="/plugins/toast-master/js/jquery.toast.js" />
+			<add-attribute value="/js/cbpFWTabs.js" />
+			<add-attribute value="/js/pages/usersPosition.js" />
+		</put-list-attribute>
+	</definition>
+	
 	<!-- Training Plan - Create -->
 	<definition name="pages/trainingPlan" extends="default">
 	    <put-attribute name="title" value="ATES - Training Plan" />

@@ -36,7 +36,11 @@
             type: 'POST',
             data: {id: id},
             success: function(data, textStatus, jqXHR) {
-            	var row = table.row(elem).remove().draw();
+            	elem.addClass("fadeOut animated");
+            	
+            	setTimeout(function(){
+            		var row = table.row(elem).remove().draw();
+            	}, 500);
             	
             	// Alert Position Bottom Left
             	$(".myadmin-alert").fadeOut(100);

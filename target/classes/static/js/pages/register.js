@@ -53,7 +53,6 @@
 	            type: 'POST',
 	            data: data,
 	            success: function(data, textStatus, jqXHR) {
-	            	console.log(data);
 	                if(data == true){
                         swal({   
                            title: "Successfully Registered",
@@ -183,7 +182,7 @@
 	            data: {email: input},
 	            success: function(data) {
 	            	console.log(data);
-	                if(data == false){
+	                if(data == true){
 	                	showValidateEmail(elem);
 	                } else {
 	                	removeValidateEmail(elem);

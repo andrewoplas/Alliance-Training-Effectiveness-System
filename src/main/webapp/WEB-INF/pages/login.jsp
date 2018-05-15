@@ -14,8 +14,8 @@
 	<link rel="stylesheet" type="text/css" href="/plugins/sweetalert/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/fonts/iconic/css/material-design-iconic-font.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/util.css">
-	<link rel="stylesheet" type="text/css" href="/css/register.css">
+	<link rel="stylesheet" type="text/css" href="/css/pages/util.css">
+	<link rel="stylesheet" type="text/css" href="/css/pages/register.css">
 </head>
 <body>
 		
@@ -81,6 +81,6 @@
 	<script type="text/javascript" src="/plugins/bootstrap/js/popper.min.js"></script>
 	<script type="text/javascript" src="/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/plugins/sweetalert/sweetalert.min.js"></script>
-	<script type="text/javascript" src="/js/login.js"></script>
+	<script type="text/javascript" src="/js/pages/login.js"></script>
 </body>
 </html>
