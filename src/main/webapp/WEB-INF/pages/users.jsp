@@ -59,8 +59,14 @@
 			                                        <td width="25%">${user.position}</td>
 			                                        <td width="25%">${user.email}</td>
 			                                        <td width="25%">
-			                                        	<button type="button" class="btn-edit btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0"><i class="mdi mdi-account-edit"></i></button>
-														<button type="button" class="btn-remove btn btn-danger btn-outline btn-circle p-t-0 p-b-0"><i class="mdi mdi-delete"></i></button>
+			                                        	<a href="/ates/users/edit/${user.id}">
+				                                        	<button type="button" class="btn-edit btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Edit" data-placement="top">
+				                                        		<i class="mdi mdi-account-edit"></i>
+			                                        		</button>
+		                                        		</a>
+														<button type="button" class="btn-remove btn btn-danger btn-outline btn-circle p-t-0 p-b-0" data-toggle="tooltip" title="Delete" data-placement="top">
+															<i class="mdi mdi-delete"></i>
+														</button>
 			                                        </td>
 			                                        <td>
 			                                        	<ul class="list-group m-b-10">

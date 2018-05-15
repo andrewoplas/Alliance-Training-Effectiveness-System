@@ -1,5 +1,7 @@
 package com.springboot.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.springboot.entities.Position;
+import com.springboot.service.PositionService;
 import com.springboot.service.RegisterService;
 
 @Controller
@@ -18,8 +22,14 @@ public class RegisterController {
 	@Autowired
 	RegisterService registerService;
 	
+	@Autowired
+	PositionService positionService;
+	
 	@RequestMapping(value = { "", "/" }, method=RequestMethod.GET)
-	public String index() {
+	public String index(ModelMap map) {
+		List<Position> positions = positionService.retrievePositions();
+		
+		map.addAttribute("positions", positions);
 		return "register";
 	}
 	

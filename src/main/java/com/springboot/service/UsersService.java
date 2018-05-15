@@ -116,6 +116,10 @@ public class UsersService {
 		return result;
 	}
 	
+	public User retrieveUser(String id) {
+		return usersRepository.retrieveUser(em, id);
+	}
+	
 	protected String getRandomPassword() {
         String PasswordChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         StringBuilder sb = new StringBuilder();

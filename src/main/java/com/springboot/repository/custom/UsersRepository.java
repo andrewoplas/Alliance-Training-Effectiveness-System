@@ -73,4 +73,19 @@ public class UsersRepository {
 		query.setParameter("id", id);
 		query.executeUpdate();
 	}
+
+	public User retrieveUser(EntityManager em, String id) {
+		User user = null;
+		StringBuilder stringQuery = new StringBuilder("FROM User WHERE id = :id");
+		Query query = em.createQuery(stringQuery.toString());
+		query.setParameter("id", Integer.parseInt(id));
+		
+		try {
+			user = (User)query.getSingleResult();
+		} catch(Exception ex) {
+			user = null;
+		}
+		
+		return user;
+	}
 }

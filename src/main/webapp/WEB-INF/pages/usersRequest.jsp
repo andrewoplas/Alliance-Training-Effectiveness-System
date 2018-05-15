@@ -42,8 +42,8 @@
 													<td width="25%">${user.position}</td>
 													<td width="25%">${user.email}</td>
 													<td width="25%">
-														<button type="button" class="btn-accept btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0"><i class="mdi mdi-check"></i></button>
-														<button type="button" class="btn-decline btn btn-danger btn-outline btn-circle p-t-0 p-b-0"><i class="mdi mdi-close"></i></button>
+														<button type="button" class="btn-accept btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Accept" data-placement="top"><i class="mdi mdi-check"></i></button>
+														<button type="button" class="btn-decline btn btn-danger btn-outline btn-circle p-t-0 p-b-0" data-toggle="tooltip" title="Decline" data-placement="top"><i class="mdi mdi-close"></i></button>
 													</td>
 				                               	</tr>
 										    </c:forEach>

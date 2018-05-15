@@ -37,7 +37,9 @@
 													<tr data-id="${position.id}">
 														<td class="description" width="75%">${position.description}</td>
 														<td width="25%">
-															<button type="button" class="btn-delete btn btn-danger btn-outline btn-circle p-t-0 p-b-0"><i class="mdi mdi-delete"></i></button>
+															<button type="button" class="btn-delete btn btn-danger btn-outline btn-circle p-t-0 p-b-0" data-toggle="tooltip" title="Remove" data-placement="top">
+																<i class="mdi mdi-delete"></i>
+															</button>
 														</td>
 					                               	</tr>
 											    </c:forEach>

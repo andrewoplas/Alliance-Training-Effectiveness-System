@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html lang="en">
@@ -42,8 +43,15 @@
 					</div>
 					
 					<div class="wrap-input100 validate-input" data-validate="Enter position in company">
-						<input class="input100" type="text" name="position">
+						<select class="input100 select-input" name="position">
+							<option value="" selected disabled></option>						
+							<c:forEach var="position" items="${positions}">
+								<option value="${position.id}">${position.description}</option>	
+						    </c:forEach>
+					    </select>
+						
 						<span class="focus-input100" data-placeholder="Position"></span>
+						
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">

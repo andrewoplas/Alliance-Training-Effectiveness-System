@@ -66,6 +66,20 @@
 		</put-list-attribute>
 	</definition>
 	
+	<!-- User - Users Edit -->
+	<definition name="/users/edit" extends="default">
+	    <put-attribute name="title" value="ATES - User Create" />
+	    <put-attribute name="body" value="/WEB-INF/pages/usersEdit.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/css/pages/users.css" />
+		</put-list-attribute>
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/js/pages/usersEdit.js" />
+		</put-list-attribute>
+	</definition>
+	
 	<!-- User -  Registration Request -->
 	<definition name="/users/request" extends="default">
 	    <put-attribute name="title" value="ATES - User Request" />

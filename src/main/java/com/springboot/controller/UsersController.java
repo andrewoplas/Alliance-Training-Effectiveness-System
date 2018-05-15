@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -41,6 +42,19 @@ public class UsersController {
 		
 		map.addAttribute("positions", positions);
 		return "/users/create";
+	}
+	
+	@RequestMapping(value = "/edit/{id}")
+	public String edit(ModelMap map, @PathVariable String id) {
+		List<Position> positions = positionService.retrievePositions();
+		User user = usersService.retrieveUser(id);
+		
+		if(user != null) {
+			map.addAttribute("user", user);
+		}		
+		
+		map.addAttribute("positions", positions);
+		return "/users/edit";
 	}
 	
 	@RequestMapping(value = "/request")
