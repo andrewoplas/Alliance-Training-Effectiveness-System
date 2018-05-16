@@ -32,7 +32,7 @@ public class UsersRepository {
 		List data = null;
 		
 		Session session = em.unwrap(Session.class);		
-		StringBuilder stringQuery = new StringBuilder("SELECT u.id, u.name, u.position, u.email, t.title, p.role FROM user_event p INNER JOIN training_plan t ON t.id = p.trainingPlanID RIGHT JOIN User u ON p.userID = u.id WHERE u.status = :status");
+		StringBuilder stringQuery = new StringBuilder("SELECT u.id, u.name, p.description, u.email, t.title, e.role FROM user_event e INNER JOIN training_plan t ON t.id = e.trainingPlanID RIGHT JOIN User u ON e.userID = u.id LEFT JOIN Position p ON p.id = u.position  WHERE u.status = :status");
 		SQLQuery query = session.createSQLQuery(stringQuery.toString());
 		query.setParameter("status", "approved");
 		data = query.list();		

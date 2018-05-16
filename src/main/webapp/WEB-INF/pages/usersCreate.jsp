@@ -18,7 +18,7 @@
               
               <!-- /row -->
              <div class="row">
-           		<div class="col-xs-12">
+           		<div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
            		
           				<div class="panel panel-info">
                             <div class="panel-heading">User Creation</div>
@@ -27,7 +27,7 @@
                                 <div class="panel-body">
                                     <form action="/ates/users/create" method="POST" class="floating-labels" id="form-create-user">                                        
                                         <div class="row m-t-30">
-                                        	<div class="col-md-6 col-md-offset-3 col-xs-12">
+                                        	<div class="col-xs-12">
                                         		<div class="form-group m-b-30">
 									                <input type="text" id="name" name="name" class="form-control validate-empty" required="">
 									                <span class="highlight"></span>
@@ -36,7 +36,7 @@
 									            </div>
                                         	</div>
                                         	
-                                        	<div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
+                                        	<div class="col-xs-12">
                                         		<div class="form-group m-b-30">
                                         			<select id="position" class="form-control validate-empty p-0" name="position" required="">
                                         				<option value="" disabled selected></option>
@@ -50,7 +50,7 @@
 									            </div>
                                         	</div>
                                         	
-                                        	<div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
+                                        	<div class="col-xs-12">
                                         		<div class="form-group m-b-30">
 									                <input type="email" id="email" name="email" class="form-control validate-empty" required="">
 									                <span class="highlight"></span>
@@ -62,7 +62,7 @@
 									            </div>
                                         	</div>
                                         	
-                                        	<div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
+                                        	<div class="col-xs-12">
                                         		<div class="form-group m-b-30">
 									                <div class="notification-create">
 									                	<i class="m-r-5 mdi mdi-alert-circle-outline"></i>
@@ -71,7 +71,7 @@
 									            </div>
                                         	</div>
                                         	
-                                        	<div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
+                                        	<div class="col-xs-12">
                                         		<div class="form-group m-b-30">
 									                 <button type="submit" class="btn btn-raised btn-fix btn-info waves-effect waves-light pull-right">
 			                                        	Submit
