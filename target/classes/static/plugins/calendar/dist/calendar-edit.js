@@ -57,7 +57,7 @@
             			"    </div>" +
             			"</div>");
             
-            
+            $('#my-event .modal-title').text("Edit Event");
             $this.$modal.modal({
                 backdrop: 'static'
             });
@@ -140,7 +140,7 @@
             $('#my-event #start_time').wickedpicker({now: '08:00', minutesInterval: 5});
             $('#my-event #end_time').wickedpicker({now: '18:00', minutesInterval: 5});
             $('#my-event #title').val($('#training').val());
-            
+            $('#my-event .modal-title').text("Add Event");
             
             if($.trim($('#training').val()).length == 0) { 
             	$('#title').parents('.form-group').addClass('has-error');
