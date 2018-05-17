@@ -22,12 +22,15 @@ public class UserEvent implements Serializable {
 
 	private String status;
 
-	private int userID;
-
 	//bi-directional many-to-one association to TrainingPlan
 	@ManyToOne
 	@JoinColumn(name="trainingPlanID")
 	private TrainingPlan trainingPlan;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="userID")
+	private User user;
 
 	public UserEvent() {
 	}
@@ -56,20 +59,20 @@ public class UserEvent implements Serializable {
 		this.status = status;
 	}
 
-	public int getUserID() {
-		return this.userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-
 	public TrainingPlan getTrainingPlan() {
 		return this.trainingPlan;
 	}
 
 	public void setTrainingPlan(TrainingPlan trainingPlan) {
 		this.trainingPlan = trainingPlan;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
