@@ -23,33 +23,42 @@
     	var id = elem.attr('data-id');
     	var name = elem.find('.name').text();
     	
-    	$.ajax({
-            url: "/ates/users/remove",
-            type: 'POST',
-            data: {id: id},
-            success: function(data, textStatus, jqXHR) {
-            	if(elem.next().hasClass('footable-row-detail')){
-            		elem.next().addClass('fadeOut animated');
-            		setTimeout(function(){
-            			elem.next().remove();
-        			}, 500);
-            	}
-            	
-            	elem.addClass('fadeOut animated');
-            	setTimeout(function(){
-    				elem.remove();
-    			}, 500);
-            	
-//            	// Alert Position Bottom Left
-//            	$(".myadmin-alert").fadeOut(100);
-//            	$("#alert-decline").find('.name').text(name);
-//                $("#alert-decline").fadeToggle(350);
-            },
-            error: function(jqXHR, status, error) { 
-            	showErrorAlert(); 
+    	swal({   
+            title: "Are you sure?",   
+            text: "You will not be able to recover the account of "+ name,   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#f44336",
+            confirmButtonText: "Delete",   
+            cancelButtonText: "Cancel",   
+            closeOnConfirm: false,   
+        }, function(isConfirm){   
+            if (isConfirm) {            	
+            	$.ajax({
+    	            url: "/ates/users/remove",
+    	            type: 'POST',
+    	            data: {id: id},
+    	            success: function(data, textStatus, jqXHR) {
+    	            	if(elem.next().hasClass('footable-row-detail')){
+    	            		elem.next().addClass('fadeOut animated');
+    	            		setTimeout(function(){
+    	            			elem.next().remove();
+    	        			}, 500);
+    	            	}
+    	            	
+    	            	elem.addClass('fadeOut animated');
+    	            	setTimeout(function(){
+    	    				elem.remove();
+    	    			}, 500);
+    	            	
+    	            	swal("Deleted!", "Account of '" + name + "' is successfully deleted!", "success");
+    	            },
+    	            error: function(jqXHR, status, error) { 
+    	            	showErrorAlert(); 
+    	        	}
+    	    	});
         	}
         });
-    	
     });
     
     //Alerts
@@ -64,7 +73,7 @@
     });
     
     
-    if($.trim($("[name=id]").val()).length == 0) {
+    if($("[name=id]").length && $.trim($("[name=id]").val()).length == 0) {
     	swal({   
             title: "Oppps!",
             type: "error",

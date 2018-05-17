@@ -41,10 +41,12 @@
 	    <put-attribute name="title" value="ATES - Users" />
 	    <put-attribute name="body" value="/WEB-INF/pages/users.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 	    	<add-attribute value="/plugins/footable/css/footable.core.css" />
 	    	<add-attribute value="/css/pages/users.css" />
 		</put-list-attribute>
 		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
 			<add-attribute value="/plugins/footable/js/footable.all.min.js" />
 			<add-attribute value="/js/pages/users.js" />
 		</put-list-attribute>
