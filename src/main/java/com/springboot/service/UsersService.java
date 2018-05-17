@@ -121,6 +121,8 @@ public class UsersService {
 			user.setPassword(hashedPassword);
 			user.setStatus("approved");
 			
+			// Marc Email Send
+			
 			registerRepository.insertUser(em, user);
 		}
 		
@@ -144,6 +146,8 @@ public class UsersService {
 			if(password != null && password.equals("on")) {
 				String hashedPassword = Hashing.sha256().hashString(getRandomPassword(), StandardCharsets.UTF_8).toString();
 				user.setPassword(hashedPassword);
+				
+				// Marc Email Send
 			} 
 			
 			usersRepository.editUser(em, user);
