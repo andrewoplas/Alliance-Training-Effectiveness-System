@@ -41,12 +41,10 @@
 	    <put-attribute name="title" value="ATES - Users" />
 	    <put-attribute name="body" value="/WEB-INF/pages/users.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
-	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
 	    	<add-attribute value="/plugins/footable/css/footable.core.css" />
 	    	<add-attribute value="/css/pages/users.css" />
 		</put-list-attribute>
 		<put-list-attribute name="javascripts" inherit="true">
-			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
 			<add-attribute value="/plugins/footable/js/footable.all.min.js" />
 			<add-attribute value="/js/pages/users.js" />
 		</put-list-attribute>
@@ -114,10 +112,26 @@
 		</put-list-attribute>
 	</definition>
 	
-	<!-- Training Plan - Create -->
-	<definition name="pages/trainingPlan" extends="default">
+	
+	<!-- Training Plan - List -->
+	<definition name="/training/list" extends="default">
 	    <put-attribute name="title" value="ATES - Training Plan" />
 	    <put-attribute name="body" value="/WEB-INF/pages/trainingPlan.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/footable/css/footable.core.css" />
+	    	<add-attribute value="/css/pages/trainingPlan.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/footable/js/footable.all.min.js" />
+			<add-attribute value="/js/pages/trainingPlan.js" />
+		</put-list-attribute>
+	</definition>
+	
+	<!-- Training Plan - Create -->
+	<definition name="/training/create" extends="default">
+	    <put-attribute name="title" value="ATES - Create Training" />
+	    <put-attribute name="body" value="/WEB-INF/pages/trainingCreate.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 			<add-attribute value="/plugins/semantic/css/semantic.min.css" />
 	    	<add-attribute value="/plugins/steps/steps.css" />
@@ -127,7 +141,7 @@
 			<add-attribute value="/plugins/calendar/dist/fullcalendar.css" />
 			<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
 			<add-attribute value="/plugins/sweetalert/sweetalert.css" />
-	    	<add-attribute value="/css/pages/trainingPlan.css" />
+	    	<add-attribute value="/css/pages/trainingCreate.css" />
 		</put-list-attribute>
 		
 		<put-list-attribute name="javascripts" inherit="true">
@@ -144,7 +158,41 @@
 			<add-attribute value="/plugins/calendar/dist/cal-init.js" />
 			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
 			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
-			<add-attribute value="/js/pages/trainingPlan.js" />
+			<add-attribute value="/js/pages/trainingCreate.js" />
+		</put-list-attribute>
+	</definition>
+	
+	<!-- Training Plan - Edit -->
+	<definition name="/training/edit" extends="default">
+	    <put-attribute name="title" value="ATES - Edit Training" />
+	    <put-attribute name="body" value="/WEB-INF/pages/trainingEdit.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/plugins/semantic/css/semantic.min.css" />
+	    	<add-attribute value="/plugins/steps/steps.css" />
+	    	<add-attribute value="/plugins/nestable/nestable.css" />
+	    	<add-attribute value="/plugins/editable/bootstrap3-editable/css/bootstrap-editable.css" />
+			<add-attribute value="/plugins/timepicker/dist/wickedpicker.min.css" />
+			<add-attribute value="/plugins/calendar/dist/fullcalendar.css" />
+			<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
+			<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/css/pages/trainingCreate.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/semantic/js/transition.min.js" />
+			<add-attribute value="/plugins/semantic/js/dropdown.min.js" />
+			<add-attribute value="/plugins/steps/jquery.easing.min.js" />
+			<add-attribute value="/plugins/steps/register-init.js" />
+			<add-attribute value="/plugins/nestable/jquery.nestable.js" />
+			<add-attribute value="/plugins/editable/bootstrap3-editable/js/bootstrap-editable.min.js" />
+			<add-attribute value="/plugins/moment/moment.js" />
+			<add-attribute value="/plugins/timepicker/dist/wickedpicker.min.js" />
+			<add-attribute value="/plugins/calendar/dist/fullcalendar.min.js" />
+			<add-attribute value="/plugins/calendar/dist/jquery.fullcalendar.js" />
+			<add-attribute value="/plugins/calendar/dist/calendar-edit.js" />
+			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/js/pages/trainingEdit.js" />
 		</put-list-attribute>
 	</definition>
 		

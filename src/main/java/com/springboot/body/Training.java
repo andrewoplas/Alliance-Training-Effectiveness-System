@@ -1,6 +1,7 @@
 package com.springboot.body;
 
 public class Training {
+	private String id;
 	private String title;
 	private String description;
 	private String courseOutline;
@@ -9,7 +10,12 @@ public class Training {
 	private String[] facilitators;
 	private String[] participants;
 	
-	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getTitle() {
 		return title;
 	}
