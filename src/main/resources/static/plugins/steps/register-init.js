@@ -9,13 +9,16 @@ $(function() {
 		if(animating) return false;
 		
 		var error = false;
+		var hash = [];
 		$('.first-fieldset .form-control').each(function(){
 			if($.trim($(this).val()).length == 0) {
 				$(this).parents('.form-group').addClass('has-error');
 				$(this).parents('.form-group').find('.help-block-empty').removeClass('hide');
-				error = true; 
+				error = true;
+				hash.push($(this).attr('id'));
 			} else if ($(this).parents('.form-group').hasClass('has-error')) {
-				error = true;1
+				error = true;
+				hash.push($(this).attr('id'));
 			}
 		});
 		
@@ -23,6 +26,7 @@ $(function() {
 		if($('#calendar').fullCalendar('clientEvents').length == 0 && $(this).attr('id') == 'first-step') {
 			$('#calendar').parent().find('.help-block-schedule').removeClass('hide');
 			error = true;
+			hash.push('calendar');
 		}
 		
 		// Second fieldset
@@ -37,8 +41,19 @@ $(function() {
 				if(($(this).dropdown('get value')).length == 0) {
 					$(this).parents('.panel').find('.help-block').removeClass('hide');
 					error = true;
+					hash.push($(this).parents('.panel-collapse').attr('id'));
 				}
 			});
+		}
+		
+		if(hash.length > 0) {
+			var moreOffset = 100;
+			if(hash[0] == 'calendar' || hash[0].indexOf('select') !== -1) moreOffset = 0;
+
+			// animate
+	       $('html, body').animate({
+	           scrollTop: $('#' + hash[0]).offset().top - moreOffset
+	       }, 300);
 		}
 		
 		if(error){
