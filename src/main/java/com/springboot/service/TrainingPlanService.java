@@ -52,7 +52,10 @@ public class TrainingPlanService {
 		tp.setCourseOutline(training.getCourseOutline());
 		
 		int tpId = tpRepository.insertTraining(em, tp);
-		tp.setId(tpId);
+		
+		if(tpId <= 0) return false;
+		
+		tp.setId(tpId);		
 		
 		// Save schedule
 		EventDay[] eventDays = training.getCalendar();
@@ -130,7 +133,7 @@ public class TrainingPlanService {
 		tp.setDescription(training.getDescription());
 		tp.setCourseOutline(training.getCourseOutline());
 		
-		tpRepository.editTraining(em, tp);
+		if(!tpRepository.editTraining(em, tp)) return false;
 		
 		// Edit schedule
 		EventDay[] eventDays = training.getCalendar();
@@ -147,7 +150,7 @@ public class TrainingPlanService {
 			
 			tpRepository.editSchedule(em, schedule, tp.getId());
 		} catch (ParseException ex) {
-			ex.printStackTrace();
+			return false;
 		}
 		
 		// Save User involved
@@ -194,8 +197,16 @@ public class TrainingPlanService {
 			tpRepository.editUserEvent(em, tp.getId(), userEvents.toArray(new UserEvent[userEvents.size()]), userIDS);
 			result = true;
 		} catch (NumberFormatException ex) {
-			ex.printStackTrace();
+			return false;
 		}
+		
+		return result;
+	}
+	
+	public boolean deleteTraining(String id) {
+		boolean result = false;
+		
+		result = tpRepository.removeTraining(em, Integer.parseInt(id));
 		
 		return result;
 	}

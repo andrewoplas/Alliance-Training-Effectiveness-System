@@ -264,11 +264,11 @@ $(document).ready(function() {
                          } 
                      });               	 
                  } else {
-                	 
+                	 showErrorAlert();
                  }
             },
             error: function(jqXHR, status, error) {
-                 console.log(status + ": " + error);
+            	showErrorAlert();
             }
          });
 	});

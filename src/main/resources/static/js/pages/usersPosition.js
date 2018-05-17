@@ -16,7 +16,6 @@
             type: 'POST',
             data: formData,
             success: function(data, textStatus, jqXHR) {
-            	console.log(data);
             	data = data.split(':');
             	
                 if(data[0] == 'success') {
@@ -44,6 +43,8 @@
                 	$("#alert-error").find('.name').text("An error occur during the creation.");
                     $("#alert-error").fadeToggle(350);
                 }
+            } error: function(jqXHR, status, error) {
+            	showErrorAlert();
             }
         });
     	
@@ -84,6 +85,8 @@
                 	$("#alert-error").find('.name').text("An error occur during the creation.");
                     $("#alert-error").fadeToggle(350);
                 }
+            }, error: function(jqXHR, status, error) {
+            	showErrorAlert();
             }
         });
     	
@@ -110,6 +113,8 @@
                 	$("#alert-error").find('.name').text("Someone is still using the position. Can't delete it");
                     $("#alert-error").fadeToggle(350);
                 }
+            }, error: function(jqXHR, status, error) {
+            	showErrorAlert();
             }
         });
     	

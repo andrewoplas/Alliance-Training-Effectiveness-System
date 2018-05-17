@@ -118,11 +118,13 @@
 	    <put-attribute name="title" value="ATES - Training Plan" />
 	    <put-attribute name="body" value="/WEB-INF/pages/trainingPlan.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 	    	<add-attribute value="/plugins/footable/css/footable.core.css" />
 	    	<add-attribute value="/css/pages/trainingPlan.css" />
 		</put-list-attribute>
 		
 		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
 			<add-attribute value="/plugins/footable/js/footable.all.min.js" />
 			<add-attribute value="/js/pages/trainingPlan.js" />
 		</put-list-attribute>

@@ -323,17 +323,11 @@ $(document).ready(function() {
                          } 
                      });
                  } else {
-                	 swal({   
-                         title: "Ooops!",
-                         type: "error",
-                         text: "Something went wrong as we process your request. Please try again.",
-                         confirmButtonColor: "#1e88e5",
-                         showConfirmButton: true,
-                	 });
+                	 showErrorAlert();
                  }
             },
             error: function(jqXHR, status, error) {
-                 console.log(status + ": " + error);
+            	showErrorAlert();
             }
          });
 	});

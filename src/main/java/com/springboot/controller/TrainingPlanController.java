@@ -73,8 +73,13 @@ public class TrainingPlanController {
 	public @ResponseBody ResponseEntity<?> editTraining(@RequestBody Training training, HttpServletRequest request) {		
 		boolean result = tpService.editTraining(training);
 		
-		return ResponseEntity.ok(1);
+		return ResponseEntity.ok(result);
 	}
-
 	
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public ResponseEntity<?> deleteTraining(HttpServletRequest request) {		
+		boolean result = tpService.deleteTraining(request.getParameter("id"));
+		
+		return ResponseEntity.ok(result);
+	}
 }

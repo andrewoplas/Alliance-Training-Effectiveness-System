@@ -214,4 +214,10 @@ body {
 	cursor: pointer !important;
 }
 
+.sa-confirm-button-container .confirm {
+	color: white !important;
+}
 
+.sa-button-container .cancel {
+	color: white !important;
+}

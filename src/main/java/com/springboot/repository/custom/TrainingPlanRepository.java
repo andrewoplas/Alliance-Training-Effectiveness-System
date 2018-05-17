@@ -40,8 +40,18 @@ public class TrainingPlanRepository {
 		}
 	}
 	
-	public void editTraining(EntityManager em, TrainingPlan trainingPlan) {
-		em.merge(trainingPlan);
+	public boolean editTraining(EntityManager em, TrainingPlan trainingPlan) {
+		TrainingPlan training = em.find(TrainingPlan.class, trainingPlan.getId());
+		
+		try {
+			training.setTitle(trainingPlan.getTitle());
+			training.setDescription(trainingPlan.getDescription());
+			training.setCourseOutline(trainingPlan.getCourseOutline());
+			
+			return true;
+		} catch (Exception ex ) {
+			return false;
+		}
 	}
 	
 	public void editSchedule(EntityManager em, Schedule[] schedules, int id) {
@@ -106,6 +116,12 @@ public class TrainingPlanRepository {
 		return training;
 	}
 	
+	public boolean removeTraining(EntityManager em, int id) {
+		TrainingPlan training = em.find(TrainingPlan.class, id);
+		
+		em.remove(training);
+		return true;
+	}
 	
 	
 	

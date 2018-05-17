@@ -45,7 +45,9 @@
 //            	$("#alert-decline").find('.name').text(name);
 //                $("#alert-decline").fadeToggle(350);
             },
-            error: function(jqXHR, status, error) { console.log(status + ": " + error); }
+            error: function(jqXHR, status, error) { 
+            	showErrorAlert(); 
+        	}
         });
     	
     });

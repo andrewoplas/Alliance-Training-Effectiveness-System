@@ -68,6 +68,8 @@
                         showConfirmButton: true,
                	 	});
                 }
+            }, error: function(jqXHR, status, error) {
+            	showErrorAlert();
             }
         });
     	
