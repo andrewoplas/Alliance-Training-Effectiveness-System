@@ -104,7 +104,7 @@
             var form = $("<form class='floating-labels'></form>");
             form.append("<div class='row'></div>");
             form.find(".row")
-                .append("<div class='col-md-12'>" +
+                .append("<div class='col-md-8'>" +
                 		"    <div class='form-group'>" +
                 		"        <input type='text' id='title' class='form-control validate-empty' name='title' required='' onkeypress='return false;'/>" +
                 		"        <span class='highlight'></span>" +
@@ -112,6 +112,28 @@
                 		"        <label for='title'>Event Name</label>" +
                 		"		 <span class='help-block help-block-empty hide'>" +
 	                	"		 <small class='text-danger'><i class='mdi mdi-close-circle-outline'></i> You don't have a training title yet!</small>" +
+	                	"		</span>" +
+                		"    </div>" +
+                		"</div>")
+        		.append("<div class='col-md-4'>" +
+                		"    <div class='form-group'>" +
+                		"        <select type='text' id='bg' class='form-control validate-empty p-0' name='bg' required='' >" +
+                		"        	<option value='' selected disabled></option>" +
+                		"			<option value='event-red'>Red</option>" +	
+                		"        	<option value='event-pink'>Pink</option>" +	
+                		"        	<option value='event-purple'>Purple</option>" +		
+                		"        	<option value='event-indigo'>Indigo</option>" +	
+                		"        	<option value='event-blue'>Blue</option>" +	
+                		"        	<option value='event-teal'>Teal</option>" +	
+                		"        	<option value='event-green'>Green</option>" +	
+                		"        	<option value='event-orange'>Orange</option>" +	
+                		"        	<option value='event-brown'>Brown</option>" +
+                		"        </select>" +
+                		"        <span class='highlight'></span>" +
+                		"        <span class='bar'></span>" +
+                		"        <label for='bg'>Event Color</label>" +
+                		"		 <span class='help-block help-block-empty hide'>" +
+	                	"		 <small class='text-danger'><i class='mdi mdi-close-circle-outline'></i> You don't have a training color yet!</small>" +
 	                	"		</span>" +
                 		"    </div>" +
                 		"</div>")
@@ -149,9 +171,9 @@
             
             $this.$modal.find('form').on('submit', function () {
                 var title = form.find("input[name='title']").val();
+                var bgClassName = form.find("select[name='bg']").val();
                 var beginning = form.find("input[name='start_time']").val();
                 var ending = form.find("input[name='end_time']").val();
-                var categoryClass = form.find("select[name='category'] option:checked").val();
                 
                 if (title !== null && title.length != 0) {
                 	var beginningObj = moment(beginning, 'hh : mm A');
@@ -172,7 +194,7 @@
 		                        start: start.add('day', day) + beginningMS,
 		                        end: start + endingMS,
 		                        allDay: false,
-		                        className: 'bg-warning'
+		                        className: bgClassName
         				}, true);
                 		
                 		day = 1; 
@@ -217,6 +239,9 @@
         	
         var dateEnds = $('.dateEnds').val().split(',');
         	dateEnds.splice(0, 1);
+        	
+    	var classNames = $('.classNames').val().split(',');
+    		classNames.splice(0, 1);
        
         var dateTemp;
         var defaultEvents =  [];
@@ -232,7 +257,7 @@
         		title: title,
                 start: dateStarts[i],
                 end: dateEnds[i], 
-                className: 'bg-warning'
+                className: classNames[i]
         	});
         }
 

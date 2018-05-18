@@ -40,7 +40,7 @@
         <tiles:insertAttribute name="body" />
         <tiles:insertAttribute name="footer" />	    
 	    
-	    <script type="text/javascript" src="/plugins/jquery/jquery-3.2.1.min.js"></script>
+	    <script type="text/javascript" src="/plugins/jquery/dist/jquery.min.js"></script>
 	    <script type="text/javascript" src="/plugins/bootstrap/js/popper.min.js"></script>
 	    <script type="text/javascript" src="/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
 	    <script type="text/javascript" src="/plugins/sidebar-nav/dist/sidebar-nav.min.js"></script>

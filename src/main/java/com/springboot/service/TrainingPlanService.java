@@ -1,6 +1,7 @@
 package com.springboot.service;
 
 import java.sql.Time;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.User;
 import com.springboot.entities.UserEvent;
+import com.springboot.entities.custom.CustomSchedule;
 import com.springboot.repository.custom.TrainingPlanRepository;
 
 @Service
@@ -68,6 +70,7 @@ public class TrainingPlanService {
 				schedule[i].setDate(dateFormatter.parse(eventDays[i].getDate()));
 				schedule[i].setTimeStart(new Time(timeFormatter.parse(eventDays[i].getStartTime()).getTime()));
 				schedule[i].setTimeEnd(new Time(timeFormatter.parse(eventDays[i].getEndTime()).getTime()));
+				schedule[i].setColor(eventDays[i].getClassName());
 			}
 			
 			tpRepository.insertSchedule(em, schedule);
@@ -146,6 +149,7 @@ public class TrainingPlanService {
 				schedule[i].setDate(dateFormatter.parse(eventDays[i].getDate()));
 				schedule[i].setTimeStart(new Time(timeFormatter.parse(eventDays[i].getStartTime()).getTime()));
 				schedule[i].setTimeEnd(new Time(timeFormatter.parse(eventDays[i].getEndTime()).getTime()));
+				schedule[i].setColor(eventDays[i].getClassName());
 			}
 			
 			tpRepository.editSchedule(em, schedule, tp.getId());
@@ -209,5 +213,31 @@ public class TrainingPlanService {
 		result = tpRepository.removeTraining(em, Integer.parseInt(id));
 		
 		return result;
+	}
+	
+	public List<CustomSchedule> retrieveTrainingSchedules() {
+		List<TrainingPlan> trainings = tpRepository.retrieveTrainings(em);
+		List<CustomSchedule> schedules = new ArrayList<CustomSchedule>();
+		
+		if(trainings.size() > 0) {
+			DateFormat dateFormatter = new SimpleDateFormat("yyyy:MM:dd");
+			DateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+			
+			for(TrainingPlan training: trainings) {
+				for(Schedule schedule : training.getSchedules()) {
+					CustomSchedule cs = new CustomSchedule();
+					cs.setId(training.getId());
+					cs.setTitle(training.getTitle());
+					cs.setDate(dateFormatter.format(schedule.getDate()));
+					cs.setTimeStart(timeFormatter.format(schedule.getTimeStart()));
+					cs.setTimeEnd(timeFormatter.format(schedule.getTimeEnd()));
+					cs.setClassName(schedule.getColor());
+					
+					schedules.add(cs);
+				}
+			}
+		}
+		
+		return schedules;
 	}
 }

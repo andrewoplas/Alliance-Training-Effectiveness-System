@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springboot.body.Training;
-import com.springboot.entities.Position;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.User;
+import com.springboot.entities.custom.CustomSchedule;
 import com.springboot.service.TrainingPlanService;
 import com.springboot.service.UsersService;
 
@@ -35,7 +35,7 @@ public class TrainingPlanController {
 	@RequestMapping(value = "/list")
 	public String list(ModelMap map) {
 		List<TrainingPlan> trainings = tpService.retrieveTrainings();
-		
+		System.out.println(trainings.size());
 		map.addAttribute("trainings", trainings);
 		
 		return "/training/list";
@@ -81,5 +81,12 @@ public class TrainingPlanController {
 		boolean result = tpService.deleteTraining(request.getParameter("id"));
 		
 		return ResponseEntity.ok(result);
+	}
+	
+	@RequestMapping(value = "/getTrainings", method = RequestMethod.GET)
+	public ResponseEntity<?> getTrainings() {
+		List<CustomSchedule> schedules = tpService.retrieveTrainingSchedules();
+		
+		return ResponseEntity.ok(schedules);
 	}
 }

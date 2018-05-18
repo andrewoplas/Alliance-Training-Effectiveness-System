@@ -19,7 +19,7 @@ public class RegisterRepository {
 	
 	public boolean contains(EntityManager em, String email) {
 		// Check if user exist through checking email
-		StringBuilder stringQuery = new StringBuilder("FROM User WHERE email = :email LIMIT 1");
+		StringBuilder stringQuery = new StringBuilder("FROM User WHERE email = :email");
 		Query query = em.createQuery(stringQuery.toString());
 		query.setParameter("email", email);
 		

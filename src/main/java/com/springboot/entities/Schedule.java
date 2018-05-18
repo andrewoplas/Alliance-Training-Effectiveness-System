@@ -27,6 +27,8 @@ public class Schedule implements Serializable {
 	
 	@Column(name = "timestart")
 	private Time timeStart;
+	
+	private String color;
 
 	//bi-directional many-to-one association to TrainingPlan
 	@ManyToOne
@@ -66,6 +68,14 @@ public class Schedule implements Serializable {
 
 	public void setTimeStart(Time timeStart) {
 		this.timeStart = timeStart;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public TrainingPlan getTrainingPlan() {

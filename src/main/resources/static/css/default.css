@@ -265,3 +265,31 @@ body {
 .fc-list-table .fc-list-item:hover {
 	background-color: #f1f0f0 !important;
 }
+
+.event-red {
+	background-color: #E57373;
+}
+.event-pink {
+	background-color: #F06292;
+}
+.event-purple {
+	background-color: #BA68C8;
+}
+.event-indigo {
+	background-color: #7986CB;
+}
+.event-blue {
+	background-color: #4FC3F7;
+}
+.event-teal {
+	background-color: #4DB6AC;
+}
+.event-green {
+	background-color: #81C784;
+}
+.event-orange {
+	background-color: #FFB74D;
+}
+.event-brown {
+	background-color: #A1887F;
+}

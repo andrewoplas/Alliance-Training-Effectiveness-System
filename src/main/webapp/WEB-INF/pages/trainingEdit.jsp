@@ -23,6 +23,7 @@
 
 <c:set var="dateStart" value="" />
 <c:set var="dateEnd" value="" />
+<c:set var="color" value="" />
 
 <c:forEach var="schedule" items="${training.schedules}">
 	<fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss" value="${schedule.date} ${schedule.timeStart} " var="start_date" />
@@ -31,7 +32,9 @@
 	
 	<fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss" value="${schedule.date} ${schedule.timeEnd} " var="end_date" />
 	<fmt:formatDate value="${end_date}" pattern="yyyy:MM:dd:HH:mm" var="formatted_end_date" />
-	<c:set var="dateEnd" value="${dateEnd},${formatted_end_date}" />    
+	<c:set var="dateEnd" value="${dateEnd},${formatted_end_date}" />
+	
+	<c:set var="color" value="${color},${schedule.color}" />
 </c:forEach>
 
 
@@ -41,6 +44,7 @@
 
 <input type="hidden" class="dateStarts" value="${dateStart}" />
 <input type="hidden" class="dateEnds" value="${dateEnd}" />
+<input type="hidden" class="classNames" value="${color}" />
 <input type="hidden" class="nestable-serialized" value='${training.courseOutline}' />
 
 <input type="hidden" class="training-id" value="${training.id}" />
