@@ -18,7 +18,7 @@
          <c:otherwise>
             <c:set var="fids" value="${fids},${userEvent.user.id}" />
          </c:otherwise>
-      </c:choose>
+	</c:choose>
 </c:forEach>
 
 <c:set var="dateStart" value="" />

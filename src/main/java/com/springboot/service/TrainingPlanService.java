@@ -215,7 +215,7 @@ public class TrainingPlanService {
 		return result;
 	}
 	
-	public List<CustomSchedule> retrieveTrainingSchedules() {
+	public List<CustomSchedule> retrieveTrainingCustomSchedules() {
 		List<TrainingPlan> trainings = tpRepository.retrieveTrainings(em);
 		List<CustomSchedule> schedules = new ArrayList<CustomSchedule>();
 		

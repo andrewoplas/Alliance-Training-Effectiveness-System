@@ -67,14 +67,21 @@
 	            
 	            <!-- FOR GENERAL USERS -->
 	            <li> 
-	            	<a href="widgets.html" class="waves-effect">
+	            	<a href="/ates/general/dashboard" class="waves-effect">
+	            		<i class="mdi mdi-av-timer fa-fw" data-icon="v"></i> 
+	            		<span class="hide-menu"> Dashboard </span>
+	            	</a> 
+				</li> 
+				
+	            <li> 
+	            	<a href="/ates/general/training" class="waves-effect">
 	            		<i  class="mdi mdi-calendar-clock fa-fw"></i> 
 	            		<span class="hide-menu"> Trainings </span>
 	            	</a> 
 				</li>
 				
 				<li> 
-	            	<a href="widgets.html" class="waves-effect">
+	            	<a href="/ates/general/invitation" class="waves-effect">
 	            		<i  class="mdi mdi-email fa-fw"></i> 
 	            		<span class="hide-menu"> Invitations </span>
 	            	</a> 
