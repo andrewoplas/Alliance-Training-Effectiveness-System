@@ -25,9 +25,9 @@
 	</definition>
 
 	<!-- Dashboard Pages -->
-	<definition name="pages/index" extends="default">
+	<definition name="dashboard" extends="default">
 	    <put-attribute name="title" value="ATES - Dashboard" />
-	    <put-attribute name="body" value="/WEB-INF/pages/index.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/dashboard.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 			
 		</put-list-attribute>

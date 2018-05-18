@@ -240,12 +240,23 @@
         $this.$calendarObj = $this.$calendar.fullCalendar({
             slotDuration: '00:15:00', /* If we want to split day time each 15minutes */
             defaultView: 'month',  
-            handleWindowResize: true,   
+            handleWindowResize: true,
+            noEventsMessage: "No training schedule to display",
              
             header: {
                 left: 'prev,next today',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
+            },
+            
+            footer: {
+            	center: 'listWeek, listMonth, listYear',
+            },
+            
+            buttonText: {
+            	listWeek: 'List By Weeks',
+            	listMonth: 'List By Months',
+            	listYear: 'List By Year'
             },
             
             events: defaultEvents,

@@ -19,7 +19,7 @@
 	        <ul class="nav" id="side-menu">
 	            <li class="user-pro">
 	                <a href="#" class="waves-effect">
-	                	<img src="../plugins/images/users/varun.jpg" alt="user-img" class="img-circle"
+	                	<img src="/plugins/images/users/varun.jpg" alt="user-img" class="img-circle"
 	                		 onerror="if (this.src != '/plugins/images/default_user.png') this.src = '/plugins/images/default_user.png';"> 
 	                	<span class="hide-menu">${user.name}<span class="fa arrow"></span></span>
 	                </a>
@@ -30,7 +30,14 @@
 	            </li>	           
 				
 				<!-- ADMIN ONLY -->
-				<c:if test = "${user.isAdmin == 1}">      
+				<c:if test = "${user.isAdmin == 1}"> 
+					<li> 
+		            	<a href="/ates/dashboard" class="waves-effect">
+		            		<i class="mdi mdi-av-timer fa-fw" data-icon="v"></i> 
+		            		<span class="hide-menu"> Dashboard </span>
+		            	</a> 
+					</li>   
+				  
 		            <li> 
 		            	<a href="javascript:void(0);" class="waves-effect">
 		            		<i class="mdi mdi-account-settings-variant fa-fw" data-icon="v"></i> 
@@ -62,14 +69,14 @@
 	            <li> 
 	            	<a href="widgets.html" class="waves-effect">
 	            		<i  class="mdi mdi-calendar-clock fa-fw"></i> 
-	            		<span class="hide-menu">Trainings</span>
+	            		<span class="hide-menu"> Trainings </span>
 	            	</a> 
 				</li>
 				
 				<li> 
 	            	<a href="widgets.html" class="waves-effect">
 	            		<i  class="mdi mdi-email fa-fw"></i> 
-	            		<span class="hide-menu">Invitations</span>
+	            		<span class="hide-menu"> Invitations </span>
 	            	</a> 
 				</li>
 				

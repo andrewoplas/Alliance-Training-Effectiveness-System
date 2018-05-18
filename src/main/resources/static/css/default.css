@@ -221,3 +221,47 @@ body {
 .sa-button-container .cancel {
 	color: white !important;
 }
+
+.fc-list-table {
+	font-family: Poppins;
+}
+
+.fc-list-table .fc-list-heading {
+	font-weight: bold;
+	background-color: #eee;
+	color: #444;
+}
+
+.fc-list-table .fc-list-heading-alt {
+	float: right;
+}
+
+.fc-list-table td {
+    border-width: 1px 0 0;
+    padding: 8px 14px;
+}
+
+.fc-list-table .fc-ltr .fc-list-item-marker {
+    padding-right: 0;
+}
+
+.fc-event-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+}
+
+.fc-list-item-marker, .fc-list-item-time {
+    white-space: nowrap;
+    width: 1px;
+}
+
+.fc-list-table .fc-list-item {
+	cursor: pointer;
+	background-color: #fff !important;
+} 
+
+.fc-list-table .fc-list-item:hover {
+	background-color: #f1f0f0 !important;
+}

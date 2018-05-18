@@ -19,7 +19,10 @@
 	              <div class="col-xs-12">
 	              
 	              	<div class="panel panel-info">
-						<div class="panel-heading">Users and Information</div>
+						<div class="panel-heading">
+							<span>Users and Information</span>
+							<button class="btn btn-default btn-outline pull-right btn-fixed">Create User</button>
+						</div>
                             
 						<div class="panel-wrapper collapse in" aria-expanded="true">
 							<div class="panel-body">
