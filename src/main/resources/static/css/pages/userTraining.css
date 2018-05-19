@@ -24,15 +24,18 @@
 }
 
 .badge.Participant{
-	background-color: #1e88e5; 
+	background-color: white;
+    color: #1e88e5;
 }
 
 .badge.Facilitator{
-	background-color: #ff9800; 
+	background-color: white;
+    color: #ff9800;
 }
 
 .badge.Supervisor{
-	background-color: #707cd2; 
+	background-color: white;
+    color: #707cd2;
 }
 
 .empty-icon {

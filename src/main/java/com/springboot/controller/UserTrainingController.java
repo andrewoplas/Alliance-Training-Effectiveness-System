@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.springboot.entities.User;
 import com.springboot.entities.UserEvent;
+import com.springboot.entities.custom.CustomSchedule;
 import com.springboot.service.UserTrainingService;
 
 
@@ -71,4 +72,12 @@ public class UserTrainingController {
 		return ResponseEntity.ok(id);
 	}
 	
+	@RequestMapping(value = "/training/getTrainings", method = RequestMethod.GET)
+	public ResponseEntity<?> getTrainings(HttpServletRequest request) {
+		User user = session.getUser(request);
+		
+		List<CustomSchedule> schedules = tpService.retrieveUserTrainingCustomSchedules(user.getId());
+		
+		return ResponseEntity.ok(schedules);
+	}
 }

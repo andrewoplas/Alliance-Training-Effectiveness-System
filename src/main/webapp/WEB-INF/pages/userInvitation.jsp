@@ -34,9 +34,9 @@
 	
 			<div class="row <c:if test="${userEvents.size() == 0}">hide</c:if>">
 				<c:forEach var="userEvent" items="${userEvents}">
-					<div class="col-xs-12 col-sm-4 col-md-3 parent-div">				
+					<div class="col-xs-12 col-sm-4 col-md-3 parent-div">
 						<div class="white-box">
-							<div class="training-info">						
+							<div class="training-info">				
 								<h2 class="m-b-0 font-medium text-center training-title">${userEvent.trainingPlan.title}</h2>
 								<hr class="custom-hr"/>
 
