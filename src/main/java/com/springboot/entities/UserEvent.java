@@ -15,8 +15,7 @@ public class UserEvent implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="USER_EVENT_ID_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USER_EVENT_ID_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private String role;

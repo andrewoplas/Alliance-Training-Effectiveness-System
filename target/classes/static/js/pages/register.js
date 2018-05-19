@@ -63,7 +63,13 @@
                        }, function(){   
                     	   	 window.location.href = "/login";
                        });
-	                } 
+	                } else {
+	                	swal({   
+                           title: "Oopss!",
+                           type: "error",
+                           text: "Email already used. Please sign in if you already have an account.",   
+                       });
+	                }
 	            }
 	        });
         }

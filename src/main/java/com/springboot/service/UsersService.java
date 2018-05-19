@@ -112,6 +112,8 @@ public class UsersService {
 		} else {
 			String hashedPassword = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
 			
+			
+			
 			User user = new User();
 			Position pos = new Position();
 			pos.setId(Integer.parseInt(position));
@@ -120,6 +122,8 @@ public class UsersService {
 			user.setEmail(email);
 			user.setPassword(hashedPassword);
 			user.setStatus("approved");
+			user.setUserEvents(null);
+			user.setAttendances(null);
 			
 			// Marc Email Send
 			

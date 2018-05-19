@@ -16,9 +16,10 @@ public class Schedule implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="SCHEDULE_ID_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SCHEDULE_ID_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+
+	private String color;
 
 	@Temporal(TemporalType.DATE)
 	private Date date;
@@ -26,8 +27,6 @@ public class Schedule implements Serializable {
 	private Time timeEnd;
 
 	private Time timeStart;
-	
-	private String color;
 
 	//bi-directional many-to-one association to TrainingPlan
 	@ManyToOne
@@ -43,6 +42,14 @@ public class Schedule implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getColor() {
+		return this.color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public Date getDate() {
@@ -67,14 +74,6 @@ public class Schedule implements Serializable {
 
 	public void setTimeStart(Time timeStart) {
 		this.timeStart = timeStart;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
 	}
 
 	public TrainingPlan getTrainingPlan() {

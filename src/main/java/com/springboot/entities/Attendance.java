@@ -16,8 +16,7 @@ public class Attendance implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="ATTENDANCE_ID_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ATTENDANCE_ID_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	@Temporal(TemporalType.DATE)
