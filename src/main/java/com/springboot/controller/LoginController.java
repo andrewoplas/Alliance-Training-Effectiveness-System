@@ -49,7 +49,8 @@ public class LoginController{
 					response.sendRedirect(request.getContextPath() + "/ates/dashboard");
 					application.run();
 				} else {
-					response.sendRedirect(request.getContextPath() + "/ates/training");
+					//response.sendRedirect(request.getContextPath() + "/ates/general");
+					response.sendRedirect(request.getContextPath() + "/ates/general/dashboard");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

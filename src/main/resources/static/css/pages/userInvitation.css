@@ -1,0 +1,29 @@
+.empty-icon {
+	font-size: 10em !important;
+    color: #BDBDBD;
+    background-color: #fafafa;
+    padding: 25px 40px;
+    border-radius: 50%;
+}
+
+.empty-text {
+	margin-top: 20px;
+	color: #dcdcdc;
+    font-weight: bold;
+    font-size: 3em;
+    font-family: Poppins;
+}
+
+.custom-hr {
+	width: 40%;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.info-label {
+	font-size: 13px !important;
+}
+
+.info-icon {
+	font-size: 30px !important;
+}

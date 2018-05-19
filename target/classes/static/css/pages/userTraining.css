@@ -1,0 +1,55 @@
+#show-entries, #position-table_wrapper select {
+	background-color: #fff;
+    border: 1px solid #e4e7ea;
+    border-radius: 4px;
+    box-shadow: none;
+    color: #565656;
+    height: 38px;
+    max-width: 100%;
+    padding: 7px 12px;
+    text-align: center;
+    font-size: 14px !important;
+}
+
+#table-search, #position-table_wrapper input {
+	background-color: #fff;
+    border: 1px solid #e4e7ea;
+    border-radius: 4px;
+    box-shadow: none;
+    color: #565656;
+    height: 38px;
+    max-width: 100%;
+    padding: 7px 12px;
+    text-align: center;
+}
+
+.badge.Participant{
+	background-color: white;
+    color: #1e88e5;
+}
+
+.badge.Facilitator{
+	background-color: white;
+    color: #ff9800;
+}
+
+.badge.Supervisor{
+	background-color: white;
+    color: #707cd2;
+}
+
+.empty-icon {
+	font-size: 10em !important;
+    color: #BDBDBD;
+    background-color: #fafafa;
+    padding: 25px 40px;
+    border-radius: 50%;
+}
+
+.empty-text {
+	margin-top: 20px;
+	color: #dcdcdc;
+    font-weight: bold;
+    font-size: 3em;
+    font-family: Poppins;
+}

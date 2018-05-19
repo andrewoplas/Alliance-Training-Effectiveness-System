@@ -85,7 +85,7 @@ public class TrainingPlanController {
 	
 	@RequestMapping(value = "/getTrainings", method = RequestMethod.GET)
 	public ResponseEntity<?> getTrainings() {
-		List<CustomSchedule> schedules = tpService.retrieveTrainingSchedules();
+		List<CustomSchedule> schedules = tpService.retrieveTrainingCustomSchedules();
 		
 		return ResponseEntity.ok(schedules);
 	}

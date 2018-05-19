@@ -16,7 +16,7 @@ import com.springboot.entities.UserEvent;
 
 @Repository
 @Transactional
-public class TrainingPlanRepository {
+public class UserTrainingRepository {
 	
 	public int insertTraining(EntityManager em, TrainingPlan trainingPlan) {
 		em.persist(trainingPlan);
@@ -118,5 +118,41 @@ public class TrainingPlanRepository {
 		
 		em.remove(training);
 		return true;
+	}
+	
+	public List<UserEvent> retrieveUserEvent(EntityManager em, int userID) {
+		List<UserEvent> userEvents = null;
+		StringBuilder sql = new StringBuilder("FROM UserEvent WHERE userID = :id AND status <> :status");
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("id", userID);
+		query.setParameter("status", "pending");
+		
+		userEvents = query.getResultList();		
+
+		return userEvents;
+	}
+	
+	public List<UserEvent> retrievePendingUserEvent(EntityManager em, int userID) {
+		List<UserEvent> userEvents = null;
+		StringBuilder sql = new StringBuilder("FROM UserEvent WHERE userID = :id AND status = :status");
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("id", userID);
+		query.setParameter("status", "pending");
+		
+		userEvents = query.getResultList();		
+
+		return userEvents;
+	}
+
+	public void acceptInvitation(EntityManager em, int id) {
+		UserEvent userEvent = em.find(UserEvent.class, id);
+		
+		userEvent.setStatus("approved");		
+	}
+	
+	public void declineInvitation(EntityManager em, int id) {
+		UserEvent userEvent = em.find(UserEvent.class, id);
+		
+		userEvent.setStatus("declined");		
 	}
 }

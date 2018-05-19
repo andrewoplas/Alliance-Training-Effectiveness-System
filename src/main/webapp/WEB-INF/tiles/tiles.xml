@@ -24,7 +24,7 @@
 	    <put-attribute name="content" value="/WEB-INF/pages/register.jsp" />
 	</definition>
 
-	<!-- Dashboard Pages -->
+	<!-- [Admin] Dashboard Pages -->
 	<definition name="dashboard" extends="default">
 	    <put-attribute name="title" value="ATES - Dashboard" />
 	    <put-attribute name="body" value="/WEB-INF/pages/dashboard.jsp" />
@@ -47,7 +47,7 @@
 		</put-list-attribute>
 	</definition>
 	
-	<!-- User - Users List -->
+	<!-- [Admin] User - Users List -->
 	<definition name="/users/list" extends="default">
 	    <put-attribute name="title" value="ATES - Users" />
 	    <put-attribute name="body" value="/WEB-INF/pages/users.jsp" />
@@ -81,9 +81,7 @@
 			</put-list-attribute>
 		</definition>
 	
-	
-	
-	<!-- User - Users Create -->
+	<!-- [Admin] User - Users Create -->
 	<definition name="/users/create" extends="default">
 	    <put-attribute name="title" value="ATES - User Create" />
 	    <put-attribute name="body" value="/WEB-INF/pages/usersCreate.jsp" />
@@ -97,7 +95,7 @@
 		</put-list-attribute>
 	</definition>
 	
-	<!-- User - Users Edit -->
+	<!-- [Admin] User - Users Edit -->
 	<definition name="/users/edit" extends="default">
 	    <put-attribute name="title" value="ATES - User Create" />
 	    <put-attribute name="body" value="/WEB-INF/pages/usersEdit.jsp" />
@@ -112,7 +110,7 @@
 		</put-list-attribute>
 	</definition>
 	
-	<!-- User -  Registration Request -->
+	<!-- [Admin] User -  Registration Request -->
 	<definition name="/users/request" extends="default">
 	    <put-attribute name="title" value="ATES - User Request" />
 	    <put-attribute name="body" value="/WEB-INF/pages/usersRequest.jsp" />
@@ -128,7 +126,7 @@
 		</put-list-attribute>
 	</definition>
 	
-	<!-- User -  Position -->
+	<!-- [Admin] User -  Position -->
 	<definition name="/users/position" extends="default">
 	    <put-attribute name="title" value="ATES - Position" />
 	    <put-attribute name="body" value="/WEB-INF/pages/usersPosition.jsp" />
@@ -146,7 +144,7 @@
 	</definition>
 	
 	
-	<!-- Training Plan - List -->
+	<!-- [Admin] Training Plan - List -->
 	<definition name="/training/list" extends="default">
 	    <put-attribute name="title" value="ATES - Training Plan" />
 	    <put-attribute name="body" value="/WEB-INF/pages/trainingPlan.jsp" />
@@ -163,7 +161,7 @@
 		</put-list-attribute>
 	</definition>
 	
-	<!-- Training Plan - Create -->
+	<!-- [Admin] Training Plan - Create -->
 	<definition name="/training/create" extends="default">
 	    <put-attribute name="title" value="ATES - Create Training" />
 	    <put-attribute name="body" value="/WEB-INF/pages/trainingCreate.jsp" />
@@ -197,7 +195,7 @@
 		</put-list-attribute>
 	</definition>
 	
-	<!-- Training Plan - Edit -->
+	<!-- [Admin] Training Plan - Edit -->
 	<definition name="/training/edit" extends="default">
 	    <put-attribute name="title" value="ATES - Edit Training" />
 	    <put-attribute name="body" value="/WEB-INF/pages/trainingEdit.jsp" />
@@ -230,5 +228,63 @@
 			<add-attribute value="/js/pages/trainingEdit.js" />
 		</put-list-attribute>
 	</definition>
+		
+	
+	<!-- [General User] Dashboard -->
+	<definition name="/general/dashboard" extends="default">
+	    <put-attribute name="title" value="ATES - Dashboard" />
+	    <put-attribute name="body" value="/WEB-INF/pages/userDashboard.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/timepicker/dist/wickedpicker.min.css" />
+			<add-attribute value="/plugins/calendar/dist/fullcalendar.css" />
+			<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/css/pages/userDashboard.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/waypoints/lib/jquery.waypoints.js" />
+			<add-attribute value="/plugins/counterup/jquery.counterup.min.js" />
+			<add-attribute value="/plugins/moment/moment.js" />
+			<add-attribute value="/plugins/timepicker/dist/wickedpicker.min.js" />
+			<add-attribute value="/plugins/calendar/dist/fullcalendar.min.js" />
+			<add-attribute value="/plugins/calendar/dist/calendar-user-dashboard.js" />
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/js/pages/userDashboard.js" />
+		</put-list-attribute>
+	</definition>
+	
+	<!-- [General User] Trainings -->
+	<definition name="/general/training" extends="default">
+	    <put-attribute name="title" value="ATES - Trainings" />
+	    <put-attribute name="body" value="/WEB-INF/pages/userTraining.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/plugins/footable/css/footable.core.css" />
+	    	<add-attribute value="/css/pages/userTraining.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/plugins/footable/js/footable.all.min.js" />
+			<add-attribute value="/js/pages/userTraining.js" />
+		</put-list-attribute>
+	</definition>
+	
+	<!-- [General User] Invitations -->
+	<definition name="/general/invitation" extends="default">
+	    <put-attribute name="title" value="ATES - Invitations" />
+	    <put-attribute name="body" value="/WEB-INF/pages/userInvitation.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/css/pages/userInvitation.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/js/pages/userInvitation.js" />
+		</put-list-attribute>
+	</definition>	
+	
 		
 </tiles-definitions>
