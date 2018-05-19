@@ -16,10 +16,11 @@ public class TrainingPlan implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="TRAINING_PLAN_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="TRAINING_PLAN_ID_GENERATOR")
 	private int id;
 
-	@Column(name = "courseoutline")
+	@Lob
 	private String courseOutline;
 
 	private String description;

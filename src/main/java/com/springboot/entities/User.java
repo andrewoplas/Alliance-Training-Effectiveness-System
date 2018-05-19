@@ -2,6 +2,7 @@ package com.springboot.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -14,7 +15,8 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="USER_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USER_ID_GENERATOR")
 	private int id;
 
 	private String email;
@@ -28,10 +30,18 @@ public class User implements Serializable {
 
 	private String status;
 
+	//bi-directional many-to-one association to Attendance
+	@OneToMany(mappedBy="user")
+	private List<Attendance> attendances;
+
 	//bi-directional many-to-one association to Position
 	@ManyToOne
 	@JoinColumn(name="position")
 	private Position position;
+
+	//bi-directional many-to-one association to UserEvent
+	@OneToMany(mappedBy="user")
+	private List<UserEvent> userEvents;
 
 	public User() {
 	}
@@ -88,12 +98,56 @@ public class User implements Serializable {
 		this.status = status;
 	}
 
+	public List<Attendance> getAttendances() {
+		return this.attendances;
+	}
+
+	public void setAttendances(List<Attendance> attendances) {
+		this.attendances = attendances;
+	}
+
+	public Attendance addAttendance(Attendance attendance) {
+		getAttendances().add(attendance);
+		attendance.setUser(this);
+
+		return attendance;
+	}
+
+	public Attendance removeAttendance(Attendance attendance) {
+		getAttendances().remove(attendance);
+		attendance.setUser(null);
+
+		return attendance;
+	}
+
 	public Position getPosition() {
 		return this.position;
 	}
 
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+
+	public List<UserEvent> getUserEvents() {
+		return this.userEvents;
+	}
+
+	public void setUserEvents(List<UserEvent> userEvents) {
+		this.userEvents = userEvents;
+	}
+
+	public UserEvent addUserEvent(UserEvent userEvent) {
+		getUserEvents().add(userEvent);
+		userEvent.setUser(this);
+
+		return userEvent;
+	}
+
+	public UserEvent removeUserEvent(UserEvent userEvent) {
+		getUserEvents().remove(userEvent);
+		userEvent.setUser(null);
+
+		return userEvent;
 	}
 
 }

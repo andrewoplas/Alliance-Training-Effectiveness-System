@@ -2,6 +2,7 @@ package com.springboot.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -14,10 +15,15 @@ public class Position implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="POSITION_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="POSITION_ID_GENERATOR")
 	private int id;
 
 	private String description;
+
+	//bi-directional many-to-one association to User
+	@OneToMany(mappedBy="position")
+	private List<User> users;
 
 	public Position() {
 	}
@@ -36,6 +42,28 @@ public class Position implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<User> getUsers() {
+		return this.users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public User addUser(User user) {
+		getUsers().add(user);
+		user.setPosition(this);
+
+		return user;
+	}
+
+	public User removeUser(User user) {
+		getUsers().remove(user);
+		user.setPosition(null);
+
+		return user;
 	}
 
 }

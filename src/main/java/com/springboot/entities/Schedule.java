@@ -16,16 +16,15 @@ public class Schedule implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="SCHEDULE_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SCHEDULE_ID_GENERATOR")
 	private int id;
 
 	@Temporal(TemporalType.DATE)
 	private Date date;
-	
-	@Column(name = "timeend")
+
 	private Time timeEnd;
-	
-	@Column(name = "timestart")
+
 	private Time timeStart;
 	
 	private String color;
