@@ -16,6 +16,8 @@ public class Attendance implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="ATTENDANCE_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ATTENDANCE_ID_GENERATOR")
 	private int id;
 
 	@Temporal(TemporalType.DATE)
@@ -25,12 +27,15 @@ public class Attendance implements Serializable {
 
 	private Time timeOut;
 
-	private int userID;
-
 	//bi-directional many-to-one association to TrainingPlan
 	@ManyToOne
 	@JoinColumn(name="trainingPlanID")
 	private TrainingPlan trainingPlan;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="userID")
+	private User user;
 
 	public Attendance() {
 	}
@@ -67,20 +72,20 @@ public class Attendance implements Serializable {
 		this.timeOut = timeOut;
 	}
 
-	public int getUserID() {
-		return this.userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-
 	public TrainingPlan getTrainingPlan() {
 		return this.trainingPlan;
 	}
 
 	public void setTrainingPlan(TrainingPlan trainingPlan) {
 		this.trainingPlan = trainingPlan;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

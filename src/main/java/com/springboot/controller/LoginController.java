@@ -2,11 +2,12 @@ package com.springboot.controller;
 
 import java.io.IOException;
 
+
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,8 @@ public class LoginController{
 		
 	@Autowired
 	private LoginService loginService;
+	@Autowired
+	Application application;
 		
 	
 	@RequestMapping(value = { "", "/" })
@@ -29,7 +32,7 @@ public class LoginController{
 	}
 	
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.POST)
-	public String login(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
+	public String login(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws MessagingException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
@@ -44,6 +47,7 @@ public class LoginController{
 				// Redirect to user's dashboard
 				if(user.getIsAdmin() == 1) {
 					response.sendRedirect(request.getContextPath() + "/ates/dashboard");
+					application.run();
 				} else {
 					response.sendRedirect(request.getContextPath() + "/ates/training");
 				}

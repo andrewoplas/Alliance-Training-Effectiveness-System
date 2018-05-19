@@ -52,6 +52,26 @@
 		</put-list-attribute>
 	</definition>
 	
+	<!-- SUMMARY OF TRAINING PLAN-->
+	<definition name="pages/summary" extends="default">
+	 <put-attribute name="title" value="ATES - Summary" />
+	    <put-attribute name="body" value="/WEB-INF/pages/summary.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	 
+	    	<add-attribute value="/plugins/inviteUsers/user.css" />
+	    	<add-attribute value="/plugins/forTrainingPlan/summary.css" />
+		</put-list-attribute>
+		<put-list-attribute name="javascripts" inherit="true">
+			
+			<add-attribute value="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" />
+			<add-attribute value="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" />
+			<add-attribute value="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" />
+			<add-attribute value="/plugins/inviteUsers/user.js" /> 
+			</put-list-attribute>
+		</definition>
+	
+	
+	
 	<!-- User - Users Create -->
 	<definition name="/users/create" extends="default">
 	    <put-attribute name="title" value="ATES - User Create" />
