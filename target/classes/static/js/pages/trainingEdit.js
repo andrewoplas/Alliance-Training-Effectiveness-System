@@ -108,7 +108,7 @@ $(document).ready(function() {
 	$.fn.editable.defaults.mode = 'popup';
 	
 	// Validation First Fieldset
-	$('.first-fieldset .validate-empty').blur(function(){
+	$('.first-fieldset .validate-empty, .second-fieldset .validate-empty').blur(function(){
 		if($.trim($(this).val()).length == 0) {
 			$(this).parents('.form-group').addClass('has-error');
 			$(this).parents('.form-group').find('.help-block').removeClass('hide');
@@ -116,8 +116,7 @@ $(document).ready(function() {
 			$(this).parents('.form-group').removeClass('has-error');
 			$(this).parents('.form-group').find('.help-block').addClass('hide');
 		}
-	})	
-	
+	})
 	
 	
 	var pids = $('.pids').val().split(',');
@@ -164,14 +163,17 @@ $(document).ready(function() {
 	$('[data-toggle=tooltip]').tooltip();
 	
 	// Gather Summary Information
-	$('#third-step').on('click', function(){
+	$('#fourth-step').on('click', function(){
 		// First Fieldset
 		var title = $('#training').val();
 		var description = $('#description').val();
 		var calendar = $('#calendar').fullCalendar('clientEvents');
 		
+		// Second Fieldset
+		var location = $('#pac-input').val();
+		var additionalInfo = $('#optional').val();
 		
-		// Second Fieldset				
+		// Third Fieldset				
 		var item = $('#nestable2').nestable('serialize');
 		$.each(item, function(index, value){
 			value['content'] = $('[data-id=' + value.id + ']').find('.dd3-content').first().text();
@@ -180,7 +182,7 @@ $(document).ready(function() {
 			}
 		});
 		
-		// Third Fieldset
+		// Fourth Fieldset
 		var supervisors = [], facilitators = [], participants  = [];				
 		$.each($('#supervisor-select').dropdown('get activeItem'), function(index, value){
 			supervisors.push($(value).text());
@@ -220,13 +222,9 @@ $(document).ready(function() {
 		});
 		
 		$('#schedule-table tbody').html(scheduleHTML);
-//		if (!$.fn.dataTable.isDataTable('#schedule-table')) {
-//			$('#schedule-table').DataTable({
-//		        "paging":   false,
-//		        "info":     false,
-//		        "searching": false
-//		    });
-//		}
+		
+		$('[data-value=location]').text(location);
+		$('[data-value=additional-location]').text(additionalInfo);
 		
 		var courseOutlineHTML = $('<ol id="parent-outline"></ol>');
 		$.each(item, function(index, value){
@@ -301,7 +299,7 @@ $(document).ready(function() {
 	
 	$(".submit").on('click', function(){		
 		$("#ajax-process").modal('show');
-		
+		console.log(trainingPlanObject);
 		$.ajax({
 			url: "/ates/training/edit",
 			type: 'POST',

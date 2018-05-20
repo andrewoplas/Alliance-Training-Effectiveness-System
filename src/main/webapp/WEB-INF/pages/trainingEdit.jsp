@@ -58,8 +58,9 @@
 					<!-- progressbar -->
 					<ul id="eliteregister">
 						<li class="active first-li">Schedule</li>
-						<li class="second-li">Course Outline</li>
-						<li class="third-li">Invite People</li>
+						<li class="second-li">Location</li>
+						<li class="third-li">Course Outline</li>
+						<li class="fourth-li">Invite People</li>
 						<li>Finalize</li>
 					</ul>
 					
@@ -108,6 +109,40 @@
 					
 					<!-- fieldsets 2 -->
 					<fieldset class="second-fieldset">
+						<h2 class="fs-title">Location</h2>
+						
+						<br/>
+						<div class="floating-labels">
+							<div class="form-group m-b-30">
+				                <input type="text" id="pac-input" class="form-control validate-empty" required="" placeholder="">
+				                <span class="highlight"></span>
+				                <span class="bar"></span>
+				                <label for="pac-input">Location</label>
+				                <span class="help-block help-block-empty hide">
+				                	<small class="text-danger"><i class="mdi mdi-close-circle-outline"></i> Don't leave this field empty</small>
+				                </span>
+				            </div>
+				            
+				            <div id="map" style="height: 60vh; width: 100%;"></div>
+				            
+				            <div class="form-group m-t-40">
+				                <input type="text" id="optional" class="form-control" placeholder="e.g. Room A204, 2nd Floor, Bldg. Name">
+				                <span class="highlight"></span>
+				                <span class="bar"></span>
+				                <label for="optional">Additional Information (Optional)</label>
+				            </div>
+						</div>
+									
+						<button type="button" name="previous" class="m-t-30 btn waves-effect waves-light previous action-button btn-raised btn-fixed">
+							Previous
+						</button>
+						<button type="button" name="next" class="m-t-30 btn waves-effect waves-light next action-button btn-raised btn-fixed" id="second-step">
+							Next
+						</button>	
+					</fieldset>
+					
+					<!-- fieldsets 3 -->
+					<fieldset class="third-fieldset">
 						<h2 class="fs-title">Objectives and Course Outline</h2>
 						                    	
 						                    	
@@ -128,13 +163,13 @@
 						<button type="button" name="previous" class="m-t-30 btn waves-effect waves-light previous action-button btn-raised btn-fixed">
 							Previous
 						</button>
-						<button type="button" name="next" class="m-t-30 btn waves-effect waves-light next action-button btn-raised btn-fixed" id="second-step">
+						<button type="button" name="next" class="m-t-30 btn waves-effect waves-light next action-button btn-raised btn-fixed" id="third-step">
 							Next
 						</button>						
 					</fieldset>
 					
 					<!-- fieldsets 3 -->
-					<fieldset class="third-fieldset">
+					<fieldset class="fourth-fieldset">
 						<h2 class="fs-title">Invite People</h2>
 							<div class="panel-group" role="tablist" aria-multiselectable="true">
 								
@@ -228,14 +263,14 @@
 						<button type="button" name="previous" class="m-t-30 btn waves-effect waves-light previous action-button btn-raised btn-fixed">
 							Previous
 						</button>
-						<button type="button" name="next" class="m-t-30 btn waves-effect waves-light next action-button btn-raised btn-fixed" id="third-step">
+						<button type="button" name="next" class="m-t-30 btn waves-effect waves-light next action-button btn-raised btn-fixed" id="fourth-step">
 							Next
 						</button>	
 						
 					</fieldset>
 					
-					<!-- fieldsets 4 -->
-					<fieldset class="fourth-fieldset remove-card">
+					<!-- fieldsets 5 -->
+					<fieldset class="fifth-fieldset remove-card">
 						<div class="row m-b-30">
 							<div class="col-md-12 "> 
 								<p class="bg-info summary-container"> SUMMARY </p>
@@ -294,9 +329,36 @@
                             	<div class="pull-left"> 
                             		<a href="javascript:void(0)" data-perform="panel-collapse"><i class="ti-minus"></i></a>
                             	</div>
+                            	Location
+                                <div class="pull-right">
+                                	<a href="javascript:void(0)" class="fieldset-goto" fieldset=second data-toggle="tooltip" title="Edit Section" data-placement="left">
+                                		<i class="ti-pencil-alt"></i>
+                               		</a>
+                                </div>
+                            </div>
+                            <div class="panel-wrapper collapse in" aria-expanded="true">
+                                <div class="panel-body text-left">
+									<div class="row m-b-20">
+                                		<div class="col-md-3"><b>Location</b></div>
+                                		<div class="col-md-9"><span data-value="location"></span></div>
+                                	</div>
+                                	
+                                	<div class="row m-b-20">
+                                		<div class="col-md-3"><b>Additional Information</b></div>
+                                		<div class="col-md-9"><span data-value="additional-location"></span></div>
+                                	</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="panel panel-default">
+                            <div class="panel-heading"> 
+                            	<div class="pull-left"> 
+                            		<a href="javascript:void(0)" data-perform="panel-collapse"><i class="ti-minus"></i></a>
+                            	</div>
                             	Course Outline
                                 <div class="pull-right">
-                                	<a href="javascript:void(0)" class="fieldset-goto" fieldset="second" data-toggle="tooltip" title="Edit Section" data-placement="left">
+                                	<a href="javascript:void(0)" class="fieldset-goto" fieldset="third" data-toggle="tooltip" title="Edit Section" data-placement="left">
                                 		<i class="ti-pencil-alt"></i>
                                		</a>
                                 </div>
@@ -317,7 +379,7 @@
                             	</div>
                             	People
                                 <div class="pull-right">
-                                	<a href="javascript:void(0)" class="fieldset-goto" fieldset="third" data-toggle="tooltip" title="Edit Section" data-placement="left">
+                                	<a href="javascript:void(0)" class="fieldset-goto" fieldset="fourth" data-toggle="tooltip" title="Edit Section" data-placement="left">
                                 		<i class="ti-pencil-alt"></i>
                                		</a>
                                 </div>

@@ -14,34 +14,42 @@ $(function() {
 			if($.trim($(this).val()).length == 0) {
 				$(this).parents('.form-group').addClass('has-error');
 				$(this).parents('.form-group').find('.help-block-empty').removeClass('hide');
-				error = true;
 				hash.push($(this).attr('id'));
+				error = true;
 			} else if ($(this).parents('.form-group').hasClass('has-error')) {
-				error = true;
 				hash.push($(this).attr('id'));
+				error = true;
 			}
 		});
 		
 		// First fieldset
 		if($('#calendar').fullCalendar('clientEvents').length == 0 && $(this).attr('id') == 'first-step') {
 			$('#calendar').parent().find('.help-block-schedule').removeClass('hide');
-			error = true;
 			hash.push('calendar');
+			error = true;
 		}
 		
 		// Second fieldset
-		if($('#nestable2').nestable('serialize').length == 0 && $(this).attr('id') == 'second-step') {
-			$('#nestable2').parents('fieldset').find('.help-block-outline').removeClass('hide');
+		if($('#pac-input').val().length == 0 && $(this).attr('id') == 'second-step') {
+			$('#pac-input').parents('.form-group').addClass('has-error');
+			$('#pac-input').parent().find('.help-block-empty').removeClass('hide');
+			hash.push('pac-input');
 			error = true;
 		}
 		
 		// Third fieldset
-		if($(this).attr('id') == 'third-step') {
+		if($('#nestable2').nestable('serialize').length == 0 && $(this).attr('id') == 'third-step') {
+			$('#nestable2').parents('fieldset').find('.help-block-outline').removeClass('hide');
+			error = true;
+		}
+		
+		// Fourth fieldset
+		if($(this).attr('id') == 'fourth-step') {
 			$('.multi-select').each(function(){
-				if(($(this).dropdown('get value')).length == 0) {
+				if(($(this).dropdown('get value')) == null) {
 					$(this).parents('.panel').find('.help-block').removeClass('hide');
-					error = true;
 					hash.push($(this).parents('.panel-collapse').attr('id'));
+					error = true;
 				}
 			});
 		}

@@ -76,7 +76,6 @@ function($) {
 		url: "/ates/training/getTrainings",
 		type: 'GET',
 		success: function(data, textStatus, jqXHR) {
-			console.log(data);
 			var defaultEvents =  [];
 			var length = data.length;
 			var dateTemp, dateStart, dateEnd;

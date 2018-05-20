@@ -54,7 +54,7 @@
 	            data: data,
 	            success: function(data, textStatus, jqXHR) {
 	                if(data == true){
-                        swal({   
+                        swal({
                            title: "Successfully Registered",
                            type: "success",
                            text: "You will be redirected to the login page...",   

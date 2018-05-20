@@ -46,6 +46,7 @@ public class TrainingPlanController {
 		List<User> users = usersService.retrieveApprovedUsers();
 		
 		map.addAttribute("users", users);
+		map.addAttribute("map", true);
 		return "/training/create";
 	}
 	
@@ -62,6 +63,7 @@ public class TrainingPlanController {
 		TrainingPlan training = tpService.retrieveTraining(id);
 		
 		map.addAttribute("users", users);
+		map.addAttribute("map", true);
 		if(training != null) {
 			map.addAttribute("training", training);
 		}		

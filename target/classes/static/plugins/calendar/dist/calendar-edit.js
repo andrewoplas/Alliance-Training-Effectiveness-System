@@ -40,6 +40,27 @@
             var form = $("<form class='floating-labels'></form>");
             form.append("<div class='row'></div>");
             form.find(".row")
+            	.append("<div class='col-md-12'>" +
+                		"    <div class='form-group'>" +
+                		"        <select id='bg' class='form-control validate-empty p-0' name='bg' required=''>" +
+                		"			<option value='event-red'>Red</option>" +	
+                		"        	<option value='event-pink'>Pink</option>" +	
+                		"        	<option value='event-purple'>Purple</option>" +		
+                		"        	<option value='event-indigo'>Indigo</option>" +	
+                		"        	<option value='event-blue'>Blue</option>" +	
+                		"        	<option value='event-teal'>Teal</option>" +	
+                		"        	<option value='event-green'>Green</option>" +	
+                		"        	<option value='event-orange'>Orange</option>" +	
+                		"        	<option value='event-brown'>Brown</option>" +
+                		"        </select>" +
+                		"        <span class='highlight'></span>" +
+                		"        <span class='bar'></span>" +
+                		"        <label for='bg'>Event Color</label>" +
+                		"		 <span class='help-block help-select-empty hide'>" +
+	                	"		 <small class='text-danger'><i class='mdi mdi-close-circle-outline'></i> You haven't selected a training color yet!</small>" +
+	                	"		</span>" +
+                		"    </div>" +
+                		"</div>")
             	.append("<div class='col-md-6'>" +
 	            		"    <div class='form-group'>" +
 	            		"        <input type='text' id='start_time' class='form-control timepicker' name='start_time' required=''/>" +
@@ -72,11 +93,15 @@
                 });
                 $this.$modal.modal('hide');
             });
+            
+            $this.$modal.find('#bg option[value="' + calEvent.className[0] + '"]').attr('selected', 'selected');
+            
             $this.$modal.find('form').on('submit', function () {
                 var beginning = form.find("input[name='start_time']").val();
                 var ending = form.find("input[name='end_time']").val();
                 var beginningObj = moment(beginning, 'hh : mm A');
                 var endingObj = moment(ending, 'hh : mm A');
+                var bgClassName = form.find("select[name='bg']").val();
                 	
                 // Set Time Start
                 calEvent.start.set('hour', beginningObj.get('hour'));
@@ -85,6 +110,9 @@
                 // Set Time End
                 calEvent.end.set('hour', endingObj.get('hour'));
                 calEvent.end.set('minute', endingObj.get('minute'));
+                
+                // Set className
+                calEvent.className[0] = bgClassName;
                 
                 $this.$calendarObj.fullCalendar('updateEvent', calEvent);
                 $this.$modal.modal('hide');
@@ -117,7 +145,7 @@
                 		"</div>")
         		.append("<div class='col-md-4'>" +
                 		"    <div class='form-group'>" +
-                		"        <select type='text' id='bg' class='form-control validate-empty p-0' name='bg' required='' >" +
+                		"        <select id='bg' class='form-control validate-empty p-0' name='bg' required=''>" +
                 		"        	<option value='' selected disabled></option>" +
                 		"			<option value='event-red'>Red</option>" +	
                 		"        	<option value='event-pink'>Pink</option>" +	
@@ -132,8 +160,8 @@
                 		"        <span class='highlight'></span>" +
                 		"        <span class='bar'></span>" +
                 		"        <label for='bg'>Event Color</label>" +
-                		"		 <span class='help-block help-block-empty hide'>" +
-	                	"		 <small class='text-danger'><i class='mdi mdi-close-circle-outline'></i> You don't have a training color yet!</small>" +
+                		"		 <span class='help-block help-select-empty hide'>" +
+	                	"		 <small class='text-danger'><i class='mdi mdi-close-circle-outline'></i> You haven't selected a training color yet!</small>" +
 	                	"		</span>" +
                 		"    </div>" +
                 		"</div>")
@@ -169,11 +197,23 @@
             	$('#title').parents('.form-group').find('.help-block').removeClass('hide');
             }
             
+            $this.$modal.find('#bg').on('change', function () {
+            	$('#bg').parents('.form-group').removeClass('has-error');
+            	$('#bg').parents('.form-group').find('.help-select-empty').addClass('hide');
+            });
+            
             $this.$modal.find('form').on('submit', function () {
                 var title = form.find("input[name='title']").val();
                 var bgClassName = form.find("select[name='bg']").val();
                 var beginning = form.find("input[name='start_time']").val();
                 var ending = form.find("input[name='end_time']").val();
+                
+                if($.trim($('#bg').val()).length == 0) { 
+                	$('#bg').parents('.form-group').addClass('has-error');
+                	$('#bg').parents('.form-group').find('.help-select-empty').removeClass('hide');
+                	
+                	return false;
+                }
                 
                 if (title !== null && title.length != 0) {
                 	var beginningObj = moment(beginning, 'hh : mm A');

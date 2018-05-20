@@ -47,12 +47,18 @@
 	    <script type="text/javascript" src="/js/jquery.slimscroll.js"></script>
 	    <script type="text/javascript" src="/js/waves.js"></script>
 	    <script type="text/javascript" src="/js/custom.min.js"></script>
-	    	    
+	    	    	    
 		<tiles:importAttribute name="javascripts" />
 	    <c:forEach var="script" items="${javascripts}">
 		    <script type="text/javascript" src="<c:out value='${script}' />"></script>
 		</c:forEach>
-	  	    
+		
+		<c:if test="${map == true}">
+			<script type="text/javascript" src="/plugins/google/map/map.js"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz1soD04ng1I-BomUp18X3XceFl4Bw7_k&libraries=places&callback=initAutocomplete"
+         	async defer></script>
+         </c:if>
+         
 	    <script src="/plugins/styleswitcher/jQuery.style.switcher.js"></script>	
 	</body>
 </html>
