@@ -94,7 +94,7 @@
 				
 				if($('#timeIn [name=user_id]').val().length > 0) {
 					var dataId = $('#timeIn [name=user_id]').val();
-					$('[data-id='+dataId+']').find('.timeIn').text($('#timepickerTimeIn').val())
+					$('li.selected').find('[data-id=' + dataId + ']').find('.timeIn').text($('#timepickerTimeIn').val())
 				}
 				
 				swal({   
@@ -139,7 +139,7 @@
 
 					if($('#timeOut [name=user_id]').val().length > 0) {
 						var dataId = $('#timeOut [name=user_id]').val();
-						$('[data-id='+dataId+']').find('.timeOut').text($('#timepickerTimeOut').val())
+						$('li.selected').find('[data-id=' + dataId + ']').find('.timeOut').text($('#timepickerTimeOut').val())
 					}
 					
 					swal({   
