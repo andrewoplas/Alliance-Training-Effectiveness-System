@@ -1,7 +1,9 @@
 package com.springboot.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class UsersController {
 	
 	@Autowired
 	UsersService usersService;
+	
+	
+	
 	
 	@Autowired
 	PositionService positionService;
@@ -66,7 +71,7 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ResponseEntity create(HttpServletRequest request) {
+	public ResponseEntity create(HttpServletRequest request) throws MessagingException, IOException {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String position = request.getParameter("position");
@@ -85,7 +90,7 @@ public class UsersController {
 	}	
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public ResponseEntity editUser(HttpServletRequest request) {
+	public ResponseEntity editUser(HttpServletRequest request) throws MessagingException, IOException {
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");

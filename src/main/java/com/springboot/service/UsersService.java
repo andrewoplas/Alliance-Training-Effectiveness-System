@@ -1,10 +1,12 @@
 package com.springboot.service;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.hash.Hashing;
+import com.springboot.controller.Application;
 import com.springboot.entities.Position;
 import com.springboot.entities.User;
 import com.springboot.entities.custom.CustomUser;
@@ -29,6 +32,8 @@ public class UsersService {
 	@Autowired
 	private RegisterRepository registerRepository;
 	
+	@Autowired
+	Application application;
 	
 	public List<CustomUser> retrieveUsers() {
 		List data = usersRepository.retrieveUsers(em);
@@ -104,7 +109,7 @@ public class UsersService {
 		}
 	}
 	
-	public String insertUser(String name, String email, String position) {
+	public String insertUser(String name, String email, String position) throws MessagingException, IOException {
 		String result = "success";
 		String password = getRandomPassword();
 		if(registerRepository.contains(em, email)) {
@@ -126,6 +131,8 @@ public class UsersService {
 			user.setAttendances(null);
 			
 			// Marc Email Send
+			application.run(hashedPassword,email);
+			
 			
 			registerRepository.insertUser(em, user);
 		}
@@ -133,7 +140,7 @@ public class UsersService {
 		return result;
 	}
 	
-	public String editUser(String id, String name, String email, String position, String password) {
+	public String editUser(String id, String name, String email, String position, String password) throws MessagingException, IOException {
 		String result = "success";
 		
 		if(usersRepository.containsByIdAndString(em, email, id)) {
@@ -152,6 +159,7 @@ public class UsersService {
 				user.setPassword(hashedPassword);
 				
 				// Marc Email Send
+				application.run(hashedPassword,email);
 			} 
 			
 			usersRepository.editUser(em, user);

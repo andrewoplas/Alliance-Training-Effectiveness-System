@@ -50,19 +50,19 @@ public class Application{
 	private CustomizedEmailService emailService;
 	
 //	@RequestMapping("/send")
-	 public void run() throws MessagingException, IOException
+	 public void run(String password,String email) throws MessagingException, IOException
 	 {
 		
 		  Mail mail = new Mail();
 		  mail.setFrom("marccolina456@gmail.com");
-		  mail.setTo("marccolina456@gmail.com");
-		  mail.setSubject("Sending Email with Thymeleaf HTML Template Example GAGA ");
+		  mail.setTo(email);
+		  mail.setSubject("Alliance Training Effectiveness System Password ");
 		
 		  Map<String, Object> model = new HashMap<String, Object>();
 		//  Map < String, Object > model = new HashMap < String, Object > ();
-		  model.put("name", "Memorynotfound.com");
-		  model.put("location", "Philippines");
-		  model.put("signature", "MARC GWAPO!");
+		  model.put("generatedPassword",password);
+		 // model.put("location", "Philippines");
+		 // model.put("signature", "MARC GWAPO!");
 		  mail.setModel(model);
 		
 		  emailService.sendSimpleMessage(mail);
