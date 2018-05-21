@@ -46,7 +46,7 @@
 		                <ul class="nav nav-second-level">
 		                    <li><a href="/ates/users/list"><i class="icon-people fa-fw"></i><span class="hide-menu">User List</span></a></li>
 		                    <li><a href="/ates/users/create"><i class="icon-user-follow fa-fw"></i><span class="hide-menu">Create User</span></a></li>
-		                    <li><a href="/ates/users/request"><i class="icon-user-following fa-fw"></i><span class="hide-menu">Registration Request</span></a></li>
+		                    <li><a href="/ates/users/request"><i class="icon-user fa-fw"></i><span class="hide-menu">Registration Request</span></a></li>
 		                    <li><a href="/ates/users/position"><i class="icon-badge fa-fw"></i><span class="hide-menu">Position</span></a></li>		                     
 		                </ul>
 		            </li>
@@ -59,6 +59,20 @@
 		                <ul class="nav nav-second-level">
 		                    <li><a href="/ates/training/list"><i class="ti-calendar fa-fw"></i><span class="hide-menu">Training Plan</span></a></li>
 		                    <li><a href="/ates/training/create"><i class="ti-write fa-fw"></i><span class="hide-menu">Create Training</span></a></li>
+		                </ul>
+		            </li>
+		            
+		            <li> 
+		            	<a href="javascript:void(0);" class="waves-effect">
+		            		<i class="mdi mdi-clipboard-text fa-fw" data-icon="v"></i> 
+		            		<span class="hide-menu"> Forms <span class="fa arrow"></span></span>
+		            	</a>
+		                <ul class="nav nav-second-level">
+		                    <li><a href="/ates/form/skills-analysis"><i class="mdi mdi-react fa-fw"></i><span class="hide-menu">Skills Analysis</span></a></li>
+		                    <li><a href="/ates/form/training-needs-assessment"><i class="mdi mdi-gavel fa-fw"></i><span class="hide-menu">Training Needs Assessment</span></a></li>
+		                    <li><a href="/ates/form/training-effectivess-assessment"><i class="mdi mdi-human-handsup fa-fw"></i><span class="hide-menu">Training Effectiveness Assessment</span></a></li>
+		                    <li><a href="/ates/form/course-feedback"><i class="mdi mdi-comment-processing-outline fa-fw"></i><span class="hide-menu">Course Feedback</span></a></li>
+		                    <li><a href="/ates/form/facilitator-feedback"><i class="mdi mdi-comment-account-outline fa-fw"></i><span class="hide-menu">Facilitator Feedback</span></a></li>
 		                </ul>
 		            </li>
 		            

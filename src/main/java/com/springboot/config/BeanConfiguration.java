@@ -32,6 +32,7 @@ public class BeanConfiguration extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(new AdminInterceptor())
 			.addPathPatterns("/ates/users/**")
 			.addPathPatterns("/ates/training/**")
+			.addPathPatterns("/ates/form/**")
 			.addPathPatterns("/ates/dashboard");
 		
 	}

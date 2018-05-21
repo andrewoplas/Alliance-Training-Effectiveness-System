@@ -1,8 +1,19 @@
 package com.springboot.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -39,6 +50,10 @@ public class TrainingPlan implements Serializable {
 	private List<UserEvent> userEvents;
 
 	public TrainingPlan() {
+	}
+	
+	public TrainingPlan(int id) {
+		this.id = id;
 	}
 
 	public int getId() {
@@ -137,6 +152,31 @@ public class TrainingPlan implements Serializable {
 		userEvent.setTrainingPlan(null);
 
 		return userEvent;
+	}
+	
+	public String getStatus() {
+		String status = null;
+		
+		Date dateStart = schedules.get(0).getStartDate();
+		Date dateEnd = schedules.get(schedules.size() - 1).getEndDate();
+		Date now = new Date();
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		System.out.println("Start Date : " + dateFormat.format(dateStart));
+		System.out.println("End Date : " + dateFormat.format(dateEnd));
+		System.out.println("Now : " + dateFormat.format(now));
+			
+		if (now.after(dateEnd)) {
+            status = "Accomplished";
+        } else if (now.before(dateStart)) {
+            status = "Incoming";
+        } else if (now.equals(dateStart) || now.equals(dateEnd)) {
+        	status = "Ongoing";
+        } else {
+        	status = "Ongoing";
+        }
+		
+		return status;
 	}
 
 }

@@ -1,9 +1,19 @@
 package com.springboot.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Time;
+import java.util.Calendar;
 import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -83,5 +93,27 @@ public class Schedule implements Serializable {
 	public void setTrainingPlan(TrainingPlan trainingPlan) {
 		this.trainingPlan = trainingPlan;
 	}
-
+	
+	public Date getStartDate() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(date.getYear() + 1900, date.getMonth(), date.getDate(), timeStart.getHours(), timeStart.getMinutes(), timeStart.getSeconds());
+		return cal.getTime();
+	}
+	
+	public Date getEndDate() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(date.getYear() + 1900, date.getMonth(), date.getDate(), timeEnd.getHours(), timeEnd.getMinutes(), timeEnd.getSeconds());
+		return cal.getTime();
+	}
+	
+	public boolean isEquals(Date firstDate, Date secondDate) {
+		Calendar cal1 = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		cal1.setTime(firstDate);
+		cal2.setTime(secondDate);
+		boolean sameDay = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+		              cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
+		
+		return sameDay;
+	}
 }

@@ -197,5 +197,7 @@
 	        });
 	    }, 500);
 	});
+	
+	$('.ui.dropdown').dropdown();
 
 })(jQuery);

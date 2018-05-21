@@ -1,7 +1,7 @@
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
-	
+		
 	<div id="page-wrapper">
           <div class="container-fluid">
               <div class="row bg-title">
@@ -47,7 +47,7 @@
 		                                <thead>
 		                                    <tr>
 		                                        <th data-toggle="true" class="p-l-30">Training</th>
-		                                        <th class="text-center"># of Participants</th>
+		                                        <th class="text-center">Status</th>
 		                                        <th>Start Date</th>
 		                                        <th>End Date</th>
 		                                        <th>Action</th>
@@ -58,27 +58,50 @@
 		                                </thead>
 		                                <tbody>
 		                                	<c:forEach var="training" items="${trainings}">
-		                                		<c:set var="count" value="0"/>
-	                                			<c:forEach var="userEvent" items="${training.userEvents}">
-	                                				<c:if test="${userEvent.role == 'Participant'}">
-	                                					<c:set var="count" value="${count + 1}" />
-	                                				</c:if>
-	                                			</c:forEach>
+<%-- 		                                		<c:set var="count" value="0"/> --%>
+<%-- 	                                			<c:forEach var="userEvent" items="${training.userEvents}"> --%>
+<%-- 	                                				<c:if test="${userEvent.role == 'Participant'}"> --%>
+<%-- 	                                					<c:set var="count" value="${count + 1}" /> --%>
+<%-- 	                                				</c:if> --%>
+<%-- 	                                			</c:forEach> --%>
 		                                			
 		                                		<tr data-id="${training.id}">
 			                                        <td width="30%">${training.title}</td>
-			                                        <td width="20%" class="text-center">${count}</td>
+			                                        <td width="20%" class="text-center">
+			                                        	<c:set var="status" value="${training.getStatus()}" />
+			                                        	<c:choose>
+			                                        		<c:when test="${status == 'Accomplished'}">
+			                                        			<span class="badge badge-success">Accomplished</span>
+			                                        		</c:when>
+			                                        		<c:when test="${status == 'Incoming'}">
+			                                        			<span class="badge badge-info">Incoming</span>
+			                                        		</c:when>
+			                                        		<c:when test="${status == 'Ongoing'}">
+			                                        			<span class="badge badge-warning">Ongoing</span>
+			                                        		</c:when>
+			                                        	</c:choose>
+			                                        </td>
 			                                        <td width="15%">
 			                                        	<fmt:parseDate pattern="yyyy-MM-dd" value="${training.schedules.get(0).date}" var="start_date" />
 														<fmt:formatDate value="${start_date}" pattern="MMM dd, yyyy" />
 		                                        	</td>
 			                                        <td width="15%">
-			                                        	<fmt:parseDate pattern="yyyy-MM-dd" value="${training.schedules.get(training.schedules.size()-1).date}" var="start_date" />
-														<fmt:formatDate value="${start_date}" pattern="MMM dd, yyyy" />	
+			                                        	<fmt:parseDate pattern="yyyy-MM-dd" value="${training.schedules.get(training.schedules.size()-1).date}" var="end_date" />
+														<fmt:formatDate value="${end_date}" pattern="MMM dd, yyyy" />	
 													</td>
 			                                        <td width="20%">
+			                                        	<a href="/ates/training/${training.id}">
+				                                        	<button type="button" class="btn btn-success btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="View Training" data-placement="top">
+				                                        		<i class="mdi mdi-eye"></i>
+			                                        		</button>
+		                                        		</a>
+		                                        		<a href="/ates/training/attendance/${training.id}">
+				                                        	<button type="button" class="btn btn-primary btn-outline btn-circle m-r-10 p-t-0 p-b-0" data-toggle="tooltip" title="View Attendance" data-placement="top">
+				                                        		<i class="mdi mdi-account-check"></i>
+			                                        		</button>
+		                                        		</a>
 			                                        	<a href="/ates/training/edit/${training.id}">
-				                                        	<button type="button" class="btn-edit btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Edit" data-placement="top">
+				                                        	<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Edit" data-placement="top">
 				                                        		<i class="mdi mdi-lead-pencil"></i>
 			                                        		</button>
 		                                        		</a>

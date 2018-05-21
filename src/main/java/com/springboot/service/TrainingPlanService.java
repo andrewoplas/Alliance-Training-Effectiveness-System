@@ -5,6 +5,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,8 +18,10 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.primitives.Ints;
 import com.springboot.body.EventDay;
 import com.springboot.body.Training;
+import com.springboot.entities.Attendance;
 import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.User;
@@ -240,4 +247,153 @@ public class TrainingPlanService {
 		
 		return schedules;
 	}
+	
+	public List<User> retrieveTrainingParticipants(String id) {
+		try {
+			TrainingPlan training =  tpRepository.retrieveTraining(em, Integer.parseInt(id));
+			
+			if(training != null) {
+				List<UserEvent> userEvents = training.getUserEvents(); 
+				List<User> participants = new ArrayList<User>();
+				
+				for(UserEvent userEvent : userEvents) {
+					if(userEvent.getRole().equals("Participant" )) {
+						participants.add(userEvent.getUser());
+					}
+				}
+				
+				// Sort
+				Collections.sort(participants, new Comparator<User>() {
+				    @Override
+				    public int compare(User a, User b) {
+				        // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+				        return a.getName().compareTo(b.getName());
+				    }
+				});
+				
+				return participants;
+			}					
+		} catch (NumberFormatException ex) { return null; }
+		
+		return null;
+	}
+
+	public List<Schedule> sortSchedule(List<Schedule> schedules) {
+		
+		Collections.sort(schedules, new Comparator<Schedule>() {
+		    @Override
+		    public int compare(Schedule lhs, Schedule rhs) {
+		        // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+		        return lhs.getDate().before(rhs.getDate()) ? -1 : (lhs.getDate().after(rhs.getDate())) ? 1 : 0;
+		    }
+		});
+		
+		return schedules;
+	}
+
+	public void insertAttendance(String trainingId, String ids, String time, String date) {
+		try {
+			SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+			Time timeIn = new Time(timeFormatter.parse(time).getTime());
+			Date timeInDate = dateFormatter.parse(date);
+			int[] intArray = Arrays.stream(ids.split(","))
+				    .mapToInt(Integer::parseInt)
+				    .toArray();
+			int training = Integer.parseInt(trainingId);
+			
+			List<Attendance> attendances = new ArrayList<Attendance>();
+			for(int i=0; i<intArray.length; i++) {
+				Attendance attendance = new Attendance();
+				attendance.setDate(timeInDate);
+				attendance.setTimeIn(timeIn);
+				attendance.setTrainingPlan(new TrainingPlan(training));
+				attendance.setUser(new User(intArray[i]));
+				
+				attendances.add(attendance);
+			}
+			
+			tpRepository.insertAttendance(em, attendances);
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public String insertTimeOutAttendance(String trainingId, String ids, String time, String date) {
+		try {
+			int[] intArray = Arrays.stream(ids.split(","))
+				    .mapToInt(Integer::parseInt)
+				    .toArray();
+			int training = Integer.parseInt(trainingId);
+			SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date timeOutDate = dateFormatter.parse(date);
+			
+			if(!tpRepository.checkHasTimeIn(em, (List<Integer>) Ints.asList(intArray), training, timeOutDate)) {
+				return "timein_violation";
+			}
+			
+			SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+			Time timeOut = new Time(timeFormatter.parse(time).getTime());
+			
+			List<Attendance> attendances = new ArrayList<Attendance>();
+			for(int i=0; i<intArray.length; i++) {
+				Attendance attendance = new Attendance();
+				attendance.setDate(timeOutDate);
+				attendance.setTimeOut(timeOut);
+				attendance.setTrainingPlan(new TrainingPlan(training));
+				attendance.setUser(new User(intArray[i]));
+				
+				attendances.add(attendance);
+			}
+			
+			tpRepository.insertTimeOutAttendance(em, attendances);
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	public void insertAbsentAttendance(String trainingId, String id, String date) {
+		try {
+			Attendance attendance = new Attendance();
+			attendance.setUser(new User(Integer.parseInt(id)));
+			attendance.setTrainingPlan(new TrainingPlan(Integer.parseInt(trainingId)));
+			
+			SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+		    Time emptyTime = new Time(timeFormatter.parse("00:00:01").getTime());
+		    Date timeDate = dateFormatter.parse(date);
+		    
+			attendance.setTimeIn(emptyTime);
+			attendance.setTimeOut(emptyTime);
+			attendance.setDate(timeDate);
+			
+			tpRepository.insertAbsentAttendance(em, attendance);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public void resetAttendance(String trainingId, String id, String date) {
+		try {
+			SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		    Date timeDate = dateFormatter.parse(date);
+			
+			Attendance attendance = new Attendance();
+			attendance.setUser(new User(Integer.parseInt(id)));
+			attendance.setTrainingPlan(new TrainingPlan(Integer.parseInt(trainingId)));
+			attendance.setDate(timeDate);
+						
+			tpRepository.resetAttendance(em, attendance);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	
+	
+	
 }

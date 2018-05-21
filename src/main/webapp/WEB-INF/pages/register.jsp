@@ -12,6 +12,7 @@
 	
 	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
 	<link rel="stylesheet" type="text/css" href="/plugins/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/plugins/semantic/css/semantic.min.css">
 	<link rel="stylesheet" type="text/css" href="/plugins/sweetalert/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/fonts/iconic/css/material-design-iconic-font.min.css">
@@ -33,9 +34,30 @@
 					</span>
 					
 					<div class="wrap-input100 validate-input" data-validate="Enter your full name">
-						<input class="input100" type="text" name="name">
+						<input class="input100" type="text" name="name" />
 						<span class="focus-input100" data-placeholder="Name"></span>
 					</div>
+						
+<!-- 					<div class="ui inline dropdown"> -->
+<!-- 				    	<div class="text"> -->
+<!-- 					      	<img class="ui avatar image" src="/images/avatar/001-man-13.png"> -->
+<!-- 					      	Avatar 1 -->
+<!-- 					    </div> -->
+<!-- 					    <i class="dropdown icon"></i> -->
+					    
+<!-- 					    <div class="menu"> -->
+<!-- 				      		<div class="item"> -->
+<!-- 					        	<img class="ui avatar image" src="/images/avatar/001-man-13.png"> -->
+<!-- 					        	Avatar 1 -->
+<!-- 				      		</div> -->
+				      		
+<!-- 				      		<div class="item"> -->
+<!-- 					        	<img class="ui avatar image" src="/images/avatar/001-man-13.png"> -->
+<!-- 					        	Avatar 1 -->
+<!-- 				      		</div> -->
+					      
+<!-- 			    		</div> -->
+<!-- 				  	</div> -->
 					
 					<div class="wrap-input100 validate-input" data-validate="Enter valid email" data-email="Email already exist">
 						<input class="input100" type="email" name="email">
@@ -92,6 +114,8 @@
 		
 	<script type="text/javascript" src="/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/plugins/sweetalert/sweetalert.min.js"></script>
+	<script type="text/javascript" src="/plugins/semantic/js/transition.min.js"></script>
+	<script type="text/javascript" src="/plugins/semantic/js/dropdown.min.js"></script>	
 	<script type="text/javascript" src="/js/pages/register.js"></script>
 </body>
 </html>

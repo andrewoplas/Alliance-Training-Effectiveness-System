@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springboot.body.Training;
+import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.User;
 import com.springboot.entities.custom.CustomSchedule;
@@ -90,5 +91,67 @@ public class TrainingPlanController {
 		List<CustomSchedule> schedules = tpService.retrieveTrainingCustomSchedules();
 		
 		return ResponseEntity.ok(schedules);
+	}
+	
+	@RequestMapping(value = "/attendance/{id}")
+	public String attendance(ModelMap map, @PathVariable String id) {
+		TrainingPlan training = tpService.retrieveTraining(id);
+			
+		if(training != null) {
+			List<User> participants = tpService.retrieveTrainingParticipants(id);
+			List<Schedule> schedules = tpService.sortSchedule(training.getSchedules());
+						
+			map.addAttribute("participants", participants);
+			map.addAttribute("schedules", schedules);	
+			map.addAttribute("training", training);
+		}
+		
+		return "/training/attendance";
+	}
+	
+	@RequestMapping(value = "/attendance/timein", method = RequestMethod.POST)
+	public ResponseEntity<?> attendanceTimeIn(HttpServletRequest request) {
+		String trainingId = request.getParameter("training");
+		String time = request.getParameter("time");
+		String date = request.getParameter("date");
+		String ids = request.getParameter("ids");
+		
+		tpService.insertAttendance(trainingId, ids, time, date);
+			
+		return ResponseEntity.ok(true);	
+	}
+	
+	@RequestMapping(value = "/attendance/timeout", method = RequestMethod.POST)
+	public ResponseEntity<?> attendanceTimeOut(HttpServletRequest request) {
+		String trainingId = request.getParameter("training");
+		String time = request.getParameter("time");	
+		String date = request.getParameter("date");
+		String ids = request.getParameter("ids");
+		
+		String result = tpService.insertTimeOutAttendance(trainingId, ids, time, date);
+			
+		return ResponseEntity.ok(result);	
+	}
+	
+	@RequestMapping(value = "/attendance/absent", method = RequestMethod.POST)
+	public ResponseEntity<?> attendanceAbsent(HttpServletRequest request) {
+		String trainingId = request.getParameter("training");
+		String date = request.getParameter("date");
+		String id = request.getParameter("id");
+		
+		tpService.insertAbsentAttendance(trainingId, id, date);
+			
+		return ResponseEntity.ok(true);	
+	}
+	
+	@RequestMapping(value = "/attendance/reset", method = RequestMethod.POST)
+	public ResponseEntity<?> attendanceReset(HttpServletRequest request) {
+		String trainingId = request.getParameter("training");
+		String id = request.getParameter("id");
+		String date = request.getParameter("date");
+		
+		tpService.resetAttendance(trainingId, id, date);
+			
+		return ResponseEntity.ok(true);	
 	}
 }

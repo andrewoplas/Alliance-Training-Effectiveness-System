@@ -228,6 +228,29 @@
 			<add-attribute value="/js/pages/trainingEdit.js" />
 		</put-list-attribute>
 	</definition>
+	
+	<!-- [Admin] Attendance -->
+	<definition name="/training/attendance" extends="default">
+	    <put-attribute name="title" value="ATES - Attendance" />
+	    <put-attribute name="body" value="/WEB-INF/pages/attendance.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/horizontal-timeline/css/horizontal-timeline.css" />
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
+	    	<add-attribute value="/plugins/timepicki/css/timepicki.css" />
+	    	<add-attribute value="/css/pages/attendance.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/horizontal-timeline/js/horizontal-timeline.js" />
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
+			<add-attribute value="/plugins/moment/moment.js" />
+			<add-attribute value="/plugins/timepicki/js/timepicki.js" />
+			<add-attribute value="/js/pages/attendance.js" />
+			
+		</put-list-attribute>
+	</definition>
 		
 	
 	<!-- [General User] Dashboard -->
