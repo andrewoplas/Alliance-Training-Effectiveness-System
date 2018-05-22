@@ -3,6 +3,7 @@ $(document).ready(function() {
 	
 	
 	// Setup Nestable Data
+	var nestableIDS = [];
 	var nestableData = $('.nestable-serialized').val();
 	nestableData = JSON.parse(nestableData);
 	
@@ -18,6 +19,7 @@ $(document).ready(function() {
 	        	'<i class="mdi mdi-close"></i></button>' +
 				'</li>'
 			);
+		nestableIDS.push(value.id);
 		if ('children' in value){
 			nestableDataHTML.find('li:last').append(addDataHTML(value.children));
 		}
@@ -36,6 +38,7 @@ $(document).ready(function() {
 		        	'<i class="mdi mdi-close"></i></button>' +
 					'</li>'
 				);
+			nestableIDS.push(value.id);
 			if ('children' in value){
 				parent.find('li:last').append(addDataHTML(value.children));
 			}
@@ -89,6 +92,11 @@ $(document).ready(function() {
 			$('.help-block-outline').addClass('hide');
 		}
 	})
+	
+
+	for(var i=0; i<nestableIDS.length; i++) {
+		$('#id-' + nestableIDS[i]).editable();
+	}
 	
 	// Initialize editable
 	$('#id-0').editable();

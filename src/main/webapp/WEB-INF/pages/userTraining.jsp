@@ -102,7 +102,7 @@
 														</button>
 		                                        		
 		                                        		<c:if test="${ userEvent.role.contains('Facilitator') }">
-		                                        			<a href="/ates/general/training/edit/${ userEvent.id }/${training.id}">
+		                                        			<a href="/ates/general/training/edit/${ userEvent.id }/${ userEvent.trainingPlan.id }">
 				                                        	<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Edit" data-placement="top">
 				                                        		<i class="mdi mdi-lead-pencil"></i>
 			                                        		</button>

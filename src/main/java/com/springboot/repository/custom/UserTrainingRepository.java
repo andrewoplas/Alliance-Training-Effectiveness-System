@@ -18,78 +18,16 @@ import com.springboot.entities.UserEvent;
 @Transactional
 public class UserTrainingRepository {
 	
-	public int insertTraining(EntityManager em, TrainingPlan trainingPlan) {
-		em.persist(trainingPlan);
-		em.flush();
-		
-		return trainingPlan.getId();
-	}
-	
-	public void insertSchedule(EntityManager em, Schedule[] schedules) {
-		for(int i=0; i<schedules.length; i++) {
-			em.persist(schedules[i]);
-		}
-	}
-	
-	public void insertUserEvent(EntityManager em, UserEvent[] userEvents) {
-		for(int i=0; i<userEvents.length; i++) {
-			em.persist(userEvents[i]);
-		}
-	}
-	
 	public boolean editTraining(EntityManager em, TrainingPlan trainingPlan) {
 		TrainingPlan training = em.find(TrainingPlan.class, trainingPlan.getId());
 		
 		try {
-			training.setTitle(trainingPlan.getTitle());
 			training.setDescription(trainingPlan.getDescription());
 			training.setCourseOutline(trainingPlan.getCourseOutline());
 			
 			return true;
 		} catch (Exception ex ) {
 			return false;
-		}
-	}
-	
-	public void editSchedule(EntityManager em, Schedule[] schedules, int id) {
-		String sql = "DELETE FROM Schedule WHERE trainingPlanID = :trainingPlanID";
-		Query query = em.createQuery(sql);
-		query.setParameter("trainingPlanID", id);
-		query.executeUpdate();
-		
-		for(int i=0; i<schedules.length; i++) {
-			em.persist(schedules[i]);
-		}
-	}
-	
-	public void editUserEvent(EntityManager em, int id, UserEvent[] userEvents, Collection<Integer> userIDS) {		
-		String sql = "DELETE FROM UserEvent WHERE trainingPlanID = :trainingID AND userID NOT IN (:userIds)";
-		Query query = em.createQuery(sql.toString());
-		query.setParameter("trainingID", id);
-		query.setParameter("userIds", userIDS);
-		query.executeUpdate();
-		
-		
-		for(int i=0; i<userEvents.length; i++) {
-			sql = "UPDATE UserEvent SET role = :newRole, status = :newStatus WHERE trainingPlanID = :tid AND userID = :uid AND role <> :role";
-			query = em.createQuery(sql);
-			query.setParameter("tid", id);
-			query.setParameter("uid", userEvents[i].getUser().getId());
-			query.setParameter("newRole", userEvents[i].getRole());
-			query.setParameter("role", userEvents[i].getRole());
-			query.setParameter("newStatus", "pending");
-			query.executeUpdate();
-			
-			sql = "FROM UserEvent WHERE trainingPlanID = :tid AND userID = :uid";
-			query = em.createQuery(sql);
-			query.setParameter("tid", id);
-			query.setParameter("uid", userEvents[i].getUser().getId());
-			
-			System.out.println("SELECT: " + id + " " + userEvents[i].getUser().getId() + " = " + query.getResultList().size());
-			if(query.getResultList().size() == 0) {
-				System.out.println(userEvents[i].getUser().getName());
-				em.persist(userEvents[i]);
-			}			
 		}
 	}
 

@@ -78,6 +78,39 @@ public class UserTrainingController {
 		return "/general/training/summary";
 	}
 	
+	@RequestMapping(value = "/training/edit/{id}/{trainingPlanId}")
+	public String editTraining(ModelMap map, HttpServletRequest request, @PathVariable int id, @PathVariable String trainingPlanId) {
+		User user = session.getUser(request);
+		if(!tpService.checkTrainingInvolvementAndFacilitator(user, id)) return "redirect:/error/404";
+		
+		TrainingPlan training = adminTPService.retrieveTraining(trainingPlanId);
+		
+		if(training != null) {
+			map.addAttribute("training", training);
+			map.addAttribute("userEventId", id);
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/general/training/edit";
+	}
+	
+	@RequestMapping(value = "/training/edit", method = RequestMethod.POST)
+	public ResponseEntity<?> editTrainingPlan(ModelMap map, HttpServletRequest request) {
+		User user = session.getUser(request);
+		String id = request.getParameter("id");
+		String userEventId = request.getParameter("userEventId");
+		String description = request.getParameter("description");
+		String outline = request.getParameter("outline");
+		
+		if(!tpService.checkTrainingInvolvementAndFacilitator(user, Integer.parseInt(userEventId))) return ResponseEntity.ok("not allowed");
+		
+		tpService.editTraining(id, description, outline);
+		
+		
+		return ResponseEntity.ok(true);
+	}
+	
 	@RequestMapping(value = "/invitation")
 	public String invitations(ModelMap map, HttpServletRequest request) {
 		User user = session.getUser(request);

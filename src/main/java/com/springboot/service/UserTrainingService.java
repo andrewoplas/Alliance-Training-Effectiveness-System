@@ -80,4 +80,25 @@ public class UserTrainingService {
 		
 		return result;
 	}
+
+	public boolean checkTrainingInvolvementAndFacilitator(User user, int id) {
+		UserEvent userEvent = tpRepository.retrieveUserEventById(em, id);
+		boolean result = false;
+		
+		if( userEvent != null && 
+			userEvent.getUser().getId() == user.getId() &&
+			userEvent.getRole().contains("Facilitator") ) {
+				result = true;
+		}
+		
+		return result;
+	}
+
+	public void editTraining(String id, String description, String courseOutline) {
+		TrainingPlan trainingPlan = new TrainingPlan();
+		trainingPlan.setId(Integer.parseInt(id));
+		trainingPlan.setDescription(description);
+		trainingPlan.setCourseOutline(courseOutline);
+		tpRepository.editTraining(em, trainingPlan);
+	}
 }

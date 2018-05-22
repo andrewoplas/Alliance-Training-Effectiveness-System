@@ -306,6 +306,26 @@
 		</put-list-attribute>
 	</definition>	
 	
+	<!-- [General User] Training Plan - Edit -->
+	<definition name="/general/training/edit" extends="default">
+	    <put-attribute name="title" value="ATES - Edit Training" />
+	    <put-attribute name="body" value="/WEB-INF/pages/userTrainingEdit.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/steps/steps.css" />
+	    	<add-attribute value="/plugins/editable/bootstrap3-editable/css/bootstrap-editable.css" />
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/plugins/nestable/nestable.css" />
+	    	<add-attribute value="/css/pages/userTrainingEdit.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/nestable/jquery.nestable.js" />
+			<add-attribute value="/plugins/editable/bootstrap3-editable/js/bootstrap-editable.min.js" />
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/js/pages/userTrainingEdit.js" />
+		</put-list-attribute>
+	</definition>
+	
 	<!-- [General User] Training Summary -->
 	<definition name="/general/training/summary" extends="default">
 	    <put-attribute name="title" value="ATES - Summary" />
