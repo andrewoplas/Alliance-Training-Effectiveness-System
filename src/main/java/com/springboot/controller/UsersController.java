@@ -51,7 +51,9 @@ public class UsersController {
 		
 		if(user != null) {
 			map.addAttribute("user", user);
-		}		
+		} else {
+			return "redirect:/error/404";
+		}	
 		
 		map.addAttribute("positions", positions);
 		return "/users/edit";

@@ -63,24 +63,6 @@
 		</put-list-attribute>
 	</definition>
 	
-	<!-- SUMMARY OF TRAINING PLAN-->
-	<definition name="pages/summary" extends="default">
-	 <put-attribute name="title" value="ATES - Summary" />
-	    <put-attribute name="body" value="/WEB-INF/pages/summary.jsp" />
-	    <put-list-attribute name="stylesheets" inherit="true">
-	 
-	    	<add-attribute value="/plugins/inviteUsers/user.css" />
-	    	<add-attribute value="/plugins/forTrainingPlan/summary.css" />
-		</put-list-attribute>
-		<put-list-attribute name="javascripts" inherit="true">
-			
-			<add-attribute value="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" />
-			<add-attribute value="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" />
-			<add-attribute value="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" />
-			<add-attribute value="/plugins/inviteUsers/user.js" /> 
-			</put-list-attribute>
-		</definition>
-	
 	<!-- [Admin] User - Users Create -->
 	<definition name="/users/create" extends="default">
 	    <put-attribute name="title" value="ATES - User Create" />
@@ -229,6 +211,21 @@
 		</put-list-attribute>
 	</definition>
 	
+	<!-- [Admin] Training Plan - Summary -->
+	<definition name="/training/summary" extends="default">
+	    <put-attribute name="title" value="ATES - Summary" />
+	    <put-attribute name="body" value="/WEB-INF/pages/trainingSummary.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+			<add-attribute value="/css/pages/trainingSummary.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/js/pages/trainingSummary.js" />
+		</put-list-attribute>
+	</definition>
+	
 	<!-- [Admin] Attendance -->
 	<definition name="/training/attendance" extends="default">
 	    <put-attribute name="title" value="ATES - Attendance" />
@@ -308,6 +305,21 @@
 			<add-attribute value="/js/pages/userInvitation.js" />
 		</put-list-attribute>
 	</definition>	
+	
+	<!-- [General User] Training Summary -->
+	<definition name="/general/training/summary" extends="default">
+	    <put-attribute name="title" value="ATES - Summary" />
+	    <put-attribute name="body" value="/WEB-INF/pages/userTrainingSummary.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+			<add-attribute value="/css/pages/trainingSummary.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/js/pages/trainingSummary.js" />
+		</put-list-attribute>
+	</definition>
 	
 		
 </tiles-definitions>

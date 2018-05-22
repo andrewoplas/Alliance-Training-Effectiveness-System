@@ -4,10 +4,10 @@
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 	
 	
-	<c:set var="userEventEmpty" value="${userEvents.isEmpty()}" />
+	<c:set var="userEventEmpty" value="${ userEvents.isEmpty() }" />
 	
 	<div id="page-wrapper"
-		<c:if test="${userEventEmpty == true}">style="background: #fff;"</c:if>>
+		<c:if test="${ userEventEmpty == true }">style="background: #fff;"</c:if>>
 		<div class="container-fluid">
 			<div class="row bg-title">
 				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -23,7 +23,7 @@
 			</div>
 	
 			<!-- /row -->
-			<c:if test="${userEventEmpty == true}">
+			<c:if test="${ userEventEmpty == true }">
 				<div class="row">
 					<div class="col-md-12 p-t-10 text-center">
 						<i class="mdi mdi-calendar-remove empty-icon"></i>
@@ -38,7 +38,7 @@
 				<div class="col-xs-12">
 	
 					<div class="panel panel-info">
-						<div class="panel-heading">List of Trainings Involved</div>
+						<div class="panel-heading">List of Trainings</div>
 	
 						<div class="panel-wrapper collapse in" aria-expanded="true">
 							<div class="panel-body">
@@ -70,44 +70,56 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="userEvent" items="${userEvents}">	
+											<c:forEach var="userEvent" items="${ userEvents }">	
 												<tr data-id="${userEvent.id}">
-													<td width="30%">${userEvent.trainingPlan.title}</td>
+													<td width="30%" class="training">${ userEvent.trainingPlan.title }</td>
 													<td width="20%" class="text-center"><span
-														class="badge ${userEvent.role}">${userEvent.role}</span></td>
-													<td width="20%" class="text-center"><c:choose>
-															<c:when test="${userEvent.status == 'approved'}">
+														class="badge ${ userEvent.role }">${ userEvent.role }</span></td>
+													<td width="20%" class="text-center status">
+														<c:choose>
+															<c:when test="${ userEvent.status == 'approved' }">
 																<span class="badge badge-success">Approved</span>
 															</c:when>
 	
-															<c:when test="${userEvent.status == 'declined'}">
+															<c:when test="${ userEvent.status == 'declined' }">
 																<span class="badge badge-danger">Declined</span>
 															</c:when>
-														</c:choose></td>
-													<td width="20%"><a
-														href="/ates/training/edit/${userEvent.id}">
-															<button type="button"
-																class="btn-edit btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0"
-																data-toggle="tooltip" title="Edit" data-placement="top">
-																<i class="mdi mdi-lead-pencil"></i>
-															</button>
-													</a>
-														<button type="button"
-															class="btn btn-danger btn-outline btn-circle p-t-0 p-b-0"
-															data-toggle="tooltip" title="Delete" data-placement="top">
-															<i class="mdi mdi-delete"></i>
-														</button></td>
+														</c:choose>
+													</td>
+													<td width="20%">
+														<a href="/ates/general/training/${ userEvent.id }/${ userEvent.trainingPlan.id }">
+				                                        	<button type="button" class="btn btn-primary btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="View Training" data-placement="top">
+				                                        		<i class="mdi mdi-eye"></i>
+			                                        		</button>
+		                                        		</a>
+		                                        		
+		                                        		<button type="button" class="btn-decline btn btn-danger btn-outline m-r-5 btn-circle p-t-0 p-b-0 ${ userEvent.status == 'declined'? 'hide' : '' }" data-toggle="tooltip" title="Decline Training Invitation" data-placement="top">
+															<i class="mdi mdi-calendar-remove"></i>
+														</button>
+													
+														<button type="button" class="btn-accept btn btn-success btn-outline m-r-5 btn-circle p-t-0 p-b-0 ${ userEvent.status == 'approved'? 'hide' : '' }" data-toggle="tooltip" title="Approve Training Invitation" data-placement="top">
+															<i class="mdi mdi-calendar-check"></i>
+														</button>
+		                                        		
+		                                        		<c:if test="${ userEvent.role.contains('Facilitator') }">
+		                                        			<a href="/ates/general/training/edit/${ userEvent.id }/${training.id}">
+				                                        	<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Edit" data-placement="top">
+				                                        		<i class="mdi mdi-lead-pencil"></i>
+			                                        		</button>
+		                                        		</a>
+		                                        		</c:if>															
+													</td>
 													<td><fmt:parseDate pattern="yyyy-MM-dd"
-															value="${userEvent.trainingPlan.schedules.get(0).date}"
-															var="start_date" /> <fmt:formatDate value="${start_date}"
+															value="${ userEvent.trainingPlan.schedules.get(0).date }"
+															var="start_date" /> <fmt:formatDate value="${start_date }"
 															pattern="MMM dd, yyyy" /></td>
 													<td><fmt:parseDate pattern="yyyy-MM-dd"
-															value="${userEvent.trainingPlan.schedules.get(userEvent.trainingPlan.schedules.size()-1).date}"
-															var="start_date" /> <fmt:formatDate value="${start_date}"
+															value="${ userEvent.trainingPlan.schedules.get(userEvent.trainingPlan.schedules.size()-1).date }"
+															var="start_date" /> <fmt:formatDate value="${ start_date }"
 															pattern="MMM dd, yyyy" /></td>
 													<td><c:set var="description"
-															value="${fn:substring(userEvent.trainingPlan.description, 1, 100)}" />
-														${description}</td>
+															value="${ fn:substring(userEvent.trainingPlan.description, 1, 100) }" />
+														${ description }</td>
 												</tr>
 											</c:forEach>
 										</tbody>

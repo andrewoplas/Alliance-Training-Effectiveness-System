@@ -97,6 +97,7 @@
 				<li> 
 	            	<a href="/ates/general/invitation" class="waves-effect">
 	            		<i  class="mdi mdi-email fa-fw"></i> 
+	            		<div class="notify invitation-notify hide" style="position: absolute;bottom: 35px;left: 40px;"><span class="heartbit"></span><span class="point"></span></div>
 	            		<span class="hide-menu"> Invitations </span>
 	            	</a> 
 				</li>

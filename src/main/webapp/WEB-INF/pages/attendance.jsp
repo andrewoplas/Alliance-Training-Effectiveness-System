@@ -199,10 +199,7 @@
 														</table>
 														</div>
 													</c:when>
-													
 												</c:choose>
-												
-												
 											</div>
 										</li>
 										

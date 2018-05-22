@@ -16,53 +16,66 @@
 		$('#all-users-table').trigger('footable_initialized');
 	});
 	
-	$(document).on('click', '.btn-danger', function(){
-		var elem = $(this).parents('tr');
-		var id = elem.attr('data-id');
-		var name = elem.find('td:first').text();
-		swal({   
-            title: "Are you sure?",   
-            text: "You will not be able to recover this imaginary file!",   
+	$(document).on('click', '.btn-accept', function(e){
+		e.preventDefault();
+		var parent = $(this).parents('tr');
+		var id = parent.attr('data-id');
+		
+		$.ajax({
+			url: "/ates/general/invitation/accept",
+			type: 'POST',
+			data: {id: id},
+			success: function(data, textStatus, jqXHR) {
+				parent.find('.status .badge').removeClass('badge-danger');
+				parent.find('.status .badge').addClass('badge-success');
+				parent.find('.status .badge').text('Approved');
+				parent.find('.btn-accept').addClass('hide');
+				parent.find('.btn-decline').removeClass('hide');
+            },
+            error: function(jqXHR, status, error) {
+            	showErrorAlert();
+            }
+    	});
+	});
+	
+	$(document).on('click', '.btn-decline', function(e){
+		e.preventDefault();
+		var parent = $(this).parents('tr');
+		var id = parent.attr('data-id');
+		var training = parent.find('.training').text(); 
+    	
+    	swal({   
+            title: "Really?",   
+            text: "Are you sure you to decline " + name + "?",   
             type: "warning",   
             showCancelButton: true,   
             confirmButtonColor: "#f44336",
-            confirmButtonText: "Delete",   
+            confirmButtonText: "Decline",   
             cancelButtonText: "Cancel",   
             closeOnConfirm: false,   
         }, function(isConfirm){   
             if (isConfirm) {            	
             	$.ajax({
-        			url: "/ates/training/delete",
-        			type: 'POST',
-        			data: {id: id},
-        			success: function(data, textStatus, jqXHR) {
-        				$("#ajax-process").modal('hide');
-                         if(data == true) {
-                        	 
-                        	 if(elem.next().hasClass('footable-row-detail')){
-                         		elem.next().addClass('fadeOut animated');
-                         		setTimeout(function(){
-                         			elem.next().remove();
-                     			}, 500);
-                         	}
-                         	
-                         	elem.addClass('fadeOut animated');
-                         	setTimeout(function(){
-                 				elem.remove();
-                 			}, 500);
-                        	 
-                        	 
-                        	 swal("Deleted!", "Training '" + name + "' is successfully deleted!", "success");
-                         } else {
-                        	 showErrorAlert();
-                         }
-                    },
-                    error: function(jqXHR, status, error) {
-                    	showErrorAlert();
-                    }
-            	});
-            }
+            		url: "/ates/general/invitation/decline",
+    	            type: 'POST',
+    	            data: {id: id},
+    	            success: function(data, textStatus, jqXHR) {
+    	            	swal("Invitation Declined", "You have successfully declined the invitation to join " + training, "success");
+    	            	
+    	            	parent.find('.status .badge').removeClass('badge-success');
+    					parent.find('.status .badge').addClass('badge-danger');
+    					parent.find('.status .badge').text('Declined');
+    					parent.find('.btn-decline').addClass('hide');
+    					parent.find('.btn-accept').removeClass('hide');
+    	            },
+    	            error: function(jqXHR, status, error) { 
+    	            	showErrorAlert(); 
+    	        	}
+    	    	});
+        	}
         });
-	});
+    });
+	
+	
 	
 })(jQuery);

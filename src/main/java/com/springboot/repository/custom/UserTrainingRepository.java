@@ -155,4 +155,18 @@ public class UserTrainingRepository {
 		
 		userEvent.setStatus("declined");		
 	}
+
+	public UserEvent retrieveUserEventById(EntityManager em, int id) {
+		StringBuilder sql = new StringBuilder("FROM UserEvent WHERE id = :id");
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("id", id);
+		query.setMaxResults(1);
+		
+		UserEvent userEvent = null;
+		try {
+			userEvent = (UserEvent) query.getSingleResult();
+		} catch (Exception ex) { ex.printStackTrace(); }
+		
+		return userEvent;
+	}
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
+import com.springboot.entities.User;
 import com.springboot.entities.UserEvent;
 import com.springboot.entities.custom.CustomSchedule;
 import com.springboot.repository.custom.UserTrainingRepository;
@@ -67,5 +68,16 @@ public class UserTrainingService {
 		}
 		
 		return null;
+	}
+
+	public boolean checkTrainingInvolvement(User user, int id) {
+		UserEvent userEvent = tpRepository.retrieveUserEventById(em, id);
+		boolean result = false;
+		
+		if(userEvent != null && userEvent.getUser().getId() == user.getId()) {
+			result = true;
+		}
+		
+		return result;
 	}
 }

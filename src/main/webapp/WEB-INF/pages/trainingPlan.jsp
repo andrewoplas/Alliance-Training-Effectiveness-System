@@ -51,9 +51,9 @@
 		                                        <th>Start Date</th>
 		                                        <th>End Date</th>
 		                                        <th>Action</th>
-		                                        <th data-hide="all"> Facilitator </th>
-		                                        <th data-hide="all"> Supervisor </th>
-		                                        <th data-hide="all"> Description </th>
+		                                        <th data-hide="all"> Accepted </th>
+		                                        <th data-hide="all"> Declined </th>
+		                                        <th data-hide="all"> Pending </th>
 		                                    </tr>
 		                                </thead>
 		                                <tbody>
@@ -110,25 +110,38 @@
 														</button>
 			                                        </td>
 			                                        
+			                                        <c:set var="acceptCount" value="0" />
+			                                        <c:set var="declineCount" value="0" />
+			                                        <c:set var="pendingCount" value="0" />
+			                                        
+			                                        <c:forEach var="userEvent" items="${training.userEvents}">
+			                                        	<c:choose>
+			                                        		<c:when test="${userEvent.status == 'approved'}">
+			                                        			<c:set var="acceptCount" value="${ acceptCount + 1 }" />				                                        		
+			                                        		</c:when>
+			                                        		<c:when test="${userEvent.status == 'declined'}">
+			                                        			<c:set var="declineCount" value="${ declineCount + 1 }" />
+			                                        		</c:when>
+			                                        		<c:when test="${userEvent.status == 'pending'}">
+			                                        			<c:set var="pendingCount" value="${ pendingCount + 1 }" />
+			                                        		</c:when>
+			                                        	</c:choose>
+		                                			</c:forEach>
+			                                        
 			                                        <td>
-			                                        	<c:forEach var="userEvent" items="${training.userEvents}">
-			                                				<c:if test="${userEvent.role.contains('Facilitator')}">
-			                                					<p class="m-b-0">${userEvent.user.name}</p>
-			                                				</c:if>
-			                                			</c:forEach>
-			                                			<br />
+														<span class="badge badge-success fixed-width">
+															<c:out value="${ acceptCount }" />
+														</span>
 			                                        </td>
 			                                        <td>
-		                                        		<c:forEach var="userEvent" items="${training.userEvents}">
-			                                				<c:if test="${userEvent.role == 'Supervisor'}">
-			                                					<p class="m-b-0">${userEvent.user.name}</p>
-			                                				</c:if>
-			                                			</c:forEach>
-			                                			<br />
+		                                        		<span class="badge badge-danger fixed-width">
+		                                        			<c:out value="${ declineCount }" />
+		                                        		</span>
 			                                        </td>
 			                                        <td>
-			                                        	<c:set var = "description" value = "${fn:substring(training.description, 1, 100)}" />
-			                                        	${description}
+			                                        	<span class="badge badge-warning fixed-width">
+			                                        		<c:out value="${ pendingCount }" />
+			                                        	</span>
 			                                        </td>
 			                                    </tr>
 		                                	</c:forEach>                                    

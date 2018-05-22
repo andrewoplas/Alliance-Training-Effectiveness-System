@@ -26,3 +26,7 @@
 #all-users-table .footable-visible {
 	vertical-align: middle;
 }
+
+.badge.fixed-width {
+	width: 50px;
+}

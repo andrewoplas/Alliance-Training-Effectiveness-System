@@ -124,6 +124,14 @@ public class TrainingPlanService {
 			
 			tpRepository.insertUserEvent(em, userEvents.toArray(new UserEvent[userEvents.size()]));
 			result = true;
+			
+			// Send email to users
+//			userEvents = (ArrayList<UserEvent>) retrieveTraining(tpId + "").getUserEvents();
+//			for(UserEvent userEvent : userEvents) {
+//				// Send Email to this user's email
+//				// userEvent.getUser().getEmail();
+//			}
+			
 		} catch (NumberFormatException ex) {
 			ex.printStackTrace();
 		}
@@ -248,16 +256,14 @@ public class TrainingPlanService {
 		return schedules;
 	}
 	
-	public List<User> retrieveTrainingParticipants(String id) {
-		try {
-			TrainingPlan training =  tpRepository.retrieveTraining(em, Integer.parseInt(id));
-			
+	public List<User> retrieveTrainingPeople(TrainingPlan training, String position) {
+		try {			
 			if(training != null) {
 				List<UserEvent> userEvents = training.getUserEvents(); 
 				List<User> participants = new ArrayList<User>();
 				
 				for(UserEvent userEvent : userEvents) {
-					if(userEvent.getRole().equals("Participant" )) {
+					if(userEvent.getRole().contains(position)) {
 						participants.add(userEvent.getUser());
 					}
 				}

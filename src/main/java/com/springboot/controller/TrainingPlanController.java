@@ -42,6 +42,30 @@ public class TrainingPlanController {
 		return "/training/list";
 	}
 	
+	@RequestMapping(value = "/{id}")
+	public String summary(ModelMap map, @PathVariable String id) {
+		TrainingPlan training = tpService.retrieveTraining(id);
+		
+		if(training != null) {
+			List<User> participants = tpService.retrieveTrainingPeople(training, "Participant");
+			List<User> internal = tpService.retrieveTrainingPeople(training, "Internal");
+			List<User> external = tpService.retrieveTrainingPeople(training, "External");
+			List<User> supervisors = tpService.retrieveTrainingPeople(training, "Supervisor");
+			List<Schedule> schedules = tpService.sortSchedule(training.getSchedules());
+						
+			map.addAttribute("participants", participants);
+			map.addAttribute("supervisors", supervisors);
+			map.addAttribute("internal", internal);
+			map.addAttribute("external", external);
+			map.addAttribute("schedules", schedules);	
+			map.addAttribute("training", training);
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/training/summary";
+	}
+	
 	@RequestMapping(value = "/create")
 	public String create(ModelMap map) {
 		List<User> users = usersService.retrieveApprovedUsers();
@@ -67,7 +91,9 @@ public class TrainingPlanController {
 		map.addAttribute("map", true);
 		if(training != null) {
 			map.addAttribute("training", training);
-		}		
+		} else {
+			return "redirect:/error/404";
+		}
 		
 		return "/training/edit";
 	}
@@ -98,12 +124,14 @@ public class TrainingPlanController {
 		TrainingPlan training = tpService.retrieveTraining(id);
 			
 		if(training != null) {
-			List<User> participants = tpService.retrieveTrainingParticipants(id);
+			List<User> participants = tpService.retrieveTrainingPeople(training, "Participant");
 			List<Schedule> schedules = tpService.sortSchedule(training.getSchedules());
 						
 			map.addAttribute("participants", participants);
 			map.addAttribute("schedules", schedules);	
 			map.addAttribute("training", training);
+		} else {
+			return "redirect:/error/404";
 		}
 		
 		return "/training/attendance";
@@ -154,4 +182,5 @@ public class TrainingPlanController {
 			
 		return ResponseEntity.ok(true);	
 	}
+	
 }

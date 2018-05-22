@@ -335,7 +335,7 @@ button, input, optgroup, select, textarea {
 	list-style-type: lower-latin;
 }
 
-parent-outline ol ol li{
+#parent-outline ol ol li{
 	font-weight: normal;
 	font-size: 14px;
 }

@@ -22,6 +22,7 @@ public class LoginRepository {
 		Query query = em.createQuery(stringQuery.toString());
 		query.setParameter("email", email);
 		query.setParameter("password", password);
+		query.setMaxResults(1);
 		
 		try {
 			user = (User)query.getSingleResult();
