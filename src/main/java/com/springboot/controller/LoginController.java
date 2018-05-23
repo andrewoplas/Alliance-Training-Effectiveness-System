@@ -46,7 +46,6 @@ public class LoginController{
 				if(user.getIsAdmin() == 1) {
 					response.sendRedirect(request.getContextPath() + "/ates/dashboard");
 				} else {
-					//response.sendRedirect(request.getContextPath() + "/ates/general");
 					response.sendRedirect(request.getContextPath() + "/ates/general/dashboard");
 				}
 			} catch (IOException e) {

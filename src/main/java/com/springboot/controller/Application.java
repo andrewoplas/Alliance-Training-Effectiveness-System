@@ -11,62 +11,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.service.CustomizedEmailService;
 
-//@SpringBootApplication
-//public class Application implements ApplicationRunner {
-//
-//    private static Logger log = LoggerFactory.getLogger(Application.class);
-//
-//    @Autowired
-//    private CustomizedEmailService emailService;
-//
-//    public static void main(String[] args) throws Exception {
-//        SpringApplication.run(Application.class, args);
-//    }
-//
-//    @Override
-//    public void run(ApplicationArguments applicationArguments) throws Exception {
-//        log.info("Sending Email with Thymeleaf HTML Template Example");
-//
-//        Mail mail = new Mail();
-//        mail.setFrom("marccolina456@gmail.com");
-//        mail.setTo("marccolina456@gmail.com");
-//        mail.setSubject("Sending Email with Thymeleaf HTML Template Example GAGA ");
-//
-//        Map<String, Object> model = new HashMap<String, Object>();
-////        Map < String, Object > model = new HashMap < String, Object > ();
-//        model.put("name", "Memorynotfound.com");
-//        model.put("location", "Philippines");
-//        model.put("signature", "MARC GWAPO!");
-//        mail.setModel(model);
-//
-//        emailService.sendSimpleMessage(mail);
-//    }
-//}
-
-
 @RestController
 public class Application{
 	@Autowired
 	private CustomizedEmailService emailService;
 	
-//	@RequestMapping("/send")
-	 public void run() throws MessagingException, IOException
-	 {
-		
-		  Mail mail = new Mail();
-		  mail.setFrom("marccolina456@gmail.com");
-		  mail.setTo("marccolina456@gmail.com");
-		  mail.setSubject("Sending Email with Thymeleaf HTML Template Example GAGA ");
-		
-		  Map<String, Object> model = new HashMap<String, Object>();
-		//  Map < String, Object > model = new HashMap < String, Object > ();
-		  model.put("name", "Memorynotfound.com");
-		  model.put("location", "Philippines");
-		  model.put("signature", "MARC GWAPO!");
-		  mail.setModel(model);
+	public void sendGeneratedPassword(String password, String name, String email) throws MessagingException, IOException
+	{
+		Mail mail = new Mail();
+		mail.setFrom("marccolina456@gmail.com");
+		mail.setTo(email);
+		mail.setSubject("Alliance Training Effectiveness System Password ");
+	
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("generatedPassword", password);
+		model.put("name", name);
+		mail.setModel(model);
 		
 		  emailService.sendSimpleMessage(mail);
-
+	
 	 }
 }
 

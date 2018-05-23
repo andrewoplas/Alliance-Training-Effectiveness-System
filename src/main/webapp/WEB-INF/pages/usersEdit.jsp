@@ -94,4 +94,13 @@
 		</div>
 	</div>
 	
+	<div class="modal fade none-border material-design" id="ajax-process">
+	    <div class="modal-dialog" style="width: 30%;">
+	        <div class="modal-content">
+	            <div class="modal-body text-center">
+	            	Processing your request...
+	            </div>
+	        </div>
+	    </div>
+	</div>
 	

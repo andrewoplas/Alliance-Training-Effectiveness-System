@@ -68,18 +68,23 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ResponseEntity create(HttpServletRequest request) {
+	public ResponseEntity<?> create(HttpServletRequest request) {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String position = request.getParameter("position");
 		
-		String result = usersService.insertUser(name, email, position);	
+		String result;
+		try {
+			result = usersService.insertUser(name, email, position);
+		} catch (Exception ex) {
+			return ResponseEntity.ok("error_exception");
+		}
 		
 		return ResponseEntity.ok(result);
 	}
 	
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
-	public ResponseEntity remove(HttpServletRequest request) {
+	public ResponseEntity<?> remove(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		
 		usersService.removeUser(id);
@@ -87,14 +92,19 @@ public class UsersController {
 	}	
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public ResponseEntity editUser(HttpServletRequest request) {
+	public ResponseEntity<?> editUser(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String position = request.getParameter("position");
 		String password = request.getParameter("password");
 		
-		String result = usersService.editUser(id, name, email, position, password);	
+		String result;
+		try {
+			result = usersService.editUser(id, name, email, position, password);
+		} catch (Exception ex) {
+			return ResponseEntity.ok("error_exception");
+		}
 		
 		return ResponseEntity.ok(result);
 	}

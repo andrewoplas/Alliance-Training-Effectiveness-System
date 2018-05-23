@@ -5,6 +5,7 @@
     	if(!$(".help-block").hasClass('hide')) {
     		return false;
     	}
+    	$("#ajax-process").modal('show');
     	var name = $(this).find('#name').val();
     	var formData = $(this).serialize();
     	
@@ -13,6 +14,7 @@
             type: 'POST',
             data: formData,
             success: function(data, textStatus, jqXHR) {
+            	$("#ajax-process").modal('hide');
                 if(data == 'success') {
                 	swal({   
                         title: "Success!",
