@@ -1,19 +1,8 @@
 package com.springboot.entities;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 /**
@@ -27,7 +16,8 @@ public class TrainingPlan implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="TRAINING_PLAN_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="TRAINING_PLAN_ID_GENERATOR")
 	private int id;
 
 	@Lob
@@ -37,15 +27,14 @@ public class TrainingPlan implements Serializable {
 
 	private String title;
 
-	//bi-directional many-to-one association to Attendance
-	@OneToMany(mappedBy="trainingPlan")
-	private List<Attendance> attendances;
-
 	//bi-directional many-to-one association to Schedule
 	@OneToMany(mappedBy="trainingPlan")
 	private List<Schedule> schedules;
 
-	//bi-directional many-to-one association to UserEvent
+	//bi-directional many-to-one association to TrainingEvent
+	@OneToMany(mappedBy="trainingPlan")
+	private List<TrainingEvent> trainingEvents;
+	
 	@OneToMany(mappedBy="trainingPlan")
 	private List<UserEvent> userEvents;
 
@@ -88,28 +77,6 @@ public class TrainingPlan implements Serializable {
 		this.title = title;
 	}
 
-	public List<Attendance> getAttendances() {
-		return this.attendances;
-	}
-
-	public void setAttendances(List<Attendance> attendances) {
-		this.attendances = attendances;
-	}
-
-	public Attendance addAttendance(Attendance attendance) {
-		getAttendances().add(attendance);
-		attendance.setTrainingPlan(this);
-
-		return attendance;
-	}
-
-	public Attendance removeAttendance(Attendance attendance) {
-		getAttendances().remove(attendance);
-		attendance.setTrainingPlan(null);
-
-		return attendance;
-	}
-
 	public List<Schedule> getSchedules() {
 		return this.schedules;
 	}
@@ -132,51 +99,34 @@ public class TrainingPlan implements Serializable {
 		return schedule;
 	}
 
+	public List<TrainingEvent> getTrainingEvents() {
+		return this.trainingEvents;
+	}
+
+	public void setTrainingEvents(List<TrainingEvent> trainingEvents) {
+		this.trainingEvents = trainingEvents;
+	}
+
+	public TrainingEvent addTrainingEvent(TrainingEvent trainingEvent) {
+		getTrainingEvents().add(trainingEvent);
+		trainingEvent.setTrainingPlan(this);
+
+		return trainingEvent;
+	}
+
+	public TrainingEvent removeTrainingEvent(TrainingEvent trainingEvent) {
+		getTrainingEvents().remove(trainingEvent);
+		trainingEvent.setTrainingPlan(null);
+
+		return trainingEvent;
+	}
+
 	public List<UserEvent> getUserEvents() {
 		return this.userEvents;
 	}
-
+	
 	public void setUserEvents(List<UserEvent> userEvents) {
 		this.userEvents = userEvents;
-	}
-
-	public UserEvent addUserEvent(UserEvent userEvent) {
-		getUserEvents().add(userEvent);
-		userEvent.setTrainingPlan(this);
-
-		return userEvent;
-	}
-
-	public UserEvent removeUserEvent(UserEvent userEvent) {
-		getUserEvents().remove(userEvent);
-		userEvent.setTrainingPlan(null);
-
-		return userEvent;
-	}
-	
-	public String getStatus() {
-		String status = null;
-		
-		Date dateStart = schedules.get(0).getStartDate();
-		Date dateEnd = schedules.get(schedules.size() - 1).getEndDate();
-		Date now = new Date();
-		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		System.out.println("Start Date : " + dateFormat.format(dateStart));
-		System.out.println("End Date : " + dateFormat.format(dateEnd));
-		System.out.println("Now : " + dateFormat.format(now));
-			
-		if (now.after(dateEnd)) {
-            status = "Accomplished";
-        } else if (now.before(dateStart)) {
-            status = "Incoming";
-        } else if (now.equals(dateStart) || now.equals(dateEnd)) {
-        	status = "Ongoing";
-        } else {
-        	status = "Ongoing";
-        }
-		
-		return status;
 	}
 
 }

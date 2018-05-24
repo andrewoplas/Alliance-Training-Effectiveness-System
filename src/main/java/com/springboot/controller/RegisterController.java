@@ -45,6 +45,7 @@ public class RegisterController {
 		return ResponseEntity.ok(response == null);
 	}
 	
+	
 	@RequestMapping(value = "/checkEmail", method = RequestMethod.POST)
 	public ResponseEntity<?> contains(HttpServletRequest request, ModelMap map) {
 		String email = request.getParameter("email");

@@ -35,6 +35,7 @@ public class LoginController{
 		String password = request.getParameter("password");
 		
 		User user = loginService.searchUser(email, password);
+		//System.out.println(user.getName());
 		
 		// User exists and approved
 		if(user != null && !(user.getStatus().equals("pending"))) {

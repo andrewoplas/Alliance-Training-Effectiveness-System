@@ -7,5 +7,20 @@
 		<class>com.springboot.entities.TrainingPlan</class>
 		<class>com.springboot.entities.UserEvent</class>
 		<class>com.springboot.entities.User</class>
+		<class>com.springboot.entities.CfAnswerdetail</class>
+		<class>com.springboot.entities.CfAnswerheader</class>
+		<class>com.springboot.entities.FfAnswerdetail</class>
+		<class>com.springboot.entities.FfAnswerheader</class>
+		<class>com.springboot.entities.Question</class>
+		<class>com.springboot.entities.SaAnswerdetail</class>
+		<class>com.springboot.entities.SaAnswerheader</class>
+		<class>com.springboot.entities.SaCategory</class>
+		<class>com.springboot.entities.TeaAnswercomment</class>
+		<class>com.springboot.entities.TeaAnswerheader</class>
+		<class>com.springboot.entities.TeaAnswermc</class>
+		<class>com.springboot.entities.TnaAnswercomment</class>
+		<class>com.springboot.entities.TnaAnswerheader</class>
+		<class>com.springboot.entities.TnaAnswerupper</class>
+		<class>com.springboot.entities.TrainingEvent</class>
 	</persistence-unit>
 </persistence>
