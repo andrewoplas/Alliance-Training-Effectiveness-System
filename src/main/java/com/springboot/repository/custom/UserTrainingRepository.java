@@ -1,15 +1,17 @@
 package com.springboot.repository.custom;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
-import com.springboot.entities.Schedule;
+import com.springboot.entities.SaAssignment;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.UserEvent;
 
@@ -106,5 +108,25 @@ public class UserTrainingRepository {
 		} catch (Exception ex) { ex.printStackTrace(); }
 		
 		return userEvent;
+	}
+
+	public void insertAssignment(EntityManager em, List<SaAssignment> assignments) {
+		for(SaAssignment assignment : assignments) {
+			em.persist(assignment);
+		}
+	}
+
+	public List<SaAssignment> retrieveAssignments(EntityManager em, int trainingID) {
+		Session session = em.unwrap(Session.class);		
+		StringBuilder stringQuery = new StringBuilder("SELECT a.id as id, a.type as type, a.assigned as assigned, a.assignedTo as assignedTo FROM sa_assignment a LEFT JOIN user_event e ON a.assignedTo = e.id WHERE e.trainingPlanID = :trainingID");
+		SQLQuery query = session.createSQLQuery(stringQuery.toString());
+		query.setParameter("trainingID", trainingID);
+		query.addScalar("id");
+		query.addScalar("type");
+		query.addScalar("assigned");
+		query.addScalar("assignedTo");
+		query.setResultTransformer(Transformers.aliasToBean(SaAssignment.class));
+				
+		return (List<SaAssignment>)query.list();
 	}
 }

@@ -27,12 +27,5 @@ public class EmailService {
 		     helper.setText(body, true);
 		     
 		     javaMailSender.send(message);
-		  
-//		        SimpleMailMessage message = new SimpleMailMessage(); 
-//		        message.setTo(sendee); 
-//		        message.setSubject(subject); 
-//		        message.setText(body);
-//		        javaMailSender.send(message);
-		     
 		}
 }

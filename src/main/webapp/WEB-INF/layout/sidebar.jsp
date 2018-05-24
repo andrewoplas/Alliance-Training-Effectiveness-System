@@ -68,7 +68,7 @@
 		            		<span class="hide-menu"> Forms <span class="fa arrow"></span></span>
 		            	</a>
 		                <ul class="nav nav-second-level">
-		                    <li><a href="/ates/form/skills-analysis"><i class="mdi mdi-react fa-fw"></i><span class="hide-menu">Skills Analysis</span></a></li>
+		                    <li><a href="/ates/forms/skills-assessment"><i class="mdi mdi-react fa-fw"></i><span class="hide-menu">Skills Assessment</span></a></li>
 		                    <li><a href="/ates/form/training-needs-assessment"><i class="mdi mdi-gavel fa-fw"></i><span class="hide-menu">Training Needs Assessment</span></a></li>
 		                    <li><a href="/ates/form/training-effectivess-assessment"><i class="mdi mdi-human-handsup fa-fw"></i><span class="hide-menu">Training Effectiveness Assessment</span></a></li>
 		                    <li><a href="/ates/form/course-feedback"><i class="mdi mdi-comment-processing-outline fa-fw"></i><span class="hide-menu">Course Feedback</span></a></li>

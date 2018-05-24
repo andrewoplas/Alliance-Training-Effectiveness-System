@@ -51,6 +51,8 @@ public class User implements Serializable {
 	//bi-directional many-to-one association to UserEvent
 	@OneToMany(mappedBy="user")
 	private List<UserEvent> userEvents;
+	
+	private transient int userEventID;
 
 	public User() {
 	}
@@ -169,6 +171,14 @@ public class User implements Serializable {
 		userEvent.setUser(null);
 
 		return userEvent;
+	}
+	
+	public int getUserEventID() {
+		return userEventID;
+	}
+
+	public void setUserEventID(int userEventID) {
+		this.userEventID = userEventID;
 	}
 
 }

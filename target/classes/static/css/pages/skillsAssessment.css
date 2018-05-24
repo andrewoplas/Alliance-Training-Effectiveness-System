@@ -1,0 +1,61 @@
+.bordered-box {
+	padding: 10px;
+	margin-top: 5px;
+	border: 1px solid #eee;
+}
+	
+
+.dd {
+    max-width: 100% !important;
+}
+
+#msform input, #msform textarea {
+	font-family : Rubik,sans-serif;
+}
+
+.dd-list {
+	text-align: left;
+}
+
+.editable-input input {
+	margin-bottom: 0 !important;
+}
+
+.editable-buttons button {
+	width: auto !important;
+	height: auto !important;
+	padding: 7px 10px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+	
+
+.dd3-item:last-child {
+	margin-bottom: 15px;
+}
+
+.dd3-content {
+	word-wrap: break-word;
+}
+
+
+.btn-remove-item {
+	text-indent: 0 !important;
+	position: absolute !important;
+    top: 6px !important;
+    margin: 0 !important;
+    right: 8px !important;	
+}
+
+.btn-remove-item:before {
+	content: none !important;	
+}
+
+.myadmin-dd-empty .dd-list .dd3-content {
+    cursor: pointer;
+}
+
+.editable-input .form-control {
+	height: 40px !important;
+}
+	

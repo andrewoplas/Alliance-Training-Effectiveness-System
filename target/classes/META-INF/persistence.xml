@@ -7,5 +7,7 @@
 		<class>com.springboot.entities.TrainingPlan</class>
 		<class>com.springboot.entities.UserEvent</class>
 		<class>com.springboot.entities.User</class>
+		<class>com.springboot.entities.SaCategory</class>
+		<class>com.springboot.entities.SaAssignment</class>
 	</persistence-unit>
 </persistence>

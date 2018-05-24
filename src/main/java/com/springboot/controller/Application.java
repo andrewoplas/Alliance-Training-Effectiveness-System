@@ -9,6 +9,7 @@ import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.entities.custom.Mail;
 import com.springboot.service.CustomizedEmailService;
 
 @RestController

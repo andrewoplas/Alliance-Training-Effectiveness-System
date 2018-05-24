@@ -1,0 +1,144 @@
+.font-poppins {
+	font-family: Poppins;
+}
+
+.container-width {
+	width: 70% !important;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 30px;
+}
+
+@media only screen and (max-width: 900px) {
+	.container-width {
+		width: 85% !important;
+	}
+}
+
+
+
+@media only screen and (min-width: 1px) {
+	.title-container {
+		width: 100%;
+	    margin: auto;
+	    text-align: center;
+	    padding-top: 50px;
+	    padding-left: 20px;
+	    padding-right: 20px;
+	}
+
+	.title-container p {
+		font-size: 20px;
+	    font-weight: bold;
+	}
+}
+
+@media only screen and (min-width: 500px) {
+	.title-container {
+		width: 100%;
+	    margin: auto;
+	    text-align: center;
+	    padding-top: 100px;
+	    padding-left: 20px;
+	    padding-right: 20px;
+	}
+
+	.title-container p {
+		font-size: 25px;
+	    font-weight: bold;
+	}
+}
+
+@media only screen and (min-width: 900px) {
+	.title-container {
+		width: 70%;
+	    margin: auto;
+	    text-align: center;
+	    padding-top: 100px;
+	}
+
+	.title-container p {
+		font-size: 35px;
+	    font-weight: bold;
+	}
+}
+
+.description-container {
+    width: 70%;
+    text-align: center;
+    margin: 40px auto;
+}
+
+.custom-hr {
+	margin-top: 30px;
+	border-top: 7px solid #eee;
+	width: 30%;
+	border-radius: 5px;
+}
+
+@media only screen and (min-width: 900px) {
+	.custom-hr {
+		border-top: 7px solid #eee;
+		width: 150px;
+		border-radius: 5px;
+	}
+}
+
+.text-bold {
+	font-weight: bold !important; 
+}
+
+.section-title {
+    color: #f6f8f9;
+    font-size: 75px;
+    line-height: 0.3;
+    margin-top: 60px;
+    margin-bottom: 65px;
+}
+
+.section-title span{
+	color: #8568f3;
+    display: block;
+    font-size: 40px;   
+}
+
+@media only screen and (max-width: 1045px) {
+	.section-title {
+	    font-size: 50px;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.section-title {
+	    font-size: 40px;
+	}
+	
+	.section-title span {
+	    font-size: 30px;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	.section-title {
+	    font-size: 30px;
+	}
+	
+	.section-title span {
+	    font-size: 25px;
+	}
+}
+
+@media only screen and (max-width: 390px) {
+	.section-title {
+	    margin-bottom: 40px;
+	}
+}	
+
+.ui.search.dropdown.multi-select.selection.multiple.active.visible, .ui.search, .ui.selection.dropdown .menu>.item {
+	font-size: 14px;	
+}
+
+.multi-select {
+	width: 100%;
+	font-size: 14px;
+}

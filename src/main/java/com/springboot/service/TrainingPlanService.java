@@ -264,7 +264,9 @@ public class TrainingPlanService {
 				
 				for(UserEvent userEvent : userEvents) {
 					if(userEvent.getRole().contains(position)) {
-						participants.add(userEvent.getUser());
+						User user = userEvent.getUser();
+						user.setUserEventID(userEvent.getId());
+						participants.add(user);
 					}
 				}
 				

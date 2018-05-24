@@ -21,7 +21,7 @@ import com.springboot.interceptor.LoginInterceptor;
 @EnableJpaRepositories({ "com.springboot.repository", "com.springboot.repository.custom" })
 public class BeanConfiguration extends WebMvcConfigurerAdapter {
 
-	//
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/ates/**");

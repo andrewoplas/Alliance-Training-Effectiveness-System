@@ -248,6 +248,27 @@
 			
 		</put-list-attribute>
 	</definition>
+	
+	<!-- [Admin] Form - Skills Assessment -->
+	<definition name="/forms/skillsAssessment" extends="default">
+	    <put-attribute name="title" value="ATES - Skills Assessment" />
+	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessment.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/plugins/editable/bootstrap3-editable/css/bootstrap-editable.css" />
+	    	<add-attribute value="/plugins/nestable/nestable.css" />
+	    	<add-attribute value="/css/pages/skillsAssessment.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
+			<add-attribute value="/plugins/editable/bootstrap3-editable/js/bootstrap-editable.min.js" />		
+			<add-attribute value="/plugins/nestable/jquery.nestable.js" />
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/js/pages/skillsAssessment.js" />
+		</put-list-attribute>
+	</definition>
 		
 	
 	<!-- [General User] Dashboard -->
@@ -338,6 +359,24 @@
 		<put-list-attribute name="javascripts" inherit="true">
 			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
 			<add-attribute value="/js/pages/trainingSummary.js" />
+		</put-list-attribute>
+	</definition>
+	
+	<!-- [General User] Skills Assessment Assignment -->
+	<definition name="/general/training/skills-assessment" extends="default">
+	    <put-attribute name="title" value="ATES - Skills Assessment" />
+	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessmentAssign.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/semantic/css/semantic.min.css" />
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+			<add-attribute value="/css/pages/skillsAssessmentAssignment.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/semantic/js/transition.min.js" />
+			<add-attribute value="/plugins/semantic/js/dropdown.min.js" />
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/js/pages/skillsAssessmentAssignment.js" />
 		</put-list-attribute>
 	</definition>
 	

@@ -43,7 +43,7 @@
                 	$("#alert-error").find('.name').text("An error occur during the creation.");
                     $("#alert-error").fadeToggle(350);
                 }
-            } error: function(jqXHR, status, error) {
+            }, error: function() {
             	showErrorAlert();
             }
         });

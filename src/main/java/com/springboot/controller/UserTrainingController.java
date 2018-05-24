@@ -1,6 +1,8 @@
 package com.springboot.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,9 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.springboot.body.AssignmentSA;
 import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.User;
@@ -95,6 +100,39 @@ public class UserTrainingController {
 		return "/general/training/edit";
 	}
 	
+	@RequestMapping(value = "/training/skills-assessment/{id}/{trainingPlanId}")
+	public String skillsAssessment(ModelMap map, HttpServletRequest request, @PathVariable int id, @PathVariable String trainingPlanId) {
+		User user = session.getUser(request);
+		if(!tpService.checkTrainingInvolvementAndSupervisor(user, id)) return "redirect:/error/404";
+		
+		TrainingPlan training = adminTPService.retrieveTraining(trainingPlanId);
+		
+		if(training != null) {
+			Map<Integer, List<Integer>> assignments = tpService.retrieveAssignments(training.getId());
+			List<User> participants = adminTPService.retrieveTrainingPeople(training, "Participant");
+			List<User> supervisors = adminTPService.retrieveTrainingPeople(training, "Supervisor");
+			
+			map.addAttribute("assignments", assignments);
+			map.addAttribute("training", training);
+			map.addAttribute("participants", participants);
+			map.addAttribute("supervisors", supervisors);
+			map.addAttribute("userEventId", id);
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/general/training/skills-assessment";
+	}
+	
+	@RequestMapping(value = "/training/skills-assessment/{trainingPlanId}", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<?> insertTraining(@RequestBody AssignmentSA[] assessment, @PathVariable String trainingPlanId, HttpServletRequest request) {
+			
+		tpService.insertAssignment(assessment, Integer.parseInt(trainingPlanId));
+		
+		return ResponseEntity.ok(true);
+	}
+	
+	
 	@RequestMapping(value = "/training/edit", method = RequestMethod.POST)
 	public ResponseEntity<?> editTrainingPlan(ModelMap map, HttpServletRequest request) {
 		User user = session.getUser(request);
@@ -156,4 +194,6 @@ public class UserTrainingController {
 		
 		return ResponseEntity.ok(result > 0);
 	}
+	
+	
 }

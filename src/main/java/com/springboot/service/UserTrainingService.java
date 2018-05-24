@@ -3,7 +3,9 @@ package com.springboot.service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,6 +13,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springboot.body.AssignmentSA;
+import com.springboot.entities.SaAssignment;
 import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.User;
@@ -93,6 +97,19 @@ public class UserTrainingService {
 		
 		return result;
 	}
+	
+	public boolean checkTrainingInvolvementAndSupervisor(User user, int id) {
+		UserEvent userEvent = tpRepository.retrieveUserEventById(em, id);
+		boolean result = false;
+		
+		if( userEvent != null && 
+			userEvent.getUser().getId() == user.getId() &&
+			userEvent.getRole().contains("Supervisor") ) {
+				result = true;
+		}
+		
+		return result;
+	}
 
 	public void editTraining(String id, String description, String courseOutline) {
 		TrainingPlan trainingPlan = new TrainingPlan();
@@ -100,5 +117,58 @@ public class UserTrainingService {
 		trainingPlan.setDescription(description);
 		trainingPlan.setCourseOutline(courseOutline);
 		tpRepository.editTraining(em, trainingPlan);
+	}
+	
+	public Map<Integer, List<Integer>> retrieveAssignments(int trainingID) {
+		List<SaAssignment> assignments = tpRepository.retrieveAssignments(em, trainingID);
+		
+		Map<Integer, List<Integer>> pairs = new HashMap<Integer, List<Integer>>();
+		for(SaAssignment assignment : assignments) {
+			if(pairs.containsKey(assignment.getAssignedTo())) {
+				pairs.get(assignment.getAssignedTo()).add(assignment.getAssigned());
+			} else {
+				pairs.put(assignment.getAssignedTo(), new ArrayList<Integer>());
+				pairs.get(assignment.getAssignedTo()).add(assignment.getAssigned());
+			}
+		}		
+		
+		return pairs;
+	}
+
+	public void insertAssignment(AssignmentSA[] assessments, int parseInt) {
+		List<SaAssignment> assignments = new ArrayList<SaAssignment>();
+		for(AssignmentSA assessment : assessments) {
+			int user = assessment.getUser();
+			
+			// Self
+			SaAssignment self = new SaAssignment();
+			self.setUserEvent1(new UserEvent(user));
+			self.setUserEvent2(new UserEvent(user));
+			self.setType("Self");
+			assignments.add(self);
+			
+			
+			// Peers
+			for(int peers : assessment.getPeers()) {
+				SaAssignment assignment = new SaAssignment();
+				assignment.setUserEvent1(new UserEvent(user));
+				assignment.setUserEvent2(new UserEvent(peers));
+				assignment.setType("Peer");
+				
+				assignments.add(assignment);
+			}
+			
+			// Supervisor
+			for(int supervisor : assessment.getSupervisors()) {
+				SaAssignment assignment = new SaAssignment();
+				assignment.setUserEvent1(new UserEvent(user));
+				assignment.setUserEvent2(new UserEvent(supervisor));
+				assignment.setType("Supervisor");
+				
+				assignments.add(assignment);
+			}
+		}
+		
+		tpRepository.insertAssignment(em, assignments);
 	}
 }

@@ -107,6 +107,14 @@
 				                                        		<i class="mdi mdi-lead-pencil"></i>
 			                                        		</button>
 		                                        		</a>
+		                                        		</c:if>		
+		                                        		
+		                                        		<c:if test="${ userEvent.role.contains('Supervisor') }">
+		                                        			<a href="/ates/general/training/skills-assessment/${ userEvent.id }/${ userEvent.trainingPlan.id }">
+				                                        	<button type="button" class="btn btn-warning btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Assign Skills Assessment Form" data-placement="top">
+				                                        		<i class="mdi mdi-account-switch"></i>
+			                                        		</button>
+		                                        		</a>
 		                                        		</c:if>															
 													</td>
 													<td><fmt:parseDate pattern="yyyy-MM-dd"

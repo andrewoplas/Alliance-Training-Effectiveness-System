@@ -34,6 +34,10 @@ public class UserEvent implements Serializable {
 
 	public UserEvent() {
 	}
+	
+	public UserEvent(int id) {
+		this.id = id;
+	}
 
 	public int getId() {
 		return this.id;

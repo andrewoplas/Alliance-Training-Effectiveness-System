@@ -1,4 +1,4 @@
-package com.springboot.controller;
+package com.springboot.entities.custom;
 
 import java.util.Map;
 
