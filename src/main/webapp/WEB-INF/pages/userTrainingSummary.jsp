@@ -121,7 +121,7 @@
 								
 								<div class="row m-t-20">
 									<c:forEach var="person" items="${ participants }">
-									<div class="col-xs-12 col-sm-4 col-lg-3">
+									<div class="col-xs-12 col-sm-4">
 										<div class="white-box p-10 participant-item">
 											<i class="mdi mdi-account text-info"></i>
 											<span class="name text-bold">${ person.name }</span> <br />

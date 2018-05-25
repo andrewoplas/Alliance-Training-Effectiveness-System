@@ -87,7 +87,6 @@ public class TrainingPlanRepository {
 			query.setParameter("tid", id);
 			query.setParameter("uid", userEvents[i].getUser().getId());
 			
-			System.out.println("SELECT: " + id + " " + userEvents[i].getUser().getId() + " = " + query.getResultList().size());
 			if(query.getResultList().size() == 0) {
 				System.out.println(userEvents[i].getUser().getName());
 				em.persist(userEvents[i]);

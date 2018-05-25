@@ -35,6 +35,10 @@ public class SaCategory implements Serializable {
 	@Column(name="row_order")
 	private int rowOrder;
 
+	//bi-directional many-to-one association to SaAnswer
+	@OneToMany(mappedBy="saCategory")
+	private List<SaAnswer> saAnswers;
+
 	//bi-directional many-to-one association to SaCategory
 	@ManyToOne
 	@JoinColumn(name="parentID")
@@ -46,6 +50,7 @@ public class SaCategory implements Serializable {
 
 	public SaCategory() {
 		saCategories = new ArrayList<SaCategory>();
+		saAnswers = new ArrayList<SaAnswer>();
 	}
 
 	public int getId() {
@@ -70,6 +75,28 @@ public class SaCategory implements Serializable {
 
 	public void setRowOrder(int rowOrder) {
 		this.rowOrder = rowOrder;
+	}
+
+	public List<SaAnswer> getSaAnswers() {
+		return this.saAnswers;
+	}
+
+	public void setSaAnswers(List<SaAnswer> saAnswers) {
+		this.saAnswers = saAnswers;
+	}
+
+	public SaAnswer addSaAnswer(SaAnswer saAnswer) {
+		getSaAnswers().add(saAnswer);
+		saAnswer.setSaCategory(this);
+
+		return saAnswer;
+	}
+
+	public SaAnswer removeSaAnswer(SaAnswer saAnswer) {
+		getSaAnswers().remove(saAnswer);
+		saAnswer.setSaCategory(null);
+
+		return saAnswer;
 	}
 
 	public SaCategory getSaCategory() {

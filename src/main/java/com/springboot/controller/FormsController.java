@@ -28,9 +28,8 @@ public class FormsController {
 	@RequestMapping(value = "/skills-assessment")
 	public String skillsAssessment(ModelMap map, HttpServletRequest request) {
 		List<SaCategory> parents = formsService.getParentCategories();
-		String dataHTML = formsService.createHTMLSA(parents);
-		
-		map.addAttribute("dataHTML", dataHTML);
+
+		map.addAttribute("categories", parents);
 		
 		return "/forms/skillsAssessment";
 	}

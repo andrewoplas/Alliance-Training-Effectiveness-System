@@ -9,5 +9,6 @@
 		<class>com.springboot.entities.User</class>
 		<class>com.springboot.entities.SaCategory</class>
 		<class>com.springboot.entities.SaAssignment</class>
+		<class>com.springboot.entities.SaAnswer</class>
 	</persistence-unit>
 </persistence>

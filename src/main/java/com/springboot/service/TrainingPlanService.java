@@ -256,13 +256,15 @@ public class TrainingPlanService {
 		return schedules;
 	}
 	
-	public List<User> retrieveTrainingPeople(TrainingPlan training, String position) {
+	public List<User> retrieveTrainingPeople(TrainingPlan training, String position, boolean approvedOnly) {
 		try {			
 			if(training != null) {
 				List<UserEvent> userEvents = training.getUserEvents(); 
 				List<User> participants = new ArrayList<User>();
 				
 				for(UserEvent userEvent : userEvents) {
+					if(approvedOnly && !userEvent.getStatus().equals("approved")) continue;
+					
 					if(userEvent.getRole().contains(position)) {
 						User user = userEvent.getUser();
 						user.setUserEventID(userEvent.getId());
@@ -275,7 +277,7 @@ public class TrainingPlanService {
 				    @Override
 				    public int compare(User a, User b) {
 				        // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
-				        return a.getName().compareTo(b.getName());
+				        return a.getName().compareToIgnoreCase(b.getName());
 				    }
 				});
 				

@@ -53,3 +53,13 @@
 	background-color: white;
     color: #707cd2;
 }
+
+.badge.Peer{
+	background-color: white;
+    color: #1e88e5;
+}
+
+.badge.Self{
+	background-color: white;
+    color: #ff9800;
+}

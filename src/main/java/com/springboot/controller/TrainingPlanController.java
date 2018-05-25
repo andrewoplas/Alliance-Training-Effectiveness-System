@@ -47,10 +47,10 @@ public class TrainingPlanController {
 		TrainingPlan training = tpService.retrieveTraining(id);
 		
 		if(training != null) {
-			List<User> participants = tpService.retrieveTrainingPeople(training, "Participant");
-			List<User> internal = tpService.retrieveTrainingPeople(training, "Internal");
-			List<User> external = tpService.retrieveTrainingPeople(training, "External");
-			List<User> supervisors = tpService.retrieveTrainingPeople(training, "Supervisor");
+			List<User> participants = tpService.retrieveTrainingPeople(training, "Participant", true);
+			List<User> internal = tpService.retrieveTrainingPeople(training, "Internal", true);
+			List<User> external = tpService.retrieveTrainingPeople(training, "External", true);
+			List<User> supervisors = tpService.retrieveTrainingPeople(training, "Supervisor", true);
 			List<Schedule> schedules = tpService.sortSchedule(training.getSchedules());
 						
 			map.addAttribute("participants", participants);
@@ -124,7 +124,7 @@ public class TrainingPlanController {
 		TrainingPlan training = tpService.retrieveTraining(id);
 			
 		if(training != null) {
-			List<User> participants = tpService.retrieveTrainingPeople(training, "Participant");
+			List<User> participants = tpService.retrieveTrainingPeople(training, "Participant", true);
 			List<Schedule> schedules = tpService.sortSchedule(training.getSchedules());
 						
 			map.addAttribute("participants", participants);

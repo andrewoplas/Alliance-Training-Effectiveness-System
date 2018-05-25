@@ -63,6 +63,7 @@
 												<th data-toggle="true" class="p-l-30">Training</th>
 												<th class="text-center">Role</th>
 												<th class="text-center">Status</th>
+												<th>Forms</th>
 												<th>Action</th>
 												<th data-hide="all">Start Date</th>
 												<th data-hide="all">End Date</th>
@@ -72,10 +73,13 @@
 										<tbody>
 											<c:forEach var="userEvent" items="${ userEvents }">	
 												<tr data-id="${userEvent.id}">
-													<td width="30%" class="training">${ userEvent.trainingPlan.title }</td>
-													<td width="20%" class="text-center"><span
-														class="badge ${ userEvent.role }">${ userEvent.role }</span></td>
-													<td width="20%" class="text-center status">
+													<td width="25%" class="training">${ userEvent.trainingPlan.title }</td>
+													
+													<td width="15%" class="text-center">
+														<span class="badge ${ userEvent.role }">${ userEvent.role }</span>
+													</td>
+														
+													<td width="15%" class="text-center status">
 														<c:choose>
 															<c:when test="${ userEvent.status == 'approved' }">
 																<span class="badge badge-success">Approved</span>
@@ -85,6 +89,26 @@
 																<span class="badge badge-danger">Declined</span>
 															</c:when>
 														</c:choose>
+													</td>
+													
+													<td width="20%">
+														<c:if test="${ userEvent.getSaAssignments1(userEvent.id).size() > 0 }">
+															<a href="/ates/general/training/skills-assessment/assignment/${ userEvent.id }">
+					                                        	<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="View Skills Assessment" data-placement="top">
+					                                        		<i class="mdi mdi-account-key"></i>
+				                                        		</button>
+			                                        		</a>
+														</c:if>
+														
+		                                        		<c:if test="${ userEvent.role.contains('Supervisor') }">
+		                                        			<a href="/ates/general/training/skills-assessment/${ userEvent.id }/${ userEvent.trainingPlan.id }">
+					                                        	<button type="button" class="btn btn-warning btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Assign Skills Assessment Form" data-placement="top">
+					                                        		<i class="mdi mdi-account-switch"></i>
+				                                        		</button>
+			                                        		</a>
+		                                        		</c:if>
+		                                        		
+		                                        		
 													</td>
 													<td width="20%">
 														<a href="/ates/general/training/${ userEvent.id }/${ userEvent.trainingPlan.id }">
@@ -108,23 +132,18 @@
 			                                        		</button>
 		                                        		</a>
 		                                        		</c:if>		
-		                                        		
-		                                        		<c:if test="${ userEvent.role.contains('Supervisor') }">
-		                                        			<a href="/ates/general/training/skills-assessment/${ userEvent.id }/${ userEvent.trainingPlan.id }">
-				                                        	<button type="button" class="btn btn-warning btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Assign Skills Assessment Form" data-placement="top">
-				                                        		<i class="mdi mdi-account-switch"></i>
-			                                        		</button>
-		                                        		</a>
-		                                        		</c:if>															
 													</td>
+													
 													<td><fmt:parseDate pattern="yyyy-MM-dd"
 															value="${ userEvent.trainingPlan.schedules.get(0).date }"
 															var="start_date" /> <fmt:formatDate value="${start_date }"
 															pattern="MMM dd, yyyy" /></td>
+															
 													<td><fmt:parseDate pattern="yyyy-MM-dd"
 															value="${ userEvent.trainingPlan.schedules.get(userEvent.trainingPlan.schedules.size()-1).date }"
 															var="start_date" /> <fmt:formatDate value="${ start_date }"
 															pattern="MMM dd, yyyy" /></td>
+															
 													<td><c:set var="description"
 															value="${ fn:substring(userEvent.trainingPlan.description, 1, 100) }" />
 														${ description }</td>

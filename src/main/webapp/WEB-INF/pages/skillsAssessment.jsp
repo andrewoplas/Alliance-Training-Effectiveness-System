@@ -29,7 +29,7 @@
 								</div>
                        			<div class="bordered-box">
 									<div class="myadmin-dd-empty dd" id="nestable2">
-			                        	<c:out value="${ dataHTML }" escapeXml="false" />
+										<jsp:include page="skillsAssessmentNode.jsp"/>
 				                    </div>
 				                    
 									<a href="javascript:void(0)" class="btn-add-item btn-block text-center"> 

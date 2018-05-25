@@ -1,6 +1,9 @@
 package com.springboot.repository.custom;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -110,10 +113,31 @@ public class UserTrainingRepository {
 		return userEvent;
 	}
 
-	public void insertAssignment(EntityManager em, List<SaAssignment> assignments) {
-		for(SaAssignment assignment : assignments) {
-			em.persist(assignment);
-		}
+	public void insertAssignment(EntityManager em, List<SaAssignment> assignments, Map<Integer, List<Integer>> pairs) {
+			Iterator it = pairs.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry pair = (Map.Entry)it.next();
+				
+				String sql = "DELETE FROM SaAssignment WHERE assignedTo = :assignedTo AND assigned NOT IN (:assigned)";
+				Query query = em.createQuery(sql);
+				query.setParameter("assignedTo", pair.getKey());
+				query.setParameter("assigned", (Collection<Integer>)pair.getValue());
+				query.executeUpdate();	
+				
+				it.remove(); // avoids a ConcurrentModificationException
+			}			
+		
+			for(SaAssignment assignment : assignments) {
+				String sql = "FROM SaAssignment WHERE assigned = :assigned AND assignedTo = :assignedTo";
+				Query query = em.createQuery(sql);
+				query.setParameter("assigned", assignment.getUserEvent2().getId());
+				query.setParameter("assignedTo", assignment.getUserEvent1().getId());
+				
+				if(query.getResultList() == null || query.getResultList().size() == 0) {
+					System.out.println(assignment.getUserEvent1().getId());
+					em.persist(assignment);
+				}
+			}
 	}
 
 	public List<SaAssignment> retrieveAssignments(EntityManager em, int trainingID) {
@@ -128,5 +152,16 @@ public class UserTrainingRepository {
 		query.setResultTransformer(Transformers.aliasToBean(SaAssignment.class));
 				
 		return (List<SaAssignment>)query.list();
+	}
+
+	public List<SaAssignment> retrieveAssignmentAssigned(EntityManager em, int userEventID) {
+		List<SaAssignment> assignments = null;
+		StringBuilder sql = new StringBuilder("FROM SaAssignment WHERE assigned = :userEventID");
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("userEventID", userEventID);
+		
+		assignments = query.getResultList();		
+
+		return assignments;
 	}
 }

@@ -2,7 +2,6 @@ package com.springboot.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springboot.body.AssignmentSA;
+import com.springboot.entities.SaAssignment;
 import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.User;
@@ -64,10 +64,10 @@ public class UserTrainingController {
 		TrainingPlan training = adminTPService.retrieveTraining(trainingPlanId);
 		
 		if(training != null) {
-			List<User> participants = adminTPService.retrieveTrainingPeople(training, "Participant");
-			List<User> internal = adminTPService.retrieveTrainingPeople(training, "Internal");
-			List<User> external = adminTPService.retrieveTrainingPeople(training, "External");
-			List<User> supervisors = adminTPService.retrieveTrainingPeople(training, "Supervisor");
+			List<User> participants = adminTPService.retrieveTrainingPeople(training, "Participant", true);
+			List<User> internal = adminTPService.retrieveTrainingPeople(training, "Internal", true);
+			List<User> external = adminTPService.retrieveTrainingPeople(training, "External", true);
+			List<User> supervisors = adminTPService.retrieveTrainingPeople(training, "Supervisor", true);
 			List<Schedule> schedules = adminTPService.sortSchedule(training.getSchedules());
 						
 			map.addAttribute("participants", participants);
@@ -109,8 +109,8 @@ public class UserTrainingController {
 		
 		if(training != null) {
 			Map<Integer, List<Integer>> assignments = tpService.retrieveAssignments(training.getId());
-			List<User> participants = adminTPService.retrieveTrainingPeople(training, "Participant");
-			List<User> supervisors = adminTPService.retrieveTrainingPeople(training, "Supervisor");
+			List<User> participants = adminTPService.retrieveTrainingPeople(training, "Participant", false);
+			List<User> supervisors = adminTPService.retrieveTrainingPeople(training, "Supervisor", false);
 			
 			map.addAttribute("assignments", assignments);
 			map.addAttribute("training", training);
@@ -130,6 +130,15 @@ public class UserTrainingController {
 		tpService.insertAssignment(assessment, Integer.parseInt(trainingPlanId));
 		
 		return ResponseEntity.ok(true);
+	}
+	
+	@RequestMapping(value = "/training/skills-assessment/assignment/{userEventID}")
+	public String insertTraining(@PathVariable int userEventID, ModelMap map) {
+		List<SaAssignment> assignments = tpService.retrieveAssignmentAssigned(userEventID);
+		
+		map.addAttribute("assignments", assignments);
+		
+		return "/general/training/skills-assessment/assignment";
 	}
 	
 	

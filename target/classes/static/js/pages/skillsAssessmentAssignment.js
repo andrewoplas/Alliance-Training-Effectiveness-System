@@ -9,9 +9,11 @@ $(document).ready(function() {
 		
 		$('table .advance-table-row').each(function(){
 			var id = $(this).attr('data-id');
+			var peersArr = $('#' + id + '-peer').dropdown('get value');
+			var supervisorsArr = $('#' + id + '-supervisor').dropdown('get value');
 			var user = {
-				peers: $('#' + id + '-peer').dropdown('get value'),
-				supervisors: $('#' + id + '-supervisor').dropdown('get value'),
+				peers: peersArr == null? [] : peersArr,
+				supervisors: supervisorsArr == null? [] : supervisorsArr,
 				user: id,
 			}
 			rows.push(user);

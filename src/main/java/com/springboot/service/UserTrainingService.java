@@ -137,23 +137,31 @@ public class UserTrainingService {
 
 	public void insertAssignment(AssignmentSA[] assessments, int parseInt) {
 		List<SaAssignment> assignments = new ArrayList<SaAssignment>();
+		Map<Integer, List<Integer>> pairs = new HashMap<Integer, List<Integer>>();
+		
 		for(AssignmentSA assessment : assessments) {
 			int user = assessment.getUser();
+			List<Integer> assigned = new ArrayList<Integer>();
+			
 			
 			// Self
 			SaAssignment self = new SaAssignment();
 			self.setUserEvent1(new UserEvent(user));
 			self.setUserEvent2(new UserEvent(user));
 			self.setType("Self");
+			self.setStatus("unanswered");
 			assignments.add(self);
+			assigned.add(user);
 			
 			
 			// Peers
 			for(int peers : assessment.getPeers()) {
 				SaAssignment assignment = new SaAssignment();
-				assignment.setUserEvent1(new UserEvent(user));
-				assignment.setUserEvent2(new UserEvent(peers));
+				assignment.setUserEvent1(new UserEvent(peers));
+				assignment.setUserEvent2(new UserEvent(user));
 				assignment.setType("Peer");
+				assignment.setStatus("unanswered");
+				assigned.add(peers);
 				
 				assignments.add(assignment);
 			}
@@ -161,14 +169,22 @@ public class UserTrainingService {
 			// Supervisor
 			for(int supervisor : assessment.getSupervisors()) {
 				SaAssignment assignment = new SaAssignment();
-				assignment.setUserEvent1(new UserEvent(user));
-				assignment.setUserEvent2(new UserEvent(supervisor));
+				assignment.setUserEvent1(new UserEvent(supervisor));
+				assignment.setUserEvent2(new UserEvent(user));
 				assignment.setType("Supervisor");
+				assignment.setStatus("unanswered");
+				assigned.add(supervisor);
 				
 				assignments.add(assignment);
 			}
+			
+			pairs.put(user, assigned);
 		}
 		
-		tpRepository.insertAssignment(em, assignments);
+		tpRepository.insertAssignment(em, assignments, pairs);
+	}
+
+	public List<SaAssignment> retrieveAssignmentAssigned(int userEventID) { 
+		return tpRepository.retrieveAssignmentAssigned(em, userEventID);
 	}
 }
