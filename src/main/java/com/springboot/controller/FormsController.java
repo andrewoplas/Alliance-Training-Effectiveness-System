@@ -19,8 +19,10 @@ import com.springboot.body.AssignmentSA;
 import com.springboot.body.SkillsAssessment;
 import com.springboot.entities.SaAssignment;
 import com.springboot.entities.SaCategory;
+import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.User;
+import com.springboot.entities.UserEvent;
 import com.springboot.service.FormsService;
 import com.springboot.service.TrainingPlanService;
 import com.springboot.service.UserTrainingService;
@@ -62,5 +64,37 @@ public class FormsController {
 		formsService.insertSkillsAssessment(sa);
 		
 		return ResponseEntity.ok(true);
+	}
+	
+	@RequestMapping(value = "/skills-assessment/view/{trainingPlanID}")
+	public String skillsAssessment(ModelMap map, @PathVariable String trainingPlanID) {
+		TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
+		
+		if(training != null) {
+			List<UserEvent> participants = tpService.retrieveTrainingUserEvent(training, "Participant", false);
+			
+			map.addAttribute("training", training);
+			map.addAttribute("userEvents", participants);
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/forms/skillsAssessment/view";
+	}
+	
+	@RequestMapping(value = "/skills-assessment/view/answer/{assignmentID}")
+	public String viewAnswersAssessment(@PathVariable int assignmentID, ModelMap map) {
+		SaAssignment assignment = utpService.retrieveAssignmentById(assignmentID);
+		
+		if(assignment != null && assignment.getStatus().equals("answered")) {
+			List<SaCategory> parents = formsService.getParentCategories();
+
+			map.addAttribute("categories", parents);
+			map.addAttribute("assignment", assignment);
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/forms/skills-assessment/view/single";
 	}
 }

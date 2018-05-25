@@ -286,6 +286,57 @@
 		</put-list-attribute>
 	</definition>		
 	
+	<!-- [Admin] Form - Skills Assessment - List View Per Training -->
+	<definition name="/forms/skillsAssessment/view" extends="default">
+	    <put-attribute name="title" value="ATES - Skills Assessment" />
+	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessmentViewList.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/plugins/editable/bootstrap3-editable/css/bootstrap-editable.css" />
+	    	<add-attribute value="/plugins/nestable/nestable.css" />
+	    	<add-attribute value="/css/pages/skillsAssessment.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
+			<add-attribute value="/plugins/editable/bootstrap3-editable/js/bootstrap-editable.min.js" />		
+			<add-attribute value="/plugins/nestable/jquery.nestable.js" />
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			
+		</put-list-attribute>
+	</definition>	
+	
+	<!-- [Admin] Form - Skills Assessment - List View Single Answer -->
+	<definition name="/forms/skills-assessment/view/single" extends="default">
+	    <put-attribute name="title" value="ATES - Skills Assessment" />
+	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessmentView.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/css/pages/skillsAssessmentView.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+		</put-list-attribute>
+	</definition>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<!-- [General User] Dashboard -->
 	<definition name="/general/dashboard" extends="default">
 	    <put-attribute name="title" value="ATES - Dashboard" />

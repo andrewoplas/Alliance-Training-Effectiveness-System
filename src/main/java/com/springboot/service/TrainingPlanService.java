@@ -287,6 +287,28 @@ public class TrainingPlanService {
 		
 		return null;
 	}
+	
+	public List<UserEvent> retrieveTrainingUserEvent(TrainingPlan training, String position, boolean approvedOnly) {
+		try {			
+			if(training != null) {
+				List<UserEvent> userEvents = training.getUserEvents(); 
+				List<UserEvent> filteredUserEvents = new ArrayList<UserEvent>();
+				
+				for(UserEvent userEvent : userEvents) {
+					if(approvedOnly && !userEvent.getStatus().equals("approved")) continue;
+					
+					if(userEvent.getRole().contains(position)) {
+						filteredUserEvents.add(userEvent);
+					}
+				}
+				
+				
+				return filteredUserEvents;
+			}					
+		} catch (NumberFormatException ex) { return null; }
+		
+		return null;
+	}
 
 	public List<Schedule> sortSchedule(List<Schedule> schedules) {
 		

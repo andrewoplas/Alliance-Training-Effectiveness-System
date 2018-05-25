@@ -39,11 +39,11 @@
 											<tr>
 												<td width="50%">${ training.title }</td>
 												<td width="50%"><a
-													href="/ates/forms/skills-assessment/assign/${ training.id }">
+													href="/ates/forms/skills-assessment/view/${ training.id }">
 														<button type="button"
 															class="btn btn-warning btn-outline btn-circle m-r-5 p-t-0 p-b-0"
 															data-toggle="tooltip" title="" data-placement="top"
-															data-original-title="Assign Skills Assessment Form">
+															data-original-title="View Skills Assessment Form">
 															<i class="mdi mdi-account-switch"></i>
 														</button>
 												</a></td>
