@@ -2,6 +2,10 @@ package com.springboot.body;
 
 import java.util.List;
 
+/*
+ * This class is a ResponseBody for Skills Assessment's Categories Entity
+ * */
+
 public class SkillsAssessment {
 	private int id;
 	private int order;

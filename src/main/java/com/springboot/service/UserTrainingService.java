@@ -13,8 +13,11 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springboot.body.AnswerSA;
 import com.springboot.body.AssignmentSA;
+import com.springboot.entities.SaAnswer;
 import com.springboot.entities.SaAssignment;
+import com.springboot.entities.SaCategory;
 import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.User;
@@ -186,5 +189,31 @@ public class UserTrainingService {
 
 	public List<SaAssignment> retrieveAssignmentAssigned(int userEventID) { 
 		return tpRepository.retrieveAssignmentAssigned(em, userEventID);
+	}
+
+	public SaAssignment retrieveAssignmentById(int assignmentID) {
+		return tpRepository.retrieveAssignment(em, assignmentID);
+	}
+
+	public boolean insertAnswers(AnswerSA answersObj) {
+		List<SaAnswer> answersList = new ArrayList<SaAnswer>();
+		
+		int[] categoryID = answersObj.getCategoryID();
+		String[] answers = answersObj.getAnswers();
+		SaAssignment assignment = new SaAssignment(answersObj.getAssignmentID());
+		
+		int length = answersObj.getCategoryID().length;
+		for(int i=0; i<length; i++) {
+			SaAnswer answer = new SaAnswer();
+			answer.setSaCategory(new SaCategory(categoryID[i]));
+			answer.setAnswer(answers[i]);
+			answer.setSaAssignment(assignment);
+			
+			answersList.add(answer);
+		}
+		
+		tpRepository.insertAnswer(em, answersList, assignment);
+		
+		return true;
 	}
 }

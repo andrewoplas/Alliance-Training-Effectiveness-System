@@ -249,6 +249,22 @@
 		</put-list-attribute>
 	</definition>
 	
+	<!-- [Admin] Forms - List -->
+	<definition name="/forms/assignment" extends="default">
+	    <put-attribute name="title" value="ATES - Forms" />
+	    <put-attribute name="body" value="/WEB-INF/pages/forms.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
+	    	<add-attribute value="/plugins/toast-master/css/jquery.toast.css" />
+	    	<add-attribute value="/css/pages/users.css" />
+		</put-list-attribute>
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
+			<add-attribute value="/plugins/toast-master/js/jquery.toast.js" />
+			<add-attribute value="/js/pages/usersRequest.js" />
+		</put-list-attribute>
+	</definition>
+	
 	<!-- [Admin] Form - Skills Assessment -->
 	<definition name="/forms/skillsAssessment" extends="default">
 	    <put-attribute name="title" value="ATES - Skills Assessment" />
@@ -268,8 +284,7 @@
 			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
 			<add-attribute value="/js/pages/skillsAssessment.js" />
 		</put-list-attribute>
-	</definition>
-		
+	</definition>		
 	
 	<!-- [General User] Dashboard -->
 	<definition name="/general/dashboard" extends="default">
@@ -362,6 +377,23 @@
 		</put-list-attribute>
 	</definition>
 	
+	<!-- [General User] Skills Assessment Assignment List -->
+	<definition name="/general/training/skills-assessment/assignment" extends="default">
+	    <put-attribute name="title" value="ATES - Skills Assessment" />
+	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessmentAssignList.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
+			<add-attribute value="/css/pages/userTraining.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
+			<add-attribute value="/js/pages/saList.js" />
+		</put-list-attribute>
+	</definition>
+	
 	<!-- [General User] Skills Assessment Assignment -->
 	<definition name="/general/training/skills-assessment" extends="default">
 	    <put-attribute name="title" value="ATES - Skills Assessment" />
@@ -380,22 +412,33 @@
 		</put-list-attribute>
 	</definition>
 	
-	<!-- [General User] Skills Assessment Assignment List -->
-	<definition name="/general/training/skills-assessment/assignment" extends="default">
+	<!-- [General User] Skills Assessment Answer Form -->
+	<definition name="/general/training/skills-assessment/answer" extends="default">
 	    <put-attribute name="title" value="ATES - Skills Assessment" />
-	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessmentAssignList.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessmentAnswer.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
-	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
-			<add-attribute value="/css/pages/userTraining.css" />
+	    	<add-attribute value="/css/pages/skillsAssessmentAnswer.css" />
 		</put-list-attribute>
 		
 		<put-list-attribute name="javascripts" inherit="true">
 			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
-			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
-			<add-attribute value="/js/pages/saList.js" />
+			<add-attribute value="/js/pages/skillsAssessmentAnswer.js" />
 		</put-list-attribute>
 	</definition>
 	
+	<!-- [General User] Skills Assessment Answers View -->
+	<definition name="/general/training/skills-assessment/view" extends="default">
+	    <put-attribute name="title" value="ATES - Skills Assessment" />
+	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessmentView.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/css/pages/skillsAssessmentView.css" />
+		</put-list-attribute>
 		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+		</put-list-attribute>
+	</definition>
+			
 </tiles-definitions>

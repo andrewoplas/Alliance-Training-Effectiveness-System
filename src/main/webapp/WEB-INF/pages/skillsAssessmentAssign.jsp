@@ -2,9 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-
-<input type="hidden" class="nestable-serialized"
-	value='${training.courseOutline}' />
 <input type="hidden" name="id" value='${training.id}' />
 <div id="page-wrapper">
 	<div class="container-fluid">

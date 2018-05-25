@@ -20,7 +20,7 @@ $(document).ready(function() {
 		});
 		
 		var trainingID = $('[name=id]').val();
-		console.log(rows);
+		
 		$.ajax({
 			url: "/ates/general/training/skills-assessment/" + trainingID,
 			type: 'POST',

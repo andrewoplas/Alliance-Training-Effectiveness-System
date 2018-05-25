@@ -52,6 +52,13 @@ public class SaCategory implements Serializable {
 		saCategories = new ArrayList<SaCategory>();
 		saAnswers = new ArrayList<SaAnswer>();
 	}
+	
+	public SaCategory(int id) {
+		saCategories = new ArrayList<SaCategory>();
+		saAnswers = new ArrayList<SaAnswer>();
+		
+		this.id = id;
+	}
 
 	public int getId() {
 		return this.id;
@@ -79,6 +86,15 @@ public class SaCategory implements Serializable {
 
 	public List<SaAnswer> getSaAnswers() {
 		return this.saAnswers;
+	}
+	
+	public SaAnswer getSaAnswer(int assignmentID) {
+		for(SaAnswer answer : saAnswers) {
+			if(answer.getSaAssignment().getId() == assignmentID) {
+				return answer;
+			}
+		}
+		return null;
 	}
 
 	public void setSaAnswers(List<SaAnswer> saAnswers) {

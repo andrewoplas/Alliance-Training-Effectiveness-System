@@ -1,5 +1,9 @@
 package com.springboot.body;
 
+/*
+ * This class is a ResponseBody for Training's Schedule Entity
+ * */
+
 public class EventDay {
 	String date;
 	String startTime;

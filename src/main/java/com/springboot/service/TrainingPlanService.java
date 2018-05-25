@@ -403,7 +403,4 @@ public class TrainingPlanService {
 		}
 	}
 	
-	
-	
-	
 }

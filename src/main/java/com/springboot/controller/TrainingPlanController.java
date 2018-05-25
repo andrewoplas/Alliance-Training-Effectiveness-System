@@ -36,7 +36,7 @@ public class TrainingPlanController {
 	@RequestMapping(value = "/list")
 	public String list(ModelMap map) {
 		List<TrainingPlan> trainings = tpService.retrieveTrainings();
-		System.out.println(trainings.size());
+		
 		map.addAttribute("trainings", trainings);
 		
 		return "/training/list";

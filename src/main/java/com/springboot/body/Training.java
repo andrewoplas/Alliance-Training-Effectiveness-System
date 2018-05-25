@@ -1,5 +1,9 @@
 package com.springboot.body;
 
+/*
+ * This class is a ResponseBody for Training's Content
+ * */
+
 public class Training {
 	private String id;
 	private String title;

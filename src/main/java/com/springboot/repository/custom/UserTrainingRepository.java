@@ -14,6 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
+import com.springboot.entities.SaAnswer;
 import com.springboot.entities.SaAssignment;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.UserEvent;
@@ -130,8 +131,8 @@ public class UserTrainingRepository {
 			for(SaAssignment assignment : assignments) {
 				String sql = "FROM SaAssignment WHERE assigned = :assigned AND assignedTo = :assignedTo";
 				Query query = em.createQuery(sql);
-				query.setParameter("assigned", assignment.getUserEvent2().getId());
-				query.setParameter("assignedTo", assignment.getUserEvent1().getId());
+				query.setParameter("assigned", assignment.getUserEvent1().getId());
+				query.setParameter("assignedTo", assignment.getUserEvent2().getId());
 				
 				if(query.getResultList() == null || query.getResultList().size() == 0) {
 					System.out.println(assignment.getUserEvent1().getId());
@@ -163,5 +164,19 @@ public class UserTrainingRepository {
 		assignments = query.getResultList();		
 
 		return assignments;
+	}
+
+	public SaAssignment retrieveAssignment(EntityManager em, int assignmentID) {
+		SaAssignment assignment = em.find(SaAssignment.class, assignmentID);
+		return assignment;
+	}
+
+	public void insertAnswer(EntityManager em, List<SaAnswer> answers, SaAssignment assignment) {
+		for(SaAnswer answer : answers) {
+			em.persist(answer);
+		}
+		
+		assignment = em.find(SaAssignment.class, assignment.getId());
+		assignment.setStatus("answered");
 	}
 }

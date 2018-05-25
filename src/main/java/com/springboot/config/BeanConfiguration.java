@@ -33,6 +33,7 @@ public class BeanConfiguration extends WebMvcConfigurerAdapter {
 			.addPathPatterns("/ates/users/**")
 			.addPathPatterns("/ates/training/**")
 			.addPathPatterns("/ates/form/**")
+			.addPathPatterns("/ates/forms/**")
 			.addPathPatterns("/ates/dashboard");
 		
 	}

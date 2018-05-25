@@ -46,6 +46,12 @@ public class SaAssignment implements Serializable {
 	public SaAssignment() {
 		saAnswers = new ArrayList<SaAnswer>();
 	}
+	
+	public SaAssignment(int id) {
+		saAnswers = new ArrayList<SaAnswer>();
+		
+		this.id = id;
+	}
 
 	public int getId() {
 		return this.id;

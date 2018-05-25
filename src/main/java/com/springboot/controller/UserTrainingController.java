@@ -15,13 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.springboot.body.AnswerSA;
 import com.springboot.body.AssignmentSA;
 import com.springboot.entities.SaAssignment;
+import com.springboot.entities.SaCategory;
 import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.User;
 import com.springboot.entities.UserEvent;
 import com.springboot.entities.custom.CustomSchedule;
+import com.springboot.service.FormsService;
 import com.springboot.service.TrainingPlanService;
 import com.springboot.service.UserTrainingService;
 
@@ -35,6 +38,9 @@ public class UserTrainingController {
 	
 	@Autowired
 	TrainingPlanService adminTPService;
+	
+	@Autowired
+	FormsService formsService;
 	
 	@Autowired
 	SessionController session;
@@ -100,48 +106,6 @@ public class UserTrainingController {
 		return "/general/training/edit";
 	}
 	
-	@RequestMapping(value = "/training/skills-assessment/{id}/{trainingPlanId}")
-	public String skillsAssessment(ModelMap map, HttpServletRequest request, @PathVariable int id, @PathVariable String trainingPlanId) {
-		User user = session.getUser(request);
-		if(!tpService.checkTrainingInvolvementAndSupervisor(user, id)) return "redirect:/error/404";
-		
-		TrainingPlan training = adminTPService.retrieveTraining(trainingPlanId);
-		
-		if(training != null) {
-			Map<Integer, List<Integer>> assignments = tpService.retrieveAssignments(training.getId());
-			List<User> participants = adminTPService.retrieveTrainingPeople(training, "Participant", false);
-			List<User> supervisors = adminTPService.retrieveTrainingPeople(training, "Supervisor", false);
-			
-			map.addAttribute("assignments", assignments);
-			map.addAttribute("training", training);
-			map.addAttribute("participants", participants);
-			map.addAttribute("supervisors", supervisors);
-			map.addAttribute("userEventId", id);
-		} else {
-			return "redirect:/error/404";
-		}
-		
-		return "/general/training/skills-assessment";
-	}
-	
-	@RequestMapping(value = "/training/skills-assessment/{trainingPlanId}", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<?> insertTraining(@RequestBody AssignmentSA[] assessment, @PathVariable String trainingPlanId, HttpServletRequest request) {
-			
-		tpService.insertAssignment(assessment, Integer.parseInt(trainingPlanId));
-		
-		return ResponseEntity.ok(true);
-	}
-	
-	@RequestMapping(value = "/training/skills-assessment/assignment/{userEventID}")
-	public String insertTraining(@PathVariable int userEventID, ModelMap map) {
-		List<SaAssignment> assignments = tpService.retrieveAssignmentAssigned(userEventID);
-		
-		map.addAttribute("assignments", assignments);
-		
-		return "/general/training/skills-assessment/assignment";
-	}
-	
-	
 	@RequestMapping(value = "/training/edit", method = RequestMethod.POST)
 	public ResponseEntity<?> editTrainingPlan(ModelMap map, HttpServletRequest request) {
 		User user = session.getUser(request);
@@ -205,4 +169,83 @@ public class UserTrainingController {
 	}
 	
 	
+	@RequestMapping(value = "/training/skills-assessment/assignment/{userEventID}")
+	public String showAssignment(@PathVariable int userEventID, ModelMap map) {
+		List<SaAssignment> assignments = tpService.retrieveAssignmentAssigned(userEventID);
+		
+		map.addAttribute("assignments", assignments);
+		
+		return "/general/training/skills-assessment/assignment";
+	}
+	
+	@RequestMapping(value = "/training/skills-assessment/{id}/{trainingPlanId}")
+	public String skillsAssessment(ModelMap map, HttpServletRequest request, @PathVariable int id, @PathVariable String trainingPlanId) {
+		User user = session.getUser(request);
+		if(!tpService.checkTrainingInvolvementAndSupervisor(user, id)) return "redirect:/error/404";
+		
+		TrainingPlan training = adminTPService.retrieveTraining(trainingPlanId);
+		
+		if(training != null) {
+			Map<Integer, List<Integer>> assignments = tpService.retrieveAssignments(training.getId());
+			List<User> participants = adminTPService.retrieveTrainingPeople(training, "Participant", false);
+			List<User> supervisors = adminTPService.retrieveTrainingPeople(training, "Supervisor", false);
+			
+			map.addAttribute("assignments", assignments);
+			map.addAttribute("training", training);
+			map.addAttribute("participants", participants);
+			map.addAttribute("supervisors", supervisors);
+			map.addAttribute("userEventId", id);
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/general/training/skills-assessment";
+	}
+	
+	@RequestMapping(value = "/training/skills-assessment/{trainingPlanId}", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<?> insertTraining(@RequestBody AssignmentSA[] assessment, @PathVariable String trainingPlanId, HttpServletRequest request) {
+			
+		tpService.insertAssignment(assessment, Integer.parseInt(trainingPlanId));
+		
+		return ResponseEntity.ok(true);
+	}
+	
+	@RequestMapping(value = "/training/skills-assessment/answer/{assignmentID}")
+	public String answer(@PathVariable int assignmentID, ModelMap map) {
+		SaAssignment assignment = tpService.retrieveAssignmentById(assignmentID);
+		
+		if(assignment != null && assignment.getStatus().equals("unanswered")) {
+			List<SaCategory> parents = formsService.getParentCategories();
+
+			map.addAttribute("categories", parents);
+			map.addAttribute("assignment", assignment);
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/general/training/skills-assessment/answer";
+	}
+	
+	@RequestMapping(value = "/training/skills-assessment/answer", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<?> insertAnswer(@RequestBody AnswerSA answers) {
+		boolean result = tpService.insertAnswers(answers);
+		
+		return ResponseEntity.ok(true);
+	}
+	
+	@RequestMapping(value = "/training/skills-assessment/view/{assignmentID}")
+	public String viewAnswersAssessment(@PathVariable int assignmentID, ModelMap map) {
+		SaAssignment assignment = tpService.retrieveAssignmentById(assignmentID);
+		
+		if(assignment != null && assignment.getStatus().equals("answered")) {
+			List<SaCategory> parents = formsService.getParentCategories();
+
+			map.addAttribute("categories", parents);
+			map.addAttribute("assignment", assignment);
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/general/training/skills-assessment/view";
+	}
 }

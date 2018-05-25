@@ -1,5 +1,8 @@
 package com.springboot.body;
 
+/*
+ * This class is a ResponseBody for Skills Assessment's Assignment Entity
+ * */
 public class AssignmentSA {
 	
 	int[] peers;
