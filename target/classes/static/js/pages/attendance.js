@@ -13,18 +13,7 @@
    	 		window.location.replace("/ates/training/list");
    	 	});
     }
-    
-//    $('.attendance-table').dataTable({
-//        "order": [[ 1, "asc" ]],
-//        'aoColumnDefs': [{
-//            'bSortable': false,
-//            'aTargets': ['nosort']
-//        }],
-//        "searching": false,
-//        "paging": false,
-//        "info": false
-//    });
-    
+   
     $('.row-checkbox').change(function(){
     	var checkbox = $(this);
     	if(checkbox.is(':checked')) {

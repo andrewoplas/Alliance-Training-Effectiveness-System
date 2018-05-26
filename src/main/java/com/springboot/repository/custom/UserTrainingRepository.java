@@ -176,7 +176,9 @@ public class UserTrainingRepository {
 			em.persist(answer);
 		}
 		
-		assignment = em.find(SaAssignment.class, assignment.getId());
-		assignment.setStatus("answered");
+		String sql = "UPDATE SaAssignment SET status : status WHERE id = :id";
+		Query query = em.createQuery(sql);
+		query.setParameter("status", "answered");
+		query.executeUpdate();
 	}
 }

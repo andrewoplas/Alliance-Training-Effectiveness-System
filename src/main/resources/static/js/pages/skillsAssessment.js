@@ -38,7 +38,7 @@ $(document).ready(function() {
 	});
 	
 	// Add item to nestable
-	var counter = Math.max.apply(Math, ids); // 3;
+	var counter = ids.length > 0 ? Math.max.apply(Math, ids) : 1;
 	$('.btn-add-item').on('click', function(){
 		var nestableList = '<li class="dd-item dd3-item" data-id="' + (++counter) + '">' +
 	        '<div class="dd-handle dd3-handle"></div>' +

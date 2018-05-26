@@ -22,9 +22,7 @@ public class LoginService {
 
 	public User searchUser(String email, String password) {
 		password = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
-		User user = loginRepository.searchUser(em, email, password);
-		
-		return user;
+		return loginRepository.searchUser(em, email, password);
 	}
 
 }

@@ -1,0 +1,66 @@
+.input-sm {
+	width: 500px !important;
+	font-size: 20px !important;
+	height: 50px !important;
+	margin-bottom: 15px;
+}
+
+.editable-buttons button {
+	font-size: 36px !important;
+}
+
+.editable-clear-x {
+    width: 18px;
+    height: 18px;
+    top: 34%;
+    right: 10px;
+    background-size: 100%;
+}
+
+.question {
+	font-size: 18px;
+	width: 95%;
+}
+
+.optionName {
+    display: inline;
+    width: 50%;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+.btn-add-option, .btn-add-optionChkbox {
+	margin-left: 60px;
+}
+
+.option-container i {
+    font-size: 24px;
+    vertical-align: middle;
+}
+
+.active-container {
+	transition: 500ms;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.btn-remove {
+	cursor: pointer;
+}
+
+.btn-delete {
+    font-size: 25px !important;
+    color: rgba(0,0,0,0.54) !important;
+    cursor: pointer;
+}
+
+.numbers {
+    margin-right: 15px;
+    float: left;
+    vertical-align: middle;
+    font-size: 25px;
+    color: #1e88e5;
+}
+
+.option-container .item:first-child .btn-remove {
+	display: none;
+}

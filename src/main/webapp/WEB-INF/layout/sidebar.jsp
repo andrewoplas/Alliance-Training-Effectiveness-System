@@ -70,10 +70,10 @@
 		                <ul class="nav nav-second-level">
 		                	<li><a href="/ates/forms/assignment"><i class="mdi mdi-account-network fa-fw"></i><span class="hide-menu">Assignment</span></a></li>
 		                    <li><a href="/ates/forms/skills-assessment"><i class="mdi mdi-react fa-fw"></i><span class="hide-menu">Skills Assessment</span></a></li>
-		                    <li><a href="/ates/form/training-needs-assessment"><i class="mdi mdi-gavel fa-fw"></i><span class="hide-menu">Training Needs Assessment</span></a></li>
-		                    <li><a href="/ates/form/training-effectivess-assessment"><i class="mdi mdi-human-handsup fa-fw"></i><span class="hide-menu">Training Effectiveness Assessment</span></a></li>
-		                    <li><a href="/ates/form/course-feedback"><i class="mdi mdi-comment-processing-outline fa-fw"></i><span class="hide-menu">Course Feedback</span></a></li>
-		                    <li><a href="/ates/form/facilitator-feedback"><i class="mdi mdi-comment-account-outline fa-fw"></i><span class="hide-menu">Facilitator Feedback</span></a></li>
+		                    <li><a href="/ates/forms/training-needs-assessment"><i class="mdi mdi-gavel fa-fw"></i><span class="hide-menu">Training Needs Assessment</span></a></li>
+		                    <li><a href="/ates/forms/training-effectivess-assessment"><i class="mdi mdi-human-handsup fa-fw"></i><span class="hide-menu">Training Effectiveness Assessment</span></a></li>
+		                    <li><a href="/ates/forms/course-feedback"><i class="mdi mdi-comment-processing-outline fa-fw"></i><span class="hide-menu">Course Feedback</span></a></li>
+		                    <li><a href="/ates/forms/facilitator-feedback"><i class="mdi mdi-comment-account-outline fa-fw"></i><span class="hide-menu">Facilitator Feedback</span></a></li>
 		                </ul>
 		            </li>
 		            

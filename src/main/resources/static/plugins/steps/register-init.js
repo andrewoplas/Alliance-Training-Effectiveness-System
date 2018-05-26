@@ -30,21 +30,13 @@ $(function() {
 		}
 		
 		// Second fieldset
-		if($('#pac-input').val().length == 0 && $(this).attr('id') == 'second-step') {
-			$('#pac-input').parents('.form-group').addClass('has-error');
-			$('#pac-input').parent().find('.help-block-empty').removeClass('hide');
-			hash.push('pac-input');
-			error = true;
-		}
-		
-		// Third fieldset
-		if($('#nestable2').nestable('serialize').length == 0 && $(this).attr('id') == 'third-step') {
+		if($('#nestable2').nestable('serialize').length == 0 && $(this).attr('id') == 'second-step') {
 			$('#nestable2').parents('fieldset').find('.help-block-outline').removeClass('hide');
 			error = true;
 		}
 		
-		// Fourth fieldset
-		if($(this).attr('id') == 'fourth-step') {
+		// Third fieldset
+		if($(this).attr('id') == 'third-step') {
 			$('.multi-select').each(function(){
 				if(($(this).dropdown('get value')) == null) {
 					$(this).parents('.panel').find('.help-block').removeClass('hide');

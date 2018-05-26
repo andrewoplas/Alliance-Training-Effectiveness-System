@@ -1,8 +1,6 @@
 package com.springboot.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,9 +9,13 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springboot.body.Question;
+import com.springboot.body.QuestionOption;
 import com.springboot.body.SkillsAssessment;
+import com.springboot.entities.Form;
+import com.springboot.entities.FormOption;
+import com.springboot.entities.FormQuestion;
 import com.springboot.entities.SaCategory;
-import com.springboot.entities.User;
 import com.springboot.repository.custom.FormsRepository;
 
 @Service
@@ -60,63 +62,98 @@ public class FormsService {
 			}
 		}
 		
-		formsRepository.insertSkillsAssessment(em, categories, categoryIDS);
+		// Delete removed category
+		if(categoryIDS.size() == 0) { categoryIDS.add(0); }
+		formsRepository.deleteSkillsAssessment(em, categoryIDS);
+		
+		// Insert Recursively
+		insertSA(categories, null);
+	}
+	
+	public void insertSA(List<SaCategory> categories, SaCategory parent) {
+		for(SaCategory category : categories) {
+			category.setSaCategory(parent);
+			
+			if(formsRepository.retrieveCategory(em, category.getId()) != null) {
+				// Update category
+				formsRepository.updateCategory(em, category);
+			} else {
+				// Insert category
+				category.setId(0);
+				category = formsRepository.insertCategory(em, category);
+			}
+						
+			if(!category.getSaCategories().isEmpty()) {
+				insertSA(category.getSaCategories(), category);
+			}
+		}
 	}
 
 	public List<SaCategory> getParentCategories() {
 		return formsRepository.retrieveParentSkillsAssessment(em);
 	}
-	
-//	public String createHTMLSA(List<SaCategory> categories) {
-//		StringBuilder dataHTML = new StringBuilder("<ol class=\"dd-list\">");
-//		
-//		for(SaCategory category : categories) {
-//			dataHTML.append("<li class=\"dd-item dd3-item\" data-id=\"" + category.getId() + "\">");
-//			dataHTML.append("<div class=\"dd-handle dd3-handle\"></div>");
-//			dataHTML.append("<div class=\"dd3-content\" id=\"id-" + category.getId() + "\"> " + category.getDescription() + "</div>");
-//			dataHTML.append("<button type=\"button\" class=\"btn-remove-item btn btn-danger btn-outline btn-circle\">");
-//			dataHTML.append("<i class=\"mdi mdi-close\"></i></button>");
-//			
-//			if(category.getSaCategories().size() > 0) {
-//				createHTMLSAAppendChild(dataHTML, category.getSaCategories());
-//			}
-//			
-//			dataHTML.append("</li>");
-//		}
-//		
-//		dataHTML.append("</ol>");
-//		
-//		return dataHTML.toString();
-//	}
-//	
-//	public void createHTMLSAAppendChild(StringBuilder dataHTML, List<SaCategory> children) {
-//		dataHTML.append("<ol class=\"dd-list\">");
-//		
-//		// Sort
-//		Collections.sort(children, new Comparator<SaCategory>() {
-//		    @Override
-//		    public int compare(SaCategory a, SaCategory b) {
-//		        // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
-//		        return (a.getRowOrder() > b.getRowOrder()) ? 1 : -1;
-//		    }
-//		});
-//		
-//		
-//		for(SaCategory child : children) {
-//			dataHTML.append("<li class=\"dd-item dd3-item\" data-id=\"" + child.getId() + "\">");
-//			dataHTML.append("<div class=\"dd-handle dd3-handle\"></div>");
-//			dataHTML.append("<div class=\"dd3-content\" id=\"id-" + child.getId() + "\"> " + child.getDescription() + "</div>");
-//			dataHTML.append("<button type=\"button\" class=\"btn-remove-item btn btn-danger btn-outline btn-circle\">");
-//			dataHTML.append("<i class=\"mdi mdi-close\"></i></button>");
-//			
-//			if(child.getSaCategories().size() > 0) {
-//				createHTMLSAAppendChild(dataHTML, child.getSaCategories());
-//			}
-//			
-//			dataHTML.append("</li>");
-//		}		
-//		dataHTML.append("</ol>");
-//	}
-	
+
+	public void insertQuestions(Question[] questions, int formID) {
+		Form form = new Form(formID);
+		List<FormQuestion> formQuestions = new ArrayList<FormQuestion>();
+		List<Integer> questionIDS = new ArrayList<Integer>();
+		
+		for(Question question : questions) {
+			FormQuestion formQuestion = new FormQuestion();
+			formQuestion.setDescription(question.getQuestion());
+			formQuestion.setType(question.getType());
+			formQuestion.setForm(form);
+			
+			int formId = question.getId();
+			if(formId > 0) {
+				questionIDS.add(formId);
+				formQuestion.setId(formId);
+			}
+			
+			QuestionOption[] options = question.getOption();
+			if(options.length > 0) {
+				for(QuestionOption option : options) {
+					FormOption formOption = new FormOption(option.getId());
+					formOption.setDescription(option.getDescription());
+					
+					formQuestion.addFormOption(formOption);
+				}
+			}
+			
+			formQuestions.add(formQuestion);
+		}
+		
+		// Delete removed questions
+		if(questionIDS.size() == 0) { questionIDS.add(0); }
+		formsRepository.deleteQuestions(em, formID, questionIDS);
+		
+		// Merge or Persist
+		for(FormQuestion question : formQuestions) {
+			if(question.getId() == 0) {
+				// Insert Questions
+				question = formsRepository.insertQuestion(em, question);
+			} else {
+				// Update Questions
+				formsRepository.updateQuestion(em, question);
+			}
+			
+			if(question.getFormOptionsCount() > 0) {
+				List<FormOption> options = question.getFormOptions();
+				
+				// Delete removed questions
+				formsRepository.deleteOption(em, question.getId(), question.getFormOptionIDS());
+				
+				for(FormOption option : options) {
+					// Insert Options
+					option.setFormQuestion(question);
+					formsRepository.mergeOptions(em, option);
+				}
+			}
+		}
+	}
+
+	public Form retrieveForm(int formID) {
+		return formsRepository.retrieveForm(em, formID);
+	}
 	
 }

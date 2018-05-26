@@ -45,14 +45,17 @@ public class PositionRepository {
 	}
 
 	public void editPosition(EntityManager em, int id, String description) {
-		Position position = em.find(Position.class, id);
-			
-		position.setDescription(description);
+		String sql = "UPDATE Position SET description = :description WHERE id = :id";
+		Query query = em.createQuery(sql);
+		query.setParameter("description", description);
+		query.setParameter("id", id);
+		query.executeUpdate();
 	}
 	
 	public void removePosition(EntityManager em, int id) throws DataIntegrityViolationException {
-		Position position = em.find(Position.class, id);
-		
-		em.remove(position);
+		String sql = "DELETE FROM Position WHERE id = :id";
+		Query query = em.createQuery(sql);
+		query.setParameter("id", id);
+		query.executeUpdate();
 	}
 }

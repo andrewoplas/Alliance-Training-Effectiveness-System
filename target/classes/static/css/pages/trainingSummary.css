@@ -69,6 +69,10 @@
     margin: 40px auto;
 }
 
+.description-container p{
+    word-wrap: break-word;
+}
+
 .custom-hr {
 	margin-top: 30px;
 	border-top: 7px solid #eee;

@@ -321,8 +321,22 @@
 		</put-list-attribute>
 	</definition>
 	
-	
-	
+	<!-- [Admin] Form - Form CRUD -->
+	<definition name="/forms/formConfig" extends="default">
+	    <put-attribute name="title" value="ATES - Form Configuration" />
+	    <put-attribute name="body" value="/WEB-INF/pages/formConfig.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/editable/bootstrap3-editable/css/bootstrap-editable.css" />
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/css/pages/formConfig.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="/plugins/editable/bootstrap3-editable/js/bootstrap-editable.min.js" />
+			<add-attribute value="/js/pages/formConfig.js" />
+		</put-list-attribute>
+	</definition>
 	
 	
 	

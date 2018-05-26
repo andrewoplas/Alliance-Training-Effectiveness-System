@@ -1,7 +1,6 @@
 package com.springboot.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,13 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.springboot.body.AssignmentSA;
+import com.springboot.body.Question;
 import com.springboot.body.SkillsAssessment;
+import com.springboot.entities.Form;
 import com.springboot.entities.SaAssignment;
 import com.springboot.entities.SaCategory;
-import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
-import com.springboot.entities.User;
 import com.springboot.entities.UserEvent;
 import com.springboot.service.FormsService;
 import com.springboot.service.TrainingPlanService;
@@ -97,4 +95,43 @@ public class FormsController {
 		
 		return "/forms/skills-assessment/view/single";
 	}
+	
+	@RequestMapping(value = "/course-feedback")
+	public String courseFeedback(ModelMap map) {
+		Form form = formsService.retrieveForm(1);
+		
+		map.addAttribute("form", form);
+		map.addAttribute("questions", form.getFormQuestions());
+		
+		return "/forms/formConfig";
+	}
+	
+	@RequestMapping(value = "/facilitator-feedback")
+	public String facilitatorFeedback(ModelMap map) {
+		Form form = formsService.retrieveForm(2);
+		
+		map.addAttribute("form", form);
+		map.addAttribute("questions", form.getFormQuestions());
+		
+		return "/forms/formConfig";
+	}
+	
+	@RequestMapping(value = "/training-effectivess-assessment")
+	public String trainingEffectivenessAssessment(ModelMap map) {
+		Form form = formsService.retrieveForm(3);
+		
+		map.addAttribute("form", form);
+		map.addAttribute("questions", form.getFormQuestions());
+		
+		return "/forms/formConfig";
+	}
+	
+	@RequestMapping(value = "/questions/{formID}", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<?> insertQuestions(@PathVariable int formID, @RequestBody Question[] questions) {		
+		
+		formsService.insertQuestions(questions, formID);
+		
+		return ResponseEntity.ok(true);
+	}
+	
 }

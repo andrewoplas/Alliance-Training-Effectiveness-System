@@ -3,6 +3,8 @@ package com.springboot.entities;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -111,6 +113,14 @@ public class TrainingPlan implements Serializable {
 	}
 
 	public List<Schedule> getSchedules() {
+		Collections.sort(this.schedules, new Comparator<Schedule>() {
+		    @Override
+		    public int compare(Schedule lhs, Schedule rhs) {
+		        // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+		        return lhs.getDate().before(rhs.getDate()) ? -1 : (lhs.getDate().after(rhs.getDate())) ? 1 : 0;
+		    }
+		});
+		
 		return this.schedules;
 	}
 

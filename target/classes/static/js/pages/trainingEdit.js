@@ -171,17 +171,13 @@ $(document).ready(function() {
 	$('[data-toggle=tooltip]').tooltip();
 	
 	// Gather Summary Information
-	$('#fourth-step').on('click', function(){
+	$('#third-step').on('click', function(){
 		// First Fieldset
 		var title = $('#training').val();
 		var description = $('#description').val();
 		var calendar = $('#calendar').fullCalendar('clientEvents');
 		
-		// Second Fieldset
-		var location = $('#pac-input').val();
-		var additionalInfo = $('#optional').val();
-		
-		// Third Fieldset				
+		// Second Fieldset				
 		var item = $('#nestable2').nestable('serialize');
 		$.each(item, function(index, value){
 			value['content'] = $('[data-id=' + value.id + ']').find('.dd3-content').first().text();
@@ -190,7 +186,7 @@ $(document).ready(function() {
 			}
 		});
 		
-		// Fourth Fieldset
+		// Third Fieldset
 		var supervisors = [], facilitators = [], participants  = [];				
 		$.each($('#supervisor-select').dropdown('get activeItem'), function(index, value){
 			supervisors.push($(value).text());
@@ -230,10 +226,7 @@ $(document).ready(function() {
 		});
 		
 		$('#schedule-table tbody').html(scheduleHTML);
-		
-		$('[data-value=location]').text(location);
-		$('[data-value=additional-location]').text(additionalInfo);
-		
+	
 		var courseOutlineHTML = $('<ol id="parent-outline"></ol>');
 		$.each(item, function(index, value){
 			courseOutlineHTML.append('<li>' + value.content + '</li>')

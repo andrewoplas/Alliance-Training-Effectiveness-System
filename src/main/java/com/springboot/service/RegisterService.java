@@ -33,6 +33,7 @@ public class RegisterService {
 		} else if (!password.equals(confirm)) {
 			response = "password_does_not_match";
 		} else {
+			// Generate hashed password
 			String hashedPassword = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
 			
 			User user = new User();

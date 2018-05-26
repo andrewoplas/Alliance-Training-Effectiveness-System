@@ -24,7 +24,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form action="http://localhost:8080/register/saveRegistration" method="post" class="login100-form validate-form" autocomplete=off>
+				<form action=/register/saveRegistration" method="post" class="login100-form validate-form" autocomplete=off>
 					<span class="login100-form-title p-b-10">
 						Registration
 					</span>
@@ -64,7 +64,7 @@
 						<span class="focus-input100" data-placeholder="Email"></span>
 					</div>
 					
-					<div class="wrap-input100 validate-input" data-validate="Enter position in company">
+					<div class="wrap-input100 validate-input" data-validate="Enter position" data-position="Enter position in company">
 						<select class="input100 select-input" name="position">
 							<option value="" selected disabled></option>						
 							<c:forEach var="position" items="${positions}">

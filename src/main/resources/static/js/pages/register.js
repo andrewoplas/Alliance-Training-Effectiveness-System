@@ -20,6 +20,7 @@
     /*==================================================================
     [ Validate ]*/
     var input = $('.validate-input .input100');
+    var position = $("[name='position']");
     var password = $("[name='password']");
     var confirm = $("[name='confirm_password']");
 
@@ -31,14 +32,18 @@
                 showValidate(input[i]);
                 check=false;
             }
-        }
-        
+        }       
         
         if(validate(confirm) && password.val() != confirm.val()){
         	showValidatePassword(confirm);
         	check = false;
         } else {
         	removeValidatePassword(confirm);
+        }
+        
+        if(position.val() == null){
+        	showValidatePosition(position);
+        	check = false;
         }
         
         if($('[name=email]').parent().hasClass('alert-email')){
@@ -72,9 +77,15 @@
 	                }
 	            }
 	        });
+        } else {
+        	return false;
         }
     	
     	e.preventDefault();
+    });
+    
+    position.on('change', function(){
+    	removeValidatePosition(position);
     });
     
     confirm.on('keyup', function(){
@@ -106,12 +117,24 @@
             }
         }
         else {
-            if($(input).val().trim() == ''){
+            if($(input).val() != null && $(input).val().trim() == ''){
                 return false;
             }
         }
         
         return true;
+    }
+    
+    function showValidatePosition(input){
+    	var thisAlert = $(input).parent();
+
+        $(thisAlert).addClass('alert-position');
+    }
+    
+    function removeValidatePosition(input){
+    	var thisAlert = $(input).parent();
+
+        $(thisAlert).removeClass('alert-position');
     }
     
     function showValidateEmail(input){

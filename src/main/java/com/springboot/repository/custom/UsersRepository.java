@@ -63,21 +63,25 @@ public class UsersRepository {
 	}
 	
 	public void removeUser(EntityManager em, int id) {
-		User user = em.find(User.class, id);
-		
-		em.remove(user);
+		String sql = "DELETE FROM User WHERE id = :id";
+		Query query = em.createQuery(sql);
+		query.setParameter("id", id);
+		query.executeUpdate();
 	}
 	
 	public void approveUser(EntityManager em, int id) {		
-		User user = em.find(User.class, id);
-		
-		user.setStatus("approved");
+		String sql = "UPDATE User SET status = :status WHERE id = :id";
+		Query query = em.createQuery(sql);
+		query.setParameter("status", "approved");
+		query.setParameter("id", id);
+		query.executeUpdate();
 	}
 	
 	public void declineUser(EntityManager em, int id) {
-		User user = em.find(User.class, id);
-		
-		em.remove(user);
+		String sql = "DELETE FROM User WHERE id = :id";
+		Query query = em.createQuery(sql);
+		query.setParameter("id", id);
+		query.executeUpdate();
 	}
 
 	public User retrieveUser(EntityManager em, String id) {

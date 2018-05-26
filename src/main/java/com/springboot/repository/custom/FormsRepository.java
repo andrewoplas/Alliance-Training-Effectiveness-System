@@ -9,60 +9,42 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.springboot.entities.Form;
+import com.springboot.entities.FormOption;
+import com.springboot.entities.FormQuestion;
 import com.springboot.entities.SaCategory;
-import com.springboot.entities.Schedule;
-import com.springboot.entities.TrainingPlan;
-import com.springboot.entities.UserEvent;
 
 
 @Repository
 @Transactional
 public class FormsRepository {
 	
-	public void insertSkillsAssessment(EntityManager em, List<SaCategory> categories, Collection<Integer> categoryIDS) {
-		if(categoryIDS.size() == 0) {
-			categoryIDS.add(0);
-		}
-		
-		String sql = "DELETE FROM SaCategory WHERE id NOT IN (:categoryIDS) SORT BY ";
+	public void deleteSkillsAssessment(EntityManager em, Collection<Integer> categoryIDS) {
+		String sql = "DELETE FROM SaCategory WHERE id NOT IN (:categoryIDS)";
 		Query query = em.createQuery(sql.toString());
 		query.setParameter("categoryIDS", categoryIDS);
 		query.executeUpdate();
-		
-		for(SaCategory category : categories) {
-
-			if(em.find(SaCategory.class, category.getId()) != null)
-				em.merge(category); 
-			else {
-				category.setId(0);
-				em.persist(category);
-			}
-			
-			em.flush();
-			
-			if(!category.getSaCategories().isEmpty()) {
-				insertChildSA(em, category.getSaCategories(), category);
-			}
-		}
 	}
 	
-	public void insertChildSA(EntityManager em, List<SaCategory> categories, SaCategory parent) {
-		for(SaCategory category : categories) {
-			category.setSaCategory(parent);
-			
-			if(em.find(SaCategory.class, category.getId()) != null)
-				em.merge(category); 
-			else {
-				category.setId(0);
-				em.persist(category);
-			}
-			
-			em.flush();
-			
-			if(!category.getSaCategories().isEmpty()) {
-				insertChildSA(em, category.getSaCategories(), category);
-			}
-		}
+	public SaCategory retrieveCategory(EntityManager em, int id) {
+		return em.find(SaCategory.class, id);
+	}
+	
+	public SaCategory insertCategory(EntityManager em, SaCategory category) {
+		em.persist(category);
+		em.flush();
+		
+		return category;
+	}
+	
+	public void updateCategory(EntityManager em, SaCategory category) {
+		String sql = "UPDATE SaCategory SET description = :description, row_order = :row_order, parentID = :parentID WHERE id = :id";
+		Query query = em.createQuery(sql);
+		query.setParameter("description", category.getDescription());
+		query.setParameter("row_order", category.getRowOrder());
+		query.setParameter("parentID", category.getSaCategory() == null? null : category.getSaCategory().getId());
+		query.setParameter("id", category.getId());
+		query.executeUpdate();
 	}
 	
 	public List<SaCategory> retrieveParentSkillsAssessment(EntityManager em) {
@@ -74,4 +56,43 @@ public class FormsRepository {
 		return parents;
 	}
 	
+	public FormQuestion insertQuestion(EntityManager em, FormQuestion question) {
+		em.persist(question);
+		em.flush();
+		
+		return question;
+	}
+	
+
+	public FormQuestion updateQuestion(EntityManager em, FormQuestion question) {
+		em.merge(question);
+		
+		return question;
+	}
+	
+	public void deleteQuestions(EntityManager em, int formID, Collection<Integer> questionIDS) {
+		String sql = "DELETE FROM FormQuestion WHERE formID = :formID AND id NOT IN (:questionIDS)";
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("questionIDS", questionIDS);
+		query.setParameter("formID", formID);
+		query.executeUpdate();
+	}
+	
+	public void mergeOptions(EntityManager em, FormOption option) {
+		em.merge(option);
+	}
+	
+	public void deleteOption(EntityManager em, int questionID, Collection<Integer> optionIDS) {
+		String sql = "DELETE FROM FormOption WHERE questionID = :questionID AND id NOT IN (:optionIDS)";
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("optionIDS", optionIDS);
+		query.setParameter("questionID", questionID);
+		query.executeUpdate();
+	}
+
+	public Form retrieveForm(EntityManager em, int formID) {
+		return em.find(Form.class, formID);
+	}
+
+
 }
