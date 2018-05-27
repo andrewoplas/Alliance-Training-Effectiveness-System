@@ -42,7 +42,7 @@ public class UserEvent implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="userID")
 	private User user;
-
+	
 	//bi-directional many-to-one association to SaAssignment
 	@OneToMany(mappedBy="userEvent1")
 	private List<SaAssignment> saAssignments1;
@@ -50,6 +50,10 @@ public class UserEvent implements Serializable {
 	//bi-directional many-to-one association to SaAssignment
 	@OneToMany(mappedBy="userEvent2")
 	private List<SaAssignment> saAssignments2;
+
+	//bi-directional many-to-one association to FormAssignment
+	@OneToMany(mappedBy="userEvent")
+	private List<FormAssignment> formAssignments;
 
 	public UserEvent() {
 	}
@@ -97,7 +101,7 @@ public class UserEvent implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	
 	public List<SaAssignment> getSaAssignments1() {
 		return this.saAssignments1;
 	}
@@ -202,4 +206,68 @@ public class UserEvent implements Serializable {
 		return saAssignments2;
 	}
 
+	public List<FormAssignment> getFormAssignments() {
+		return this.formAssignments;
+	}
+	
+	public void setFormAssignments(List<FormAssignment> formAssignments) {
+		this.formAssignments = formAssignments;
+	}
+
+	public FormAssignment addFormAssignment(FormAssignment formAssignment) {
+		getFormAssignments().add(formAssignment);
+		formAssignment.setUserEvent(this);
+
+		return formAssignment;
+	}
+
+	public FormAssignment removeFormAssignment(FormAssignment formAssignment) {
+		getFormAssignments().remove(formAssignment);
+		formAssignment.setUserEvent(null);
+
+		return formAssignment;
+	}
+	
+
+	public FormAssignment getFormAssignment(int formID) {
+		for(FormAssignment formAssignment : formAssignments) {
+			if(formAssignment.getForm().getId() == formID) {
+				return formAssignment;
+			}
+		}
+		
+		return null;
+	}
+	
+	public FormAssignment getCourseFeedbackAssignment() {
+		for(FormAssignment formAssignment : formAssignments) {
+			if(formAssignment.getForm().getDescription().contains("Course Feedback")) {
+				return formAssignment;
+			}
+		}
+		
+		return null;
+	}
+	
+	public FormAssignment getFacilitatorFeedbackAssignment() {
+		for(FormAssignment formAssignment : formAssignments) {
+			if(formAssignment.getForm().getDescription().contains("Facilitator's Feedback")) {
+				return formAssignment;
+			}
+		}
+		
+		return null;
+	}
+	
+	public FormAssignment getTEAAssignment() {
+		for(FormAssignment formAssignment : formAssignments) {
+			if(formAssignment.getForm().getDescription().contains("Training Effectiveness Assessment")) {
+				return formAssignment;
+			}
+		}
+		
+		return null;
+	}
+
 }
+

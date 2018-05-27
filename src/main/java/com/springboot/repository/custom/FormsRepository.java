@@ -10,8 +10,10 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.springboot.entities.Form;
+import com.springboot.entities.FormAssignment;
 import com.springboot.entities.FormOption;
 import com.springboot.entities.FormQuestion;
+import com.springboot.entities.SaAssignment;
 import com.springboot.entities.SaCategory;
 
 
@@ -92,6 +94,25 @@ public class FormsRepository {
 
 	public Form retrieveForm(EntityManager em, int formID) {
 		return em.find(Form.class, formID);
+	}
+	
+	public boolean containsFormAssignment(EntityManager em, int formID, int userID) {
+		// Check if user exist through checking email
+		String stringQuery = "FROM FormAssignment WHERE formID = :formID AND userEventID = :userEventID";
+		Query query = em.createQuery(stringQuery.toString());
+		query.setParameter("formID", formID);
+		query.setParameter("userEventID", userID);
+		
+		return !query.getResultList().isEmpty();
+	}
+	
+	public void insertFormAssignment(EntityManager em, FormAssignment assignment) {
+		em.persist(assignment);
+	}
+	
+	public SaAssignment retrieveAssignment(EntityManager em, int assignmentID) {
+		SaAssignment assignment = em.find(SaAssignment.class, assignmentID);
+		return assignment;
 	}
 
 

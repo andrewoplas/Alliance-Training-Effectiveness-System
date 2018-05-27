@@ -64,7 +64,8 @@
                            type: "success",
                            text: "You will be redirected to the login page...",   
                            timer: 3000,
-                           showConfirmButton: false 
+                           showConfirmButton: false,
+                           allowEscapeKey: false,
                        }, function(){   
                     	   	 window.location.href = "/login";
                        });

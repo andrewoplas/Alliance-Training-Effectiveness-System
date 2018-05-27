@@ -2,8 +2,6 @@ package com.springboot.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,12 +20,15 @@ public class Form implements Serializable {
 
 	private String description;
 
+	//bi-directional many-to-one association to FormAssignment
+	@OneToMany(mappedBy="form")
+	private List<FormAssignment> formAssignments;
+
 	//bi-directional many-to-one association to FormQuestion
 	@OneToMany(mappedBy="form")
 	private List<FormQuestion> formQuestions;
 
 	public Form() {
-		formQuestions = new ArrayList<FormQuestion>();
 	}
 	
 	public Form(int id) {
@@ -48,6 +49,28 @@ public class Form implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<FormAssignment> getFormAssignments() {
+		return this.formAssignments;
+	}
+
+	public void setFormAssignments(List<FormAssignment> formAssignments) {
+		this.formAssignments = formAssignments;
+	}
+
+	public FormAssignment addFormAssignment(FormAssignment formAssignment) {
+		getFormAssignments().add(formAssignment);
+		formAssignment.setForm(this);
+
+		return formAssignment;
+	}
+
+	public FormAssignment removeFormAssignment(FormAssignment formAssignment) {
+		getFormAssignments().remove(formAssignment);
+		formAssignment.setForm(null);
+
+		return formAssignment;
 	}
 
 	public List<FormQuestion> getFormQuestions() {

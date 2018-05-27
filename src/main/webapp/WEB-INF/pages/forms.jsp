@@ -31,22 +31,57 @@
 									<thead>
 										<tr>
 											<th>Training</th>
-											<th>Action</th>
+											<th>Forms</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach var="training" items="${ trainings }">
 											<tr>
-												<td width="50%">${ training.title }</td>
-												<td width="50%"><a
-													href="/ates/forms/skills-assessment/view/${ training.id }">
-														<button type="button"
-															class="btn btn-warning btn-outline btn-circle m-r-5 p-t-0 p-b-0"
+												<td>${ training.title }</td>
+												<td width="40%">
+													<a href="/ates/forms/skills-assessment/view/${ training.id }">
+														<span type="span" class="badge badge-success m-r-5"
 															data-toggle="tooltip" title="" data-placement="top"
-															data-original-title="View Skills Assessment Form">
-															<i class="mdi mdi-account-switch"></i>
-														</button>
-												</a></td>
+															data-original-title="Skills Assessment Form">
+															SA
+														</span>
+													</a>
+													
+													<a href="/ates/forms/course-feedback/view/${ training.id }">
+														<span type="span" class="badge badge-info m-r-5"
+															data-toggle="tooltip" title="" data-placement="top"
+															data-original-title="Course Feedback Form">
+															CF
+														</span>
+													</a>
+													
+													<a href="/ates/forms/facilitator-feedback/view/${ training.id }">
+														<span type="span"
+															class="badge badge-purple m-r-5"
+															data-toggle="tooltip" title="" data-placement="top"
+															data-original-title="Facilitator's Feedback Form">
+															FF
+														</span>
+													</a>
+													
+													<a href="/ates/forms/training-effectiveness-assessment/view/${ training.id }">
+														<span type="span"
+															class="badge badge-warning m-r-5"
+															data-toggle="tooltip" title="" data-placement="top"
+															data-original-title="Training Effectiveness Assessment Form">
+															TEA
+														</span>
+													</a>
+													
+													<a href="/ates/forms/training-need-analysis/view/${ training.id }">
+														<span type="span"
+															class="badge badge-danger m-r-5"
+															data-toggle="tooltip" title="" data-placement="top"
+															data-original-title="Training Need Analysis Form">
+															TNA
+														</span>
+													</a>
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>

@@ -166,15 +166,11 @@ public class TrainingPlan implements Serializable {
 	
 	public String getStatus() {
 		String status = null;
-		
-		Date dateStart = schedules.get(0).getStartDate();
-		Date dateEnd = schedules.get(schedules.size() - 1).getEndDate();
+
+		List<Schedule> sortedSchedule = getSchedules();
+		Date dateStart = sortedSchedule.get(0).getStartDate();
+		Date dateEnd = sortedSchedule.get(sortedSchedule.size() - 1).getEndDate();
 		Date now = new Date();
-		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		System.out.println("Start Date : " + dateFormat.format(dateStart));
-		System.out.println("End Date : " + dateFormat.format(dateEnd));
-		System.out.println("Now : " + dateFormat.format(now));
 			
 		if (now.after(dateEnd)) {
             status = "Accomplished";

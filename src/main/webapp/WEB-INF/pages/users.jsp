@@ -58,7 +58,7 @@
 		                                <tbody>
 		                                	<c:forEach var="user" items="${users}">
 		                                		<tr data-id="${user.id}">
-			                                        <td width="25%">${user.name}</td>
+			                                        <td width="25%" class="name">${user.name}</td>
 			                                        <td width="25%">${user.position}</td>
 			                                        <td width="25%">${user.email}</td>
 			                                        <td width="25%">

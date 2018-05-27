@@ -36,9 +36,6 @@ public class FormsController {
 	@Autowired
 	TrainingPlanService tpService;
 	
-	@Autowired
-	UserTrainingService utpService;
-	
 	@RequestMapping(value = "/assignment")
 	public String formsAssignment(ModelMap map) {
 		List<TrainingPlan> trainings = tpService.retrieveTrainings();
@@ -82,7 +79,7 @@ public class FormsController {
 	
 	@RequestMapping(value = "/skills-assessment/view/answer/{assignmentID}")
 	public String viewAnswersAssessment(@PathVariable int assignmentID, ModelMap map) {
-		SaAssignment assignment = utpService.retrieveAssignmentById(assignmentID);
+		SaAssignment assignment = formsService.retrieveAssignmentById(assignmentID);
 		
 		if(assignment != null && assignment.getStatus().equals("answered")) {
 			List<SaCategory> parents = formsService.getParentCategories();
@@ -106,6 +103,24 @@ public class FormsController {
 		return "/forms/formConfig";
 	}
 	
+	@RequestMapping(value = "/course-feedback/view/{trainingPlanID}")
+	public String releaseCourseFeedback(ModelMap map, @PathVariable String trainingPlanID) {
+		TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
+		
+		if(training != null) {
+			List<UserEvent> participants = tpService.retrieveTrainingUserEvent(training, "Participant", false);
+			Form form = formsService.retrieveForm(1);
+			
+			map.addAttribute("form", form);
+			map.addAttribute("training", training);
+			map.addAttribute("userEvents", participants);
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/forms/formsView";
+	}
+	
 	@RequestMapping(value = "/facilitator-feedback")
 	public String facilitatorFeedback(ModelMap map) {
 		Form form = formsService.retrieveForm(2);
@@ -114,6 +129,24 @@ public class FormsController {
 		map.addAttribute("questions", form.getFormQuestions());
 		
 		return "/forms/formConfig";
+	}
+	
+	@RequestMapping(value = "/facilitator-feedback/view/{trainingPlanID}")
+	public String releaseFacilitatorFeedback(ModelMap map, @PathVariable String trainingPlanID) {
+		TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
+		
+		if(training != null) {
+			List<UserEvent> participants = tpService.retrieveTrainingUserEvent(training, "Participant", false);
+			Form form = formsService.retrieveForm(2);
+			
+			map.addAttribute("form", form);
+			map.addAttribute("training", training);
+			map.addAttribute("userEvents", participants);
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/forms/formsView";
 	}
 	
 	@RequestMapping(value = "/training-effectivess-assessment")
@@ -126,10 +159,48 @@ public class FormsController {
 		return "/forms/formConfig";
 	}
 	
+	@RequestMapping(value = "/training-effectiveness-assessment/view/{trainingPlanID}")
+	public String releaseTrainingEffectivenessAssessment(ModelMap map, @PathVariable String trainingPlanID) {
+		TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
+		
+		if(training != null) {
+			List<UserEvent> participants = tpService.retrieveTrainingUserEvent(training, "Participant", false);
+			Form form = formsService.retrieveForm(3);
+			
+			map.addAttribute("form", form);
+			map.addAttribute("training", training);
+			map.addAttribute("userEvents", participants);
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/forms/formsView";
+	}
+	
 	@RequestMapping(value = "/questions/{formID}", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<?> insertQuestions(@PathVariable int formID, @RequestBody Question[] questions) {		
 		
 		formsService.insertQuestions(questions, formID);
+		
+		return ResponseEntity.ok(true);
+	}
+	
+	@RequestMapping(value = "/assign", method = RequestMethod.POST)
+	public ResponseEntity<?> assignForm(HttpServletRequest request) {
+		String formID = request.getParameter("formID");
+		String userEventID = request.getParameter("userEventID");
+		
+		formsService.assignForm(formID, userEventID);
+		
+		return ResponseEntity.ok(true);
+	}
+	
+	@RequestMapping(value = "/assign/all", method = RequestMethod.POST)
+	public ResponseEntity<?> releaseForm(HttpServletRequest request) {
+		String formID = request.getParameter("formID");
+		String trainingPlanID = request.getParameter("trainingPlanID");
+		
+		formsService.releaseForm(formID, tpService.retrieveTraining(trainingPlanID));
 		
 		return ResponseEntity.ok(true);
 	}

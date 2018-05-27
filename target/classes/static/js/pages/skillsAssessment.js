@@ -79,6 +79,8 @@ $(document).ready(function() {
 	}
 	
 	$('#save').click(function(){
+		$("#ajax-process").modal('show');
+		
 		var item = $('#nestable2').nestable('serialize');
 		var order = 1;
 		$.each(item, function(index, value){
@@ -96,6 +98,7 @@ $(document).ready(function() {
 			dataType : 'json',
 			data: JSON.stringify(item),
 			success: function(data, textStatus, jqXHR) {
+				$("#ajax-process").modal('hide');
 				 swal({   
                      title: "Success!",
                      type: "success",
@@ -105,6 +108,7 @@ $(document).ready(function() {
             	 });
             },
             error: function(jqXHR, status, error) {
+            	$("#ajax-process").modal('hide');
             	showErrorAlert();
             }
          });

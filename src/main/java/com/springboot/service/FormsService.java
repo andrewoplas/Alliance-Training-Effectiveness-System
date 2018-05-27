@@ -13,9 +13,13 @@ import com.springboot.body.Question;
 import com.springboot.body.QuestionOption;
 import com.springboot.body.SkillsAssessment;
 import com.springboot.entities.Form;
+import com.springboot.entities.FormAssignment;
 import com.springboot.entities.FormOption;
 import com.springboot.entities.FormQuestion;
+import com.springboot.entities.SaAssignment;
 import com.springboot.entities.SaCategory;
+import com.springboot.entities.TrainingPlan;
+import com.springboot.entities.UserEvent;
 import com.springboot.repository.custom.FormsRepository;
 
 @Service
@@ -26,6 +30,9 @@ public class FormsService {
 	
 	@Autowired
 	private FormsRepository formsRepository;
+
+	@Autowired
+	TrainingPlanService tpService;
 	
 	protected void insertSkillsAssessmentChild(SaCategory parent, List<SkillsAssessment> children, ArrayList<Integer> categoryIDS) {
 		for(SkillsAssessment child : children) {
@@ -154,6 +161,39 @@ public class FormsService {
 
 	public Form retrieveForm(int formID) {
 		return formsRepository.retrieveForm(em, formID);
+	}
+
+	public void assignForm(String formID, String userEventID) {
+		try {
+			FormAssignment assignment = new FormAssignment();
+			assignment.setForm(new Form(Integer.parseInt(formID)));
+			assignment.setUserEvent(new UserEvent(Integer.parseInt(userEventID)));
+			assignment.setStatus("unanswered");
+			
+			formsRepository.insertFormAssignment(em, assignment);
+		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void releaseForm(String formID, TrainingPlan training) {
+		List<UserEvent> participants = tpService.retrieveTrainingUserEvent(training, "Participant", false);
+		int form = Integer.parseInt(formID);
+		
+		for(UserEvent participant : participants) {
+			if(!formsRepository.containsFormAssignment(em, form, participant.getId())) {
+				FormAssignment assignment = new FormAssignment();
+				assignment.setForm(new Form(form));
+				assignment.setUserEvent(new UserEvent(participant.getId()));
+				assignment.setStatus("unanswered");
+				
+				formsRepository.insertFormAssignment(em, assignment);
+			}
+		}
+	}
+	
+	public SaAssignment retrieveAssignmentById(int assignmentID) {
+		return formsRepository.retrieveAssignment(em, assignmentID);
 	}
 	
 }

@@ -14,23 +14,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
-
 /**
  * The persistent class for the user database table.
  * 
  */
 @Entity
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String email;
 
-	@Column(name="is_admin")
+	@Column(name = "is_admin")
 	private int isAdmin;
 
 	private String name;
@@ -39,26 +38,26 @@ public class User implements Serializable {
 
 	private String status;
 
-	//bi-directional many-to-one association to Attendance
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Attendance
+	@OneToMany(mappedBy = "user")
 	private List<Attendance> attendances;
 
-	//bi-directional many-to-one association to Position
+	// bi-directional many-to-one association to Position
 	@ManyToOne
-	@JoinColumn(name="position")
+	@JoinColumn(name = "position")
 	private Position position;
 
-	//bi-directional many-to-one association to UserEvent
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to UserEvent
+	@OneToMany(mappedBy = "user")
 	private List<UserEvent> userEvents;
-	
+
 	private transient int userEventID;
 
 	public User() {
 	}
-	
+
 	public User(int id) {
-		this.id= id;
+		this.id = id;
 	}
 
 	public int getId() {
@@ -112,16 +111,16 @@ public class User implements Serializable {
 	public List<Attendance> getAttendances() {
 		return this.attendances;
 	}
-	
+
 	public Attendance getAttendanceByTrainingAndDate(int trainingId, Date date) {
 		Attendance attendance = null;
-		for(Attendance attend : attendances) {
-			if(attend.getTrainingPlan().getId() == trainingId && attend.getDate().equals(date)) {
+		for (Attendance attend : attendances) {
+			if (attend.getTrainingPlan().getId() == trainingId && attend.getDate().equals(date)) {
 				attendance = attend;
 				break;
 			}
 		}
-		
+
 		return attendance;
 	}
 
@@ -172,7 +171,7 @@ public class User implements Serializable {
 
 		return userEvent;
 	}
-	
+
 	public int getUserEventID() {
 		return userEventID;
 	}

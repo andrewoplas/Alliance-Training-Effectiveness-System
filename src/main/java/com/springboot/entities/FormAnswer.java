@@ -20,6 +20,11 @@ public class FormAnswer implements Serializable {
 
 	private String description;
 
+	//bi-directional many-to-one association to FormAssignment
+	@ManyToOne
+	@JoinColumn(name="assignmentID")
+	private FormAssignment formAssignment;
+
 	//bi-directional many-to-one association to FormQuestion
 	@ManyToOne
 	@JoinColumn(name="questionID")
@@ -42,6 +47,14 @@ public class FormAnswer implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public FormAssignment getFormAssignment() {
+		return this.formAssignment;
+	}
+
+	public void setFormAssignment(FormAssignment formAssignment) {
+		this.formAssignment = formAssignment;
 	}
 
 	public FormQuestion getFormQuestion() {

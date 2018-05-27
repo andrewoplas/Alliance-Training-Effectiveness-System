@@ -5,14 +5,15 @@
 		<class>com.springboot.entities.Position</class>
 		<class>com.springboot.entities.Schedule</class>
 		<class>com.springboot.entities.TrainingPlan</class>
-		<class>com.springboot.entities.UserEvent</class>
 		<class>com.springboot.entities.User</class>
 		<class>com.springboot.entities.SaCategory</class>
 		<class>com.springboot.entities.SaAssignment</class>
 		<class>com.springboot.entities.SaAnswer</class>
-		<class>com.springboot.entities.Form</class>
 		<class>com.springboot.entities.FormAnswer</class>
 		<class>com.springboot.entities.FormOption</class>
 		<class>com.springboot.entities.FormQuestion</class>
+		<class>com.springboot.entities.FormAssignment</class>
+		<class>com.springboot.entities.Form</class>
+		<class>com.springboot.entities.UserEvent</class>
 	</persistence-unit>
 </persistence>

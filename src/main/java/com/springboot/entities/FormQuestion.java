@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,29 +30,32 @@ public class FormQuestion implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
+	
 	private String description;
+
+	//bi-directional many-to-one association to Form
+	@ManyToOne
+	@JoinColumn(name="formID")
+	private Form form;
 
 	private String type;
 
 	//bi-directional many-to-one association to FormAnswer
 	@OneToMany(mappedBy="formQuestion")
 	private List<FormAnswer> formAnswers;
-
+	
 	//bi-directional many-to-one association to FormOption
 	@OneToMany(mappedBy="formQuestion")
 	private List<FormOption> formOptions;
 
-	//bi-directional many-to-one association to Form
-	@ManyToOne
-	@JoinColumn(name="formID")
-	private Form form;
-	
 	private transient List<Integer> formOptionIDS;
 
 	public FormQuestion() {
-		formAnswers = new ArrayList<FormAnswer>();
-		formOptions = new ArrayList<FormOption>();
-		formOptionIDS = new ArrayList<Integer>();
+		this(0);
+	}
+	
+	public FormQuestion(int id) {
+		this.id = id;
 	}
 
 	public int getId() {
@@ -69,7 +73,7 @@ public class FormQuestion implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	
 	public String getType() {
 		return this.type;
 	}
@@ -100,10 +104,6 @@ public class FormQuestion implements Serializable {
 		return formAnswer;
 	}
 	
-	public int getFormOptionsCount() {
-		return this.formOptions.size();
-	}
-
 	public List<FormOption> getFormOptions() {
 		return this.formOptions;
 	}
@@ -127,6 +127,10 @@ public class FormQuestion implements Serializable {
 		return formOption;
 	}
 
+	public int getFormOptionsCount() {
+		return this.formOptions.size();
+	}
+	
 	public Form getForm() {
 		return this.form;
 	}

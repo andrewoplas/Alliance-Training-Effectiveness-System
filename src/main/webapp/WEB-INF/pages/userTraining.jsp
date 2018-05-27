@@ -106,7 +106,41 @@
 					                                        		<i class="mdi mdi-account-switch"></i>
 				                                        		</button>
 			                                        		</a>
-		                                        		</c:if>                               		
+		                                        		</c:if>
+		                                        		
+		                                        		<c:set var="courseFeedback" value="${ userEvent.getCourseFeedbackAssignment() }" />
+		                                        		<c:if test="${ courseFeedback != null && courseFeedback.status == 'unanswered' }">
+		                                        			<a href="/ates/general/training/form/answer/${ courseFeedback.id }">
+																<span type="span" class="badge badge-info m-r-5"
+																	data-toggle="tooltip" title="" data-placement="top"
+																	data-original-title="Answer Course Feedback Form">
+																	CF
+																</span>
+															</a>
+		                                        		</c:if>
+		                                        		
+		                                        		<c:set var="facilitatorFeedback" value="${ userEvent.getFacilitatorFeedbackAssignment() }" />
+		                                        		<c:if test="${ facilitatorFeedback != null && facilitatorFeedback.status == 'unanswered' }">
+		                                        			<a href="/ates/general/training/form/answer/${ facilitatorFeedback.id }">
+																<span type="span" class="badge badge-info m-r-5"
+																	data-toggle="tooltip" title="" data-placement="top"
+																	data-original-title="Answer Facilitator's Feedback Form">
+																	FA
+																</span>
+															</a>
+		                                        		</c:if>
+		                                        		
+		                                        		<c:set var="TEA" value="${ userEvent.getTEAAssignment() }" />
+		                                        		<c:if test="${ TEA != null && TEA.status == 'unanswered' }">
+		                                        			<a href="/ates/general/training/form/answer/${ TEA.id }">
+																<span type="span" class="badge badge-info m-r-5"
+																	data-toggle="tooltip" title="" data-placement="top"
+																	data-original-title="Answer Training Effectiveness Assessment Form">
+																	TEA
+																</span>
+															</a>
+		                                        		</c:if>
+		                                        		                      		
 													</td>
 													<td width="20%">
 														<a href="/ates/general/training/${ userEvent.id }/${ userEvent.trainingPlan.id }">
