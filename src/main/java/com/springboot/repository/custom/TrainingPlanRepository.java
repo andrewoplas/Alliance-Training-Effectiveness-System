@@ -186,6 +186,16 @@ public class TrainingPlanRepository {
 		query.setParameter("timeOut", null);
 		query.executeUpdate();
 	}
+	
+	public List<UserEvent> retrieveUserEvent(EntityManager em, int userID) {
+		List<UserEvent> userEvents = null;
+		StringBuilder sql = new StringBuilder("FROM UserEvent WHERE userID = :id");
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("id", userID);
+		
+		userEvents = query.getResultList();		
 
+		return userEvents;
+	}
 
 }

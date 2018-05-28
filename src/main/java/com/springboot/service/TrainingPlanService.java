@@ -49,6 +49,10 @@ public class TrainingPlanService {
 		}
 	}
 	
+	public List<UserEvent> retrieveUserEvent(int userID) {
+		return tpRepository.retrieveUserEvent(em, userID) ;
+	}
+	
 	public boolean insertTraining(Training training) {
 		boolean result = false;
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -124,13 +128,6 @@ public class TrainingPlanService {
 			
 			tpRepository.insertUserEvent(em, userEvents.toArray(new UserEvent[userEvents.size()]));
 			result = true;
-			
-			// Send email to users
-//			userEvents = (ArrayList<UserEvent>) retrieveTraining(tpId + "").getUserEvents();
-//			for(UserEvent userEvent : userEvents) {
-//				// Send Email to this user's email
-//				// userEvent.getUser().getEmail();
-//			}
 			
 		} catch (NumberFormatException ex) {
 			ex.printStackTrace();
@@ -423,6 +420,27 @@ public class TrainingPlanService {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+
+	public int[] getTrainingStatus(TrainingPlan training) {
+		List<UserEvent> userEvents = training.getUserEvents();
+		int[] status = new int[3];
+		String statusTemp = null;
+		
+		for(UserEvent userEvent : userEvents) {
+			statusTemp = userEvent.getStatus();
+			
+			if(statusTemp.equals("approved")) {
+				status[0] += 1;
+			} else if(statusTemp.equals("declined")) {
+				status[1] += 1;
+			} else if(statusTemp.equals("pending")) {
+				status[2] += 1;
+			}
+		}
+		
+		return status;
 	}
 	
 }

@@ -54,6 +54,7 @@
 		                                        <th data-hide="all"> Accepted </th>
 		                                        <th data-hide="all"> Declined </th>
 		                                        <th data-hide="all"> Pending </th>
+		                                        <th data-hide="all"> Information</th>
 		                                    </tr>
 		                                </thead>
 		                                <tbody>
@@ -142,6 +143,9 @@
 			                                        	<span class="badge badge-warning fixed-width">
 			                                        		<c:out value="${ pendingCount }" />
 			                                        	</span>
+			                                        </td>
+			                                        <td>
+			                                        	<a href="/ates/training/invitation-status/${ training.id }" class="p-t-5">View Invitation Status</a>
 			                                        </td>
 			                                    </tr>
 		                                	</c:forEach>                                    

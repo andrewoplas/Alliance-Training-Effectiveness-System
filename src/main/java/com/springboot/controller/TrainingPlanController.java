@@ -42,6 +42,25 @@ public class TrainingPlanController {
 		return "/training/list";
 	}
 	
+	@RequestMapping(value = "/invitation-status/{trainingPlanID}")
+	public String invitationStatus(ModelMap map, @PathVariable String trainingPlanID) {
+		TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
+		
+		if(training != null) {
+			int[] status = tpService.getTrainingStatus(training);
+			
+			map.addAttribute("training", training);
+			map.addAttribute("userEvents", training.getUserEvents());
+			map.addAttribute("approvedCount", status[0]);
+			map.addAttribute("declinedCount", status[1]);
+			map.addAttribute("pendingCount", status[2]);
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/training/invitation-status";
+	}
+	
 	@RequestMapping(value = "/{id}")
 	public String summary(ModelMap map, @PathVariable String id) {
 		TrainingPlan training = tpService.retrieveTraining(id);

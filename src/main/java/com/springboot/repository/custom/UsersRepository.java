@@ -112,5 +112,16 @@ public class UsersRepository {
 		}		
 	}
 	
+	public void editUserByView(EntityManager em, User user) {
+		User updateUser = em.find(User.class, user.getId());
+			
+		updateUser.setName(user.getName());
+		updateUser.setPosition(user.getPosition());
+
+		if(user.getPassword() != null && !user.getPassword().isEmpty()) {
+			updateUser.setPassword(user.getPassword());
+		}	
+	}
+	
 	
 }

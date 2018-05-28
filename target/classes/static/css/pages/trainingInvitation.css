@@ -1,0 +1,40 @@
+
+#dataTable_wrapper select {
+	background-color: #fff;
+    border: 1px solid #e4e7ea;
+    border-radius: 4px;
+    box-shadow: none;
+    color: #565656;
+    height: 38px;
+    max-width: 100%;
+    padding: 7px 12px;
+    text-align: center;
+    font-size: 14px !important;
+}
+
+#dataTable_wrapper input {
+	background-color: #fff;
+    border: 1px solid #e4e7ea;
+    border-radius: 4px;
+    box-shadow: none;
+    color: #565656;
+    height: 38px;
+    max-width: 100%;
+    padding: 7px 12px;
+    text-align: center;
+}
+
+.badge.Participant{
+	background-color: white;
+    color: #1e88e5;
+}
+
+.badge.Facilitator{
+	background-color: white;
+    color: #ff9800;
+}
+
+.badge.Supervisor{
+	background-color: white;
+    color: #707cd2;
+}

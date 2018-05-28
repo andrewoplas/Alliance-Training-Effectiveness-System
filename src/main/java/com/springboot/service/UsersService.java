@@ -183,4 +183,18 @@ public class UsersService {
         return generatedPassword;
     }
 
+	public void editUser(String id, String name, String position, String password) {		
+		User user = new User(Integer.parseInt(id));
+		Position pos = new Position();
+		user.setName(name);
+			pos.setId(Integer.parseInt(position));
+		user.setPosition(pos);		
+		
+		if(password != null && !password.isEmpty()) {
+			user.setPassword(Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString());
+		} 
+		
+		usersRepository.editUserByView(em, user);
+	}
+
 }

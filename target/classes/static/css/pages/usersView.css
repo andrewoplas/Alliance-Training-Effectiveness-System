@@ -1,0 +1,38 @@
+.empty-icon {
+	font-size: 10em !important;
+    color: #BDBDBD;
+    background-color: #fafafa;
+    padding: 25px 40px;
+    border-radius: 50%;
+}
+
+.empty-text {
+	margin-top: 20px;
+	color: #dcdcdc;
+    font-weight: bold;
+    font-size: 3em;
+    font-family: Poppins;
+}
+
+.badge.Participant{
+	background-color: white;
+    color: #1e88e5;
+}
+
+.badge.Facilitator{
+	background-color: white;
+    color: #ff9800;
+}
+
+.badge.Supervisor{
+	background-color: white;
+    color: #707cd2;
+}
+
+.user-bg {
+    background-image: url('/images/user-placeholder.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #e2e2e2;
+}

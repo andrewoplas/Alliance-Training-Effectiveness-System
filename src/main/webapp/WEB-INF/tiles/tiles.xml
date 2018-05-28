@@ -27,7 +27,7 @@
 	<!-- [Admin] Dashboard Pages -->
 	<definition name="dashboard" extends="default">
 	    <put-attribute name="title" value="ATES - Dashboard" />
-	    <put-attribute name="body" value="/WEB-INF/pages/dashboard.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/dashboard.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 			<add-attribute value="/plugins/timepicker/dist/wickedpicker.min.css" />
 			<add-attribute value="/plugins/calendar/dist/fullcalendar.css" />
@@ -50,7 +50,7 @@
 	<!-- [Admin] User - Users List -->
 	<definition name="/users/list" extends="default">
 	    <put-attribute name="title" value="ATES - Users" />
-	    <put-attribute name="body" value="/WEB-INF/pages/users.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/users.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 	    	<add-attribute value="/plugins/footable/css/footable.core.css" />
@@ -63,10 +63,24 @@
 		</put-list-attribute>
 	</definition>
 	
+	<!-- [Admin] User - User View -->
+	<definition name="/users/view" extends="default">
+	    <put-attribute name="title" value="ATES - Users" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/usersView.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
+	    	<add-attribute value="/css/pages/usersView.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+		</put-list-attribute>
+	</definition>
+	
 	<!-- [Admin] User - Users Create -->
 	<definition name="/users/create" extends="default">
 	    <put-attribute name="title" value="ATES - User Create" />
-	    <put-attribute name="body" value="/WEB-INF/pages/usersCreate.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/usersCreate.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 	    	<add-attribute value="/css/pages/users.css" />
@@ -80,7 +94,7 @@
 	<!-- [Admin] User - Users Edit -->
 	<definition name="/users/edit" extends="default">
 	    <put-attribute name="title" value="ATES - User Create" />
-	    <put-attribute name="body" value="/WEB-INF/pages/usersEdit.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/usersEdit.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 	    	<add-attribute value="/plugins/magic-checkbox/magic-check.min.css" />
@@ -95,7 +109,7 @@
 	<!-- [Admin] User -  Registration Request -->
 	<definition name="/users/request" extends="default">
 	    <put-attribute name="title" value="ATES - User Request" />
-	    <put-attribute name="body" value="/WEB-INF/pages/usersRequest.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/usersRequest.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
 	    	<add-attribute value="/plugins/toast-master/css/jquery.toast.css" />
@@ -111,7 +125,7 @@
 	<!-- [Admin] User -  Position -->
 	<definition name="/users/position" extends="default">
 	    <put-attribute name="title" value="ATES - Position" />
-	    <put-attribute name="body" value="/WEB-INF/pages/usersPosition.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/usersPosition.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 		    <add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
 	    	<add-attribute value="/plugins/toast-master/css/jquery.toast.css" />
@@ -129,7 +143,7 @@
 	<!-- [Admin] Training Plan - List -->
 	<definition name="/training/list" extends="default">
 	    <put-attribute name="title" value="ATES - Training Plan" />
-	    <put-attribute name="body" value="/WEB-INF/pages/trainingPlan.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/trainingPlan.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 	    	<add-attribute value="/plugins/footable/css/footable.core.css" />
@@ -143,10 +157,25 @@
 		</put-list-attribute>
 	</definition>
 	
+	<!-- [Admin] Training Plan - Invitation Status -->
+	<definition name="/training/invitation-status" extends="default">
+	    <put-attribute name="title" value="ATES - Invitation Status" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/trainingInvitation.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+    		<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
+    		<add-attribute value="/css/pages/trainingInvitation.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
+			<add-attribute value="/js/dataTableInit.js" />
+		</put-list-attribute>
+	</definition>
+	
 	<!-- [Admin] Training Plan - Create -->
 	<definition name="/training/create" extends="default">
 	    <put-attribute name="title" value="ATES - Create Training" />
-	    <put-attribute name="body" value="/WEB-INF/pages/trainingCreate.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/trainingCreate.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 			<add-attribute value="/plugins/semantic/css/semantic.min.css" />
 	    	<add-attribute value="/plugins/steps/steps.css" />
@@ -180,7 +209,7 @@
 	<!-- [Admin] Training Plan - Edit -->
 	<definition name="/training/edit" extends="default">
 	    <put-attribute name="title" value="ATES - Edit Training" />
-	    <put-attribute name="body" value="/WEB-INF/pages/trainingEdit.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/trainingEdit.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 			<add-attribute value="/plugins/semantic/css/semantic.min.css" />
 	    	<add-attribute value="/plugins/steps/steps.css" />
@@ -214,7 +243,7 @@
 	<!-- [Admin] Training Plan - Summary -->
 	<definition name="/training/summary" extends="default">
 	    <put-attribute name="title" value="ATES - Summary" />
-	    <put-attribute name="body" value="/WEB-INF/pages/trainingSummary.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/trainingSummary.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 			<add-attribute value="/css/pages/trainingSummary.css" />
@@ -229,7 +258,7 @@
 	<!-- [Admin] Attendance -->
 	<definition name="/training/attendance" extends="default">
 	    <put-attribute name="title" value="ATES - Attendance" />
-	    <put-attribute name="body" value="/WEB-INF/pages/attendance.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/attendance.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/horizontal-timeline/css/horizontal-timeline.css" />
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
@@ -252,7 +281,7 @@
 	<!-- [Admin] Forms - List -->
 	<definition name="/forms/assignment" extends="default">
 	    <put-attribute name="title" value="ATES - Forms" />
-	    <put-attribute name="body" value="/WEB-INF/pages/forms.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/forms.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
 	    	<add-attribute value="/plugins/toast-master/css/jquery.toast.css" />
@@ -268,7 +297,7 @@
 	<!-- [Admin] Form - Skills Assessment -->
 	<definition name="/forms/skillsAssessment" extends="default">
 	    <put-attribute name="title" value="ATES - Skills Assessment" />
-	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessment.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/skillsAssessment.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
@@ -289,7 +318,7 @@
 	<!-- [Admin] Form - Skills Assessment - List View Per Training -->
 	<definition name="/forms/skillsAssessment/view" extends="default">
 	    <put-attribute name="title" value="ATES - Skills Assessment" />
-	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessmentViewList.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/skillsAssessmentViewList.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
@@ -310,7 +339,7 @@
 	<!-- [Admin] Form - Skills Assessment - List View Single Answer -->
 	<definition name="/forms/skills-assessment/view/single" extends="default">
 	    <put-attribute name="title" value="ATES - Skills Assessment" />
-	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessmentView.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/skillsAssessmentView.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 	    	<add-attribute value="/css/pages/skillsAssessmentView.css" />
@@ -324,7 +353,7 @@
 	<!-- [Admin] Form - Form CRUD -->
 	<definition name="/forms/formConfig" extends="default">
 	    <put-attribute name="title" value="ATES - Form Configuration" />
-	    <put-attribute name="body" value="/WEB-INF/pages/formConfig.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/formConfig.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/editable/bootstrap3-editable/css/bootstrap-editable.css" />
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
@@ -338,10 +367,10 @@
 		</put-list-attribute>
 	</definition>
 	
-	<!-- [Admin] Form - Course Feedback - List View Per Training -->
+	<!-- [Admin] Forms - List View Per Training -->
 	<definition name="/forms/formsView" extends="default">
 	    <put-attribute name="title" value="ATES - Forms View" />
-	    <put-attribute name="body" value="/WEB-INF/pages/formsView.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/admin/formsView.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
@@ -366,7 +395,7 @@
 	<!-- [General User] Dashboard -->
 	<definition name="/general/dashboard" extends="default">
 	    <put-attribute name="title" value="ATES - Dashboard" />
-	    <put-attribute name="body" value="/WEB-INF/pages/userDashboard.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/users/userDashboard.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/timepicker/dist/wickedpicker.min.css" />
 			<add-attribute value="/plugins/calendar/dist/fullcalendar.css" />
@@ -389,7 +418,7 @@
 	<!-- [General User] Trainings -->
 	<definition name="/general/training" extends="default">
 	    <put-attribute name="title" value="ATES - Trainings" />
-	    <put-attribute name="body" value="/WEB-INF/pages/userTraining.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/users/userTraining.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 	    	<add-attribute value="/plugins/footable/css/footable.core.css" />
@@ -406,7 +435,7 @@
 	<!-- [General User] Invitations -->
 	<definition name="/general/invitation" extends="default">
 	    <put-attribute name="title" value="ATES - Invitations" />
-	    <put-attribute name="body" value="/WEB-INF/pages/userInvitation.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/users/userInvitation.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="https://fonts.googleapis.com/icon?family=Material+Icons" />
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
@@ -422,7 +451,7 @@
 	<!-- [General User] Training Plan - Edit -->
 	<definition name="/general/training/edit" extends="default">
 	    <put-attribute name="title" value="ATES - Edit Training" />
-	    <put-attribute name="body" value="/WEB-INF/pages/userTrainingEdit.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/users/userTrainingEdit.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/steps/steps.css" />
 	    	<add-attribute value="/plugins/editable/bootstrap3-editable/css/bootstrap-editable.css" />
@@ -442,7 +471,7 @@
 	<!-- [General User] Training Summary -->
 	<definition name="/general/training/summary" extends="default">
 	    <put-attribute name="title" value="ATES - Summary" />
-	    <put-attribute name="body" value="/WEB-INF/pages/userTrainingSummary.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/users/userTrainingSummary.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 			<add-attribute value="/css/pages/trainingSummary.css" />
@@ -457,7 +486,7 @@
 	<!-- [General User] Skills Assessment Assignment List -->
 	<definition name="/general/training/skills-assessment/assignment" extends="default">
 	    <put-attribute name="title" value="ATES - Skills Assessment" />
-	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessmentAssignList.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/users/skillsAssessmentAssignList.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 	    	<add-attribute value="/plugins/datatables/jquery.dataTables.min.css" />
@@ -474,7 +503,7 @@
 	<!-- [General User] Skills Assessment Assignment -->
 	<definition name="/general/training/skills-assessment" extends="default">
 	    <put-attribute name="title" value="ATES - Skills Assessment" />
-	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessmentAssign.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/users/skillsAssessmentAssign.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/semantic/css/semantic.min.css" />
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
@@ -492,7 +521,7 @@
 	<!-- [General User] Skills Assessment Answer Form -->
 	<definition name="/general/training/skills-assessment/answer" extends="default">
 	    <put-attribute name="title" value="ATES - Skills Assessment" />
-	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessmentAnswer.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/users/skillsAssessmentAnswer.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 	    	<add-attribute value="/css/pages/skillsAssessmentAnswer.css" />
@@ -507,7 +536,7 @@
 	<!-- [General User] Skills Assessment Answers View -->
 	<definition name="/general/training/skills-assessment/view" extends="default">
 	    <put-attribute name="title" value="ATES - Skills Assessment" />
-	    <put-attribute name="body" value="/WEB-INF/pages/skillsAssessmentView.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/users/skillsAssessmentView.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 	    	<add-attribute value="/css/pages/skillsAssessmentView.css" />
@@ -521,7 +550,7 @@
 	<!-- [General User] CA, FF, TEA - Answer -->
 	<definition name="/general/training/form/answer" extends="default">
 	    <put-attribute name="title" value="ATES - Answer Form" />
-	    <put-attribute name="body" value="/WEB-INF/pages/userFormAnswer.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/pages/users/userFormAnswer.jsp" />
 	    <put-list-attribute name="stylesheets" inherit="true">
 	    	<add-attribute value="/plugins/sweetalert/sweetalert.css" />
 	    	<add-attribute value="/css/pages/userFormAnswer.css" />

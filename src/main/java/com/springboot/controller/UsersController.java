@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.springboot.entities.Position;
 import com.springboot.entities.User;
+import com.springboot.entities.UserEvent;
 import com.springboot.entities.custom.CustomUser;
 import com.springboot.service.PositionService;
+import com.springboot.service.TrainingPlanService;
 import com.springboot.service.UsersService;
 
 @Controller
@@ -27,6 +29,9 @@ public class UsersController {
 	
 	@Autowired
 	PositionService positionService;
+	
+	@Autowired
+	TrainingPlanService tpService;
 		
 	@RequestMapping(value = "/list")
 	public String index(ModelMap map) {
@@ -34,6 +39,26 @@ public class UsersController {
 		
 		map.addAttribute("users", users);
 		return "/users/list";
+	}
+	
+	@RequestMapping(value = "/view/{userID}")
+	public String view(ModelMap map, @PathVariable String userID) {
+		
+		User user = usersService.retrieveUser(userID);
+		
+		if(user != null) {
+			List<UserEvent> userEvents = tpService.retrieveUserEvent(user.getId());
+			List<Position> positions = positionService.retrievePositions();
+			
+			map.addAttribute("admin", true);
+			map.addAttribute("user", user);
+			map.addAttribute("userEvents", userEvents);
+			map.addAttribute("positions", positions);
+		} else {
+			return "redirect:/error/404";
+		}	
+			
+		return "/users/view";
 	}
 	
 	@RequestMapping(value = "/create")
@@ -50,12 +75,12 @@ public class UsersController {
 		User user = usersService.retrieveUser(id);
 		
 		if(user != null) {
+			map.addAttribute("positions", positions);
 			map.addAttribute("user", user);
 		} else {
 			return "redirect:/error/404";
 		}	
 		
-		map.addAttribute("positions", positions);
 		return "/users/edit";
 	}
 	
@@ -107,6 +132,18 @@ public class UsersController {
 		}
 		
 		return ResponseEntity.ok(result);
+	}
+	
+	@RequestMapping(value = "/view/edit", method = RequestMethod.POST)
+	public ResponseEntity<?> editUserByView(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String position = request.getParameter("position");
+		String password = request.getParameter("password");
+		
+		usersService.editUser(id, name, position, password);
+		
+		return ResponseEntity.ok(true);
 	}
 	
 	@RequestMapping(value = "/approve", method = RequestMethod.POST)
