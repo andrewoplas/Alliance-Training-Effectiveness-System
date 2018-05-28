@@ -2,7 +2,7 @@
 (function ($) {
     "use strict";
     
-    $('.btn-assign').click(function(){
+    $(document).on('click', '.btn-assign', function(){
     	var elem = $(this);
     	var userEventID = elem.parents('tr').attr('data-id');
     	var formID = $("#formID").val();
@@ -18,7 +18,14 @@
 			success: function(data, textStatus, jqXHR) {
                  if(data == true) {
                 	 elem.parents('tr').find('.status').html('<span class="badge badge-success">Assigned</span>');
+                	 elem.parent().find('.tooltip').removeClass('in');
                 	 elem.remove();
+                	 
+                	 // Update count
+                	 var unassigned = parseInt($('.unassigned-count').text());
+                	 $('.unassigned-count').text(unassigned - 1);
+                	 var assigned = parseInt($('.assigned-count').text());
+                	 $('.assigned-count').text(assigned + 1);
                  } else {
                 	 showErrorAlert();
                  }
@@ -55,6 +62,13 @@
 		                 if(data == true) {
 		                	 $('.status').html('<span class="badge badge-success">Assigned</span>');
 		                	 swal("Success!", "We've successfully distributed "+ $('.page-title').text() +" to participants", "success");
+		                	 
+		                	 // Update count
+		                	 var unassigned = parseInt($('.unassigned-count').text());
+		                	 $('.unassigned-count').text(0);
+		                	 var assigned = parseInt($('.assigned-count').text());
+		                	 $('.assigned-count').text(assigned + unassigned);
+		                	 
 		                 } else {
 		                	 showErrorAlert();
 		                 }

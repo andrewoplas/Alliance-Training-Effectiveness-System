@@ -16,12 +16,12 @@
    
    	<!-- Auth - Login -->
 	<definition name="login" template="/WEB-INF/layout/auth.jsp">
-	    <put-attribute name="content" value="/WEB-INF/pages/login.jsp" />
+	    <put-attribute name="content" value="/WEB-INF/pages/auth/login.jsp" />
 	</definition>
 	
 	<!-- Auth - Register -->
 	<definition name="register" template="/WEB-INF/layout/auth.jsp">
-	    <put-attribute name="content" value="/WEB-INF/pages/register.jsp" />
+	    <put-attribute name="content" value="/WEB-INF/pages/auth/register.jsp" />
 	</definition>
 
 	<!-- [Admin] Dashboard Pages -->
@@ -361,13 +361,7 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+	<!-- ===================== GENERAL USERS ===================== -->
 	
 	<!-- [General User] Dashboard -->
 	<definition name="/general/dashboard" extends="default">

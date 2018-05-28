@@ -22,7 +22,7 @@
 			<div class="col-sm-7 col-md-9">
 
 				<div class="panel panel-info">
-					<div class="panel-heading">${ form.description } - Training</div>
+					<div class="panel-heading">${ training.title}</div>
 					<input type="hidden" value="${ form.id }" id="formID" />
 					<input type="hidden" value="${ training.id }" id="trainingPlan" />
 					
@@ -40,6 +40,11 @@
 										</tr>
 									</thead>
 									<tbody>
+										<c:set var="unassigned" value="0" />
+										<c:set var="assigned" value="0" />
+										<c:set var="unanswered" value="0" />
+										<c:set var="answered" value="0" />
+										
 										<c:forEach var="userEvent" items="${ userEvents }">
 											<c:if test="${ userEvent.role == 'Participant' || userEvent.role == 'Supervisor' }">
 												
@@ -57,9 +62,11 @@
 														<c:choose>
 															<c:when test="${ formAssignment == null }">
 																<span class="badge badge-warning">Unassigned</span>
+																<c:set var="unassigned" value="${ unassigned + 1 }" />
 															</c:when>
 															<c:otherwise>
 																<span class="badge badge-success">Assigned</span>
+																<c:set var="assigned" value="${ assigned + 1 }" />
 															</c:otherwise>
 														</c:choose>
 													</td>
@@ -67,9 +74,11 @@
 														<c:choose>
 															<c:when test="${ formAssignment!= null && formAssignment.status == 'answered' }">
 																<span class="badge badge-success">Answered</span>
+																<c:set var="answered" value="${ answered + 1 }" />
 															</c:when>
 															<c:otherwise>
 																<span class="badge badge-warning">Not Yet Answered</span>
+																<c:set var="unanswered" value="${ unanswered + 1 }" />
 															</c:otherwise>
 														</c:choose>
 													</td>
@@ -82,6 +91,10 @@
 														
 														
 														<c:if test="${ formAssignment!= null && formAssignment.status == 'answered' }">
+															<button type="button" class="btn-generate btn btn-success btn-outline btn-circle p-t-0 p-b-0 m-r-5" data-toggle="tooltip" title="View Answered Form" data-placement="top">
+																<i class="mdi mdi-file-find"></i>
+															</button>
+															
 															<button type="button" class="btn-generate btn btn-info btn-outline btn-circle p-t-0 p-b-0 m-r-5" data-toggle="tooltip" title="Generate (PDF)" data-placement="top">
 																<i class="mdi mdi-account-convert"></i>
 															</button>
@@ -100,24 +113,47 @@
 				</div>
 			</div>
 			
-			<div class="col-sm-5 col-md-3">
-				<div class="white-box">
-                    <h3 class="box-title">Training Name</h3>
-                    <hr>
-                    <div class="text-center">
-                    	<p class="text-muted">${ training.title }</p>
-                    </div>                    
-                </div>
-			
+			<div class="col-sm-5 col-md-3">      
 				<div class="white-box">
                     <h3 class="box-title">Assign To All</h3>
                     <hr>
                     <div class="text-center">
-                    	<button class="btn-release btn btn-info btn-raised btn-block p-t-5 p-b-5 waves-effect waves-light" value="${ form.id }">
+                    	<button class="btn-release btn btn-info btn-raised btn-block p-t-5 p-b-5 waves-effect waves-light p-t-10 p-b-10" value="${ form.id }">
                     		Release
                 		</button>
                     </div>                    
                 </div>
+                          
+                <div class="white-box">
+                    <h3 class="box-title">Report</h3>
+                    <hr>
+                    <div>
+                    	<span>
+                    		<i class="mdi mdi-checkbox-blank-circle text-warning"></i> 
+                    		Unassigned <span class="pull-right unassigned-count"> ${ unassigned }</span>
+                   		</span> 
+                   			<br/>
+                    	<span>
+                    		<i class="mdi mdi-checkbox-blank-circle text-success"></i> 
+                    		Assigned <span class="pull-right assigned-count"> ${ assigned }</span>
+                   		</span> 
+                   			<br/>
+                    </div>
+                    <hr>  
+                    <div>
+                    	<span>
+                    		<i class="mdi mdi-checkbox-blank-circle text-warning"></i> 
+                    		Unanswered <span class="pull-right"> ${ unanswered }</span>
+                   		</span> 
+                   		 <br/>
+                    	<span>
+                    		<i class="mdi mdi-checkbox-blank-circle text-success"></i> 
+                    		Answered <span class="pull-right"> ${ answered }</span>
+                   		</span> 
+                   		<br/>
+                    </div>                  
+                </div>
+			
 			</div>
 		</div>
 	</div>
