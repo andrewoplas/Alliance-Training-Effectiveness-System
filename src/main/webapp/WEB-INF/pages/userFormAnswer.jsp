@@ -75,40 +75,40 @@
 									          	<div class="col s1 center-align p-0">
 									            	<div class="row radio-label p-0">1</div>
 									            	<div class="row grey lighten-4 radio-button">
-										              	<input value="1" class="with-gap" name="question${ question.id }" type="radio" id="scaleOption1" />
-										              	<label for="scaleOption1"></label>
+										              	<input value="1" class="with-gap" name="question${ question.id }" type="radio" id="option${ question.id }1" />
+										              	<label for="option${ question.id }1"></label>
 									            	</div>
 									          	</div>
 									          	
 									          	<div class="col s1 center-align p-0">
 									            	<div class="row radio-label p-0">2</div>
 									            	<div class="row grey lighten-4 radio-button">
-									              		<input value="2" class="with-gap" name="question${ question.id }" type="radio" id="scaleOption2" />
-									              		<label for="scaleOption2"></label>
+									              		<input value="2" class="with-gap" name="question${ question.id }" type="radio" id="option${ question.id }2" />
+									              		<label for="option${ question.id }2"></label>
 									            	</div>
 									          	</div>
 									          	
 		         								<div class="col s1 center-align p-0">
 		            								<div class="row radio-label p-0">3</div>
 								            		<div class="row grey lighten-4 radio-button">
-								              			<input value="3" class="with-gap" name="question${ question.id }" type="radio" id="scaleOption3" />
-									              		<label for="scaleOption3"></label>
+								              			<input value="3" class="with-gap" name="question${ question.id }" type="radio" id="option${ question.id }3" />
+									              		<label for="option${ question.id }3"></label>
 									            	</div>
 									          	</div>
 									          	
 									          	<div class="col s1 center-align p-0">
 									            	<div class="row radio-label p-0">4</div>
 								            		<div class="row grey lighten-4 radio-button">
-									              		<input value="4" class="with-gap" name="question${ question.id }" type="radio" id="scaleOption4" />
-									              		<label for="scaleOption4"></label>
+									              		<input value="4" class="with-gap" name="question${ question.id }" type="radio" id="option${ question.id }4" />
+									              		<label for="option${ question.id }4"></label>
 								            		</div>
 									          	</div>
 									          	
 		          								<div class="col s1 center-align p-0">
 		            								<div class="row radio-label p-0">5</div>
 		            								<div class="row grey lighten-4 radio-button">
-		              									<input value="5" class="with-gap" name="question${ question.id }" type="radio" id="scaleOption5" />
-		              									<label for="scaleOption5"></label>
+		              									<input value="5" class="with-gap" name="question${ question.id }" type="radio" id="option${ question.id }5" />
+		              									<label for="option${ question.id }5"></label>
 		            								</div>
 		          								</div>
 		          								

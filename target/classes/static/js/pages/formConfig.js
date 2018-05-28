@@ -148,8 +148,31 @@
     	});
     }
     
+    // Remove has-error class
+    $(document).on('change', '.has-error .form-control', function(){
+    	$(this).parents('.has-error').removeClass('has-error');
+    });
+    
     // Save Question
     $("#save").click(function(){
+    	// Check for empty fields
+    	var hash = [];
+    	$('input').each(function(){
+    		if($.trim($(this).val()).length == 0) {
+    			$(this).parents('.form-container').addClass('has-error');
+    			hash.push($(this));
+    		}
+    	});
+    	
+    	if(hash.length > 0) {
+			// animate
+	       $('html, body').animate({
+	           scrollTop: $(hash[0]).offset().top - 100
+	       }, 300);
+	       
+	       return false
+		}
+    	
     	$("#ajax-process").modal('show');
     	var formType = $('[name=formType]').val();
     	var forms = [];

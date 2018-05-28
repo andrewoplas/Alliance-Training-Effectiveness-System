@@ -41,13 +41,18 @@
 									</thead>
 									<tbody>
 										<c:forEach var="userEvent" items="${ userEvents }">
-											<c:if test="${ userEvent.role == 'Participant' }">
+											<c:if test="${ userEvent.role == 'Participant' || userEvent.role == 'Supervisor' }">
 												
 												<c:set var="formAssignment" value="${ userEvent.getFormAssignment(form.id) }" />
 											
 											
 												<tr data-id="${ userEvent.id }">
-													<td width="30%"> ${ userEvent.user.name } </td>
+													<td width="30%"> 
+														${ userEvent.user.name } 
+														<c:if test="${ userEvent.role == 'Supervisor' }">
+															<span class="badge badge-info m-l-5" data-toggle="tooltip" title="Supervisor" data-placement="top">S</span>
+														</c:if>
+													</td>
 													<td width="20%" class="text-center status">
 														<c:choose>
 															<c:when test="${ formAssignment == null }">

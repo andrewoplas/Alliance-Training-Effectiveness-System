@@ -72,11 +72,21 @@
                       						
                       						<c:when test="${ question.type == 'scale' }">
                       							<div class="option-container text-center p-10">
-													<i class="mdi mdi-radiobox-blank text-info m-l-30"></i> Strongly Agree
-													<i class="mdi mdi-radiobox-blank text-info m-l-30"></i> Agree
-													<i class="mdi mdi-radiobox-blank text-info m-l-30"></i> Neutral
-													<i class="mdi mdi-radiobox-blank text-info m-l-30"></i> Disagree
-													<i class="mdi mdi-radiobox-blank text-info m-l-30"></i> Strongly Disagree
+                      								<span class="scale-option">
+                      									<i class="mdi mdi-radiobox-blank text-info m-l-30"></i> Strongly Agree
+                      								</span>
+                      								<span class="scale-option">
+                      									<i class="mdi mdi-radiobox-blank text-info m-l-30"></i> Agree
+                      								</span>
+                      								<span class="scale-option">
+                      									<i class="mdi mdi-radiobox-blank text-info m-l-30"></i> Neutral
+                      								</span>
+                      								<span class="scale-option">
+                      									<i class="mdi mdi-radiobox-blank text-info m-l-30"></i> Disagree
+                      								</span>
+                      								<span class="scale-option">
+                      									<i class="mdi mdi-radiobox-blank text-info m-l-30"></i> Strongly Disagree
+                      								</span>
 												</div>
                       						</c:when>
                       					
@@ -92,19 +102,24 @@
                       			</div>
                       			
                       			<div class="text-center m-t-30 m-b-30">
-                       			<a href="javascript:void(0)" class="btn-add-textbox m-r-5"> 
+                      			
+                       			<a href="javascript:void(0)" class="btn-add-textbox m-r-5 btn-adds"> 
 									<i class="mdi mdi-format-paragraph"></i> Add Textbox
 								</a>
-								<span class="m-l-5 m-r-5 text-muted">|</span>
-								<a href="javascript:void(0)" class="btn-add-rbtn"> 
+								<span class="m-l-5 m-r-5 text-muted custom-divider">|</span>
+								
+								<a href="javascript:void(0)" class="btn-add-rbtn btn-adds"> 
 									<i class="mdi mdi-checkbox-marked-circle-outline"></i> Add Radio Button
 								</a>
-								<span class="m-l-5 m-r-5 text-muted">|</span>
-								<a href="javascript:void(0)" class="btn-add-checkbox"> 
+								
+								<span class="m-l-5 m-r-5 text-muted custom-divider">|</span>
+								
+								<a href="javascript:void(0)" class="btn-add-checkbox btn-adds"> 
 									<i class="mdi mdi-checkbox-marked-outline"></i> Add Checkbox
 								</a>
-								<span class="m-l-5 m-r-5 text-muted">|</span>
-								<a href="javascript:void(0)" class="btn-add-scale"> 
+								
+								<span class="m-l-5 m-r-5 text-muted custom-divider">|</span>
+								<a href="javascript:void(0)" class="btn-add-scale btn-adds"> 
 									<i class="mdi mdi-dots-horizontal"></i> Add Scale
 								</a>
 							</div>

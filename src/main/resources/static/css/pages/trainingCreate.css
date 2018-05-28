@@ -306,3 +306,27 @@ button, input, optgroup, select, textarea {
 .pac-item {
     border-top: 1px solid #f7f7f7;
 }
+
+[data-value='training'] {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+[data-value='supervisors'], [data-value='facilitators'] {
+    font-size: 18px;
+}
+
+[data-value='participants'] {
+    font-size: 16px;
+}
+
+.p-l-15 {
+	padding-left: 15px !important;
+}
+
+@media only screen and (max-width: 600px) {
+	#msform fieldset {
+		margin: 0 !important;
+		width: 100%;
+	} 
+}

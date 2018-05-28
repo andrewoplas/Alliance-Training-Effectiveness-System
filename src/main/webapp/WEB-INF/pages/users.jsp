@@ -21,7 +21,6 @@
 	              	<div class="panel panel-info">
 						<div class="panel-heading">
 							<span>Users and Information</span>
-							<button class="btn btn-default btn-outline pull-right btn-fixed">Create User</button>
 						</div>
                             
 						<div class="panel-wrapper collapse in" aria-expanded="true">

@@ -64,3 +64,53 @@
 .option-container .item:first-child .btn-remove {
 	display: none;
 }
+
+.has-error input[readonly] {
+	border: 1px solid #e4e7ea !important;
+}
+
+
+@media only screen and (max-width: 767px) {
+	.question {
+		display: block;
+		width: 100%;
+	}	
+	
+	.numbers {
+	    display: block;
+    	float: none !important;
+	    text-align: center;
+	}
+	
+	.option-container i {
+	    margin-left: 0 !important;
+	}
+	
+	.optionName {
+		width: 80% !important;
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	.scale-option {
+		display: block;
+		text-align: left !important;
+	}
+}
+
+@media only screen and (max-width: 593px) {
+	.btn-adds {
+		display: block;
+		margin-bottom: 10px;
+	}
+	
+	.custom-divider {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	.optionName {
+		width: 65% !important;
+	}
+}

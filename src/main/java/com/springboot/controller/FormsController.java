@@ -165,6 +165,7 @@ public class FormsController {
 		
 		if(training != null) {
 			List<UserEvent> participants = tpService.retrieveTrainingUserEvent(training, "Participant", false);
+			participants.addAll(tpService.retrieveTrainingUserEvent(training, "Supervisor", false));
 			Form form = formsService.retrieveForm(3);
 			
 			map.addAttribute("form", form);

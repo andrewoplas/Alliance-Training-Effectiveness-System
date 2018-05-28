@@ -59,6 +59,8 @@
 		                <ul class="nav nav-second-level">
 		                    <li><a href="/ates/training/list"><i class="ti-calendar fa-fw"></i><span class="hide-menu">Training Plan</span></a></li>
 		                    <li><a href="/ates/training/create"><i class="ti-write fa-fw"></i><span class="hide-menu">Create Training</span></a></li>
+		                    <li><a href="/ates/forms/assignment"><i class="icon-docs fa-fw"></i><span class="hide-menu">Training's Forms</span></a></li>
+		                    
 		                </ul>
 		            </li>
 		            
@@ -68,7 +70,6 @@
 		            		<span class="hide-menu"> Forms <span class="fa arrow"></span></span>
 		            	</a>
 		                <ul class="nav nav-second-level">
-		                	<li><a href="/ates/forms/assignment"><i class="mdi mdi-clipboard-check fa-fw"></i><span class="hide-menu">Training's Forms</span></a></li>
 		                    <li><a href="/ates/forms/skills-assessment"><i class="mdi mdi-react fa-fw"></i><span class="hide-menu">Skills Assessment</span></a></li>
 		                    <li><a href="/ates/forms/training-needs-assessment"><i class="mdi mdi-gavel fa-fw"></i><span class="hide-menu">Training Needs Assessment</span></a></li>
 		                    <li><a href="/ates/forms/training-effectivess-assessment"><i class="mdi mdi-human-handsup fa-fw"></i><span class="hide-menu">Training Effectiveness Assessment</span></a></li>

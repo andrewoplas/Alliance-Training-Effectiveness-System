@@ -56,6 +56,10 @@ public class FormQuestion implements Serializable {
 	
 	public FormQuestion(int id) {
 		this.id = id;
+		
+		formAnswers = new ArrayList<FormAnswer>();
+		formOptions = new ArrayList<FormOption>();
+		formOptionIDS = new ArrayList<Integer>();
 	}
 
 	public int getId() {

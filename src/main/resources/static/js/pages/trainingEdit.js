@@ -240,6 +240,7 @@ $(document).ready(function() {
 		for(var i=0; i<supervisors.length; i++) {
 			supervisorHTML += 
 				'<span class="m-b-10">' +
+				'<i class="mdi mdi-account-box-outline m-r-5"></i>' +
 					supervisors[i] +
 				'</span><br/>';
 		}
@@ -248,17 +249,19 @@ $(document).ready(function() {
 		for(var i=0; i<facilitators.length; i++) {
 			facilitatorHTML += 
 				'<span class="m-b-10">' +
+				'<i class="mdi mdi-account-box-outline m-r-5"></i>' +
 					facilitators[i] +
 				'</span><br/>';
 		}
 		
-		var participantHTML = "";
+		var participantHTML = "<ol class='p-l-15'>";
 		for(var i=0; i<participants.length; i++) {
 			participantHTML += 
-				'<span class="m-b-10">' +
+				'<li class="m-b-10">' +
 					participants[i] +
-				'</span><br/>';
+				'</li>';
 		}
+		participantHTML += "</ol>";
 		
 		$('[data-value=supervisors]').html(supervisorHTML);
 		$('[data-value=facilitators]').html(facilitatorHTML);

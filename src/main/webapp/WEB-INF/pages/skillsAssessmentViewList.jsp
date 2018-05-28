@@ -10,7 +10,7 @@
 			<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 				<ol class="breadcrumb">
 					<li><a href="/ates/dashboard">Dashboard</a></li>
-					<li><a href="/ates/forms">Forms</a></li>
+					<li><a href="/ates/forms/assignment">Forms</a></li>
 					<li class="active">Skills Assessment View</li>
 				</ol>
 			</div>

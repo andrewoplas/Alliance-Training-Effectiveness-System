@@ -19,18 +19,23 @@
 	    <!-- ============================================================== -->
 	    <nav class="navbar navbar-default navbar-static-top m-b-0">
 	        <div class="navbar-header">
-	            <div class="top-left-part">
+	            <div class="top-left-part hidden-xs">
 	                <!-- Logo -->
-	                <a class="logo" href="index.html">
-	                 </b>
-	                    <!-- Logo text image you can use text also --><span class="hidden-xs">
-	                    <!--This is dark logo text--><img src="/plugins/images/admin-text.png" alt="home" class="dark-logo" /><!--This is light logo text--><img src="/plugins/images/admin-text-dark.png" alt="home" class="light-logo" />
-	                 </span> </a>
+	                <a class="logo" href="/ates/dashboard">
+	                    <span class="hidden-xs header-title">
+	                    	Alliance Training Effectiveness System
+	                 	</span> 
+                	</a>
 	            </div>
 	            <!-- /Logo -->
 	            <!-- Search input and Toggle icon -->
 	            <ul class="nav navbar-top-links navbar-right">
-	                <li><a href="javascript:void(0)" class="open-close waves-effect waves-light visible-xs"><i class="ti-close ti-menu"></i></a></li>
+	                <li>
+	                	<a href="javascript:void(0)" class="open-close waves-effect waves-light visible-xs sidebar-burger">
+	                		<i class="ti-close ti-menu"></i>
+                		</a>
+	                </li>
+				</ul>
 	            <ul class="nav navbar-top-links navbar-right pull-right">
 	                <li class="dropdown">
 	                    <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> 
