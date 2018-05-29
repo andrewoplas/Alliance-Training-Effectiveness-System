@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.springboot.entities.Form;
+import com.springboot.entities.FormAnswer;
 import com.springboot.entities.FormAssignment;
 import com.springboot.entities.FormOption;
 import com.springboot.entities.FormQuestion;
@@ -29,7 +30,14 @@ public class FormsRepository {
 	}
 	
 	public SaCategory retrieveCategory(EntityManager em, int id) {
-		return em.find(SaCategory.class, id);
+		SaCategory category = null;
+		String stringQuery = "FROM SaCategory WHERE id = :id";
+		Query query = em.createQuery(stringQuery.toString());
+		query.setParameter("id", id);
+		query.setMaxResults(1);
+		
+		category = (SaCategory)query.getSingleResult();
+		return category;
 	}
 	
 	public SaCategory insertCategory(EntityManager em, SaCategory category) {
@@ -93,7 +101,14 @@ public class FormsRepository {
 	}
 
 	public Form retrieveForm(EntityManager em, int formID) {
-		return em.find(Form.class, formID);
+		Form form = null;
+		String stringQuery = "FROM Form WHERE id = :id";
+		Query query = em.createQuery(stringQuery.toString());
+		query.setParameter("id", formID);
+		query.setMaxResults(1);
+		
+		form = (Form)query.getSingleResult();
+		return form;
 	}
 	
 	public boolean containsFormAssignment(EntityManager em, int formID, int userID) {
@@ -113,6 +128,28 @@ public class FormsRepository {
 	public SaAssignment retrieveAssignment(EntityManager em, int assignmentID) {
 		SaAssignment assignment = em.find(SaAssignment.class, assignmentID);
 		return assignment;
+	}
+
+	public FormAnswer retrieveFormAnswer(EntityManager em, int formAnswerID) {
+		FormAnswer formAnswer = null;
+		String stringQuery = "FROM FormAnswer WHERE id = :id";
+		Query query = em.createQuery(stringQuery.toString());
+		query.setParameter("id", formAnswerID);
+		query.setMaxResults(1);
+		
+		formAnswer = (FormAnswer)query.getSingleResult();
+		return formAnswer;
+	}
+
+	public FormAssignment retrieveFormAssignment(EntityManager em, int formAssignmentID) {
+		FormAssignment formAssignment = null;
+		String stringQuery = "FROM FormAssignment WHERE id = :id";
+		Query query = em.createQuery(stringQuery.toString());
+		query.setParameter("id", formAssignmentID);
+		query.setMaxResults(1);
+		
+		formAssignment = (FormAssignment)query.getSingleResult();
+		return formAssignment;
 	}
 
 

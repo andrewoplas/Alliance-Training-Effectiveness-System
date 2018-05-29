@@ -1,11 +1,24 @@
 package com.springboot.service;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +26,7 @@ import com.springboot.body.Question;
 import com.springboot.body.QuestionOption;
 import com.springboot.body.SkillsAssessment;
 import com.springboot.entities.Form;
+import com.springboot.entities.FormAnswer;
 import com.springboot.entities.FormAssignment;
 import com.springboot.entities.FormOption;
 import com.springboot.entities.FormQuestion;
@@ -30,6 +44,12 @@ public class FormsService {
 	
 	@Autowired
 	private FormsRepository formsRepository;
+	
+	@Autowired
+	FormsService formsService;
+	
+	@Autowired
+	UsersService usersService;
 
 	@Autowired
 	TrainingPlanService tpService;
@@ -194,6 +214,136 @@ public class FormsService {
 	
 	public SaAssignment retrieveAssignmentById(int assignmentID) {
 		return formsRepository.retrieveAssignment(em, assignmentID);
+	}
+
+	public FormAnswer retrieveFormAnswer(String answerID) {
+		FormAnswer formAnswer = null;
+		
+		try {
+			formAnswer = formsRepository.retrieveFormAnswer(em, Integer.parseInt(answerID));
+		} catch(NumberFormatException ex) {
+			ex.printStackTrace();
+		}
+		
+		return formAnswer;
+	}
+
+	public FormAssignment retrieveFormAssignment(String assignmentID) {
+		FormAssignment formAnswer = null;
+		
+		try {
+			formAnswer = formsRepository.retrieveFormAssignment(em, Integer.parseInt(assignmentID));
+		} catch(NumberFormatException ex) {
+			ex.printStackTrace();
+		}
+		
+		return formAnswer;
+	}
+
+	public void downloadExcel(String formid, String fileName, String trainingPlanID, HttpServletResponse response) {
+		int formID = Integer.parseInt(formid);
+		Form form = formsService.retrieveForm(formID);
+    	TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
+    	
+    	response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + ".xlsx\"");
+    	response.setContentType("application/vnd.ms-excel");
+    	 
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Users");
+        sheet.setDefaultColumnWidth(30);
+         
+        // Styles
+        CellStyle style = workbook.createCellStyle();
+        Font font = workbook.createFont();
+        font.setFontName("Calibri");
+        font.setColor(HSSFColor.BLACK.index);
+        font.setBold(true);
+        style.setFont(font);
+        //to enable newlines you need set a cell styles with wrap=true
+        CellStyle cs = workbook.createCellStyle();
+        cs.setWrapText(true);
+         
+        // Header Row
+        XSSFRow header = sheet.createRow(0);
+        header.createCell(0).setCellValue("Name");
+        header.getCell(0).setCellStyle(style);
+        
+        List<FormQuestion> questions = form.getFormQuestions();
+        int headerCount = 1;
+        for (FormQuestion question : questions) {
+        	header.createCell(headerCount).setCellValue(question.getDescription());
+            header.getCell(headerCount).setCellStyle(style);
+            headerCount++;
+        }
+        
+        List<UserEvent> users = training.getUserEvents();
+        int rowCount = 1;
+        int colCount = 1;
+         
+        for (UserEvent user : users) {
+        	FormAssignment assignment = user.getFormAssignment(formID);
+        	
+        	// Only answered assignment
+        	if(assignment == null) continue;
+        	// Set the data
+        	List<FormAnswer> answers = assignment.getFormAnswers();
+        	XSSFRow aRow = sheet.createRow(rowCount++);
+        	aRow.createCell(0).setCellValue(user.getUser().getName());
+        	colCount = 1;
+        	for(FormAnswer answer : answers) {
+        		XSSFCell cell = aRow.createCell(colCount++, CellType.STRING);
+        		
+        		String type = answer.getFormQuestion().getType(); 
+        		if(type.equals("textbox")) {
+        			cell.setCellValue(answer.getDescription());
+        		} else if(type.equals("radiobutton")) {
+    				for(FormOption option : answer.getFormQuestion().getFormOptions()) {
+    					if(answer.getDescription().equals(option.getId() + "")) {
+    						cell.setCellValue(option.getDescription());
+    						break;
+    					}
+    				}
+    			} else if(type.equals("checkbox")) {
+    				StringBuilder sb = new StringBuilder();
+        			List<String> answerOptions = Arrays.asList(answer.getDescription().split(","));
+    				for(FormOption option : answer.getFormQuestion().getFormOptions()) {
+    					if(answerOptions.contains(option.getId() + "")) {
+    						sb.append(option.getDescription() + "\n");
+    					}
+    				}
+    				cell.setCellValue(sb.toString());
+    				cell.setCellStyle(cs);
+				} else if(type.equals("scale")) {
+					cell.setCellValue(getScaleOption(answer.getDescription()));
+				}
+        	}
+        }
+         
+       // Output to be downloadable in browser
+        try {
+        	OutputStream output = response.getOutputStream();
+            workbook.write(output);
+            workbook.close();
+        } catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) { 
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	protected String getScaleOption(String optionNumber) {
+		String optionDescription = null;
+		switch(optionNumber) {
+			case "1" : optionDescription = "Strongly Agree"; break;
+			case "2" : optionDescription = "Agree"; break;
+			case "3" : optionDescription = "Neutral"; break;
+			case "4" : optionDescription = "Disagree"; break;
+			case "5" : optionDescription = "Strongly Disagree"; break;
+		}
+		
+		return optionDescription;
 	}
 	
 }

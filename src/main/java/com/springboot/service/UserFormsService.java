@@ -135,27 +135,13 @@ public class UserFormsService {
 	public void insertAnswers(Answer[] answers, int assignmentID) {
 		// Convert JSON Object to FormAnswers Entity
 		for(Answer answer : answers) {
-			if(answer.getQuestionType().equals("checkbox")) {
-				String[] checkboxAnswers = answer.getDescription().split(",");
-				
-				for(String checkboxAnswer : checkboxAnswers) {
-					FormAnswer formAnswer = new FormAnswer();
-					formAnswer.setDescription(checkboxAnswer);
-					formAnswer.setFormAssignment(new FormAssignment(answer.getAssignmentID()));
-					formAnswer.setFormQuestion(new FormQuestion(answer.getAssignmentID()));
-					
-					// Insert Form Answer
-					formsRepository.insertAnswer(em, formAnswer);
-				}
-			} else {
-				FormAnswer formAnswer = new FormAnswer();
-				formAnswer.setDescription(answer.getDescription());
-				formAnswer.setFormAssignment(new FormAssignment(answer.getAssignmentID()));
-				formAnswer.setFormQuestion(new FormQuestion(answer.getAssignmentID()));
-				
-				// Insert Form Answer
-				formsRepository.insertAnswer(em, formAnswer);
-			}
+			FormAnswer formAnswer = new FormAnswer();
+			formAnswer.setDescription(answer.getDescription());
+			formAnswer.setFormAssignment(new FormAssignment(answer.getAssignmentID()));
+			formAnswer.setFormQuestion(new FormQuestion(answer.getQuestionID()));
+			
+			// Insert Form Answer
+			formsRepository.insertAnswer(em, formAnswer);
 		}
 		
 		// Set assignment status to 'Answered'

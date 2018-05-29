@@ -20,7 +20,6 @@
 		<!-- /row -->
 		<div class="row">
 			<div class="col-sm-7 col-md-9">
-
 				<div class="panel panel-info">
 					<div class="panel-heading">${ training.title}</div>
 					<input type="hidden" value="${ form.id }" id="formID" />
@@ -82,7 +81,7 @@
 															</c:otherwise>
 														</c:choose>
 													</td>
-													<td width="30%">
+													<td width="30%" class="text-left">
 														<c:if test="${ formAssignment == null }">
 															<button type="button" class="btn-assign btn btn-success btn-outline btn-circle p-t-0 p-b-0 m-r-5" data-toggle="tooltip" title="Assign" data-placement="top">
 																<i class="mdi mdi-account-check"></i>
@@ -91,9 +90,11 @@
 														
 														
 														<c:if test="${ formAssignment!= null && formAssignment.status == 'answered' }">
+															<a href="/ates/forms/view/answer/${ formAssignment.id }">
 															<button type="button" class="btn-generate btn btn-success btn-outline btn-circle p-t-0 p-b-0 m-r-5" data-toggle="tooltip" title="View Answered Form" data-placement="top">
 																<i class="mdi mdi-file-find"></i>
 															</button>
+															</a>
 															
 															<button type="button" class="btn-generate btn btn-info btn-outline btn-circle p-t-0 p-b-0 m-r-5" data-toggle="tooltip" title="Generate (PDF)" data-placement="top">
 																<i class="mdi mdi-account-convert"></i>
@@ -151,11 +152,38 @@
                     		Answered <span class="pull-right"> ${ answered }</span>
                    		</span> 
                    		<br/>
-                    </div>                  
+                    </div>
+                    
+                    <c:if test="${ answered > 0 }">   
+                    <hr>
+                    <div class="text-center">
+                    	<a href="/ates/forms/download/${ form.id }/${ form.description }-${ training.title }/${ training.id }" target="_blank">
+                    	<button class="btn-generate-responses btn btn-info btn-raised btn-block p-t-5 p-b-5 waves-effect waves-light p-t-10 p-b-10" value="${ form.id }">
+                    		Generate Responses
+                		</button>
+                		</a>
+                    </div>   
+                    </c:if>          
                 </div>
 			
 			</div>
 		</div>
+		
+		<!-- /row -->
+		<div class="row">
+			<div class="col-xs-12 col-sm-7 col-md-9">
+				<div class="white-box">
+                    <h3 class="box-title m-b-30">Statistics</h3>
+                    
+                    <c:forEach var="question" items="${ questions }">
+                    	<p><b>${ question.description }<b></p>
+                    	<hr />
+                    </c:forEach>                    
+                </div>
+			</div>
+		</div>
+		
+		
 	</div>
 </div>
 

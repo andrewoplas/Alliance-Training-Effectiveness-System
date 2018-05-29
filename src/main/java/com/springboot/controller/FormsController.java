@@ -3,6 +3,7 @@ package com.springboot.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springboot.body.Question;
 import com.springboot.body.SkillsAssessment;
 import com.springboot.entities.Form;
+import com.springboot.entities.FormAssignment;
 import com.springboot.entities.SaAssignment;
 import com.springboot.entities.SaCategory;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.UserEvent;
 import com.springboot.service.FormsService;
 import com.springboot.service.TrainingPlanService;
-import com.springboot.service.UserTrainingService;
+import com.springboot.service.UsersService;
 
 
 @Controller
@@ -35,6 +37,9 @@ public class FormsController {
 	
 	@Autowired
 	TrainingPlanService tpService;
+	
+	@Autowired
+	UsersService usersService;
 	
 	@RequestMapping(value = "/assignment")
 	public String formsAssignment(ModelMap map) {
@@ -112,6 +117,7 @@ public class FormsController {
 			Form form = formsService.retrieveForm(1);
 			
 			map.addAttribute("form", form);
+			map.addAttribute("questions", form.getFormQuestions());
 			map.addAttribute("training", training);
 			map.addAttribute("userEvents", participants);
 		} else {
@@ -205,5 +211,27 @@ public class FormsController {
 		
 		return ResponseEntity.ok(true);
 	}
+	
+	@RequestMapping(value = "/view/answer/{assignmentID}")
+	public String viewAnswer(ModelMap map, @PathVariable String assignmentID) {
+		FormAssignment assignment = formsService.retrieveFormAssignment(assignmentID);
+		
+		if(assignment != null) {
+			map.addAttribute("assignment", assignment);
+			map.addAttribute("form", assignment.getForm());
+			map.addAttribute("answers", assignment.getFormAnswers());			
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/forms/answer";
+	}
+	
+    @RequestMapping(value = "/download/{formID}/{fileName}/{trainingPlanID}", method = RequestMethod.GET)
+    public ResponseEntity<?> downloadExcel(HttpServletResponse response, @PathVariable String formID, @PathVariable String fileName, @PathVariable String trainingPlanID) {
+    	formsService.downloadExcel(formID, fileName, trainingPlanID, response);        
+    	
+        return ResponseEntity.ok(true);
+    }
 	
 }

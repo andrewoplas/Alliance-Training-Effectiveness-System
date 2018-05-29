@@ -28,7 +28,7 @@
 						<div class="panel-body">
 							<div class="table-responsive">
 
-								<table id="skills-assessment" class="table table-striped">
+								<table id="dataTable" class="table table-striped">
 									<thead>
 										<tr>
 											<th>Name</th>
