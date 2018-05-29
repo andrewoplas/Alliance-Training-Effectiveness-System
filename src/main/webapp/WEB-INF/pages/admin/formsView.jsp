@@ -171,14 +171,30 @@
 		
 		<!-- /row -->
 		<div class="row">
-			<div class="col-xs-12 col-sm-7 col-md-9">
+			<div class="col-xs-12 col-sm-12 col-md-9">
 				<div class="white-box">
                     <h3 class="box-title m-b-30">Statistics</h3>
                     
-                    <c:forEach var="question" items="${ questions }">
-                    	<p><b>${ question.description }<b></p>
-                    	<hr />
-                    </c:forEach>                    
+                    <c:forEach var="question" items="${ questions }" varStatus="loop">
+                    <div class="question-container" data-type="${ question.type }" data-id="${ question.id }">
+                    	<p class="question"><span>${ loop.count }</span> ${ question.description }</p>
+                    	<div class="data-container hide">
+                    		<c:forEach var="userEvent" items="${ userEvents }">
+	                    		<c:set var="answer" value="${ userEvent.getFormAssignment(form.id).formAnswers.get(loop.index) }"/>
+	                    		<input type="hidden" class="data" value="${ answer.description }" />
+	                    	</c:forEach>
+	                    	
+	                    	<c:if test="${ question.formOptions.size() > 0 }">
+		                    	<div class="data-options-container">
+	                    			<c:forEach var="option" items="${ question.formOptions }">
+	                    				<input type="hidden" class="data-options" value="${ option.description }" value-id="${ option.id }" />
+	                    			</c:forEach>
+		                    	</div>
+	                    	</c:if>
+                    	</div>
+                   	</div>
+                   	<hr />
+                    </c:forEach>
                 </div>
 			</div>
 		</div>

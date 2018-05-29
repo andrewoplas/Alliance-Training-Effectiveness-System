@@ -91,7 +91,8 @@ function($) {
 	        		title: data[i].title,
 	                start: dateStart,
 	                end: dateEnd, 
-	                className: data[i].className
+	                className: data[i].className,
+	                url: '/ates/general/training'
 	        	});
 	        }
 			

@@ -381,6 +381,7 @@
 			<add-attribute value="/plugins/datatables/jquery.dataTables.min.js" />
 			<add-attribute value="/js/dataTableInit.js" />
 			<add-attribute value="/plugins/sweetalert/sweetalert.min.js" />
+			<add-attribute value="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js" />
 			<add-attribute value="/js/pages/formsView.js" />
 		</put-list-attribute>
 	</definition>	
