@@ -19,7 +19,6 @@ import com.springboot.service.LoginService;
 @Controller
 @RequestMapping("login")
 public class LoginController{
-		
 	@Autowired
 	private LoginService loginService;
 	

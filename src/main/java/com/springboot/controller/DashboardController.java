@@ -14,12 +14,11 @@ import com.springboot.service.UsersService;
 @Controller
 @RequestMapping("/ates")
 public class DashboardController {
+	@Autowired
+	private TrainingPlanService tpService;
 	
 	@Autowired
-	TrainingPlanService tpService;
-	
-	@Autowired
-	UsersService usersService;
+	private UsersService usersService;
 	
 		
 	@RequestMapping(value = "/dashboard")

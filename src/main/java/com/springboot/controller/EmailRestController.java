@@ -13,7 +13,7 @@ import com.springboot.entities.custom.Mail;
 import com.springboot.service.CustomizedEmailService;
 
 @RestController
-public class Application{
+public class EmailRestController{
 	@Autowired
 	private CustomizedEmailService emailService;
 	
@@ -29,8 +29,7 @@ public class Application{
 		model.put("name", name);
 		mail.setModel(model);
 		
-		  emailService.sendSimpleMessage(mail);
-	
+		emailService.sendSimpleMessage(mail);
 	 }
 }
 

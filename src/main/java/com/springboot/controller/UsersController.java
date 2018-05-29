@@ -23,15 +23,14 @@ import com.springboot.service.UsersService;
 @Controller
 @RequestMapping("/ates/users")
 public class UsersController {
+	@Autowired
+	private UsersService usersService;
 	
 	@Autowired
-	UsersService usersService;
+	private PositionService positionService;
 	
 	@Autowired
-	PositionService positionService;
-	
-	@Autowired
-	TrainingPlanService tpService;
+	private TrainingPlanService tpService;
 		
 	@RequestMapping(value = "/list")
 	public String index(ModelMap map) {

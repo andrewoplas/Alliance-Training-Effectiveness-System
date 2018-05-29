@@ -15,12 +15,11 @@ import com.springboot.repository.custom.RegisterRepository;
 
 @Service("registerService")
 public class RegisterService {
-	
 	@PersistenceContext
 	private EntityManager em;
 	
 	@Autowired
-	RegisterRepository registerRepository;
+	private RegisterRepository registerRepository;
 	
 	public boolean containsUserByEmail(String email) {
 		return registerRepository.contains(em, email);

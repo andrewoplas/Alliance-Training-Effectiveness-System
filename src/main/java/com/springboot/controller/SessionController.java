@@ -15,7 +15,5 @@ public class SessionController {
 		User user = (User)session.getAttribute("isLoggedIn");
 		
 		return user;
-	}
-	
-	
+	}	
 }

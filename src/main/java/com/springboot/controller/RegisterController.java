@@ -18,12 +18,11 @@ import com.springboot.service.RegisterService;
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
-		
 	@Autowired
-	RegisterService registerService;
+	private RegisterService registerService;
 	
 	@Autowired
-	PositionService positionService;
+	private PositionService positionService;
 	
 	@RequestMapping(value = { "", "/" }, method=RequestMethod.GET)
 	public String index(ModelMap map) {

@@ -31,15 +31,14 @@ import com.springboot.service.UsersService;
 @Controller
 @RequestMapping("/ates/forms")
 public class FormsController {
+	@Autowired
+	private FormsService formsService;
 	
 	@Autowired
-	FormsService formsService;
+	private TrainingPlanService tpService;
 	
 	@Autowired
-	TrainingPlanService tpService;
-	
-	@Autowired
-	UsersService usersService;
+	private UsersService usersService;
 	
 	@RequestMapping(value = "/assignment")
 	public String formsAssignment(ModelMap map) {
@@ -233,5 +232,9 @@ public class FormsController {
     	
         return ResponseEntity.ok(true);
     }
-	
+    
+    @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, produces = "application/pdf")
+    public void PDFDownload(HttpServletResponse response) {
+    	formsService.generatePDF(response);
+    }	
 }

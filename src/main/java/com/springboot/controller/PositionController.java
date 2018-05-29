@@ -17,9 +17,8 @@ import com.springboot.service.PositionService;
 @Controller
 @RequestMapping("/ates/users")
 public class PositionController {
-	
 	@Autowired
-	PositionService positionService;
+	private PositionService positionService;
 	
 	@RequestMapping(value = "/position")
 	public String position(ModelMap map) {

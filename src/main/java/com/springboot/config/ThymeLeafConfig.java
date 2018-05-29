@@ -21,9 +21,12 @@ public class ThymeLeafConfig {
     public SpringResourceTemplateResolver htmlTemplateResolver(){
         SpringResourceTemplateResolver emailTemplateResolver = new SpringResourceTemplateResolver();
         emailTemplateResolver.setPrefix("classpath:/templates/");
+        emailTemplateResolver.setTemplateMode("HTML5");
         emailTemplateResolver.setSuffix(".html");
+        emailTemplateResolver.setTemplateMode("XHTML");
         emailTemplateResolver.setTemplateMode(StandardTemplateModeHandlers.HTML5.getTemplateModeName());
         emailTemplateResolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        emailTemplateResolver.setOrder(1);
         return emailTemplateResolver;
     }
 }

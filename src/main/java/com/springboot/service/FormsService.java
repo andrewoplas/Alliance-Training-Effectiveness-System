@@ -38,7 +38,6 @@ import com.springboot.repository.custom.FormsRepository;
 
 @Service
 public class FormsService {
-	
 	@PersistenceContext
 	private EntityManager em;
 	
@@ -46,13 +45,14 @@ public class FormsService {
 	private FormsRepository formsRepository;
 	
 	@Autowired
-	FormsService formsService;
+	private FormsService formsService;
 	
 	@Autowired
-	UsersService usersService;
+	private UsersService usersService;
 
 	@Autowired
-	TrainingPlanService tpService;
+	private TrainingPlanService tpService;
+		
 	
 	protected void insertSkillsAssessmentChild(SaCategory parent, List<SkillsAssessment> children, ArrayList<Integer> categoryIDS) {
 		for(SkillsAssessment child : children) {
@@ -249,7 +249,7 @@ public class FormsService {
     	response.setContentType("application/vnd.ms-excel");
     	 
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("Users");
+        XSSFSheet sheet = workbook.createSheet(form.getDescription());
         sheet.setDefaultColumnWidth(30);
          
         // Styles
@@ -332,6 +332,8 @@ public class FormsService {
 		
 	}
 	
+	//public String downloadPDF
+	
 	
 	protected String getScaleOption(String optionNumber) {
 		String optionDescription = null;
@@ -345,5 +347,8 @@ public class FormsService {
 		
 		return optionDescription;
 	}
-	
+
+	public void generatePDF(HttpServletResponse response) {
+		
+	}
 }

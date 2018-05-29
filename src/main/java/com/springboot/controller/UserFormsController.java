@@ -33,21 +33,20 @@ import com.springboot.service.UserTrainingService;
 @Controller
 @RequestMapping("/ates/general")
 public class UserFormsController {
+	@Autowired
+	private UserTrainingService tpService;
 	
 	@Autowired
-	UserTrainingService tpService;
+	private TrainingPlanService adminTPService;
 	
 	@Autowired
-	TrainingPlanService adminTPService;
+	private FormsService formsService;
 	
 	@Autowired
-	FormsService formsService;
+	private UserFormsService ufService;
 	
 	@Autowired
-	UserFormsService ufService;
-	
-	@Autowired
-	SessionController session;
+	private SessionController session;
 	
 	@RequestMapping(value = "/training/skills-assessment/assignment/{userEventID}")
 	public String showAssignment(@PathVariable int userEventID, ModelMap map) {

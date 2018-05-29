@@ -32,18 +32,17 @@ import com.springboot.service.UserTrainingService;
 @Controller
 @RequestMapping("/ates/general")
 public class UserTrainingController {
+	@Autowired
+	private UserTrainingService tpService;
 	
 	@Autowired
-	UserTrainingService tpService;
+	private TrainingPlanService adminTPService;
 	
 	@Autowired
-	TrainingPlanService adminTPService;
+	private FormsService formsService;
 	
 	@Autowired
-	FormsService formsService;
-	
-	@Autowired
-	SessionController session;
+	private SessionController session;
 	
 	@RequestMapping(value = "/dashboard")
 	public String dashboard(ModelMap map, HttpServletRequest request) {

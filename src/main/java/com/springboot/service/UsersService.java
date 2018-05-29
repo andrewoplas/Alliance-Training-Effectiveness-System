@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.hash.Hashing;
-import com.springboot.controller.Application;
+import com.springboot.controller.EmailRestController;
 import com.springboot.entities.Position;
 import com.springboot.entities.User;
 import com.springboot.entities.custom.CustomUser;
@@ -33,7 +33,7 @@ public class UsersService {
 	private RegisterRepository registerRepository;
 	
 	@Autowired
-	Application application;
+	EmailRestController application;
 	
 	
 	public List<CustomUser> retrieveUsers() {

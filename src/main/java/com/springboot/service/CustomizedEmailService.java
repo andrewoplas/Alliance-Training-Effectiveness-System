@@ -19,7 +19,6 @@ import com.springboot.entities.custom.Mail;
 
 @Service
 public class CustomizedEmailService {
-
     @Autowired
     private JavaMailSender emailSender;
 
