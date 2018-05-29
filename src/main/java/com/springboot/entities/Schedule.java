@@ -1,19 +1,12 @@
 package com.springboot.entities;
 
 import java.io.Serializable;
+
+import javax.persistence.*;
+
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -26,7 +19,8 @@ public class Schedule implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="SCHEDULE_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SCHEDULE_ID_GENERATOR")
 	private int id;
 
 	private String color;
@@ -116,4 +110,5 @@ public class Schedule implements Serializable {
 		
 		return sameDay;
 	}
+
 }

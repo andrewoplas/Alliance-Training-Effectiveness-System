@@ -1,5 +1,6 @@
 package com.springboot.repository.custom;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -9,10 +10,15 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+
+
+
+import com.springboot.entities.Questions;
 import com.springboot.entities.SaCategory;
 import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.UserEvent;
+
 
 
 @Repository
@@ -72,6 +78,18 @@ public class FormsRepository {
 		parents = query.getResultList();		
 
 		return parents;
+	}
+
+	public List<Questions> retrieveMCquestions(EntityManager em, String kindOfQuestions) {
+		
+		List<Questions> listOfQuestions = null;
+
+		StringBuilder questionQuery = new StringBuilder("FROM Questions WHERE question_id LIKE :questionID");
+		Query query = em.createQuery(questionQuery.toString());
+		query.setParameter("questionID",kindOfQuestions + "%");
+		listOfQuestions = query.getResultList();
+		return listOfQuestions;
+		
 	}
 	
 }

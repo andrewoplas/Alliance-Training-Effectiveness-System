@@ -2,8 +2,6 @@ package com.springboot.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,10 +16,15 @@ public class SaAssignment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="SA_ASSIGNMENT_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SA_ASSIGNMENT_ID_GENERATOR")
 	private int id;
 
+	private String status;
+
 	private String type;
+	private transient int assignedTo;
+	private transient int assigned;
 
 	//bi-directional many-to-one association to SaAnswer
 	@OneToMany(mappedBy="saAssignment")
@@ -29,22 +32,15 @@ public class SaAssignment implements Serializable {
 
 	//bi-directional many-to-one association to UserEvent
 	@ManyToOne
-	@JoinColumn(name="assigned")
+	@JoinColumn(name="assignedTo")
 	private UserEvent userEvent1;
 
 	//bi-directional many-to-one association to UserEvent
 	@ManyToOne
-	@JoinColumn(name="assignedTo")
+	@JoinColumn(name="assigned")
 	private UserEvent userEvent2;
-	
-	private String status;
-	
-	private transient int assigned;
-	
-	private transient int assignedTo;
 
 	public SaAssignment() {
-		saAnswers = new ArrayList<SaAnswer>();
 	}
 
 	public int getId() {
@@ -53,6 +49,14 @@ public class SaAssignment implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getType() {
@@ -101,14 +105,6 @@ public class SaAssignment implements Serializable {
 		this.userEvent2 = userEvent2;
 	}
 	
-	public int getAssigned() {
-		return assigned;
-	}
-
-	public void setAssigned(int assigned) {
-		this.assigned = assigned;
-	}
-
 	public int getAssignedTo() {
 		return assignedTo;
 	}
@@ -117,11 +113,12 @@ public class SaAssignment implements Serializable {
 		this.assignedTo = assignedTo;
 	}
 	
-	public String getStatus() {
-		return status;
+	public int getAssigned() {
+		return assigned;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setAssigned(int assigned) {
+		this.assigned = assigned;
 	}
+
 }

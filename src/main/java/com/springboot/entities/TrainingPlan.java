@@ -1,19 +1,13 @@
 package com.springboot.entities;
 
 import java.io.Serializable;
+
+import javax.persistence.*;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 /**
@@ -27,7 +21,8 @@ public class TrainingPlan implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="TRAINING_PLAN_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="TRAINING_PLAN_ID_GENERATOR")
 	private int id;
 
 	@Lob
@@ -55,6 +50,7 @@ public class TrainingPlan implements Serializable {
 	public TrainingPlan(int id) {
 		this.id = id;
 	}
+
 
 	public int getId() {
 		return this.id;

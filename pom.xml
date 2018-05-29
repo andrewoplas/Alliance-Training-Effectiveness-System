@@ -123,7 +123,16 @@
 <!-- 	    	<artifactId>spring-boot-starter-mail</artifactId> -->
 <!-- 	    	<version>2.0.1.RELEASE</version> -->
 <!-- 		</dependency> -->
-		
+
+<!-- 			DEPENDENCIES TO CONVERT TO PDF -->
+		     <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf</artifactId>
+            <version>9.1.4</version>
+        </dependency>
+	
+<!-- 					END OF PDF DEPENDENCIES -->
+							
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>

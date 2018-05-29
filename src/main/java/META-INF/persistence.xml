@@ -10,5 +10,6 @@
 		<class>com.springboot.entities.SaCategory</class>
 		<class>com.springboot.entities.SaAssignment</class>
 		<class>com.springboot.entities.SaAnswer</class>
+		<class>com.springboot.entities.Questions</class>
 	</persistence-unit>
 </persistence>

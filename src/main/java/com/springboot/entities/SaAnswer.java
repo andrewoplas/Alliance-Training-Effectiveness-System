@@ -15,7 +15,8 @@ public class SaAnswer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="SA_ANSWER_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SA_ANSWER_ID_GENERATOR")
 	private int id;
 
 	private String answer;

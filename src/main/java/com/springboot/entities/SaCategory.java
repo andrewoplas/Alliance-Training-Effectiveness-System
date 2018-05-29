@@ -1,19 +1,8 @@
 package com.springboot.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 /**
@@ -27,7 +16,8 @@ public class SaCategory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="SA_CATEGORY_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SA_CATEGORY_ID_GENERATOR")
 	private int id;
 
 	private String description;
@@ -49,8 +39,6 @@ public class SaCategory implements Serializable {
 	private List<SaCategory> saCategories;
 
 	public SaCategory() {
-		saCategories = new ArrayList<SaCategory>();
-		saAnswers = new ArrayList<SaAnswer>();
 	}
 
 	public int getId() {

@@ -311,6 +311,23 @@
 		</put-list-attribute>
 	</definition>
 	
+	<!-- [General User] Training Evaluation Assessment -->
+	<definition name="pages/TEA" extends="default">
+	    <put-attribute name="title" value="ATES - TEA" />
+	    <put-attribute name="body" value="/WEB-INF/pages/TEA.jsp" />
+	    <put-list-attribute name="stylesheets" inherit="true">
+	    	<add-attribute value="https://nodeschool.io/bainbridge/css/survey.css" />
+	    	<add-attribute value="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	    		<add-attribute value="/plugins/TEEF/TEEF.css" />
+		</put-list-attribute>
+		
+		<put-list-attribute name="javascripts" inherit="true">
+			
+			<add-attribute value="/plugins/TEEF/TEEF.js" />
+		</put-list-attribute>
+	</definition>
+	
+	
 	<!-- [General User] Invitations -->
 	<definition name="/general/invitation" extends="default">
 	    <put-attribute name="title" value="ATES - Invitations" />

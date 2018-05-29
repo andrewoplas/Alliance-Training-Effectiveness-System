@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springboot.body.SkillsAssessment;
+import com.springboot.entities.Questions;
 import com.springboot.entities.SaCategory;
 import com.springboot.entities.User;
 import com.springboot.repository.custom.FormsRepository;
@@ -66,6 +67,13 @@ public class FormsService {
 	public List<SaCategory> getParentCategories() {
 		return formsRepository.retrieveParentSkillsAssessment(em);
 	}
+	
+	public List<Questions> retrieveMCquestions(String kindOfQuestions)
+	{
+		
+		return formsRepository.retrieveMCquestions(em,kindOfQuestions);
+	}
+	
 	
 //	public String createHTMLSA(List<SaCategory> categories) {
 //		StringBuilder dataHTML = new StringBuilder("<ol class=\"dd-list\">");

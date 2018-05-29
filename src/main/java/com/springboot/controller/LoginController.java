@@ -3,6 +3,9 @@ package com.springboot.controller;
 import java.io.IOException;
 
 
+
+
+
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.springboot.entities.User;
 import com.springboot.service.LoginService;
+import com.springboot.service.PDFGeneratorService;
 
 @Controller
 @RequestMapping("login")
@@ -24,16 +28,18 @@ public class LoginController{
 	private LoginService loginService;
 	
 	
+	
+	
 	@RequestMapping(value = { "", "/" })
 	public String index() {
 		return "login";
 	}
 	
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.POST)
-	public String login(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws MessagingException {
+	public String login(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws Exception {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
+	
 		User user = loginService.searchUser(email, password);
 		
 		// User exists and approved
@@ -45,6 +51,8 @@ public class LoginController{
 				// Redirect to user's dashboard
 				if(user.getIsAdmin() == 1) {
 					response.sendRedirect(request.getContextPath() + "/ates/dashboard");
+					
+				
 				} else {
 					response.sendRedirect(request.getContextPath() + "/ates/general/dashboard");
 				}
@@ -55,7 +63,7 @@ public class LoginController{
 		
 		// Display error
 		map.addAttribute("response", (user == null));
-		
+
 		return "login";
 	}
 	

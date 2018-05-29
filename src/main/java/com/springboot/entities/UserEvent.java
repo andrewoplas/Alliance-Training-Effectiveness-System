@@ -1,18 +1,8 @@
 package com.springboot.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 /**
@@ -26,12 +16,21 @@ public class UserEvent implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="USER_EVENT_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USER_EVENT_ID_GENERATOR")
 	private int id;
 
 	private String role;
 
 	private String status;
+
+	//bi-directional many-to-one association to SaAssignment
+	@OneToMany(mappedBy="userEvent1")
+	private List<SaAssignment> saAssignments1;
+
+	//bi-directional many-to-one association to SaAssignment
+	@OneToMany(mappedBy="userEvent2")
+	private List<SaAssignment> saAssignments2;
 
 	//bi-directional many-to-one association to TrainingPlan
 	@ManyToOne
@@ -43,21 +42,14 @@ public class UserEvent implements Serializable {
 	@JoinColumn(name="userID")
 	private User user;
 
-	//bi-directional many-to-one association to SaAssignment
-	@OneToMany(mappedBy="userEvent1")
-	private List<SaAssignment> saAssignments1;
-
-	//bi-directional many-to-one association to SaAssignment
-	@OneToMany(mappedBy="userEvent2")
-	private List<SaAssignment> saAssignments2;
-
 	public UserEvent() {
 	}
+
 	
+
 	public UserEvent(int id) {
 		this.id = id;
 	}
-
 	public int getId() {
 		return this.id;
 	}
@@ -82,58 +74,12 @@ public class UserEvent implements Serializable {
 		this.status = status;
 	}
 
-	public TrainingPlan getTrainingPlan() {
-		return this.trainingPlan;
-	}
-
-	public void setTrainingPlan(TrainingPlan trainingPlan) {
-		this.trainingPlan = trainingPlan;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public List<SaAssignment> getSaAssignments1() {
 		return this.saAssignments1;
 	}
 
 	public void setSaAssignments1(List<SaAssignment> saAssignments1) {
 		this.saAssignments1 = saAssignments1;
-	}
-	
-	public List<SaAssignment> getSaAssignments1(int id) {
-		List<SaAssignment> filtered = new ArrayList<SaAssignment>();
-		for(SaAssignment assignment : saAssignments1) {
-			if(assignment.getUserEvent1().getId() == id) {
-				filtered.add(assignment);
-			}
-		}
-		return filtered;
-	}
-	
-	public List<SaAssignment> getSaAssignments1Answered(int id) {
-		List<SaAssignment> filtered = new ArrayList<SaAssignment>();
-		for(SaAssignment assignment : saAssignments1) {
-			if(assignment.getUserEvent1().getId() == id && ("answered").equals(assignment.getStatus())) {
-				filtered.add(assignment);
-			}
-		}
-		return filtered;
-	}
-	
-	public List<SaAssignment> getSaAssignments1Unanswered(int id) {
-		List<SaAssignment> filtered = new ArrayList<SaAssignment>();
-		for(SaAssignment assignment : saAssignments1) {
-			if(assignment.getUserEvent1().getId() == id && ("unanswered").equals(assignment.getStatus())) {
-				filtered.add(assignment);
-			}
-		}
-		return filtered;
 	}
 
 	public SaAssignment addSaAssignments1(SaAssignment saAssignments1) {
@@ -152,36 +98,6 @@ public class UserEvent implements Serializable {
 
 	public List<SaAssignment> getSaAssignments2() {
 		return this.saAssignments2;
-	}
-	
-	public List<SaAssignment> getSaAssignments2(int id) {
-		List<SaAssignment> filtered = new ArrayList<SaAssignment>();
-		for(SaAssignment assignment : saAssignments2) {
-			if(assignment.getUserEvent2().getId() == id) {
-				filtered.add(assignment);
-			}
-		}
-		return filtered;
-	}
-	
-	public List<SaAssignment> getSaAssignments2Answered(int id) {
-		List<SaAssignment> filtered = new ArrayList<SaAssignment>();
-		for(SaAssignment assignment : saAssignments2) {
-			if(assignment.getUserEvent2().getId() == id && ("answered").equals(assignment.getStatus())) {
-				filtered.add(assignment);
-			}
-		}
-		return filtered;
-	}
-	
-	public List<SaAssignment> getSaAssignments2Unanswered(int id) {
-		List<SaAssignment> filtered = new ArrayList<SaAssignment>();
-		for(SaAssignment assignment : saAssignments2) {
-			if(assignment.getUserEvent2().getId() == id && ("unanswered").equals(assignment.getStatus())) {
-				filtered.add(assignment);
-			}
-		}
-		return filtered;
 	}
 
 	public void setSaAssignments2(List<SaAssignment> saAssignments2) {
@@ -202,4 +118,21 @@ public class UserEvent implements Serializable {
 		return saAssignments2;
 	}
 
+	public TrainingPlan getTrainingPlan() {
+		return this.trainingPlan;
+	}
+
+	public void setTrainingPlan(TrainingPlan trainingPlan) {
+		this.trainingPlan = trainingPlan;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	
 }

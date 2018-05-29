@@ -15,7 +15,8 @@ public class Position implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="POSITION_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="POSITION_ID_GENERATOR")
 	private int id;
 
 	private String description;
