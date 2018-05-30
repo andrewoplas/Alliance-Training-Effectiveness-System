@@ -14,12 +14,14 @@ import com.springboot.repository.custom.LoginRepository;
 
 @Service
 public class LoginService {
+	
 	@PersistenceContext
 	private EntityManager em;
 	
 	@Autowired
 	private LoginRepository loginRepository;
 
+	
 	public User searchUser(String email, String password) {
 		password = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
 		return loginRepository.searchUser(em, email, password);

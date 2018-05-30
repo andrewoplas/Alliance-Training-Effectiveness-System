@@ -141,6 +141,13 @@
 			<artifactId>guava</artifactId>
 			<version>20.0</version>
 		</dependency>
+		
+		<!-- Convert to PDF -->
+		<dependency>
+			<groupId>org.xhtmlrenderer</groupId>
+			<artifactId>flying-saucer-pdf</artifactId>
+			<version>9.1.13</version>
+		</dependency>
 
 		<!-- Generate Excel file -->
 		<dependency>
@@ -148,13 +155,6 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.17</version>
 		</dependency>
-
-		<!-- Convert to PDF -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.xhtmlrenderer</groupId> -->
-<!-- 			<artifactId>flying-saucer-pdf</artifactId> -->
-<!-- 			<version>9.1.4</version> -->
-<!-- 		</dependency> -->
 
 	</dependencies>
 	<build>

@@ -17,8 +17,10 @@ import com.springboot.service.PositionService;
 @Controller
 @RequestMapping("/ates/users")
 public class PositionController {
+	
 	@Autowired
 	private PositionService positionService;
+	
 	
 	@RequestMapping(value = "/position")
 	public String position(ModelMap map) {
@@ -29,7 +31,7 @@ public class PositionController {
 	}
 	
 	@RequestMapping(value = "/position", method = RequestMethod.POST)
-	public ResponseEntity position(HttpServletRequest request) {
+	public ResponseEntity<?> position(HttpServletRequest request) {
 		String description = request.getParameter("position");
 		
 		String result = positionService.insertPosition(description);
@@ -38,7 +40,7 @@ public class PositionController {
 	}
 	
 	@RequestMapping(value = "/position/edit", method = RequestMethod.POST)
-	public ResponseEntity editPosition(HttpServletRequest request) {
+	public ResponseEntity<?> editPosition(HttpServletRequest request) {
 		String description = request.getParameter("new-position");
 		String id = request.getParameter("old-position");
 		
@@ -48,7 +50,7 @@ public class PositionController {
 	}
 	
 	@RequestMapping(value = "/position/remove", method = RequestMethod.POST)
-	public ResponseEntity removePosition(HttpServletRequest request) {
+	public ResponseEntity<?> removePosition(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		
 		String result = positionService.removePosition(id);

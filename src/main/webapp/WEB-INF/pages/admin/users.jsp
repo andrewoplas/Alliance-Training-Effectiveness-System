@@ -51,7 +51,6 @@
 		                                        <th>Email</th>
 		                                        <th>Action</th>
 		                                        <th data-hide="all"> Trainings </th>
-		                                        <th data-hide="all"> Information </th>
 		                                    </tr>
 		                                </thead>
 		                                <tbody>
@@ -61,6 +60,13 @@
 			                                        <td width="25%">${user.position}</td>
 			                                        <td width="25%">${user.email}</td>
 			                                        <td width="25%">
+			                                        	
+			                                        	<a href="/ates/users/view/${user.id}">
+				                                        	<button type="button" class="btn-edit btn btn-success btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="View User" data-placement="top">
+				                                        		<i class="mdi mdi-account"></i>
+			                                        		</button>
+		                                        		</a>
+			                                        	
 			                                        	<a href="/ates/users/edit/${user.id}">
 				                                        	<button type="button" class="btn-edit btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Edit" data-placement="top">
 				                                        		<i class="mdi mdi-account-edit"></i>
@@ -95,7 +101,6 @@
 															</c:if>
 														</ul>                                        
 			                                        </td>
-			                                        <td><a href="/ates/users/view/${user.id}">View Profile</a></td>
 			                                    </tr>
 		                                	</c:forEach>                                    
 		                                </tbody>

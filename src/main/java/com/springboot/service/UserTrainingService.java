@@ -27,11 +27,13 @@ import com.springboot.repository.custom.UserTrainingRepository;
 
 @Service
 public class UserTrainingService {
+	
 	@PersistenceContext
 	private EntityManager em;
 	
 	@Autowired
 	private UserTrainingRepository tpRepository;
+	
 	
 	public List<UserEvent> retrieveUserEvent(int userID) {
 		return tpRepository.retrieveUserEvent(em, userID) ;

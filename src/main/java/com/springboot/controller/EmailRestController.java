@@ -14,8 +14,10 @@ import com.springboot.service.CustomizedEmailService;
 
 @RestController
 public class EmailRestController{
+	
 	@Autowired
 	private CustomizedEmailService emailService;
+	
 	
 	public void sendGeneratedPassword(String password, String name, String email) throws MessagingException, IOException
 	{

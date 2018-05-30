@@ -14,11 +14,13 @@ import com.springboot.repository.custom.PositionRepository;
 
 @Service
 public class PositionService {
+	
 	@PersistenceContext
 	private EntityManager em;
 	
 	@Autowired
 	private PositionRepository positionRepository;
+	
 	
 	public List<Position> retrievePositions() {
 		return positionRepository.retrievePositions(em);

@@ -14,6 +14,7 @@ import com.springboot.service.UsersService;
 @Controller
 @RequestMapping("/ates")
 public class DashboardController {
+	
 	@Autowired
 	private TrainingPlanService tpService;
 	

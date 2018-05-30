@@ -23,6 +23,7 @@ import com.springboot.repository.custom.UsersRepository;
 
 @Service
 public class UsersService {
+	
 	@PersistenceContext
 	private EntityManager em;
 	

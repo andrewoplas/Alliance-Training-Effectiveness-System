@@ -26,11 +26,13 @@ import com.springboot.service.UsersService;
 @Controller
 @RequestMapping("/ates/training")
 public class TrainingPlanController {
+	
 	@Autowired
 	private UsersService usersService;
 	
 	@Autowired
 	private TrainingPlanService tpService;
+	
 	
 	@RequestMapping(value = "/list")
 	public String list(ModelMap map) {

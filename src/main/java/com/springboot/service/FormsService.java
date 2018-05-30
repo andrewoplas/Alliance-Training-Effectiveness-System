@@ -1,11 +1,16 @@
 package com.springboot.service;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,10 +26,12 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 
 import com.springboot.body.Question;
 import com.springboot.body.QuestionOption;
 import com.springboot.body.SkillsAssessment;
+import com.springboot.controller.PDFComponent;
 import com.springboot.entities.Form;
 import com.springboot.entities.FormAnswer;
 import com.springboot.entities.FormAssignment;
@@ -38,6 +45,7 @@ import com.springboot.repository.custom.FormsRepository;
 
 @Service
 public class FormsService {
+	
 	@PersistenceContext
 	private EntityManager em;
 	
@@ -48,10 +56,10 @@ public class FormsService {
 	private FormsService formsService;
 	
 	@Autowired
-	private UsersService usersService;
-
-	@Autowired
 	private TrainingPlanService tpService;
+	
+	@Autowired
+	private PDFComponent pdf;
 		
 	
 	protected void insertSkillsAssessmentChild(SaCategory parent, List<SkillsAssessment> children, ArrayList<Integer> categoryIDS) {
@@ -66,8 +74,8 @@ public class FormsService {
 			if(child.getChildren() != null && !child.getChildren().isEmpty()) {
 				insertSkillsAssessmentChild(childCategory, child.getChildren(), categoryIDS);
 			}
+			
 			parent.addSaCategory(childCategory);
-			//categories.add(childCategory);
 		}
 	}
 
@@ -332,11 +340,40 @@ public class FormsService {
 		
 	}
 	
-	//public String downloadPDF
+	public void generatePDF(HttpServletResponse response, String assignmentID, String fileName) {
+		FormAssignment assignment = retrieveFormAssignment(assignmentID);
+		
+		if(assignment == null) {
+			return;
+		}
+		
+		Form form = assignment.getForm();
+		List<FormAnswer> answers = assignment.getFormAnswers();
+		
+		try {
+			Map<String, Object> data = new HashMap<String, Object>();
+				data.put("form", form);
+				data.put("assignment", assignment);
+				data.put("answers", answers);
+				
+			File file =	pdf.createPdf("form", fileName, data);
+			InputStream in = new FileInputStream(file);
+			response.setContentType("application/pdf");
+			response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+			response.setHeader("Content-Length", String.valueOf(file.length()));
+			FileCopyUtils.copy(in, response.getOutputStream());
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
 	
-	
+	// Helper Function	
 	protected String getScaleOption(String optionNumber) {
 		String optionDescription = null;
+		
 		switch(optionNumber) {
 			case "1" : optionDescription = "Strongly Agree"; break;
 			case "2" : optionDescription = "Agree"; break;
@@ -346,9 +383,5 @@ public class FormsService {
 		}
 		
 		return optionDescription;
-	}
-
-	public void generatePDF(HttpServletResponse response) {
-		
 	}
 }

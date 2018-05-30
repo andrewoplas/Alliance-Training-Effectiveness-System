@@ -31,11 +31,13 @@ import com.springboot.repository.custom.TrainingPlanRepository;
 
 @Service
 public class TrainingPlanService {
+	
 	@PersistenceContext
 	private EntityManager em;
 	
 	@Autowired
 	private TrainingPlanRepository tpRepository;
+	
 	
 	public List<TrainingPlan> retrieveTrainings() {
 		return tpRepository.retrieveTrainings(em);

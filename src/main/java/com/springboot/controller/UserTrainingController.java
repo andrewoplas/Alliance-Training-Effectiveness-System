@@ -32,6 +32,7 @@ import com.springboot.service.UserTrainingService;
 @Controller
 @RequestMapping("/ates/general")
 public class UserTrainingController {
+	
 	@Autowired
 	private UserTrainingService tpService;
 	
@@ -39,10 +40,8 @@ public class UserTrainingController {
 	private TrainingPlanService adminTPService;
 	
 	@Autowired
-	private FormsService formsService;
-	
-	@Autowired
 	private SessionController session;
+	
 	
 	@RequestMapping(value = "/dashboard")
 	public String dashboard(ModelMap map, HttpServletRequest request) {
@@ -132,7 +131,7 @@ public class UserTrainingController {
 	}
 	
 	@RequestMapping(value = "/invitation/accept", method = RequestMethod.POST)
-	public ResponseEntity acceptInvitation(HttpServletRequest request) {
+	public ResponseEntity<?> acceptInvitation(HttpServletRequest request) {
 		String id = request.getParameter("id");		
 		
 		tpService.acceptInvitation(id);
@@ -141,7 +140,7 @@ public class UserTrainingController {
 	}
 	
 	@RequestMapping(value = "/invitation/decline", method = RequestMethod.POST)
-	public ResponseEntity declineInvitation(HttpServletRequest request) {
+	public ResponseEntity<?> declineInvitation(HttpServletRequest request) {
 		String id = request.getParameter("id");		
 		
 		tpService.declineInvitation(id);

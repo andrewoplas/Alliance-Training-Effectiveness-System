@@ -23,6 +23,7 @@ import com.springboot.service.UsersService;
 @Controller
 @RequestMapping("/ates/users")
 public class UsersController {
+	
 	@Autowired
 	private UsersService usersService;
 	
@@ -31,7 +32,8 @@ public class UsersController {
 	
 	@Autowired
 	private TrainingPlanService tpService;
-		
+	
+	
 	@RequestMapping(value = "/list")
 	public String index(ModelMap map) {
 		List<CustomUser> users = usersService.retrieveUsers();

@@ -25,20 +25,18 @@ import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.UserEvent;
 import com.springboot.service.FormsService;
 import com.springboot.service.TrainingPlanService;
-import com.springboot.service.UsersService;
 
 
 @Controller
 @RequestMapping("/ates/forms")
 public class FormsController {
+	
 	@Autowired
 	private FormsService formsService;
 	
 	@Autowired
 	private TrainingPlanService tpService;
 	
-	@Autowired
-	private UsersService usersService;
 	
 	@RequestMapping(value = "/assignment")
 	public String formsAssignment(ModelMap map) {
@@ -234,8 +232,10 @@ public class FormsController {
         return ResponseEntity.ok(true);
     }
     
-    @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, produces = "application/pdf")
-    public void PDFDownload(HttpServletResponse response) {
-    	formsService.generatePDF(response);
+    @RequestMapping(value = "/downloadPDF/{assignmentID}/{fileName}", method = RequestMethod.GET)
+    public ResponseEntity<?> PDFDownload(HttpServletResponse response, @PathVariable String assignmentID, @PathVariable String fileName) {
+    	formsService.generatePDF(response, assignmentID, fileName);
+    	
+    	return ResponseEntity.ok(true);
     }	
 }

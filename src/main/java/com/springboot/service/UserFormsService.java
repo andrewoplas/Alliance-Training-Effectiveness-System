@@ -25,12 +25,14 @@ import com.springboot.repository.custom.UserFormsRepository;
 
 @Service
 public class UserFormsService {
+	
 	@PersistenceContext
 	private EntityManager em;
 	
 	@Autowired
 	private UserFormsRepository formsRepository;
-		
+	
+	
 	public Map<Integer, List<Integer>> retrieveAssignments(int trainingID) {
 		List<SaAssignment> assignments = formsRepository.retrieveAssignments(em, trainingID);
 		

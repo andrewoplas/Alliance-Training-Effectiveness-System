@@ -19,6 +19,7 @@ import com.springboot.entities.custom.Mail;
 
 @Service
 public class CustomizedEmailService {
+	
     @Autowired
     private JavaMailSender emailSender;
 
@@ -32,10 +33,7 @@ public class CustomizedEmailService {
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
 
-       // helper.addAttachment("logo.png", new ClassPathResource("memorynotfound-logo.png"));
-
-        Context context = new Context();
-//        context.setVariables(mail.getModel());
+        Context context = new Context();        
         context.setVariables(mail.getModel());
         String html = templateEngine.process("email2", context);
 
