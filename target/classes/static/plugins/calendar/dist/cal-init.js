@@ -124,7 +124,7 @@
     CalendarApp.prototype.onSelect = function (start, end, allDay) {
         var now = moment();
         
-        if(start.isBefore(now, 'day'))
+        if(start.format('DDD') < now.format('DDD'))
         {
         	return false;
         }    	
@@ -242,7 +242,7 @@
                 		}
                 		
                 		var nowMS = ((now.get('hour') * 3600) + (now.get('minute') * 60)) * 1000;
-                		if(start.isSame(now, 'day') && nowMS > beginningMS) {
+                		if(start.format('DDD') == now.format('DDD') && nowMS > beginningMS) {
                 			// Do nothing
                 		} else {
                 			$this.$calendarObj.fullCalendar('renderEvent', {

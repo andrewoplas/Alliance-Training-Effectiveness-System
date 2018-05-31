@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
@@ -19,6 +21,7 @@ import com.springboot.entities.Attendance;
 import com.springboot.entities.SaAssignment;
 import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
+import com.springboot.entities.User;
 import com.springboot.entities.UserEvent;
 
 
@@ -261,6 +264,26 @@ public class TrainingPlanRepository {
 		userEvents = query.getResultList();		
 
 		return userEvents;
+	}
+
+	public UserEvent retrieveUserEventById(EntityManager em, int id) {
+		UserEvent userEvent = null;
+		StringBuilder sql = new StringBuilder("FROM UserEvent WHERE id = :id");
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("id", id);
+		query.setMaxResults(1);
+	
+		try {
+			userEvent = (UserEvent)query.getSingleResult();
+		} catch (NonUniqueResultException ex) {
+			ex.printStackTrace();
+			userEvent = null;
+		} catch (NoResultException ex) {
+			ex.printStackTrace();
+			userEvent = null;
+		}
+
+		return userEvent;
 	}
 
 }

@@ -60,7 +60,7 @@ public class FormsService {
 	
 	@Autowired
 	private PDFComponent pdf;
-		
+			
 	
 	protected void insertSkillsAssessmentChild(SaCategory parent, List<SkillsAssessment> children, ArrayList<Integer> categoryIDS) {
 		for(SkillsAssessment child : children) {
@@ -412,5 +412,39 @@ public class FormsService {
 		}
 		
 		return optionDescription;
+	}
+
+	public boolean checkAssignmentOwnership(int id, String assignmentID) {
+		boolean owns = false;
+		
+		try {
+			FormAssignment assignment = formsRepository.retrieveFormAssignment(em, Integer.parseInt(assignmentID)); 
+			if(assignment != null && assignment.getUserEvent().getUser().getId() == id) {
+				owns = true;
+			}
+		} catch (NumberFormatException ex)  {
+			ex.printStackTrace();
+			
+			owns = false;
+		}
+		
+		return owns;
+	}
+
+	public boolean checkAssignmentOwnershipByUE(int id, String userEventID) {
+		boolean owns = false;
+		
+		try {
+			UserEvent userEvent = tpService.retrieveUserEventById(Integer.parseInt(userEventID)); 
+			if(userEvent != null && userEvent.getUser().getId() == id) {
+				owns = true;
+			}
+		} catch (NumberFormatException ex)  {
+			ex.printStackTrace();
+			
+			owns = false;
+		}
+		
+		return owns;
 	}
 }

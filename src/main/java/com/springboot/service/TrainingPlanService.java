@@ -132,6 +132,10 @@ public class TrainingPlanService {
 		return tpRepository.retrieveUserEvent(em, userID) ;
 	}
 	
+	public UserEvent retrieveUserEventById(int id) {
+		return tpRepository.retrieveUserEventById(em, id) ;
+	}
+	
 	public List<UserEvent> retrieveUserEvents() {
 		return tpRepository.retrieveUserEvent(em);
 	}
