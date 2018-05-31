@@ -107,7 +107,9 @@ public class UserFormsController {
 		SaAssignment assignment = ufService.retrieveAssignmentById(assignmentID);
 		User user = session.getUser(request);
 		
-		if(assignment != null && assignment.getStatus().equals("unanswered") && !assignment.getUserEvent1().getStatus().equals("declined")) {
+		if(assignment != null && assignment.getStatus().equals("unanswered") && 
+			assignment.getUserEvent1().getUser().getId() == user.getId() && 
+			!assignment.getUserEvent1().getStatus().equals("declined")) {
 			List<SaCategory> parents = formsService.getParentCategories();
 
 			map.addAttribute("categories", parents);
@@ -133,7 +135,9 @@ public class UserFormsController {
 		SaAssignment assignment = ufService.retrieveAssignmentById(assignmentID);
 		User user = session.getUser(request);
 		
-		if(assignment != null && assignment.getStatus().equals("answered") && assignment.getUserEvent1().getUser().getId() == user.getId()) {
+		if(assignment != null && assignment.getStatus().equals("answered") &&
+				assignment.getUserEvent1().getUser().getId() == user.getId() && 
+				!assignment.getUserEvent1().getStatus().equals("declined")) {
 			List<SaCategory> parents = formsService.getParentCategories();
 
 			map.addAttribute("categories", parents);
@@ -151,7 +155,9 @@ public class UserFormsController {
 		FormAssignment assignment = ufService.retrieveFormAssignmentById(assignmentID);
 		User user = session.getUser(request);
 		
-		if(assignment != null && assignment.getStatus().equals("unanswered") && assignment.getUserEvent().getUser().getId() == user.getId()) {
+		if(assignment != null && assignment.getStatus().equals("unanswered") && 
+				assignment.getUserEvent().getUser().getId() == user.getId() &&
+				!assignment.getUserEvent().getStatus().equals("declined")) {
 			Form form = assignment.getForm();
 			
 			map.addAttribute("form", form);
