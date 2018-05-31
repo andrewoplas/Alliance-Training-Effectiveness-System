@@ -37,13 +37,15 @@ public class DashboardController {
 		
 		List<UserEvent> userEvents = tpService.retrieveUserEvents();
 		List<List<UserEvent>> userEventsQuarter = tpService.retrieveTrainingByQuarter();
+		List<List<UserEvent>> userEventsMonth = tpService.retrieveTrainingByMonth();
 		
-				
+		
 		// Statistics
 		map.addAttribute("formID", 3); // Annual
 		map.addAttribute("questions", formsService.retrieveForm(3).getFormQuestions());
 		map.addAttribute("userEvents", userEvents); // Annual
 		map.addAttribute("userEventsQuarter", userEventsQuarter); // Quarter
+		map.addAttribute("userEventsMonth", userEventsMonth); // Month
 		
 		// Top Counts
 		map.addAttribute("userCount", userCount);

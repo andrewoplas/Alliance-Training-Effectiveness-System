@@ -11,6 +11,16 @@
         new CBPFWTabs(el);
     });
     
+    $('#months').change(function(){
+    	var value = $(this).val();
+    	
+    	// Hide All
+    	$('.month-container').addClass('hide');
+    	
+    	// Show selected
+    	$('#month' + value).removeClass('hide');
+    });
+    
     // Statistics (Charts)
     var colors = ["#F08295","#DC93C2","#ACABE0","#6CC1E2","#41D0C9","#66D99E","#A4D972","#E4D25A","#DB9A4C"];
     $('.question-container').each(function(){

@@ -120,12 +120,22 @@ public class TrainingPlanRepository {
 	}
 	
 
-	public List<TrainingPlan> retrieveQuarter(EntityManager em, int startMonth, int endMonth) {
+	public List<TrainingPlan> retrieveTraining(EntityManager em, int startMonth, int endMonth) {
 		Session session = em.unwrap(Session.class);		
 		StringBuilder stringQuery = new StringBuilder("SELECT p.* FROM training_plan p INNER JOIN schedule s ON p.id = s.trainingPlanID WHERE MONTH(s.date) BETWEEN :startMonth AND :endMonth GROUP BY s.trainingPlanID");
 		SQLQuery query = session.createSQLQuery(stringQuery.toString());
 		query.setParameter("startMonth", startMonth);
 		query.setParameter("endMonth", endMonth);
+		query.setResultTransformer(Transformers.aliasToBean(TrainingPlan.class));
+				
+		return query.list();
+	}
+	
+	public List<TrainingPlan> retrieveTrainingByMonth(EntityManager em, int month) {
+		Session session = em.unwrap(Session.class);		
+		StringBuilder stringQuery = new StringBuilder("SELECT p.* FROM training_plan p INNER JOIN schedule s ON p.id = s.trainingPlanID WHERE MONTH(s.date) = :month GROUP BY s.trainingPlanID");
+		SQLQuery query = session.createSQLQuery(stringQuery.toString());
+		query.setParameter("month", month);
 		query.setResultTransformer(Transformers.aliasToBean(TrainingPlan.class));
 				
 		return query.list();

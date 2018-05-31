@@ -175,7 +175,57 @@
 	                        	</section>     	
 	                        	
 	                        	<section id="section-iconbox-3">
-	                         		<p>Test</p>
+	                         		<select class="form-control" id="months">
+	                         			<option value="1">January</option>
+	                         			<option value="2">February</option>
+	                         			<option value="3">March</option>
+	                         			<option value="4">April</option>
+	                         			<option value="5">May</option>
+	                         			<option value="6">June</option>
+	                         			<option value="7">July</option>
+	                         			<option value="8">August</option>
+	                         			<option value="9">September</option>
+	                         			<option value="10">October</option>
+	                         			<option value="11">November</option>
+	                         			<option value="12">December</option>
+	                         		</select>
+	                         		
+	                         		<c:forEach var="userEvents" items="${ userEventsMonth }" varStatus="counter" >
+										<div class="month-container ${ counter.index == 1? '' : 'hide' }" id="month${ counter.count }">
+											
+			                            	<c:forEach var="question" items="${ questions }" varStatus="loop">
+			                             		<c:if test="${ question.type == 'radiobutton' || question.type == 'scale' }">
+								                    <div class="question-container" data-type="${ question.type }" data-id="month${ counter.count }${ question.id }">
+								                    	<p class="question">
+								                    		<span>${ loop.count }</span> ${ question.description }
+								                   		</p>
+								                    	<div class="data-container hide">
+								                    	
+								                    		<c:forEach var="userEvent" items="${ userEvents }">
+								                    			<c:set var="assignment" value="${ userEvent.getFormAssignment(formID) }" />
+								                    			<c:if test="${ assignment.formAnswers.size() > 0 && loop.index < assignment.formAnswers.size()}">
+								                    				<c:set var="answer" value="${ assignment.formAnswers.get(loop.index) }"/>
+									                    			<input type="hidden" class="data" value="${ answer.description }" />
+								                    			</c:if>
+									                    	</c:forEach>
+									                    	
+									                    	<c:if test="${ question.formOptions.size() > 0 }">
+										                    	<div class="data-options-container">
+									                    			<c:forEach var="option" items="${ question.formOptions }">
+									                    				<input type="hidden" class="data-options" value="${ option.description }" value-id="${ option.id }" />
+									                    			</c:forEach>
+										                    	</div>
+									                    	</c:if>
+									                    	
+								                    	</div>
+								                   	</div>
+								                   	<hr />
+							                   	</c:if>
+						                    </c:forEach>
+						                    
+										</div>    
+									</c:forEach>
+	                         		
 	                        	</section>
 							</div>
 						</div>

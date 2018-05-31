@@ -74,7 +74,7 @@ public class TrainingPlanService {
 					 break;
 		}
 		
-		trainings = tpRepository.retrieveQuarter(em, startMonth, endMonth);
+		trainings = tpRepository.retrieveTraining(em, startMonth, endMonth);
 
 		return trainings;
 	}
@@ -90,6 +90,30 @@ public class TrainingPlanService {
 			userEventsList.add(userEvents2Q);
 			userEventsList.add(userEvents3Q);
 			userEventsList.add(userEvents4Q);
+			
+		return userEventsList;
+	}
+	
+	public List<List<UserEvent>> retrieveTrainingByMonth() {
+		List<List<UserEvent>> userEventsList = new ArrayList<List<UserEvent>>();
+		List<Integer> addedTrainings = new ArrayList<Integer>();
+		
+		// Loop from 1 (Jan) to 12 (December)
+		for(int i=1; i<=12; i++) {
+			List<TrainingPlan> trainings = tpRepository.retrieveTrainingByMonth(em, i);
+			
+			// Unique trainings - No training exists on two months
+			for(int j=trainings.size()-1; j>=0; j--) {
+				if(addedTrainings.contains(trainings.get(j).getId())) {
+					trainings.remove(j);
+				} else {
+					addedTrainings.add(trainings.get(j).getId());
+				}
+			}
+			
+			// Get the UserEvents of each trainings
+			userEventsList.add(retrieveUserEvents(trainings));
+		}
 			
 		return userEventsList;
 	}
