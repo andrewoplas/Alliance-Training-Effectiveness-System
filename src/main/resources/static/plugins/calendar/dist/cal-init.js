@@ -243,7 +243,7 @@
                 		
                 		var nowMS = ((now.get('hour') * 3600) + (now.get('minute') * 60)) * 1000;
                 		if(start.format('DDD') == now.format('DDD') && nowMS > beginningMS) {
-                			// Do nothing
+                			swal("Ooops!", "Schedule for today's Start Time must be after the time today.", "error");
                 		} else {
                 			$this.$calendarObj.fullCalendar('renderEvent', {
     	                        title: title,
