@@ -164,6 +164,37 @@
     		}
     	});
     	
+    	$('.option-container').each(function(){
+    		var container = $(this);
+    		var elem = $(this).find('input');
+    		var error = false;
+    		
+    		elem.each(function(){
+    			var i = $(this);
+    			var match = 0;
+    			
+    			elem.each(function(){
+    				if($.trim(i.val()) == $.trim($(this).val())) {
+    					match++;
+    					
+    					if(match >= 2) {
+        					container.addClass('has-error');
+        					hash.push(elem);
+        					error = true;
+        					return false;
+        				}
+    				}
+    			});
+    			
+    			if(error)
+    				return false;
+    		});
+    		
+    		if(!error) {
+    			container.removeClass('has-error');
+    		}
+    	});
+    	
     	if(hash.length > 0) {
 			// animate
 	       $('html, body').animate({

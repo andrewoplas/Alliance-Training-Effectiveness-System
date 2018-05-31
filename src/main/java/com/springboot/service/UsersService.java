@@ -38,6 +38,7 @@ public class UsersService {
 	
 	
 	public List<CustomUser> retrieveUsers() {
+		// Get users and converted to CustomUser entity
 		List data = usersRepository.retrieveUsers(em);
 		List<CustomUser> cUsers = new ArrayList<CustomUser>();
 		List<Integer> track = new ArrayList<Integer>();
@@ -163,6 +164,7 @@ public class UsersService {
 			user.setPosition(pos);
 			user.setEmail(email);
 			
+			// Edit password if checkbox is checked
 			if(password != null && password.equals("on")) {
 				String generatedPassword = getRandomPassword();
 				String hashedPassword = Hashing.sha256().hashString(generatedPassword, StandardCharsets.UTF_8).toString();

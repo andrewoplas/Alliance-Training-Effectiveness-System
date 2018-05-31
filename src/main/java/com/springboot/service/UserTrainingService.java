@@ -70,6 +70,7 @@ public class UserTrainingService {
 	public List<CustomSchedule> retrieveUserTrainingCustomSchedules(int id) {
 		List<UserEvent> userEvents = tpRepository.retrieveUserEvent(em, id);
 		
+		// Get schedules of user' UserEvents
 		if(userEvents.size() > 0) {						
 			List<CustomSchedule> schedules = new ArrayList<CustomSchedule>();
 			DateFormat dateFormatter = new SimpleDateFormat("yyyy:MM:dd");
