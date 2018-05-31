@@ -107,7 +107,7 @@ public class UserFormsController {
 		SaAssignment assignment = ufService.retrieveAssignmentById(assignmentID);
 		User user = session.getUser(request);
 		
-		if(assignment != null && assignment.getStatus().equals("unanswered")) {
+		if(assignment != null && assignment.getStatus().equals("unanswered") && !assignment.getUserEvent1().getStatus().equals("declined")) {
 			List<SaCategory> parents = formsService.getParentCategories();
 
 			map.addAttribute("categories", parents);

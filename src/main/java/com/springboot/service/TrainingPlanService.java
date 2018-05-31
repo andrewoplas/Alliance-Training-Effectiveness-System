@@ -80,6 +80,7 @@ public class TrainingPlanService {
 	}
 	
 	public List<List<UserEvent>> retrieveTrainingByQuarter() {
+		// Retrieve UserEvents per Quarter
 		List<UserEvent> userEvents1Q = retrieveUserEvents(retrieveTrainingByQuarter(1));
 		List<UserEvent> userEvents2Q = retrieveUserEvents(retrieveTrainingByQuarter(2));
 		List<UserEvent> userEvents3Q = retrieveUserEvents(retrieveTrainingByQuarter(3));

@@ -63,6 +63,8 @@ public class FormsService {
 			
 	
 	protected void insertSkillsAssessmentChild(SaCategory parent, List<SkillsAssessment> children, ArrayList<Integer> categoryIDS) {
+		// Create child entities from ResponseBody
+		
 		for(SkillsAssessment child : children) {
 			SaCategory childCategory = new SaCategory();
 			childCategory.setId(child.getId());
@@ -80,6 +82,7 @@ public class FormsService {
 	}
 
 	public void insertSkillsAssessment(SkillsAssessment[] sa) {
+		// Create entities from ResponseBody
 		List<SaCategory> categories = new ArrayList<SaCategory>();
 		ArrayList<Integer> categoryIDS = new ArrayList<Integer>();
 		
@@ -92,6 +95,7 @@ public class FormsService {
 			categoryIDS.add(category.getId());
 			categories.add(parent);
 			
+			// calls another function to insert recursively
 			if(category.getChildren() != null && !category.getChildren().isEmpty()) {
 				insertSkillsAssessmentChild(parent, category.getChildren(), categoryIDS);
 			}
@@ -101,11 +105,12 @@ public class FormsService {
 		if(categoryIDS.size() == 0) { categoryIDS.add(0); }
 		formsRepository.deleteSkillsAssessment(em, categoryIDS);
 		
-		// Insert Recursively
+		// Calls Insert Method
 		insertSA(categories, null);
 	}
 	
 	public void insertSA(List<SaCategory> categories, SaCategory parent) {
+		// Insert Recursively
 		for(SaCategory category : categories) {
 			category.setSaCategory(parent);
 			
@@ -141,6 +146,7 @@ public class FormsService {
 		List<FormQuestion> formQuestions = new ArrayList<FormQuestion>();
 		List<Integer> questionIDS = new ArrayList<Integer>();
 		
+		// Create entities
 		for(Question question : questions) {
 			FormQuestion formQuestion = new FormQuestion();
 			formQuestion.setDescription(question.getQuestion());
@@ -203,6 +209,7 @@ public class FormsService {
 
 	public boolean assignForm(String formID, String userEventID) {
 		try {
+			// Create entity
 			FormAssignment assignment = new FormAssignment();
 			assignment.setForm(new Form(Integer.parseInt(formID)));
 			assignment.setUserEvent(new UserEvent(Integer.parseInt(userEventID)));
@@ -223,6 +230,7 @@ public class FormsService {
 		try {
 			int form = Integer.parseInt(formID);
 			
+			// Create entity and persist
 			for(UserEvent participant : participants) {
 				if(!formsRepository.containsFormAssignment(em, form, participant.getId())) {
 					FormAssignment assignment = new FormAssignment();
@@ -270,6 +278,40 @@ public class FormsService {
 		}
 		
 		return formAnswer;
+	}
+	
+	public boolean checkAssignmentOwnership(int id, String assignmentID) {
+		boolean owns = false;
+		
+		try {
+			FormAssignment assignment = formsRepository.retrieveFormAssignment(em, Integer.parseInt(assignmentID)); 
+			if(assignment != null && assignment.getUserEvent().getUser().getId() == id) {
+				owns = true;
+			}
+		} catch (NumberFormatException ex)  {
+			ex.printStackTrace();
+			
+			owns = false;
+		}
+		
+		return owns;
+	}
+
+	public boolean checkAssignmentOwnershipByUE(int id, String userEventID) {
+		boolean owns = false;
+		
+		try {
+			UserEvent userEvent = tpService.retrieveUserEventById(Integer.parseInt(userEventID)); 
+			if(userEvent != null && userEvent.getUser().getId() == id) {
+				owns = true;
+			}
+		} catch (NumberFormatException ex)  {
+			ex.printStackTrace();
+			
+			owns = false;
+		}
+		
+		return owns;
 	}
 
 	public boolean downloadExcel(String formid, String fileName, String trainingPlanID, HttpServletResponse response) {
@@ -397,7 +439,7 @@ public class FormsService {
 		
 		return false;
 	}
-
+	
 	
 	// Helper Function	
 	protected String getScaleOption(String optionNumber) {
@@ -414,37 +456,5 @@ public class FormsService {
 		return optionDescription;
 	}
 
-	public boolean checkAssignmentOwnership(int id, String assignmentID) {
-		boolean owns = false;
-		
-		try {
-			FormAssignment assignment = formsRepository.retrieveFormAssignment(em, Integer.parseInt(assignmentID)); 
-			if(assignment != null && assignment.getUserEvent().getUser().getId() == id) {
-				owns = true;
-			}
-		} catch (NumberFormatException ex)  {
-			ex.printStackTrace();
-			
-			owns = false;
-		}
-		
-		return owns;
-	}
-
-	public boolean checkAssignmentOwnershipByUE(int id, String userEventID) {
-		boolean owns = false;
-		
-		try {
-			UserEvent userEvent = tpService.retrieveUserEventById(Integer.parseInt(userEventID)); 
-			if(userEvent != null && userEvent.getUser().getId() == id) {
-				owns = true;
-			}
-		} catch (NumberFormatException ex)  {
-			ex.printStackTrace();
-			
-			owns = false;
-		}
-		
-		return owns;
-	}
+	
 }
