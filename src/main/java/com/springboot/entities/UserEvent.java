@@ -56,10 +56,15 @@ public class UserEvent implements Serializable {
 	private List<FormAssignment> formAssignments;
 
 	public UserEvent() {
+		this(0);
 	}
 	
 	public UserEvent(int id) {
 		this.id = id;
+		
+		saAssignments1 = new ArrayList<SaAssignment>();
+		saAssignments2 = new ArrayList<SaAssignment>();
+		formAssignments = new ArrayList<FormAssignment>();
 	}
 
 	public int getId() {

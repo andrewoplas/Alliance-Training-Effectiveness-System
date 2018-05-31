@@ -2,6 +2,8 @@ package com.springboot.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,10 +31,14 @@ public class Form implements Serializable {
 	private List<FormQuestion> formQuestions;
 
 	public Form() {
+		this(0);
 	}
 	
 	public Form(int id) {
 		this.id = id;
+		
+		formAssignments = new ArrayList<FormAssignment>();
+		formQuestions = new ArrayList<FormQuestion>();
 	}
 
 	public int getId() {

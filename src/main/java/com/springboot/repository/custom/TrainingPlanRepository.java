@@ -10,9 +10,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
 import com.springboot.entities.Attendance;
+import com.springboot.entities.SaAssignment;
 import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.UserEvent;
@@ -115,6 +119,18 @@ public class TrainingPlanRepository {
 		return training;
 	}
 	
+
+	public List<TrainingPlan> retrieveQuarter(EntityManager em, int startMonth, int endMonth) {
+		Session session = em.unwrap(Session.class);		
+		StringBuilder stringQuery = new StringBuilder("SELECT p.* FROM training_plan p INNER JOIN schedule s ON p.id = s.trainingPlanID WHERE MONTH(s.date) BETWEEN :startMonth AND :endMonth GROUP BY s.trainingPlanID");
+		SQLQuery query = session.createSQLQuery(stringQuery.toString());
+		query.setParameter("startMonth", startMonth);
+		query.setParameter("endMonth", endMonth);
+		query.setResultTransformer(Transformers.aliasToBean(TrainingPlan.class));
+				
+		return query.list();
+	}
+	
 	public boolean removeTraining(EntityManager em, int id) {
 		TrainingPlan training = em.find(TrainingPlan.class, id);
 		
@@ -204,11 +220,33 @@ public class TrainingPlanRepository {
 		query.executeUpdate();
 	}
 	
+	public List<UserEvent> retrieveUserEvent(EntityManager em, TrainingPlan training) {
+		List<UserEvent> userEvents = null;
+		StringBuilder sql = new StringBuilder("FROM UserEvent WHERE trainingPlanID = :id");
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("id", training.getId());
+		
+		userEvents = query.getResultList();		
+
+		return userEvents;
+	}
+	
 	public List<UserEvent> retrieveUserEvent(EntityManager em, int userID) {
 		List<UserEvent> userEvents = null;
 		StringBuilder sql = new StringBuilder("FROM UserEvent WHERE userID = :id");
 		Query query = em.createQuery(sql.toString());
 		query.setParameter("id", userID);
+		
+		userEvents = query.getResultList();		
+
+		return userEvents;
+	}
+	
+
+	public List<UserEvent> retrieveUserEvent(EntityManager em) {
+		List<UserEvent> userEvents = null;
+		StringBuilder sql = new StringBuilder("FROM UserEvent");
+		Query query = em.createQuery(sql.toString());
 		
 		userEvents = query.getResultList();		
 

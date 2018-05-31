@@ -57,7 +57,7 @@
 									<div class="col-xs-8">
 										<p class="text-muted m-t-0 m-b-0 info-label">Start Date</p>
 										<p class="m-b-0 font-medium">
-											<fmt:parseDate pattern="yyyy-MM-dd" value="${userEvent.trainingPlan.schedules.get(0).date}" var="start_date" />
+											<fmt:parseDate pattern="yyyy-MM-dd" value="${userEvent.trainingPlan.getStartSchedule().date}" var="start_date" />
 											<fmt:formatDate value="${start_date}" pattern="MMM dd, yyyy" />
 										</p>
 										
@@ -73,7 +73,7 @@
 									<div class="col-xs-8">
 										<p class="text-muted m-t-0 m-b-0 info-label">End Date</p>
 										<p class="m-b-0 font-medium">
-											<fmt:parseDate pattern="yyyy-MM-dd" value="${userEvent.trainingPlan.schedules.get(userEvent.trainingPlan.schedules.size()-1).date}" var="end_date" />
+											<fmt:parseDate pattern="yyyy-MM-dd" value="${userEvent.trainingPlan.getEndSchedule().date}" var="end_date" />
 											<fmt:formatDate value="${end_date}" pattern="MMM dd, yyyy" />
 										</p>
 										

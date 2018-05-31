@@ -5,3 +5,38 @@
 .white-box {
     border-radius: 10px !important;
 }
+
+.question {
+	font-size: 17px;
+	font-weight: normal;
+}
+
+.textbox-container {
+	margin-left: 20px;
+    max-height: 180px;
+    overflow-y:  auto;
+}
+
+.textbox-container .textbox-answer {
+    color: #525252;
+    margin-bottom: 5px;
+}
+
+.textbox-container .textbox-answer i {
+    font-size: 19px;
+    color: #1e88e5;
+}
+
+.scale-container {
+	max-width: 200px;
+	max-height: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+[data-type="scale"] .scale-container {
+	max-width: 500px;
+	max-height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}

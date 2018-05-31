@@ -191,7 +191,7 @@
                     	
                     		<c:forEach var="userEvent" items="${ userEvents }">
                     			<c:set var="assignment" value="${ userEvent.getFormAssignment(form.id) }" />
-                    			<c:if test="${ assignment.formAnswers.size() > 0 }">
+                    			<c:if test="${ assignment.formAnswers.size() > 0 && loop.index < assignment.formAnswers.size()}">
                     				<c:set var="answer" value="${ assignment.formAnswers.get(loop.index) }"/>
 	                    			<input type="hidden" class="data" value="${ answer.description }" />
                     			</c:if>

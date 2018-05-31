@@ -3,6 +3,7 @@ package com.springboot.entities;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -52,10 +53,15 @@ public class TrainingPlan implements Serializable {
 	private List<UserEvent> userEvents;
 
 	public TrainingPlan() {
+		this(0);
 	}
 	
 	public TrainingPlan(int id) {
 		this.id = id;
+		
+		attendances = new ArrayList<Attendance>();
+		schedules = new ArrayList<Schedule>();
+		userEvents = new ArrayList<UserEvent>();
 	}
 
 	public int getId() {
@@ -122,6 +128,14 @@ public class TrainingPlan implements Serializable {
 		});
 		
 		return this.schedules;
+	}
+	
+	public Schedule getStartSchedule() {
+		return getSchedules().get(0);
+	}
+	
+	public Schedule getEndSchedule() {
+		return getSchedules().get(schedules.size() - 1);
 	}
 
 	public void setSchedules(List<Schedule> schedules) {

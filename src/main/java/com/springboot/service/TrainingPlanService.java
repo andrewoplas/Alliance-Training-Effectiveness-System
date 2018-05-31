@@ -53,8 +53,63 @@ public class TrainingPlanService {
 		}
 	}
 	
+	public List<TrainingPlan> retrieveTrainingByQuarter(int quarter) {
+		List<TrainingPlan> trainings = null;
+		
+		int startMonth = 0;
+		int endMonth = 0;
+		
+		switch(quarter) {
+			case 1 : startMonth = 1;
+					 endMonth = 3;
+					 break;
+			case 2 : startMonth = 4;
+					 endMonth = 6;
+					 break;
+			case 3 : startMonth = 7;
+					 endMonth = 9;
+					 break;
+			case 4 : startMonth = 10;
+					 endMonth = 12;
+					 break;
+		}
+		
+		trainings = tpRepository.retrieveQuarter(em, startMonth, endMonth);
+
+		return trainings;
+	}
+	
+	public List<List<UserEvent>> retrieveTrainingByQuarter() {
+		List<UserEvent> userEvents1Q = retrieveUserEvents(retrieveTrainingByQuarter(1));
+		List<UserEvent> userEvents2Q = retrieveUserEvents(retrieveTrainingByQuarter(2));
+		List<UserEvent> userEvents3Q = retrieveUserEvents(retrieveTrainingByQuarter(3));
+		List<UserEvent> userEvents4Q = retrieveUserEvents(retrieveTrainingByQuarter(4));
+		
+		List<List<UserEvent>> userEventsList = new ArrayList<List<UserEvent>>();
+			userEventsList.add(userEvents1Q);
+			userEventsList.add(userEvents2Q);
+			userEventsList.add(userEvents3Q);
+			userEventsList.add(userEvents4Q);
+			
+		return userEventsList;
+	}
+	
+	public List<UserEvent> retrieveUserEvents(List<TrainingPlan> trainings) {		
+		List<UserEvent> userEvents = new ArrayList<UserEvent>();
+		
+		for(TrainingPlan training : trainings) {
+			userEvents.addAll(tpRepository.retrieveUserEvent(em, training));
+		}
+		
+		return userEvents;
+	}
+	
 	public List<UserEvent> retrieveUserEvent(int userID) {
 		return tpRepository.retrieveUserEvent(em, userID) ;
+	}
+	
+	public List<UserEvent> retrieveUserEvents() {
+		return tpRepository.retrieveUserEvent(em);
 	}
 	
 	public boolean insertTraining(Training training) {
@@ -400,6 +455,14 @@ public class TrainingPlanService {
 				tpRepository.insertTimeOutAttendance(em, attendance);
 			}
 			
+		} catch (ParseException ex) {
+			ex.printStackTrace();
+			
+			return "error";
+		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return "error";
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			
@@ -451,6 +514,14 @@ public class TrainingPlanService {
 			tpRepository.resetAttendance(em, attendance);
 			
 			return true;
+		} catch (ParseException ex) {
+			ex.printStackTrace();
+			
+			return false;
+		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return false;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			

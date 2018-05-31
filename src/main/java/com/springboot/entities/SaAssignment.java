@@ -44,7 +44,7 @@ public class SaAssignment implements Serializable {
 	private transient int assignedTo;
 
 	public SaAssignment() {
-		saAnswers = new ArrayList<SaAnswer>();
+		this(0);
 	}
 
 	public SaAssignment(int id) {

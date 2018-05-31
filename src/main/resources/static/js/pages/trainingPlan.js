@@ -66,4 +66,11 @@
         });
 	});
 	
+	$('table tfoot tr td div').append(
+		'<a href="/ates/training/list/calendar">' +
+			'<button class="m-t-20 btn btn-info btn-raised btn-fix waves-effect waves-light pull-left">' +
+				'View Calendar' +
+			'</button>' +
+		'</a>'
+	);	
 })(jQuery);

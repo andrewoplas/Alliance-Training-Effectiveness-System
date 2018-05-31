@@ -18,6 +18,7 @@ import com.springboot.body.Training;
 import com.springboot.entities.Schedule;
 import com.springboot.entities.TrainingPlan;
 import com.springboot.entities.User;
+import com.springboot.entities.UserEvent;
 import com.springboot.entities.custom.CustomSchedule;
 import com.springboot.service.TrainingPlanService;
 import com.springboot.service.UsersService;
@@ -41,6 +42,12 @@ public class TrainingPlanController {
 		map.addAttribute("trainings", trainings);
 		
 		return "/training/list";
+	}
+	
+	@RequestMapping(value = "/list/calendar")
+	public String calendar(ModelMap map) {
+		
+		return "/training/list/calendar";
 	}
 	
 	@RequestMapping(value = "/invitation-status/{trainingPlanID}")

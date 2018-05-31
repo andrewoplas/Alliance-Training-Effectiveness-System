@@ -49,8 +49,7 @@ public class SaCategory implements Serializable {
 	private List<SaCategory> saCategories;
 
 	public SaCategory() {
-		saCategories = new ArrayList<SaCategory>();
-		saAnswers = new ArrayList<SaAnswer>();
+		this(0);
 	}
 	
 	public SaCategory(int id) {

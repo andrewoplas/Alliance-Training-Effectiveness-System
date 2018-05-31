@@ -1,6 +1,7 @@
 package com.springboot.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -54,10 +55,14 @@ public class User implements Serializable {
 	private transient int userEventID;
 
 	public User() {
+		this(0);
 	}
 
 	public User(int id) {
 		this.id = id;
+		
+		attendances = new ArrayList<Attendance>();
+		userEvents = new ArrayList<UserEvent>();
 	}
 
 	public int getId() {

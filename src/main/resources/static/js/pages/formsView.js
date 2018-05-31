@@ -115,7 +115,7 @@
     		    	labels: (Object.keys(legend).map(function (key) { return legend[key]; })),
     		    	datasets: [{
 	    		        label: "",
-	    		        backgroundColor: shuffle(colors),
+	    		        backgroundColor: shuffle(colors.slice()),
 	    		        data: (Object.keys(data).map(function (key) { return data[key]; }))
     		    	}]
     		    },
@@ -174,7 +174,7 @@
     		    	labels: (Object.keys(legend).map(function (key) { return legend[key]; })),
     		    	datasets: [{
 	    		        label: "",
-	    		        backgroundColor: shuffle(colors),
+	    		        backgroundColor: shuffle(colors.slice()),
 	    		        data: (Object.keys(data).map(function (key) { return data[key]; }))
     		    	}]
     		    },
