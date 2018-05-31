@@ -36,7 +36,8 @@ public class TrainingPlanController {
 	
 	
 	@RequestMapping(value = "/list")
-	public String list(ModelMap map) {
+	public String displayTraining(ModelMap map) {
+		// Display table of trainings created
 		List<TrainingPlan> trainings = tpService.retrieveTrainings();
 		
 		map.addAttribute("trainings", trainings);
@@ -45,13 +46,14 @@ public class TrainingPlanController {
 	}
 	
 	@RequestMapping(value = "/list/calendar")
-	public String calendar(ModelMap map) {
-		
+	public String displayCalendar(ModelMap map) {
+		// Display the calendar on a full view
 		return "/training/list/calendar";
 	}
 	
 	@RequestMapping(value = "/invitation-status/{trainingPlanID}")
-	public String invitationStatus(ModelMap map, @PathVariable String trainingPlanID) {
+	public String displayInvitationStatus(ModelMap map, @PathVariable String trainingPlanID) {
+		// Display table of users' invitation status of a certain training
 		TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
 		
 		if(training != null) {
@@ -71,6 +73,7 @@ public class TrainingPlanController {
 	
 	@RequestMapping(value = "/{id}")
 	public String summary(ModelMap map, @PathVariable String id) {
+		// Display training's summary
 		TrainingPlan training = tpService.retrieveTraining(id);
 		
 		if(training != null) {
@@ -95,7 +98,8 @@ public class TrainingPlanController {
 	}
 	
 	@RequestMapping(value = "/create")
-	public String create(ModelMap map) {
+	public String createTraining(ModelMap map) {
+		// Display the form to create a training
 		List<User> users = usersService.retrieveApprovedUsers();
 		
 		map.addAttribute("users", users);
@@ -104,14 +108,16 @@ public class TrainingPlanController {
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<?> insertTraining(@RequestBody Training training, HttpServletRequest request) {		
+	public @ResponseBody ResponseEntity<?> insertTraining(@RequestBody Training training, HttpServletRequest request) {
+		// Request to insert training
 		boolean result = tpService.insertTraining(training);
 		
 		return ResponseEntity.ok(result);
 	}
 	
 	@RequestMapping(value = "/edit/{id}")
-	public String edit(ModelMap map, @PathVariable String id) {
+	public String editTraining(ModelMap map, @PathVariable String id) {
+		// Display the form to edit training
 		List<User> users = usersService.retrieveApprovedUsers();		
 		TrainingPlan training = tpService.retrieveTraining(id);
 		
@@ -127,14 +133,16 @@ public class TrainingPlanController {
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<?> editTraining(@RequestBody Training training, HttpServletRequest request) {		
+	public @ResponseBody ResponseEntity<?> editTraining(@RequestBody Training training, HttpServletRequest request) {
+		// Request to edit training
 		boolean result = tpService.editTraining(training);
 		
 		return ResponseEntity.ok(result);
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public ResponseEntity<?> deleteTraining(HttpServletRequest request) {		
+	public ResponseEntity<?> deleteTraining(HttpServletRequest request) {	
+		// Request to delete training
 		boolean result = tpService.deleteTraining(request.getParameter("id"));
 		
 		return ResponseEntity.ok(result);
@@ -142,13 +150,15 @@ public class TrainingPlanController {
 	
 	@RequestMapping(value = "/getTrainings", method = RequestMethod.GET)
 	public ResponseEntity<?> getTrainings() {
+		// Request to get training's schedule
 		List<CustomSchedule> schedules = tpService.retrieveTrainingCustomSchedules();
 		
 		return ResponseEntity.ok(schedules);
 	}
 	
 	@RequestMapping(value = "/attendance/{id}")
-	public String attendance(ModelMap map, @PathVariable String id) {
+	public String displayAttendance(ModelMap map, @PathVariable String id) {
+		// Display table of users' attendance on a certain training
 		TrainingPlan training = tpService.retrieveTraining(id);
 			
 		if(training != null) {
@@ -167,6 +177,7 @@ public class TrainingPlanController {
 	
 	@RequestMapping(value = "/attendance/timein", method = RequestMethod.POST)
 	public ResponseEntity<?> attendanceTimeIn(HttpServletRequest request) {
+		// Request to set Time In to user
 		String trainingId = request.getParameter("training");
 		String time = request.getParameter("time");
 		String date = request.getParameter("date");
@@ -179,6 +190,7 @@ public class TrainingPlanController {
 	
 	@RequestMapping(value = "/attendance/timeout", method = RequestMethod.POST)
 	public ResponseEntity<?> attendanceTimeOut(HttpServletRequest request) {
+		// Request to set Time Out to user
 		String trainingId = request.getParameter("training");
 		String time = request.getParameter("time");	
 		String date = request.getParameter("date");
@@ -191,6 +203,7 @@ public class TrainingPlanController {
 	
 	@RequestMapping(value = "/attendance/absent", method = RequestMethod.POST)
 	public ResponseEntity<?> attendanceAbsent(HttpServletRequest request) {
+		// Request to set Absent to user
 		String trainingId = request.getParameter("training");
 		String date = request.getParameter("date");
 		String id = request.getParameter("id");
@@ -202,6 +215,7 @@ public class TrainingPlanController {
 	
 	@RequestMapping(value = "/attendance/reset", method = RequestMethod.POST)
 	public ResponseEntity<?> attendanceReset(HttpServletRequest request) {
+		// Request to Reset attendance of user
 		String trainingId = request.getParameter("training");
 		String id = request.getParameter("id");
 		String date = request.getParameter("date");

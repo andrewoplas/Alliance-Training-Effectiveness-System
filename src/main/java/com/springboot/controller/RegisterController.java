@@ -28,6 +28,7 @@ public class RegisterController {
 	
 	@RequestMapping(value = { "", "/" }, method=RequestMethod.GET)
 	public String index(ModelMap map) {
+		// Display register page
 		List<Position> positions = positionService.retrievePositions();
 		
 		map.addAttribute("positions", positions);
@@ -36,6 +37,7 @@ public class RegisterController {
 	
 	@RequestMapping(value = "/saveRegistration", method = RequestMethod.POST)
 	public ResponseEntity<?> register(HttpServletRequest request, ModelMap map) {
+		// Request to register an account
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String position = request.getParameter("position");
@@ -48,6 +50,7 @@ public class RegisterController {
 	
 	@RequestMapping(value = "/checkEmail", method = RequestMethod.POST)
 	public ResponseEntity<?> contains(HttpServletRequest request, ModelMap map) {
+		// Requeset to check if an email already exists
 		String email = request.getParameter("email");
 				
 		boolean response = registerService.containsUserByEmail(email);

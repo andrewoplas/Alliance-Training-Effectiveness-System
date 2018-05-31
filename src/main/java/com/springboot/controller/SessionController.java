@@ -11,6 +11,7 @@ import com.springboot.entities.User;
 public class SessionController {
 	
 	public User getUser(HttpServletRequest request) {
+		// Get the user session
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("isLoggedIn");
 		

@@ -39,7 +39,8 @@ public class FormsController {
 	
 	
 	@RequestMapping(value = "/assignment")
-	public String formsAssignment(ModelMap map) {
+	public String displayFormsAssignment(ModelMap map) {
+		// Display table of trainings with forms to assign
 		List<TrainingPlan> trainings = tpService.retrieveTrainings();
 		
 		map.addAttribute("trainings", trainings);
@@ -48,7 +49,8 @@ public class FormsController {
 	}
 
 	@RequestMapping(value = "/skills-assessment")
-	public String skillsAssessment(ModelMap map, HttpServletRequest request) {
+	public String displaySkillsAssessment(ModelMap map, HttpServletRequest request) {
+		// Display CRUD for Skills Assessment Form
 		List<SaCategory> parents = formsService.getParentCategories();
 
 		map.addAttribute("categories", parents);
@@ -57,14 +59,16 @@ public class FormsController {
 	}
 	
 	@RequestMapping(value = "/skills-assessment", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<?> insertSkillsAssessment(@RequestBody SkillsAssessment[] sa, HttpServletRequest request) {		
+	public @ResponseBody ResponseEntity<?> insertSkillsAssessment(@RequestBody SkillsAssessment[] sa, HttpServletRequest request) {
+		// Request to Save the Skills Assessment Form
 		formsService.insertSkillsAssessment(sa);
 		
 		return ResponseEntity.ok(true);
 	}
 	
 	@RequestMapping(value = "/skills-assessment/view/{trainingPlanID}")
-	public String skillsAssessment(ModelMap map, @PathVariable String trainingPlanID) {
+	public String displayTableAnsweredSkillsAssessment(ModelMap map, @PathVariable String trainingPlanID) {
+		// Display table of users' answered skills assessment form
 		TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
 		
 		if(training != null) {
@@ -80,7 +84,8 @@ public class FormsController {
 	}
 	
 	@RequestMapping(value = "/skills-assessment/view/answer/{assignmentID}")
-	public String viewAnswersAssessment(@PathVariable String assignmentID, ModelMap map) {
+	public String viewAnsweredSkillsAssessment(@PathVariable String assignmentID, ModelMap map) {
+		// Display the answered form of skills assessment
 		SaAssignment assignment = formsService.retrieveAssignmentById(assignmentID);
 		
 		if(assignment != null && assignment.getStatus().equals("answered")) {
@@ -97,6 +102,7 @@ public class FormsController {
 	
 	@RequestMapping(value = "/course-feedback")
 	public String courseFeedback(ModelMap map) {
+		// Display CRUD for Course Feedback Form
 		Form form = formsService.retrieveForm(1);
 		
 		map.addAttribute("form", form);
@@ -106,7 +112,8 @@ public class FormsController {
 	}
 	
 	@RequestMapping(value = "/course-feedback/view/{trainingPlanID}")
-	public String releaseCourseFeedback(ModelMap map, @PathVariable String trainingPlanID) {
+	public String viewReleaseCourseFeedback(ModelMap map, @PathVariable String trainingPlanID) {
+		// Display table of users that is ready to be assigned
 		TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
 		
 		if(training != null) {
@@ -126,6 +133,7 @@ public class FormsController {
 	
 	@RequestMapping(value = "/facilitator-feedback")
 	public String facilitatorFeedback(ModelMap map) {
+		// Display CRUD for Facilitator's Feedback Form
 		Form form = formsService.retrieveForm(2);
 		
 		map.addAttribute("form", form);
@@ -135,7 +143,8 @@ public class FormsController {
 	}
 	
 	@RequestMapping(value = "/facilitator-feedback/view/{trainingPlanID}")
-	public String releaseFacilitatorFeedback(ModelMap map, @PathVariable String trainingPlanID) {
+	public String viewReleaseFacilitatorFeedback(ModelMap map, @PathVariable String trainingPlanID) {
+		// Display table of users that is ready to be assigned
 		TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
 		
 		if(training != null) {
@@ -155,6 +164,7 @@ public class FormsController {
 	
 	@RequestMapping(value = "/training-effectivess-assessment")
 	public String trainingEffectivenessAssessment(ModelMap map) {
+		// Display CRUD for Training Effectiveness Assessment Form
 		Form form = formsService.retrieveForm(3);
 		
 		map.addAttribute("form", form);
@@ -164,7 +174,8 @@ public class FormsController {
 	}
 	
 	@RequestMapping(value = "/training-effectiveness-assessment/view/{trainingPlanID}")
-	public String releaseTrainingEffectivenessAssessment(ModelMap map, @PathVariable String trainingPlanID) {
+	public String viewReleaseTrainingEffectivenessAssessment(ModelMap map, @PathVariable String trainingPlanID) {
+		// Display table of users that is ready to be assigned
 		TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
 		
 		if(training != null) {
@@ -184,6 +195,7 @@ public class FormsController {
 	
 	@RequestMapping(value = "/training-needs-assessment")
 	public String trainingNeedsAssessment(ModelMap map) {
+		// Display CRUD for Training Needs Assessment
 		Form form = formsService.retrieveForm(4);
 		
 		map.addAttribute("form", form);
@@ -193,7 +205,8 @@ public class FormsController {
 	}
 	
 	@RequestMapping(value = "/training-needs-assessment/view/{trainingPlanID}")
-	public String releaseTrainingNeedsAssessment(ModelMap map, @PathVariable String trainingPlanID) {
+	public String viewReleaseTrainingNeedsAssessment(ModelMap map, @PathVariable String trainingPlanID) {
+		// Display table of users that is ready to be assigned
 		TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
 		
 		if(training != null) {
@@ -213,7 +226,7 @@ public class FormsController {
 	
 	@RequestMapping(value = "/questions/{formID}", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<?> insertQuestions(@PathVariable String formID, @RequestBody Question[] questions) {		
-		
+		// Request to insert questions from Forms' CRUD page
 		boolean result = formsService.insertQuestions(questions, formID);
 		
 		return ResponseEntity.ok(result);
@@ -221,6 +234,7 @@ public class FormsController {
 	
 	@RequestMapping(value = "/assign", method = RequestMethod.POST)
 	public ResponseEntity<?> assignForm(HttpServletRequest request) {
+		// Request to assign Form to a user
 		String formID = request.getParameter("formID");
 		String userEventID = request.getParameter("userEventID");
 		
@@ -231,6 +245,7 @@ public class FormsController {
 	
 	@RequestMapping(value = "/assign/all", method = RequestMethod.POST)
 	public ResponseEntity<?> releaseForm(HttpServletRequest request) {
+		// Request to release (assign) Form to all users 
 		String formID = request.getParameter("formID");
 		String trainingPlanID = request.getParameter("trainingPlanID");
 		
@@ -240,7 +255,8 @@ public class FormsController {
 	}
 	
 	@RequestMapping(value = "/view/answer/{assignmentID}")
-	public String viewAnswer(ModelMap map, @PathVariable String assignmentID) {
+	public String viewAnsweredForm(ModelMap map, @PathVariable String assignmentID) {
+		// Display the answered Form of user
 		FormAssignment assignment = formsService.retrieveFormAssignment(assignmentID);
 		
 		if(assignment != null) {
@@ -256,6 +272,7 @@ public class FormsController {
 	
     @RequestMapping(value = "/download/{formID}/{fileName}/{trainingPlanID}", method = RequestMethod.GET)
     public ResponseEntity<?> downloadExcel(HttpServletResponse response, @PathVariable String formID, @PathVariable String fileName, @PathVariable String trainingPlanID) {
+    	// Request to Generate an excel file for Forms' answers (Per training)
     	boolean result = formsService.downloadExcel(formID, fileName, trainingPlanID, response);        
     	
         return ResponseEntity.ok(result);
@@ -263,6 +280,7 @@ public class FormsController {
     
     @RequestMapping(value = "/downloadPDF/{assignmentID}/{fileName}", method = RequestMethod.GET)
     public ResponseEntity<?> PDFDownload(HttpServletResponse response, @PathVariable String assignmentID, @PathVariable String fileName) {
+    	// Request to convert answered form into PDF
     	boolean result = formsService.generatePDF(response, assignmentID, fileName);
     	
     	return ResponseEntity.ok(result);

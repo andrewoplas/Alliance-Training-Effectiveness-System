@@ -26,11 +26,13 @@ public class LoginController{
 	
 	@RequestMapping(value = { "", "/" })
 	public String index() {
+		// Show login page
 		return "login";
 	}
 	
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.POST)
 	public String login(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws MessagingException {
+		// Request to login
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		

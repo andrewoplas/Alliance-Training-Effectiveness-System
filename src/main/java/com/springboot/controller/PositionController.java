@@ -23,7 +23,8 @@ public class PositionController {
 	
 	
 	@RequestMapping(value = "/position")
-	public String position(ModelMap map) {
+	public String displayPosition(ModelMap map) {
+		// Display table of positions
 		List<Position> positions = positionService.retrievePositions();
 		
 		map.addAttribute("positions", positions);
@@ -31,7 +32,8 @@ public class PositionController {
 	}
 	
 	@RequestMapping(value = "/position", method = RequestMethod.POST)
-	public ResponseEntity<?> position(HttpServletRequest request) {
+	public ResponseEntity<?> insertPosition(HttpServletRequest request) {
+		// Request to insert position
 		String description = request.getParameter("position");
 		
 		String result = positionService.insertPosition(description);
@@ -41,6 +43,7 @@ public class PositionController {
 	
 	@RequestMapping(value = "/position/edit", method = RequestMethod.POST)
 	public ResponseEntity<?> editPosition(HttpServletRequest request) {
+		// Request to edit position
 		String description = request.getParameter("new-position");
 		String id = request.getParameter("old-position");
 		
@@ -51,6 +54,7 @@ public class PositionController {
 	
 	@RequestMapping(value = "/position/remove", method = RequestMethod.POST)
 	public ResponseEntity<?> removePosition(HttpServletRequest request) {
+		// request to remove position
 		String id = request.getParameter("id");
 		
 		String result = positionService.removePosition(id);

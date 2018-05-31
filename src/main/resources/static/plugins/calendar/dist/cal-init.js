@@ -99,7 +99,6 @@
             		
             		return false;
             	}
-            	
                 	
                 // Set Time Start
                 calEvent.start.set('hour', beginningObj.get('hour'));

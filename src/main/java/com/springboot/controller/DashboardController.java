@@ -30,6 +30,7 @@ public class DashboardController {
 		
 	@RequestMapping(value = "/dashboard")
 	public String index(ModelMap map) {
+		// Display information on dashboard
 		int userCount = usersService.retrieveApprovedUsers().size();
 		int pendingUserCount = usersService.retrievePendingUsers().size();
 		int trainingCount = tpService.retrieveTrainings().size();
@@ -38,7 +39,6 @@ public class DashboardController {
 		List<UserEvent> userEvents = tpService.retrieveUserEvents();
 		List<List<UserEvent>> userEventsQuarter = tpService.retrieveTrainingByQuarter();
 		List<List<UserEvent>> userEventsMonth = tpService.retrieveTrainingByMonth();
-		
 		
 		// Statistics
 		map.addAttribute("formID", 3); // Annual

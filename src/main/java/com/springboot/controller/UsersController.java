@@ -35,7 +35,8 @@ public class UsersController {
 	
 	
 	@RequestMapping(value = "/list")
-	public String index(ModelMap map) {
+	public String displayUser(ModelMap map) {
+		// Display table of approved users 
 		List<CustomUser> users = usersService.retrieveUsers();
 		
 		map.addAttribute("users", users);
@@ -43,8 +44,8 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value = "/view/{userID}")
-	public String view(ModelMap map, @PathVariable String userID) {
-		
+	public String viewuser(ModelMap map, @PathVariable String userID) {
+		// Display information of a certain user
 		User user = usersService.retrieveUser(userID);
 		
 		if(user != null) {
@@ -63,7 +64,8 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value = "/create")
-	public String create(ModelMap map) {
+	public String createUser(ModelMap map) {
+		// Display form to create user
 		List<Position> positions = positionService.retrievePositions();
 		
 		map.addAttribute("positions", positions);
@@ -71,7 +73,8 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value = "/edit/{id}")
-	public String edit(ModelMap map, @PathVariable String id) {
+	public String editUser(ModelMap map, @PathVariable String id) {
+		// Display form to edit user
 		List<Position> positions = positionService.retrievePositions();
 		User user = usersService.retrieveUser(id);
 		
@@ -86,7 +89,8 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value = "/request")
-	public String request(ModelMap map) {
+	public String displayRequest(ModelMap map) {
+		// Display table of users who requested to register or has pending status
 		List<User> users = usersService.retrievePendingUsers();
 		
 		map.addAttribute("users", users);
@@ -94,7 +98,8 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ResponseEntity<?> create(HttpServletRequest request) {
+	public ResponseEntity<?> createUser(HttpServletRequest request) {
+		// Request to create user
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String position = request.getParameter("position");
@@ -110,7 +115,8 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
-	public ResponseEntity<?> remove(HttpServletRequest request) {
+	public ResponseEntity<?> removeUser(HttpServletRequest request) {
+		// Request to remove user
 		String id = request.getParameter("id");
 		
 		usersService.removeUser(id);
@@ -119,6 +125,7 @@ public class UsersController {
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
 	public ResponseEntity<?> editUser(HttpServletRequest request) {
+		// Request to edit user
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
@@ -137,6 +144,7 @@ public class UsersController {
 	
 	@RequestMapping(value = "/view/edit", method = RequestMethod.POST)
 	public ResponseEntity<?> editUserByView(HttpServletRequest request) {
+		// Request to edit user in the view page
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String position = request.getParameter("position");
@@ -149,6 +157,7 @@ public class UsersController {
 	
 	@RequestMapping(value = "/approve", method = RequestMethod.POST)
 	public ResponseEntity<?> approve(HttpServletRequest request) {
+		// Request to approve user (set status to 'approved')
 		String id = request.getParameter("id");
 		
 		usersService.approveUser(id);
@@ -157,6 +166,7 @@ public class UsersController {
 	
 	@RequestMapping(value = "/decline", method = RequestMethod.POST)
 	public ResponseEntity<?> decline(HttpServletRequest request) {
+		// Request to decline user (remove user)
 		String id = request.getParameter("id");
 		
 		usersService.declineUser(id);

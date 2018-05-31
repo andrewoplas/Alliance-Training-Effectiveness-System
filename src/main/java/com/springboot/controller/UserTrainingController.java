@@ -45,13 +45,15 @@ public class UserTrainingController {
 	
 	@RequestMapping(value = "/dashboard")
 	public String dashboard(ModelMap map, HttpServletRequest request) {
+		// Display dashboard of user with data
 		User user = session.getUser(request);
 		
 		return "/general/dashboard";
 	}
 	
 	@RequestMapping(value = "/training")
-	public String trainings(ModelMap map, HttpServletRequest request) {
+	public String displayTrainings(ModelMap map, HttpServletRequest request) {
+		// Display table of trainings that user is involved
 		User user = session.getUser(request);
 		
 		List<UserEvent> userEvents = tpService.retrieveUserEvent(user.getId());
@@ -61,7 +63,8 @@ public class UserTrainingController {
 	}
 	
 	@RequestMapping(value = "/training/{id}/{trainingPlanId}")
-	public String viewTraining(ModelMap map, HttpServletRequest request, @PathVariable String id, @PathVariable String trainingPlanId) {
+	public String summary(ModelMap map, HttpServletRequest request, @PathVariable String id, @PathVariable String trainingPlanId) {
+		// Display the summary of training that user is involved
 		User user = session.getUser(request);
 		
 		if(!tpService.checkTrainingInvolvement(user, id)) 
@@ -92,6 +95,7 @@ public class UserTrainingController {
 	
 	@RequestMapping(value = "/training/edit/{id}/{trainingPlanId}")
 	public String editTraining(ModelMap map, HttpServletRequest request, @PathVariable String id, @PathVariable String trainingPlanId) {
+		// Display the form to edit the form (for facilitators only)
 		User user = session.getUser(request);
 		if(!tpService.checkTrainingInvolvementAndFacilitator(user, id)) 
 			return "redirect:/error/404";
@@ -110,6 +114,7 @@ public class UserTrainingController {
 	
 	@RequestMapping(value = "/training/edit", method = RequestMethod.POST)
 	public ResponseEntity<?> editTrainingPlan(ModelMap map, HttpServletRequest request) {
+		// Request to edit the training plan (for facilitators only)
 		User user = session.getUser(request);
 		String id = request.getParameter("id");
 		String userEventId = request.getParameter("userEventId");
@@ -125,7 +130,8 @@ public class UserTrainingController {
 	}
 	
 	@RequestMapping(value = "/invitation")
-	public String invitations(ModelMap map, HttpServletRequest request) {
+	public String displayInvitations(ModelMap map, HttpServletRequest request) {
+		// Display the training invitations of user
 		User user = session.getUser(request);
 		
 		List<UserEvent> userEvents = tpService.retrievePendingUserEvent(user.getId());
@@ -136,6 +142,7 @@ public class UserTrainingController {
 	
 	@RequestMapping(value = "/invitation/accept", method = RequestMethod.POST)
 	public ResponseEntity<?> acceptInvitation(HttpServletRequest request) {
+		// Request to accept invitation
 		boolean result = tpService.acceptInvitation(request.getParameter("id"));
 		
 		return ResponseEntity.ok(result);
@@ -143,6 +150,7 @@ public class UserTrainingController {
 	
 	@RequestMapping(value = "/invitation/decline", method = RequestMethod.POST)
 	public ResponseEntity<?> declineInvitation(HttpServletRequest request) {
+		// Requeset to decline invitation
 		boolean result = tpService.declineInvitation(request.getParameter("id"));
 		
 		return ResponseEntity.ok(result);
@@ -150,6 +158,7 @@ public class UserTrainingController {
 	
 	@RequestMapping(value = "/training/getTrainings", method = RequestMethod.GET)
 	public ResponseEntity<?> getTrainings(HttpServletRequest request) {
+		// Request to get schedule of trainings
 		User user = session.getUser(request);
 		
 		List<CustomSchedule> schedules = tpService.retrieveUserTrainingCustomSchedules(user.getId());
@@ -159,6 +168,7 @@ public class UserTrainingController {
 	
 	@RequestMapping(value = "/notification", method = RequestMethod.GET)
 	public ResponseEntity<?> notification(HttpServletRequest request) {
+		// Request to get the pending invitation
 		User user = session.getUser(request);
 		
 		int result = tpService.retrievePendingUserEvent(user.getId()).size();
