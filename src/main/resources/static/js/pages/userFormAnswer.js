@@ -2,9 +2,12 @@
 (function ($) {
     "use strict";
     
-    $('.btn-submit').click(function(){
-    	$("#ajax-process").modal('show');
-    	
+    $(document).on('change keyup paste', '.option-item input, .scale input, .materialize-textarea', function(){
+    	$(this).parents('.question-container').find('.help-block').addClass('hide');
+    });
+    
+    $('.btn-submit').click(function(){    	
+    	var error = false;
 		var assignmentID = $('#assignment').val();
     	var answers = [], description, questionID, questionType;
     	
@@ -23,6 +26,13 @@
         	} else {
         		description = $(this).find('[name=question' + questionID + ']:checked').val();
         	} 
+        	
+        	if(description === undefined || description.length == 0) {
+        		$(this).find('.help-block').removeClass('hide');
+        		error = true;
+        	} else {
+        		$(this).find('.help-block').addClass('hide');
+        	}
       	
         	answers.push({
     			description: description,
@@ -32,6 +42,11 @@
     		});
     	});
     	
+    	if(error) {
+    		return false;
+    	}
+    	
+    	$("#ajax-process").modal('show');
     	$.ajax({
 			url: "/ates/general/training/form/answer/" + assignmentID,
 			type: 'POST',

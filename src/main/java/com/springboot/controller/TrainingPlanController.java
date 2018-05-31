@@ -67,10 +67,11 @@ public class TrainingPlanController {
 		TrainingPlan training = tpService.retrieveTraining(id);
 		
 		if(training != null) {
-			List<User> participants = tpService.retrieveTrainingPeople(training, "Participant", true);
-			List<User> internal = tpService.retrieveTrainingPeople(training, "Internal", true);
-			List<User> external = tpService.retrieveTrainingPeople(training, "External", true);
-			List<User> supervisors = tpService.retrieveTrainingPeople(training, "Supervisor", true);
+			boolean showApprovedOnly = false;
+			List<User> participants = tpService.retrieveTrainingPeople(training, "Participant", showApprovedOnly);
+			List<User> internal = tpService.retrieveTrainingPeople(training, "Internal", showApprovedOnly);
+			List<User> external = tpService.retrieveTrainingPeople(training, "External", showApprovedOnly);
+			List<User> supervisors = tpService.retrieveTrainingPeople(training, "Supervisor", showApprovedOnly);
 			List<Schedule> schedules = tpService.sortSchedule(training.getSchedules());
 						
 			map.addAttribute("participants", participants);
@@ -144,7 +145,7 @@ public class TrainingPlanController {
 		TrainingPlan training = tpService.retrieveTraining(id);
 			
 		if(training != null) {
-			List<User> participants = tpService.retrieveTrainingPeople(training, "Participant", true);
+			List<User> participants = tpService.retrieveTrainingPeople(training, "Participant", false);
 			List<Schedule> schedules = tpService.sortSchedule(training.getSchedules());
 						
 			map.addAttribute("participants", participants);
@@ -164,9 +165,9 @@ public class TrainingPlanController {
 		String date = request.getParameter("date");
 		String ids = request.getParameter("ids");
 		
-		tpService.insertAttendance(trainingId, ids, time, date);
+		boolean result = tpService.insertAttendance(trainingId, ids, time, date);
 			
-		return ResponseEntity.ok(true);	
+		return ResponseEntity.ok(result);	
 	}
 	
 	@RequestMapping(value = "/attendance/timeout", method = RequestMethod.POST)
@@ -179,7 +180,7 @@ public class TrainingPlanController {
 		String result = tpService.insertTimeOutAttendance(trainingId, ids, time, date);
 			
 		return ResponseEntity.ok(result);	
-	}
+	} 
 	
 	@RequestMapping(value = "/attendance/absent", method = RequestMethod.POST)
 	public ResponseEntity<?> attendanceAbsent(HttpServletRequest request) {
@@ -187,9 +188,9 @@ public class TrainingPlanController {
 		String date = request.getParameter("date");
 		String id = request.getParameter("id");
 		
-		tpService.insertAbsentAttendance(trainingId, id, date);
+		boolean result = tpService.insertAbsentAttendance(trainingId, id, date);
 			
-		return ResponseEntity.ok(true);	
+		return ResponseEntity.ok(result);	
 	}
 	
 	@RequestMapping(value = "/attendance/reset", method = RequestMethod.POST)
@@ -198,9 +199,9 @@ public class TrainingPlanController {
 		String id = request.getParameter("id");
 		String date = request.getParameter("date");
 		
-		tpService.resetAttendance(trainingId, id, date);
+		boolean result = tpService.resetAttendance(trainingId, id, date);
 			
-		return ResponseEntity.ok(true);	
+		return ResponseEntity.ok(result);	
 	}
 	
 }

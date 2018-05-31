@@ -3,12 +3,13 @@ package com.springboot.repository.custom;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
 import com.springboot.entities.User;
@@ -19,7 +20,6 @@ import com.springboot.entities.User;
 public class UsersRepository {
 	
 	public boolean containsByIdAndString(EntityManager em, String email, String id) {
-		// Check if user exist through checking email
 		StringBuilder stringQuery = new StringBuilder("FROM User WHERE email = :email AND id != :id");
 		Query query = em.createQuery(stringQuery.toString());
 		query.setParameter("email", email);
@@ -92,13 +92,16 @@ public class UsersRepository {
 		
 		try {
 			user = (User)query.getSingleResult();
-		} catch(Exception ex) {
+		} catch (NonUniqueResultException ex) {
+			ex.printStackTrace();
+			user = null;
+		} catch (NoResultException ex) {
+			ex.printStackTrace();
 			user = null;
 		}
 		
 		return user;
 	}
-
 
 	public void editUser(EntityManager em, User user) {
 		User updateUser = em.find(User.class, user.getId());

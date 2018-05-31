@@ -32,7 +32,7 @@
 				            </div>
 				            
 							<div class="form-group m-b-30">
-								<textarea id="description" maxlength="300" class="form-control validate-empty" required="" style="font-size: 16px;height: 130px;"></textarea>
+								<textarea id="description" maxlength="65535" class="form-control validate-empty" required="" style="font-size: 16px;height: 130px;"></textarea>
 								<span class="highlight"></span>
 				                <span class="bar"></span>
 				      			<label for="description">Description</label>

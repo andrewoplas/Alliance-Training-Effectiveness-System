@@ -79,11 +79,18 @@
 			success: function(data, textStatus, jqXHR) {
 				$.each( checkboxes, function() {
 					$(this).parents('tr').find('.timeIn').text($('#timepickerTimeIn').val());
+					
+					if($(this).parents('tr').find('.timeOut span').text() == 'Absent') {
+						$(this).parents('tr').find('.timeOut span').remove();
+					}
 				});
 				
 				if($('#timeIn [name=user_id]').val().length > 0) {
 					var dataId = $('#timeIn [name=user_id]').val();
 					$('li.selected').find('[data-id=' + dataId + ']').find('.timeIn').text($('#timepickerTimeIn').val())
+					if($('li.selected').find('[data-id=' + dataId + ']').find('.timeOut span').text() == 'Absent') {
+						$('li.selected').find('[data-id=' + dataId + ']').find('.timeOut span').remove();
+					}
 				}
 				
 				swal({   
@@ -91,6 +98,8 @@
 		            type: "success",
 		            text: "We have now set the Time In of these users.",
 		   	 	});
+				
+				$("#timeIn").modal('hide');
             },
             error: function(jqXHR, status, error) {
             	showErrorAlert();
@@ -121,7 +130,21 @@
 					date: date
 			},
 			success: function(data, textStatus, jqXHR) {
-				if(data != 'timein_violation' ) {
+				if (data == 'timein_violation') {
+					swal({   
+			            title: "Oops!",
+			            type: "error",
+			            text: "Please set a Time In first.",
+			   	 	});
+				} else if(data == 'time_difference_violation') {
+					swal({   
+			            title: "Oops!",
+			            type: "error",
+			            text: "Time out must be after Time In",
+			   	 	});
+				} else if(data == 'error') {
+					showErrorAlert();
+				} else {
 					$.each( checkboxes, function() {
 						$(this).parents('tr').find('.timeOut').text($('#timepickerTimeOut').val());
 					});
@@ -136,18 +159,14 @@
 			            type: "success",
 			            text: "We have now set the Time Out of these users.",
 			   	 	});
-				} else {
-					swal({   
-			            title: "Oooops!",
-			            type: "error",
-			            text: "Please set a Time In first.",
-			   	 	});
+					
+					$("#timeOut").modal('hide');
 				}
             },
             error: function(jqXHR, status, error) {
             	showErrorAlert();
             }
-         });    	
+    	});    	
     });
     
     $('.btn-absent').click(function(){

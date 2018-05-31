@@ -61,17 +61,20 @@ public class UserTrainingController {
 	}
 	
 	@RequestMapping(value = "/training/{id}/{trainingPlanId}")
-	public String viewTraining(ModelMap map, HttpServletRequest request, @PathVariable int id, @PathVariable String trainingPlanId) {
+	public String viewTraining(ModelMap map, HttpServletRequest request, @PathVariable String id, @PathVariable String trainingPlanId) {
 		User user = session.getUser(request);
-		if(!tpService.checkTrainingInvolvement(user, id)) return "redirect:/error/404";
+		
+		if(!tpService.checkTrainingInvolvement(user, id)) 
+			return "redirect:/error/404";
 		
 		TrainingPlan training = adminTPService.retrieveTraining(trainingPlanId);
 		
 		if(training != null) {
-			List<User> participants = adminTPService.retrieveTrainingPeople(training, "Participant", true);
-			List<User> internal = adminTPService.retrieveTrainingPeople(training, "Internal", true);
-			List<User> external = adminTPService.retrieveTrainingPeople(training, "External", true);
-			List<User> supervisors = adminTPService.retrieveTrainingPeople(training, "Supervisor", true);
+			boolean showApprovedOnly = false;			
+			List<User> participants = adminTPService.retrieveTrainingPeople(training, "Participant", showApprovedOnly);
+			List<User> internal = adminTPService.retrieveTrainingPeople(training, "Internal", showApprovedOnly);
+			List<User> external = adminTPService.retrieveTrainingPeople(training, "External", showApprovedOnly);
+			List<User> supervisors = adminTPService.retrieveTrainingPeople(training, "Supervisor", showApprovedOnly);
 			List<Schedule> schedules = adminTPService.sortSchedule(training.getSchedules());
 						
 			map.addAttribute("participants", participants);
@@ -88,9 +91,10 @@ public class UserTrainingController {
 	}
 	
 	@RequestMapping(value = "/training/edit/{id}/{trainingPlanId}")
-	public String editTraining(ModelMap map, HttpServletRequest request, @PathVariable int id, @PathVariable String trainingPlanId) {
+	public String editTraining(ModelMap map, HttpServletRequest request, @PathVariable String id, @PathVariable String trainingPlanId) {
 		User user = session.getUser(request);
-		if(!tpService.checkTrainingInvolvementAndFacilitator(user, id)) return "redirect:/error/404";
+		if(!tpService.checkTrainingInvolvementAndFacilitator(user, id)) 
+			return "redirect:/error/404";
 		
 		TrainingPlan training = adminTPService.retrieveTraining(trainingPlanId);
 		
@@ -112,12 +116,12 @@ public class UserTrainingController {
 		String description = request.getParameter("description");
 		String outline = request.getParameter("outline");
 		
-		if(!tpService.checkTrainingInvolvementAndFacilitator(user, Integer.parseInt(userEventId))) return ResponseEntity.ok("not allowed");
+		if(!tpService.checkTrainingInvolvementAndFacilitator(user, userEventId)) 
+			return ResponseEntity.ok("not allowed");
 		
-		tpService.editTraining(id, description, outline);
+		boolean result = tpService.editTraining(id, description, outline);
 		
-		
-		return ResponseEntity.ok(true);
+		return ResponseEntity.ok(result);
 	}
 	
 	@RequestMapping(value = "/invitation")
@@ -132,21 +136,17 @@ public class UserTrainingController {
 	
 	@RequestMapping(value = "/invitation/accept", method = RequestMethod.POST)
 	public ResponseEntity<?> acceptInvitation(HttpServletRequest request) {
-		String id = request.getParameter("id");		
+		boolean result = tpService.acceptInvitation(request.getParameter("id"));
 		
-		tpService.acceptInvitation(id);
-		
-		return ResponseEntity.ok(id);
+		return ResponseEntity.ok(result);
 	}
 	
 	@RequestMapping(value = "/invitation/decline", method = RequestMethod.POST)
 	public ResponseEntity<?> declineInvitation(HttpServletRequest request) {
-		String id = request.getParameter("id");		
+		boolean result = tpService.declineInvitation(request.getParameter("id"));
 		
-		tpService.declineInvitation(id);
-		
-		return ResponseEntity.ok(id);
-	}
+		return ResponseEntity.ok(result);
+	} 
 	
 	@RequestMapping(value = "/training/getTrainings", method = RequestMethod.GET)
 	public ResponseEntity<?> getTrainings(HttpServletRequest request) {

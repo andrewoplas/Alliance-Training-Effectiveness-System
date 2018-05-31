@@ -104,6 +104,7 @@
             success: function(data, textStatus, jqXHR) {
                 if(data == 'success') {
                 	elem.addClass("fadeOut animated");
+                	$("#old-position").find("option[value=" + id + "]").remove();
                 	
                 	setTimeout(function(){
                 		var row = table.row(elem).remove().draw();

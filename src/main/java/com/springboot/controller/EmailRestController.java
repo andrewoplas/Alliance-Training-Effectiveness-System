@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.entities.custom.Mail;
-import com.springboot.service.CustomizedEmailService;
+import com.springboot.service.EmailService;
 
 @RestController
 public class EmailRestController{
 	
 	@Autowired
-	private CustomizedEmailService emailService;
+	private EmailService emailService;
 	
 	
 	public void sendGeneratedPassword(String password, String name, String email) throws MessagingException, IOException

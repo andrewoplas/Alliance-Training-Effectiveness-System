@@ -43,12 +43,28 @@ public class UserTrainingService {
 		return tpRepository.retrievePendingUserEvent(em, userID) ;
 	}
 	
-	public void acceptInvitation(String id) {
-		tpRepository.acceptInvitation(em, Integer.parseInt(id));
+	public boolean acceptInvitation(String id) {
+		try {
+			tpRepository.acceptInvitation(em, Integer.parseInt(id));
+			
+			return true;
+		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return false;
+		}
 	}
 	
-	public void declineInvitation(String id) {
-		tpRepository.declineInvitation(em, Integer.parseInt(id));
+	public boolean declineInvitation(String id) {
+		try {
+			tpRepository.declineInvitation(em, Integer.parseInt(id));
+			
+			return true;
+		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return false;
+		}
 	}
 	
 	public List<CustomSchedule> retrieveUserTrainingCustomSchedules(int id) {
@@ -79,48 +95,75 @@ public class UserTrainingService {
 		return null;
 	}
 
-	public boolean checkTrainingInvolvement(User user, int id) {
-		UserEvent userEvent = tpRepository.retrieveUserEventById(em, id);
-		boolean result = false;
-		
-		if(userEvent != null && userEvent.getUser().getId() == user.getId()) {
-			result = true;
+	public boolean checkTrainingInvolvement(User user, String id) {
+		try {
+			UserEvent userEvent = tpRepository.retrieveUserEventById(em, Integer.parseInt(id));
+			boolean result = false;
+			
+			if(userEvent != null && userEvent.getUser().getId() == user.getId()) {
+				result = true;
+			}
+			
+			return result;
+		} catch(NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return false;
 		}
-		
-		return result;
 	}
 
-	public boolean checkTrainingInvolvementAndFacilitator(User user, int id) {
-		UserEvent userEvent = tpRepository.retrieveUserEventById(em, id);
-		boolean result = false;
-		
-		if( userEvent != null && 
-			userEvent.getUser().getId() == user.getId() &&
-			userEvent.getRole().contains("Facilitator") ) {
-				result = true;
+	public boolean checkTrainingInvolvementAndFacilitator(User user, String id) {
+		try {
+			UserEvent userEvent = tpRepository.retrieveUserEventById(em, Integer.parseInt(id));
+			boolean result = false;
+			
+			if( userEvent != null && 
+				userEvent.getUser().getId() == user.getId() &&
+				userEvent.getRole().contains("Facilitator") ) {
+					result = true;
+			}
+			
+			return result;
+		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return false;
 		}
-		
-		return result;
 	}
 	
-	public boolean checkTrainingInvolvementAndSupervisor(User user, int id) {
-		UserEvent userEvent = tpRepository.retrieveUserEventById(em, id);
-		boolean result = false;
-		
-		if( userEvent != null && 
-			userEvent.getUser().getId() == user.getId() &&
-			userEvent.getRole().contains("Supervisor") ) {
-				result = true;
+	public boolean checkTrainingInvolvementAndSupervisor(User user, String id) {
+		try { 
+			UserEvent userEvent = tpRepository.retrieveUserEventById(em, Integer.parseInt(id));
+			boolean result = false;
+			
+			if( userEvent != null && 
+				userEvent.getUser().getId() == user.getId() &&
+				userEvent.getRole().contains("Supervisor") ) {
+					result = true;
+			}
+			
+			return result;
+		} catch(NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return false;
 		}
-		
-		return result;
 	}
 
-	public void editTraining(String id, String description, String courseOutline) {
-		TrainingPlan trainingPlan = new TrainingPlan();
-		trainingPlan.setId(Integer.parseInt(id));
-		trainingPlan.setDescription(description);
-		trainingPlan.setCourseOutline(courseOutline);
-		tpRepository.editTraining(em, trainingPlan);
+	public boolean editTraining(String id, String description, String courseOutline) {
+		try {
+			TrainingPlan trainingPlan = new TrainingPlan();
+			trainingPlan.setId(Integer.parseInt(id));
+			trainingPlan.setDescription(description);
+			trainingPlan.setCourseOutline(courseOutline);
+			tpRepository.editTraining(em, trainingPlan);
+			
+			return true;
+		} catch(NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return false;
+		}
+		
 	}
 }

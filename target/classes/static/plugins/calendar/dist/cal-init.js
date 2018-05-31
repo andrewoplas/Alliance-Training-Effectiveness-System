@@ -13,27 +13,6 @@
         this.$calendarObj = null
     };
 
-
-    /* on drop */
-    CalendarApp.prototype.onDrop = function (eventObj, date) { 
-        var $this = this;
-            // retrieve the dropped element's stored Event Object
-            var originalEventObject = eventObj.data('eventObject');
-            var $categoryClass = eventObj.attr('data-class');
-            // we need to copy it, so that multiple events don't have a reference to the same object
-            var copiedEventObject = $.extend({}, originalEventObject);
-            // assign it the date that was reported
-            copiedEventObject.start = date;
-            if ($categoryClass)
-                copiedEventObject['className'] = [$categoryClass];
-            // render the event on the calendar
-            $this.$calendar.fullCalendar('renderEvent', copiedEventObject, true);
-            // is the "remove after drop" checkbox checked?
-            if ($('#drop-remove').is(':checked')) {
-                // if so, remove the element from the "Draggable Events" list
-                eventObj.remove();
-            }
-    },
     /* on click on event */
     CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
         var $this = this;
@@ -102,6 +81,25 @@
                 var beginningObj = moment(beginning, 'hh : mm A');
                 var endingObj = moment(ending, 'hh : mm A');
                 var bgClassName = form.find("select[name='bg']").val();
+                
+            	var beginningMS = ((beginningObj.get('hour')*3600) + (beginningObj.get('minute') * 60)) * 1000;                	
+            	var endingMS = ((endingObj.get('hour')*3600) + (endingObj.get('minute') * 60)) * 1000;
+            	
+            	if(beginningMS > endingMS) {
+            		swal("Ooops!", "The End Time must be after the Start Time", "error");
+            		
+            		return false;
+            	}
+            	
+            	var now = moment();
+            	var nowMS = ((now.get('hour')*3600) + (now.get('minute') * 60)) * 1000;
+            	
+            	if(now.isSame(calEvent.start, 'day') && now.isSame(calEvent.start, 'month') && now.isSame(calEvent.start, 'year') && nowMS > beginningMS) {
+            		swal("Ooops!", "Start Time must be after the time today.", "error");
+            		
+            		return false;
+            	}
+            	
                 	
                 // Set Time Start
                 calEvent.start.set('hour', beginningObj.get('hour'));
@@ -125,6 +123,13 @@
     },
     /* on select */
     CalendarApp.prototype.onSelect = function (start, end, allDay) {
+        var now = moment();
+        
+        if(start.isBefore(now, 'day'))
+        {
+        	return false;
+        }    	
+    	
         var $this = this;
             $this.$modal.modal({
                 backdrop: 'static'
@@ -221,27 +226,39 @@
                 	var beginningMS = ((beginningObj.get('hour')*3600) + (beginningObj.get('minute') * 60)) * 1000;                	
                 	var endingObj = moment(ending, 'hh : mm A');
                 	var endingMS = ((endingObj.get('hour')*3600) + (endingObj.get('minute') * 60)) * 1000;
-                	var day = 0;
+                	now = moment();
+                	
+                	if(beginningMS > endingMS) {
+                		swal("Ooops!", "The End Time must be after the Start Time.", "error");
+                		
+                		return false;
+                	}
                 	
                 	// Loop                	
                 	var numberOfDays = Math.abs(start.diff(end, 'days')) - 1;
-                	var processing = function() {
+                	
+                	var processing = function() {                		
                 		if ((numberOfDays--) > 0 ) {
                 			setTimeout(processing, 5);
                 		}
                 		
-                		$this.$calendarObj.fullCalendar('renderEvent', {
-		                        title: title,
-		                        start: start.add('day', day) + beginningMS,
-		                        end: start + endingMS,
-		                        allDay: false,
-		                        className: bgClassName
-        				}, true);
+                		var nowMS = ((now.get('hour') * 3600) + (now.get('minute') * 60)) * 1000;
+                		if(start.isSame(now, 'day') && nowMS > beginningMS) {
+                			// Do nothing
+                		} else {
+                			$this.$calendarObj.fullCalendar('renderEvent', {
+    	                        title: title,
+    	                        start: start + beginningMS,
+    	                        end: start + endingMS,
+    	                        allDay: false,
+    	                        className: bgClassName
+                			}, true);
+                		}
                 		
-                		day = 1; 
+            			start.add(1, 'day');
             		}
             		processing();
-	                    
+	                            		
                 	$('#calendar').parent().find('.help-block-schedule').addClass('hide');
                     $this.$modal.modal('hide');
                 } else {
@@ -254,7 +271,7 @@
             });
             $this.$calendarObj.fullCalendar('unselect');
     },
-    CalendarApp.prototype.enableDrag = function() {
+    CalendarApp.prototype.enableDrag = function() {    	
         //init events
         $(this.$event).each(function () {
             // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
@@ -282,7 +299,9 @@
             defaultView: 'month',  
             handleWindowResize: true,
             noEventsMessage: "No training schedule to display",
-             
+            minTime: '00:00:00',
+            selectOverlap: false,
+            
             header: {
                 left: 'prev,next today',
                 center: 'title',
@@ -300,10 +319,21 @@
             },
             
             editable: true,
-            droppable: true, // this allows things to be dropped onto the calendar !!!
+            droppable: false, // this allows things to be dropped onto the calendar !!!
             eventLimit: true, // allow "more" link when too many events
             selectable: true,
-            drop: function(date) { $this.onDrop($(this), date); },
+            eventDrop: function(event, delta, revertFunc) {
+            	var now = moment();
+            	var startMS = ((event.start.get('hour')*3600) + (event.start.get('minute') * 60)) * 1000;
+            	var nowMS = ((now.get('hour')*3600) + (now.get('minute') * 60)) * 1000;
+            	
+            	if(now.isSame(event.start, 'day') && now.isSame(event.start, 'month') && now.isSame(event.start, 'year') && nowMS > startMS) {
+            		revertFunc();
+            	} else if (now.isAfter(event.start)) {
+            		revertFunc();
+        		} 
+            	
+            },
             select: function (start, end, allDay) { $this.onSelect(start, end, allDay); },
             eventClick: function(calEvent, jsEvent, view) { $this.onEventClick(calEvent, jsEvent, view); }
 

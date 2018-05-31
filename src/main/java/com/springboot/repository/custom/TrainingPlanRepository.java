@@ -1,5 +1,7 @@
 package com.springboot.repository.custom;
 
+import java.sql.Time;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -88,7 +90,6 @@ public class TrainingPlanRepository {
 			query.setParameter("uid", userEvents[i].getUser().getId());
 			
 			if(query.getResultList().size() == 0) {
-				System.out.println(userEvents[i].getUser().getName());
 				em.persist(userEvents[i]);
 			}			
 		}
@@ -121,47 +122,63 @@ public class TrainingPlanRepository {
 		return true;
 	}
 
-	public void insertAttendance(EntityManager em, List<Attendance> attendances) {
-		Query query;
+	public void insertAttendance(EntityManager em, Attendance attendance, Time absentTime) {
+		String sql = "UPDATE Attendance SET timeIn = :timeIn WHERE trainingPlanID = :tid AND userID = :uid AND date = :date";
+		Query query = em.createQuery(sql);
+		query.setParameter("tid", attendance.getTrainingPlan().getId());
+		query.setParameter("uid", attendance.getUser().getId());
+		query.setParameter("date", attendance.getDate());
+		query.setParameter("timeIn", attendance.getTimeIn());
+		int result = query.executeUpdate();
 		
-		for(Attendance attendance: attendances) {
-			String sql = "UPDATE Attendance SET timeIn = :timeIn WHERE trainingPlanID = :tid AND userID = :uid AND date = :date";
+		if(result <= 0) {
+			em.persist(attendance);
+		} else {
+			// Remove attendance if time in was set
+			sql = "UPDATE Attendance SET timeOut = :timeOut WHERE trainingPlanID = :tid AND userID = :uid AND date = :date AND timeOut = :timeOutData";
 			query = em.createQuery(sql);
 			query.setParameter("tid", attendance.getTrainingPlan().getId());
 			query.setParameter("uid", attendance.getUser().getId());
 			query.setParameter("date", attendance.getDate());
-			query.setParameter("timeIn", attendance.getTimeIn());
-			int result = query.executeUpdate();
-			
-			if(result <= 0) {
-				em.persist(attendance);
-			}
+			query.setParameter("timeOut", null);
+			query.setParameter("timeOutData", absentTime);
+			query.executeUpdate();
 		}
 	}
 	
-	public boolean checkHasTimeIn(EntityManager em, Collection<Integer> ids, int trainingId, Date date) {
+	public boolean checkHasTimeIn(EntityManager em, Collection<Integer> ids, int trainingId, Date date, Time absent) {
 		Query query;
 		
-		String sql = "FROM Attendance WHERE date = :date AND trainingPlanID = :tid AND userID IN(:uid) AND timeIn != null";
+		String sql = "FROM Attendance WHERE date = :date AND trainingPlanID = :tid AND userID IN(:uid) AND (timeIn <> :emptyTimeIn OR timeIn <> :absent)";
 		query = em.createQuery(sql);
 		query.setParameter("tid", trainingId);
 		query.setParameter("uid", ids);
 		query.setParameter("date", date);
+		query.setParameter("emptyTimeIn", null);
+		query.setParameter("absent", absent);
 		return query.getResultList().size() == ids.size();
 	}
 	
-	public void insertTimeOutAttendance(EntityManager em, List<Attendance> attendances) {
+	public boolean checkIfBeforeTimeIn(EntityManager em, List<Integer> ids, int trainingId, Date date, Time timeOut) {
 		Query query;
 		
-		for(Attendance attendance: attendances) {
-			String sql = "UPDATE Attendance SET timeOut = :timeOut WHERE trainingPlanID = :tid AND userID = :uid AND date = :date";
-			query = em.createQuery(sql);
-			query.setParameter("tid", attendance.getTrainingPlan().getId());
-			query.setParameter("uid", attendance.getUser().getId());
-			query.setParameter("date", attendance.getDate());
-			query.setParameter("timeOut", attendance.getTimeOut());
-			query.executeUpdate();
-		}
+		String sql = "FROM Attendance WHERE date = :date AND trainingPlanID = :tid AND userID IN(:uid) AND timeIn < :timeOut";
+		query = em.createQuery(sql);
+		query.setParameter("tid", trainingId);
+		query.setParameter("uid", ids);
+		query.setParameter("date", date);
+		query.setParameter("timeOut", timeOut);
+		return query.getResultList().size() == ids.size();
+	}
+	
+	public void insertTimeOutAttendance(EntityManager em, Attendance attendance) {
+		String sql = "UPDATE Attendance SET timeOut = :timeOut WHERE trainingPlanID = :tid AND userID = :uid AND date = :date";
+		Query query = em.createQuery(sql);
+		query.setParameter("tid", attendance.getTrainingPlan().getId());
+		query.setParameter("uid", attendance.getUser().getId());
+		query.setParameter("date", attendance.getDate());
+		query.setParameter("timeOut", attendance.getTimeOut());
+		query.executeUpdate();
 	}
 
 	public void insertAbsentAttendance(EntityManager em, Attendance attendance) {

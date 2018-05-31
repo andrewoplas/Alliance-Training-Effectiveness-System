@@ -47,6 +47,8 @@ public class TrainingPlanService {
 		try {
 			return tpRepository.retrieveTraining(em, Integer.parseInt(id));
 		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+			
 			return null;
 		}
 	}
@@ -168,6 +170,8 @@ public class TrainingPlanService {
 			
 			tpRepository.editSchedule(em, schedule, tp.getId());
 		} catch (ParseException ex) {
+			ex.printStackTrace();
+			
 			return false;
 		}
 		
@@ -215,6 +219,8 @@ public class TrainingPlanService {
 			tpRepository.editUserEvent(em, tp.getId(), userEvents.toArray(new UserEvent[userEvents.size()]), userIDS);
 			result = true;
 		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+			
 			return false;
 		}
 		
@@ -224,7 +230,11 @@ public class TrainingPlanService {
 	public boolean deleteTraining(String id) {
 		boolean result = false;
 		
-		result = tpRepository.removeTraining(em, Integer.parseInt(id));
+		try {
+			result = tpRepository.removeTraining(em, Integer.parseInt(id));
+		} catch (Exception ex) {
+			result = false;
+		}
 		
 		return result;
 	}
@@ -322,18 +332,21 @@ public class TrainingPlanService {
 		return schedules;
 	}
 
-	public void insertAttendance(String trainingId, String ids, String time, String date) {
+	public boolean insertAttendance(String trainingId, String ids, String time, String date) {
 		try {
 			SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+			SimpleDateFormat timeFormatterSeconds = new SimpleDateFormat("HH:mm:ss");
+			
 			Time timeIn = new Time(timeFormatter.parse(time).getTime());
+			Time absent = new Time(timeFormatterSeconds.parse("00:00:01").getTime());
 			Date timeInDate = dateFormatter.parse(date);
 			int[] intArray = Arrays.stream(ids.split(","))
 				    .mapToInt(Integer::parseInt)
 				    .toArray();
 			int training = Integer.parseInt(trainingId);
 			
-			List<Attendance> attendances = new ArrayList<Attendance>();
+			// Insert attendance
 			for(int i=0; i<intArray.length; i++) {
 				Attendance attendance = new Attendance();
 				attendance.setDate(timeInDate);
@@ -341,13 +354,14 @@ public class TrainingPlanService {
 				attendance.setTrainingPlan(new TrainingPlan(training));
 				attendance.setUser(new User(intArray[i]));
 				
-				attendances.add(attendance);
+				tpRepository.insertAttendance(em, attendance, absent);
 			}
 			
-			tpRepository.insertAttendance(em, attendances);
-			
+			return true;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			
+			return false;
 		}
 	}
 	
@@ -358,16 +372,24 @@ public class TrainingPlanService {
 				    .toArray();
 			int training = Integer.parseInt(trainingId);
 			SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat timeFormatterSeconds = new SimpleDateFormat("HH:mm:ss");
+			SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+			
+			Time absent = new Time(timeFormatterSeconds.parse("00:00:01").getTime());
+			Time timeOut = new Time(timeFormatter.parse(time).getTime());
 			Date timeOutDate = dateFormatter.parse(date);
 			
-			if(!tpRepository.checkHasTimeIn(em, (List<Integer>) Ints.asList(intArray), training, timeOutDate)) {
+			// Check if has time in
+			if(!tpRepository.checkHasTimeIn(em, (List<Integer>) Ints.asList(intArray), training, timeOutDate, absent)) {
 				return "timein_violation";
 			}
 			
-			SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
-			Time timeOut = new Time(timeFormatter.parse(time).getTime());
+			// Check if valid time out 
+			if(!tpRepository.checkIfBeforeTimeIn(em, (List<Integer>) Ints.asList(intArray), training, timeOutDate, timeOut)) {
+				return "time_difference_violation";
+			}
 			
-			List<Attendance> attendances = new ArrayList<Attendance>();
+			// Update Timeout attendance
 			for(int i=0; i<intArray.length; i++) {
 				Attendance attendance = new Attendance();
 				attendance.setDate(timeOutDate);
@@ -375,52 +397,64 @@ public class TrainingPlanService {
 				attendance.setTrainingPlan(new TrainingPlan(training));
 				attendance.setUser(new User(intArray[i]));
 				
-				attendances.add(attendance);
+				tpRepository.insertTimeOutAttendance(em, attendance);
 			}
-			
-			tpRepository.insertTimeOutAttendance(em, attendances);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			
+			return "error";
 		}
 		
 		return null;
 	}
 
-	public void insertAbsentAttendance(String trainingId, String id, String date) {
+	public boolean insertAbsentAttendance(String trainingId, String id, String date) {
 		try {
-			Attendance attendance = new Attendance();
-			attendance.setUser(new User(Integer.parseInt(id)));
-			attendance.setTrainingPlan(new TrainingPlan(Integer.parseInt(trainingId)));
 			
 			SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
 		    Time emptyTime = new Time(timeFormatter.parse("00:00:01").getTime());
 		    Date timeDate = dateFormatter.parse(date);
 		    
+		    // Create attendance entity
+			Attendance attendance = new Attendance();
+			attendance.setUser(new User(Integer.parseInt(id)));
+			attendance.setTrainingPlan(new TrainingPlan(Integer.parseInt(trainingId)));		
 			attendance.setTimeIn(emptyTime);
 			attendance.setTimeOut(emptyTime);
 			attendance.setDate(timeDate);
 			
+			// Insert attendance entity
 			tpRepository.insertAbsentAttendance(em, attendance);
+			
+			return true;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			
+			return false;
 		}
 	}
 	
-	public void resetAttendance(String trainingId, String id, String date) {
+	public boolean resetAttendance(String trainingId, String id, String date) {
 		try {
 			SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 		    Date timeDate = dateFormatter.parse(date);
 			
+		    // Create the attendance entity
 			Attendance attendance = new Attendance();
 			attendance.setUser(new User(Integer.parseInt(id)));
 			attendance.setTrainingPlan(new TrainingPlan(Integer.parseInt(trainingId)));
 			attendance.setDate(timeDate);
-						
+			
+			// Update the attendance entity
 			tpRepository.resetAttendance(em, attendance);
+			
+			return true;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			
+			return false;
 		}
 	}
 	

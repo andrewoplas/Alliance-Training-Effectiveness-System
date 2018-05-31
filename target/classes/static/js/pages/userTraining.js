@@ -26,11 +26,15 @@
 			type: 'POST',
 			data: {id: id},
 			success: function(data, textStatus, jqXHR) {
-				parent.find('.status .badge').removeClass('badge-danger');
-				parent.find('.status .badge').addClass('badge-success');
-				parent.find('.status .badge').text('Approved');
-				parent.find('.btn-accept').addClass('hide');
-				parent.find('.btn-decline').removeClass('hide');
+				if(data == true) {
+					parent.find('.status .badge').removeClass('badge-danger');
+					parent.find('.status .badge').addClass('badge-success');
+					parent.find('.status .badge').text('Approved');
+					parent.find('.btn-accept').addClass('hide');
+					parent.find('.btn-decline').removeClass('hide');
+				} else {
+					showErrorAlert();
+				}
             },
             error: function(jqXHR, status, error) {
             	showErrorAlert();
@@ -60,13 +64,17 @@
     	            type: 'POST',
     	            data: {id: id},
     	            success: function(data, textStatus, jqXHR) {
-    	            	swal("Invitation Declined", "You have successfully declined the invitation to join " + training, "success");
-    	            	
-    	            	parent.find('.status .badge').removeClass('badge-success');
-    					parent.find('.status .badge').addClass('badge-danger');
-    					parent.find('.status .badge').text('Declined');
-    					parent.find('.btn-decline').addClass('hide');
-    					parent.find('.btn-accept').removeClass('hide');
+    	            	if(data == true) {
+	    	            	swal("Invitation Declined", "You have successfully declined the invitation to join " + training, "success");
+	    	            	
+	    	            	parent.find('.status .badge').removeClass('badge-success');
+	    					parent.find('.status .badge').addClass('badge-danger');
+	    					parent.find('.status .badge').text('Declined');
+	    					parent.find('.btn-decline').addClass('hide');
+	    					parent.find('.btn-accept').removeClass('hide');
+    	            	} else {
+    	            		showErrorAlert();
+    	            	}
     	            },
     	            error: function(jqXHR, status, error) { 
     	            	showErrorAlert(); 

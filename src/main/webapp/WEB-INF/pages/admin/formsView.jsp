@@ -176,14 +176,17 @@
 			<div class="col-xs-12 col-sm-12 col-md-9">
 				<div class="white-box">
                     <h3 class="box-title m-b-30">Statistics 
-                    	<small class="text-muted">
+                    	<small class="text-muted m-l-5">
                     		${ answered } ${ answered > 1 ? 'Responses' : 'Response' }
                    		</small>
                    	</h3>
                     
                     <c:forEach var="question" items="${ questions }" varStatus="loop">
                     <div class="question-container" data-type="${ question.type }" data-id="${ question.id }">
-                    	<p class="question"><span>${ loop.count }</span> ${ question.description }</p>
+                    	<p class="question">
+                    		<span>${ loop.count }</span> ${ question.description }
+                   		</p>
+                   		
                     	<div class="data-container hide">
                     	
                     		<c:forEach var="userEvent" items="${ userEvents }">
@@ -209,7 +212,6 @@
                 </div>
 			</div>
 		</div>
-		
 		
 	</div>
 </div>

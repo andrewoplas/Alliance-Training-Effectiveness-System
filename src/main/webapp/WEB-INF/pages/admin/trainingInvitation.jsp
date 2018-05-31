@@ -30,18 +30,18 @@
 			                           <thead>
 			                               <tr>
 			                                   <th>Name</th>
-			                                   <th>Role</th>
-			                                   <th>Status</th>
+			                                   <th class="text-center">Role</th>
+			                                   <th class="text-center">Status</th>
 			                               </tr>
 			                           </thead>
 			                           <tbody>		                           
 											<c:forEach var="userEvent" items="${ userEvents }">
 												<tr>
 													<td class="name" width="25%">${userEvent.user.name}</td>
-													<td class="name" width="25%">
+													<td class="name text-center" width="25%">
 														<span class="badge ${ userEvent.role }">${ userEvent.role }</span>
 													</td>
-													<td class="name" width="25%">
+													<td class="name text-center" width="25%">
 														<c:choose>
 															<c:when test="${ userEvent.status == 'approved' }">
 																<span class="badge badge-success">Approved</span>

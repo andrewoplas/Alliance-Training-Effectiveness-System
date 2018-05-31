@@ -4,9 +4,11 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import org.hibernate.NonUniqueResultException;
 import org.springframework.stereotype.Repository;
 
 import com.springboot.entities.Form;
@@ -36,7 +38,16 @@ public class FormsRepository {
 		query.setParameter("id", id);
 		query.setMaxResults(1);
 		
-		category = (SaCategory)query.getSingleResult();
+		try {
+			category = (SaCategory) query.getSingleResult();
+		} catch (NonUniqueResultException ex) {
+			ex.printStackTrace();
+			category = null;
+		} catch (NoResultException ex) {
+			ex.printStackTrace();
+			category = null;
+		}
+		
 		return category;
 	}
 	
@@ -107,7 +118,16 @@ public class FormsRepository {
 		query.setParameter("id", formID);
 		query.setMaxResults(1);
 		
-		form = (Form)query.getSingleResult();
+		try {
+			form = (Form)query.getSingleResult();
+		} catch (NonUniqueResultException ex) {
+			ex.printStackTrace();
+			form = null;
+		} catch (NoResultException ex) {
+			ex.printStackTrace();
+			form = null;
+		}
+		
 		return form;
 	}
 	
@@ -137,7 +157,17 @@ public class FormsRepository {
 		query.setParameter("id", formAnswerID);
 		query.setMaxResults(1);
 		
-		formAnswer = (FormAnswer)query.getSingleResult();
+		
+		try {
+			formAnswer = (FormAnswer)query.getSingleResult();
+		} catch (NonUniqueResultException ex) {
+			ex.printStackTrace();
+			formAnswer = null;
+		} catch (NoResultException ex) {
+			ex.printStackTrace();
+			formAnswer = null;
+		}
+		
 		return formAnswer;
 	}
 
@@ -148,7 +178,16 @@ public class FormsRepository {
 		query.setParameter("id", formAssignmentID);
 		query.setMaxResults(1);
 		
-		formAssignment = (FormAssignment)query.getSingleResult();
+		try {
+			formAssignment = (FormAssignment)query.getSingleResult();
+		} catch (NonUniqueResultException ex) {
+			ex.printStackTrace();
+			formAssignment = null;
+		} catch (NoResultException ex) {
+			ex.printStackTrace();
+			formAssignment = null;
+		}
+		
 		return formAssignment;
 	}
 

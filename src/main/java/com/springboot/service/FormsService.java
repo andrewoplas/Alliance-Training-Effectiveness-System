@@ -128,8 +128,16 @@ public class FormsService {
 		return formsRepository.retrieveParentSkillsAssessment(em);
 	}
 
-	public void insertQuestions(Question[] questions, int formID) {
-		Form form = new Form(formID);
+	public boolean insertQuestions(Question[] questions, String formID) {
+		int formid;
+		
+		try {
+			formid = Integer.parseInt(formID);
+		} catch (NumberFormatException ex) {
+			return false;
+		}
+		
+		Form form = new Form(formid);
 		List<FormQuestion> formQuestions = new ArrayList<FormQuestion>();
 		List<Integer> questionIDS = new ArrayList<Integer>();
 		
@@ -160,7 +168,7 @@ public class FormsService {
 		
 		// Delete removed questions
 		if(questionIDS.size() == 0) { questionIDS.add(0); }
-		formsRepository.deleteQuestions(em, formID, questionIDS);
+		formsRepository.deleteQuestions(em, formid, questionIDS);
 		
 		// Merge or Persist
 		for(FormQuestion question : formQuestions) {
@@ -185,13 +193,15 @@ public class FormsService {
 				}
 			}
 		}
+		
+		return true;
 	}
 
 	public Form retrieveForm(int formID) {
 		return formsRepository.retrieveForm(em, formID);
 	}
 
-	public void assignForm(String formID, String userEventID) {
+	public boolean assignForm(String formID, String userEventID) {
 		try {
 			FormAssignment assignment = new FormAssignment();
 			assignment.setForm(new Form(Integer.parseInt(formID)));
@@ -199,29 +209,43 @@ public class FormsService {
 			assignment.setStatus("unanswered");
 			
 			formsRepository.insertFormAssignment(em, assignment);
+			
+			return true;
 		} catch (NumberFormatException ex) {
 			ex.printStackTrace();
+			return false;
 		}
 	}
 
-	public void releaseForm(String formID, TrainingPlan training) {
+	public boolean releaseForm(String formID, TrainingPlan training) {
 		List<UserEvent> participants = tpService.retrieveTrainingUserEvent(training, "Participant", false);
-		int form = Integer.parseInt(formID);
 		
-		for(UserEvent participant : participants) {
-			if(!formsRepository.containsFormAssignment(em, form, participant.getId())) {
-				FormAssignment assignment = new FormAssignment();
-				assignment.setForm(new Form(form));
-				assignment.setUserEvent(new UserEvent(participant.getId()));
-				assignment.setStatus("unanswered");
-				
-				formsRepository.insertFormAssignment(em, assignment);
+		try {
+			int form = Integer.parseInt(formID);
+			
+			for(UserEvent participant : participants) {
+				if(!formsRepository.containsFormAssignment(em, form, participant.getId())) {
+					FormAssignment assignment = new FormAssignment();
+					assignment.setForm(new Form(form));
+					assignment.setUserEvent(new UserEvent(participant.getId()));
+					assignment.setStatus("unanswered");
+					
+					formsRepository.insertFormAssignment(em, assignment);
+				}
 			}
+			
+			return true;
+		} catch (NumberFormatException ex) {
+			return false;
 		}
 	}
 	
-	public SaAssignment retrieveAssignmentById(int assignmentID) {
-		return formsRepository.retrieveAssignment(em, assignmentID);
+	public SaAssignment retrieveAssignmentById(String assignmentID) {
+		try {
+			return formsRepository.retrieveAssignment(em, Integer.parseInt(assignmentID));
+		} catch (NumberFormatException ex) {
+			return null;
+		}
 	}
 
 	public FormAnswer retrieveFormAnswer(String answerID) {
@@ -248,7 +272,7 @@ public class FormsService {
 		return formAnswer;
 	}
 
-	public void downloadExcel(String formid, String fileName, String trainingPlanID, HttpServletResponse response) {
+	public boolean downloadExcel(String formid, String fileName, String trainingPlanID, HttpServletResponse response) {
 		int formID = Integer.parseInt(formid);
 		Form form = formsService.retrieveForm(formID);
     	TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
@@ -338,13 +362,14 @@ public class FormsService {
 			e.printStackTrace();
 		}
 		
+        return true;
 	}
 	
-	public void generatePDF(HttpServletResponse response, String assignmentID, String fileName) {
+	public boolean generatePDF(HttpServletResponse response, String assignmentID, String fileName) {
 		FormAssignment assignment = retrieveFormAssignment(assignmentID);
 		
 		if(assignment == null) {
-			return;
+			return false;
 		}
 		
 		Form form = assignment.getForm();
@@ -362,11 +387,15 @@ public class FormsService {
 			response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
 			response.setHeader("Content-Length", String.valueOf(file.length()));
 			FileCopyUtils.copy(in, response.getOutputStream());
+			
+			return true;
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+		
+		return false;
 	}
 
 	

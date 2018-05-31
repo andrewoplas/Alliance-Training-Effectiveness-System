@@ -3,12 +3,14 @@ package com.springboot.repository.custom;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import org.hibernate.NonUniqueResultException;
 import org.springframework.stereotype.Repository;
 
-
+import com.springboot.entities.SaCategory;
 import com.springboot.entities.User;
 
 
@@ -26,7 +28,11 @@ public class LoginRepository {
 		
 		try {
 			user = (User)query.getSingleResult();
-		} catch(Exception ex) {
+		} catch (NonUniqueResultException ex) {
+			ex.printStackTrace();
+			user = null;
+		} catch (NoResultException ex) {
+			ex.printStackTrace();
 			user = null;
 		}
 		

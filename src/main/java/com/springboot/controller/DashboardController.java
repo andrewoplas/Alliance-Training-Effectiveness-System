@@ -30,7 +30,6 @@ public class DashboardController {
 		int trainingCount = trainings.size();
 		int trainingRequestCount = 0;
 		
-		// Map
 		map.addAttribute("userCount", userCount);
 		map.addAttribute("pendingUserCount", pendingUserCount);
 		map.addAttribute("trainingCount", trainingCount);

@@ -138,6 +138,10 @@ input.timepicki-input {
 	text-transform: uppercase;
 }
 
+.checkbox label::before {
+	border: 1px solid rgb(130, 130, 130) !important;
+}
+
 @media only screen and (min-width: 1100px) {
 	.cd-horizontal-timeline {
 	    margin: 0em auto;

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Repository;
 import com.springboot.entities.SaAnswer;
 import com.springboot.entities.SaAssignment;
 import com.springboot.entities.TrainingPlan;
+import com.springboot.entities.User;
 import com.springboot.entities.UserEvent;
 
 
@@ -107,9 +110,16 @@ public class UserTrainingRepository {
 		query.setMaxResults(1);
 		
 		UserEvent userEvent = null;
+		
 		try {
 			userEvent = (UserEvent) query.getSingleResult();
-		} catch (Exception ex) { ex.printStackTrace(); }
+		} catch (NonUniqueResultException ex) {
+			ex.printStackTrace();
+			userEvent = null;
+		} catch (NoResultException ex) {
+			ex.printStackTrace();
+			userEvent = null;
+		}
 		
 		return userEvent;
 	}

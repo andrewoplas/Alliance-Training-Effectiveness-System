@@ -80,7 +80,7 @@ public class FormsController {
 	}
 	
 	@RequestMapping(value = "/skills-assessment/view/answer/{assignmentID}")
-	public String viewAnswersAssessment(@PathVariable int assignmentID, ModelMap map) {
+	public String viewAnswersAssessment(@PathVariable String assignmentID, ModelMap map) {
 		SaAssignment assignment = formsService.retrieveAssignmentById(assignmentID);
 		
 		if(assignment != null && assignment.getStatus().equals("answered")) {
@@ -182,12 +182,41 @@ public class FormsController {
 		return "/forms/formsView";
 	}
 	
+	@RequestMapping(value = "/training-needs-assessment")
+	public String trainingNeedsAssessment(ModelMap map) {
+		Form form = formsService.retrieveForm(4);
+		
+		map.addAttribute("form", form);
+		map.addAttribute("questions", form.getFormQuestions());
+		
+		return "/forms/formConfig";
+	}
+	
+	@RequestMapping(value = "/training-needs-assessment/view/{trainingPlanID}")
+	public String releaseTrainingNeedsAssessment(ModelMap map, @PathVariable String trainingPlanID) {
+		TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
+		
+		if(training != null) {
+			List<UserEvent> participants = tpService.retrieveTrainingUserEvent(training, "Participant", false);
+			Form form = formsService.retrieveForm(4);
+			
+			map.addAttribute("form", form);
+			map.addAttribute("questions", form.getFormQuestions());
+			map.addAttribute("training", training);
+			map.addAttribute("userEvents", participants);
+		} else {
+			return "redirect:/error/404";
+		}
+		
+		return "/forms/formsView";
+	}
+	
 	@RequestMapping(value = "/questions/{formID}", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<?> insertQuestions(@PathVariable int formID, @RequestBody Question[] questions) {		
+	public @ResponseBody ResponseEntity<?> insertQuestions(@PathVariable String formID, @RequestBody Question[] questions) {		
 		
-		formsService.insertQuestions(questions, formID);
+		boolean result = formsService.insertQuestions(questions, formID);
 		
-		return ResponseEntity.ok(true);
+		return ResponseEntity.ok(result);
 	}
 	
 	@RequestMapping(value = "/assign", method = RequestMethod.POST)
@@ -195,9 +224,9 @@ public class FormsController {
 		String formID = request.getParameter("formID");
 		String userEventID = request.getParameter("userEventID");
 		
-		formsService.assignForm(formID, userEventID);
+		boolean result = formsService.assignForm(formID, userEventID);
 		
-		return ResponseEntity.ok(true);
+		return ResponseEntity.ok(result);
 	}
 	
 	@RequestMapping(value = "/assign/all", method = RequestMethod.POST)
@@ -227,15 +256,15 @@ public class FormsController {
 	
     @RequestMapping(value = "/download/{formID}/{fileName}/{trainingPlanID}", method = RequestMethod.GET)
     public ResponseEntity<?> downloadExcel(HttpServletResponse response, @PathVariable String formID, @PathVariable String fileName, @PathVariable String trainingPlanID) {
-    	formsService.downloadExcel(formID, fileName, trainingPlanID, response);        
+    	boolean result = formsService.downloadExcel(formID, fileName, trainingPlanID, response);        
     	
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok(result);
     }
     
     @RequestMapping(value = "/downloadPDF/{assignmentID}/{fileName}", method = RequestMethod.GET)
     public ResponseEntity<?> PDFDownload(HttpServletResponse response, @PathVariable String assignmentID, @PathVariable String fileName) {
-    	formsService.generatePDF(response, assignmentID, fileName);
+    	boolean result = formsService.generatePDF(response, assignmentID, fileName);
     	
-    	return ResponseEntity.ok(true);
+    	return ResponseEntity.ok(result);
     }	
 }

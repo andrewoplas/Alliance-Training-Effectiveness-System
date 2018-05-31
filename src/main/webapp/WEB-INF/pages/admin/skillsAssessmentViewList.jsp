@@ -81,6 +81,20 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- /row -->
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-9">
+				<div class="white-box">
+                    <h3 class="box-title m-b-30">Statistics 
+                    	<small class="text-muted m-l-5">
+                    		${ answered } ${ answered > 1 ? 'Responses' : 'Response' }
+                   		</small>
+                   	</h3>
+                   
+                </div>
+			</div>
+		</div>
 
 	</div>
 </div>

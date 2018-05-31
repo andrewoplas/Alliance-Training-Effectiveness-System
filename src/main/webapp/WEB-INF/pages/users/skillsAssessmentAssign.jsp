@@ -49,7 +49,7 @@
 											<td width="3%"></td>
 											<td width="30%">${ participant.name }</td>
 											<td width="50%">
-												<select class="ui search dropdown multi-select" multiple="" id="${ participant.userEventID }-peer">
+												<select class="ui search dropdown multi-select" multiple="true" id="${ participant.userEventID }-peer">
 												  	<option value="" disabled>Choose Peer</option>
 												  	<c:forEach var="innerParticipant" items="${ participants }">
 												  		<c:if test="${ innerParticipant.userEventID != participant.userEventID }">
@@ -65,7 +65,7 @@
 												</select>
 											</td>
 											<td width="25%">
-												<select class="ui search dropdown multi-select" multiple="" id="${ participant.userEventID }-supervisor">
+												<select class="ui search dropdown multi-select" multiple="true" id="${ participant.userEventID }-supervisor">
 												  	<option value="" disabled>Choose Supervisor</option>
 												  	<c:forEach var="supervisor" items="${ supervisors }">
 												  		<option 

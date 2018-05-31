@@ -20,9 +20,10 @@
 		var elem = $(this).parents('tr');
 		var id = elem.attr('data-id');
 		var name = elem.find('td:first').text();
+		
 		swal({   
             title: "Are you sure?",   
-            text: "You will not be able to recover this imaginary file!",   
+            text: "You will not be able to recover " + name + "!",   
             type: "warning",   
             showCancelButton: true,   
             confirmButtonColor: "#f44336",

@@ -74,6 +74,7 @@
 	                        <!-- .timeline -->
 	                        <div class="events-content">
 	                            <ol>
+	                            
 	                            	<c:set var="selected" value="false" />
 	                                <c:set var="selectedClass" value="" />
 	                                <c:set var="count" value="1" scope="page" />
@@ -124,17 +125,17 @@
 														<table class="table attendance-table">
 															<thead>
 																<tr>
-																	<th class="nosort"></th>
-																	<th class="nosort">
+																	<th></th>
+																	<th>
 																		<div class="checkbox checkbox-circle checkbox-info m-t-0 m-b-0">
 						                                                    <input value="all" class="all" type="checkbox" />
 						                                                    <label for="all"> </label>
 						                                                </div>
 																	</th>
 																	<th>Name</th>
-																	<th class="text-center nosort">Time In</th>
-																	<th class="text-center nosort">Time Out</th>
-																	<th class="nosort">Action</th>
+																	<th class="text-center">Time In</th>
+																	<th class="text-center">Time Out</th>
+																	<th class="text-center">Action</th>
 																</tr>
 															</thead>
 															<tbody>
@@ -169,7 +170,7 @@
 																				</c:otherwise>
 																			</c:choose>
 																		</td>
-																		<td width="30%">		
+																		<td width="30%" class="text-center">		
 																			<span data-toggle="modal" data-target="#timeIn">																	
 								                                        	<button type="button" class="btn-timeIn btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Set Time In" data-placement="top">
 								                                        		IN

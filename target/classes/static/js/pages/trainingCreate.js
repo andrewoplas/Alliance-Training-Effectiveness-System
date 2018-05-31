@@ -112,7 +112,7 @@ $(document).ready(function() {
 		var title = $('#training').val();
 		var description = $('#description').val();
 		var calendar = $('#calendar').fullCalendar('clientEvents');
-			
+		calendar.sort(function(a, b){return a.start - b.start});
 		
 		// Second Fieldset				
 		var item = $('#nestable2').nestable('serialize');
@@ -161,6 +161,7 @@ $(document).ready(function() {
 				className: item.className[0]
 			});
 		});
+		
 		
 		$('#schedule-table tbody').html(scheduleHTML);
 		if (!$.fn.dataTable.isDataTable('#schedule-table')) {

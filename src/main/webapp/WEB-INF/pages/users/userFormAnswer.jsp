@@ -36,7 +36,7 @@
 									<%-- Textbox --%>
                						<c:when test="${ question.type == 'textbox' }">
 								        <div class="input-field m-t-5">
-							          		 <textarea class="materialize-textarea" placeholder="Your Answer"></textarea>
+							          		 <textarea class="materialize-textarea m-b-0" placeholder="Your Answer"></textarea>
 								        </div>
                						</c:when>
                						
@@ -66,7 +66,7 @@
                 						
                						<%-- Scale --%>
                						<c:when test="${ question.type == 'scale' }">		        							
-		        							<div class="row radio-labels text-center scale">
+		        							<div class="row radio-labels text-center scale m-b-0">
 		          								<div class="col s3">
 			            							<div class="row radio-label">&nbsp;</div>
 			           								<div class="row radio-button text-right m-r-5">Strongly Agree</div>
@@ -119,6 +119,10 @@
 		        							</div>
                						</c:when>                					
                					</c:choose>
+               					
+               						<span class="help-block hide">
+					                	<small class="text-danger"><i class="mdi mdi-close-circle-outline"></i> Don't leave this field empty</small>
+					                </span>
                						</div>
                						
                				</c:forEach>

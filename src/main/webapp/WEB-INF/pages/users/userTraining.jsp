@@ -67,6 +67,7 @@
 												<th>Action</th>
 												<th data-hide="all">Start Date</th>
 												<th data-hide="all">End Date</th>
+												<th data-hide="all">Training Status</th>
 												<th data-hide="all">Description</th>
 											</tr>
 										</thead>
@@ -111,7 +112,7 @@
 		                                        		<c:set var="courseFeedback" value="${ userEvent.getCourseFeedbackAssignment() }" />
 		                                        		<c:if test="${ courseFeedback != null && courseFeedback.status == 'unanswered' }">
 		                                        			<a href="/ates/general/training/form/answer/${ courseFeedback.id }">
-																<span type="span" class="badge badge-info m-r-5"
+																<span class="badge badge-info m-r-5"
 																	data-toggle="tooltip" title="" data-placement="top"
 																	data-original-title="Answer Course Feedback Form">
 																	CF
@@ -122,7 +123,7 @@
 		                                        		<c:set var="facilitatorFeedback" value="${ userEvent.getFacilitatorFeedbackAssignment() }" />
 		                                        		<c:if test="${ facilitatorFeedback != null && facilitatorFeedback.status == 'unanswered' }">
 		                                        			<a href="/ates/general/training/form/answer/${ facilitatorFeedback.id }">
-																<span type="span" class="badge badge-info m-r-5"
+																<span class="badge badge-info m-r-5"
 																	data-toggle="tooltip" title="" data-placement="top"
 																	data-original-title="Answer Facilitator's Feedback Form">
 																	FA
@@ -133,7 +134,7 @@
 		                                        		<c:set var="TEA" value="${ userEvent.getTEAAssignment() }" />
 		                                        		<c:if test="${ TEA != null && TEA.status == 'unanswered' }">
 		                                        			<a href="/ates/general/training/form/answer/${ TEA.id }">
-																<span type="span" class="badge badge-info m-r-5"
+																<span class="badge badge-info m-r-5"
 																	data-toggle="tooltip" title="" data-placement="top"
 																	data-original-title="Answer Training Effectiveness Assessment Form">
 																	TEA
@@ -142,6 +143,7 @@
 		                                        		</c:if>
 		                                        		                      		
 													</td>
+													
 													<td width="20%">
 														<a href="/ates/general/training/${ userEvent.id }/${ userEvent.trainingPlan.id }">
 				                                        	<button type="button" class="btn btn-primary btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="View Training" data-placement="top">
@@ -149,36 +151,54 @@
 			                                        		</button>
 		                                        		</a>
 		                                        		
-		                                        		<button type="button" class="btn-decline btn btn-danger btn-outline m-r-5 btn-circle p-t-0 p-b-0 ${ userEvent.status == 'declined'? 'hide' : '' }" data-toggle="tooltip" title="Decline Training Invitation" data-placement="top">
-															<i class="mdi mdi-calendar-remove"></i>
-														</button>
-													
-														<button type="button" class="btn-accept btn btn-success btn-outline m-r-5 btn-circle p-t-0 p-b-0 ${ userEvent.status == 'approved'? 'hide' : '' }" data-toggle="tooltip" title="Approve Training Invitation" data-placement="top">
-															<i class="mdi mdi-calendar-check"></i>
-														</button>
+		                                        		<c:if test="${userEvent.trainingPlan.getStatus() == 'Incoming'}">
+			                                        		<button type="button" class="btn-decline btn btn-danger btn-outline m-r-5 btn-circle p-t-0 p-b-0 ${ userEvent.status == 'declined'? 'hide' : '' }" data-toggle="tooltip" title="Decline Training Invitation" data-placement="top">
+																<i class="mdi mdi-calendar-remove"></i>
+															</button>
+														
+															<button type="button" class="btn-accept btn btn-success btn-outline m-r-5 btn-circle p-t-0 p-b-0 ${ userEvent.status == 'approved'? 'hide' : '' }" data-toggle="tooltip" title="Approve Training Invitation" data-placement="top">
+																<i class="mdi mdi-calendar-check"></i>
+															</button>
+														</c:if>
 		                                        		
 		                                        		<c:if test="${ userEvent.role.contains('Facilitator') }">
 		                                        			<a href="/ates/general/training/edit/${ userEvent.id }/${ userEvent.trainingPlan.id }">
-				                                        	<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Edit" data-placement="top">
-				                                        		<i class="mdi mdi-lead-pencil"></i>
-			                                        		</button>
-		                                        		</a>
+					                                        	<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 p-t-0 p-b-0" data-toggle="tooltip" title="Edit" data-placement="top">
+					                                        		<i class="mdi mdi-lead-pencil"></i>
+				                                        		</button>
+			                                        		</a>
 		                                        		</c:if>		
 													</td>
-													
-													<td><fmt:parseDate pattern="yyyy-MM-dd"
+	
+													<td>
+														<fmt:parseDate pattern="yyyy-MM-dd"
 															value="${ userEvent.trainingPlan.schedules.get(0).date }"
-															var="start_date" /> <fmt:formatDate value="${start_date }"
-															pattern="MMM dd, yyyy" /></td>
-															
-													<td><fmt:parseDate pattern="yyyy-MM-dd"
+															var="start_date" /> <fmt:formatDate
+															value="${start_date }" pattern="MMM dd, yyyy" />
+													</td>
+													<td>
+														<fmt:parseDate pattern="yyyy-MM-dd"
 															value="${ userEvent.trainingPlan.schedules.get(userEvent.trainingPlan.schedules.size()-1).date }"
-															var="start_date" /> <fmt:formatDate value="${ start_date }"
-															pattern="MMM dd, yyyy" /></td>
-															
-													<td><c:set var="description"
-															value="${ fn:substring(userEvent.trainingPlan.description, 1, 100) }" />
-														${ description }</td>
+															var="start_date" /> <fmt:formatDate
+															value="${ start_date }" pattern="MMM dd, yyyy" />
+													</td>
+													<td>
+														<c:set var="status" value="${userEvent.trainingPlan.getStatus()}" /> 
+														<c:choose>
+															<c:when test="${status == 'Accomplished'}">
+																<span class="badge badge-success">Accomplished</span>
+															</c:when>
+															<c:when test="${status == 'Incoming'}">
+																<span class="badge badge-info">Incoming</span>
+															</c:when>
+															<c:when test="${status == 'Ongoing'}">
+																<span class="badge badge-warning">Ongoing</span>
+															</c:when>
+														</c:choose>
+													</td>
+													<td>
+														<c:out value="${ fn:substring(userEvent.trainingPlan.description, 0, 100) }" />
+													</td>
 												</tr>
 											</c:forEach>
 										</tbody>

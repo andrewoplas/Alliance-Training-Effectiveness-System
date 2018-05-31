@@ -51,7 +51,7 @@ public class UserFormsController {
 	
 	
 	@RequestMapping(value = "/training/skills-assessment/assignment/{userEventID}")
-	public String showAssignment(@PathVariable int userEventID, ModelMap map) {
+	public String showAssignment(@PathVariable String userEventID, ModelMap map) {
 		List<SaAssignment> assignments = ufService.retrieveAssignmentAssigned(userEventID);
 		
 		map.addAttribute("assignments", assignments);
@@ -60,9 +60,12 @@ public class UserFormsController {
 	}
 	
 	@RequestMapping(value = "/training/skills-assessment/{id}/{trainingPlanId}")
-	public String skillsAssessment(ModelMap map, HttpServletRequest request, @PathVariable int id, @PathVariable String trainingPlanId) {
+	public String skillsAssessment(ModelMap map, HttpServletRequest request, @PathVariable String id, @PathVariable String trainingPlanId) {
 		User user = session.getUser(request);
-		if(!tpService.checkTrainingInvolvementAndSupervisor(user, id)) return "redirect:/error/404";
+		
+		if(!tpService.checkTrainingInvolvementAndSupervisor(user, id)) { 
+			return "redirect:/error/404";
+		}
 		
 		TrainingPlan training = adminTPService.retrieveTraining(trainingPlanId);
 		
@@ -84,15 +87,14 @@ public class UserFormsController {
 	}
 	
 	@RequestMapping(value = "/training/skills-assessment/{trainingPlanId}", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<?> insertTraining(@RequestBody AssignmentSA[] assessment, @PathVariable String trainingPlanId, HttpServletRequest request) {
-			
-		ufService.insertAssignment(assessment, Integer.parseInt(trainingPlanId));
+	public @ResponseBody ResponseEntity<?> insertAssignment(@RequestBody AssignmentSA[] assessment, @PathVariable String trainingPlanId, HttpServletRequest request) {
+		boolean result = ufService.insertAssignment(assessment);
 		
-		return ResponseEntity.ok(true);
+		return ResponseEntity.ok(result);
 	}
 	
 	@RequestMapping(value = "/training/skills-assessment/answer/{assignmentID}")
-	public String answer(@PathVariable int assignmentID, ModelMap map) {
+	public String answer(@PathVariable String assignmentID, ModelMap map) {
 		SaAssignment assignment = ufService.retrieveAssignmentById(assignmentID);
 		
 		if(assignment != null && assignment.getStatus().equals("unanswered")) {
@@ -115,7 +117,7 @@ public class UserFormsController {
 	}
 	
 	@RequestMapping(value = "/training/skills-assessment/view/{assignmentID}")
-	public String viewAnswer(@PathVariable int assignmentID, ModelMap map) {
+	public String viewAnswer(@PathVariable String assignmentID, ModelMap map) {
 		SaAssignment assignment = ufService.retrieveAssignmentById(assignmentID);
 		
 		if(assignment != null && assignment.getStatus().equals("answered")) {
@@ -131,7 +133,7 @@ public class UserFormsController {
 	}
 	
 	@RequestMapping(value = "/training/form/answer/{assignmentID}")
-	public String answerForm(@PathVariable int assignmentID, ModelMap map) {
+	public String answerForm(@PathVariable String assignmentID, ModelMap map) {
 		FormAssignment assignment = ufService.retrieveFormAssignmentById(assignmentID);
 		
 		if(assignment != null && assignment.getStatus().equals("unanswered")) {
@@ -148,9 +150,9 @@ public class UserFormsController {
 	}
 	
 	@RequestMapping(value = "/training/form/answer/{assignmentID}", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<?> insertFormAnswer(@PathVariable int assignmentID, @RequestBody Answer[] answers) {
-		ufService.insertAnswers(answers, assignmentID);
+	public @ResponseBody ResponseEntity<?> insertFormAnswer(@PathVariable String assignmentID, @RequestBody Answer[] answers) {
+		boolean result = ufService.insertAnswers(answers, assignmentID);
 		
-		return ResponseEntity.ok(true);
+		return ResponseEntity.ok(result);
 	}
 }

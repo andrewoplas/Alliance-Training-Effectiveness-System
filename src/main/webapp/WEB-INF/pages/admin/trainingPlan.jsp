@@ -97,7 +97,7 @@
 			                                        		</button>
 		                                        		</a>
 		                                        		<a href="/ates/training/attendance/${training.id}">
-				                                        	<button type="button" class="btn btn-primary btn-outline btn-circle m-r-10 p-t-0 p-b-0" data-toggle="tooltip" title="View Attendance" data-placement="top">
+				                                        	<button type="button" class="btn btn-primary btn-outline btn-circle m-r-10 p-t-0 p-b-0" data-toggle="tooltip" title="Attendance" data-placement="top">
 				                                        		<i class="mdi mdi-account-check"></i>
 			                                        		</button>
 		                                        		</a>

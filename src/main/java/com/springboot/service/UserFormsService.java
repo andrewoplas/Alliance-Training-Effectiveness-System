@@ -50,14 +50,13 @@ public class UserFormsService {
 		return pairs;
 	}
 
-	public void insertAssignment(AssignmentSA[] assessments, int parseInt) {
+	public boolean insertAssignment(AssignmentSA[] assessments) {
 		List<SaAssignment> assignments = new ArrayList<SaAssignment>();
 		Map<Integer, List<Integer>> pairs = new HashMap<Integer, List<Integer>>();
 		
 		for(AssignmentSA assessment : assessments) {
 			int user = assessment.getUser();
 			List<Integer> assigned = new ArrayList<Integer>();
-			
 			
 			// Self
 			SaAssignment self = new SaAssignment();
@@ -67,7 +66,6 @@ public class UserFormsService {
 			self.setStatus("unanswered");
 			assignments.add(self);
 			assigned.add(user);
-			
 			
 			// Peers
 			for(int peers : assessment.getPeers()) {
@@ -97,14 +95,28 @@ public class UserFormsService {
 		}
 		
 		formsRepository.insertAssignment(em, assignments, pairs);
+		
+		return true;
 	}
 
-	public List<SaAssignment> retrieveAssignmentAssigned(int userEventID) { 
-		return formsRepository.retrieveAssignmentAssigned(em, userEventID);
+	public List<SaAssignment> retrieveAssignmentAssigned(String userEventID) { 
+		try {
+			return formsRepository.retrieveAssignmentAssigned(em, Integer.parseInt(userEventID));
+		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return null;
+		}	
 	}
 
-	public SaAssignment retrieveAssignmentById(int assignmentID) {
-		return formsRepository.retrieveAssignment(em, assignmentID);
+	public SaAssignment retrieveAssignmentById(String assignmentID) {
+		try {
+			return formsRepository.retrieveAssignment(em, Integer.parseInt(assignmentID));
+		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return null;
+		}
 	}
 
 	public boolean insertAnswers(AnswerSA answersObj) {
@@ -130,23 +142,37 @@ public class UserFormsService {
 		return true;
 	}
 
-	public FormAssignment retrieveFormAssignmentById(int assignmentID) {
-		return formsRepository.retrieveFormAssignmentById(em, assignmentID);
+	public FormAssignment retrieveFormAssignmentById(String assignmentID) {
+		try {
+			return formsRepository.retrieveFormAssignmentById(em, Integer.parseInt(assignmentID));
+		} catch(NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return null;
+		}
 	}
 
-	public void insertAnswers(Answer[] answers, int assignmentID) {
-		// Convert JSON Object to FormAnswers Entity
-		for(Answer answer : answers) {
-			FormAnswer formAnswer = new FormAnswer();
-			formAnswer.setDescription(answer.getDescription());
-			formAnswer.setFormAssignment(new FormAssignment(answer.getAssignmentID()));
-			formAnswer.setFormQuestion(new FormQuestion(answer.getQuestionID()));
+	public boolean insertAnswers(Answer[] answers, String assignmentID) {
+		try {
+			// Convert JSON Object to FormAnswers Entity
+			for(Answer answer : answers) {
+				FormAnswer formAnswer = new FormAnswer();
+				formAnswer.setDescription(answer.getDescription());
+				formAnswer.setFormAssignment(new FormAssignment(answer.getAssignmentID()));
+				formAnswer.setFormQuestion(new FormQuestion(answer.getQuestionID()));
+				
+				// Insert Form Answer
+				formsRepository.insertAnswer(em, formAnswer);
+			}
 			
-			// Insert Form Answer
-			formsRepository.insertAnswer(em, formAnswer);
+			// Set assignment status to 'Answered'
+			formsRepository.updateAssignmentToAnswered(em, Integer.parseInt(assignmentID));
+			
+			return true;
+		} catch(NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return false;
 		}
-		
-		// Set assignment status to 'Answered'
-		formsRepository.updateAssignmentToAnswered(em, assignmentID);
 	}
 }

@@ -59,7 +59,7 @@
 														data-original-title="Training Effectiveness Assessment Form">
 															TEA </span>
 												</a> <a
-													href="/ates/forms/training-need-analysis/view/${ training.id }">
+													href="/ates/forms/training-needs-assessment/view/${ training.id }">
 														<span type="span" class="badge badge-danger m-r-5"
 														data-toggle="tooltip" title="" data-placement="top"
 														data-original-title="Training Need Analysis Form">

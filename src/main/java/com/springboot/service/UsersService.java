@@ -42,8 +42,7 @@ public class UsersService {
 		List<CustomUser> cUsers = new ArrayList<CustomUser>();
 		List<Integer> track = new ArrayList<Integer>();
 		int index = 0;
-		
-		
+				
 		int length = data.size();
 		for(int i=0; i<length; i++) {
 			CustomUser cUser = new CustomUser();
@@ -85,8 +84,7 @@ public class UsersService {
 	
 	public void removeUser(String id) {
 		try {
-			int uid = Integer.parseInt(id);
-			usersRepository.removeUser(em, uid);
+			usersRepository.removeUser(em, Integer.parseInt(id));
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
@@ -95,8 +93,7 @@ public class UsersService {
 	
 	public void approveUser(String id) {
 		try {
-			int uid = Integer.parseInt(id);
-			usersRepository.approveUser(em, uid);
+			usersRepository.approveUser(em, Integer.parseInt(id));
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
@@ -104,8 +101,7 @@ public class UsersService {
 	
 	public void declineUser(String id) {
 		try {
-			int uid = Integer.parseInt(id);
-			usersRepository.declineUser(em, uid);
+			usersRepository.declineUser(em, Integer.parseInt(id));
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
@@ -121,7 +117,14 @@ public class UsersService {
 			
 			User user = new User();
 			Position pos = new Position();
-			pos.setId(Integer.parseInt(position));
+			
+			try {
+				pos.setId(Integer.parseInt(position));
+			} catch (NumberFormatException ex) {
+				ex.printStackTrace();
+				return "error";
+			}
+			
 			user.setName(name);
 			user.setPosition(pos);
 			user.setEmail(email);
@@ -147,9 +150,16 @@ public class UsersService {
 		} else {
 			User user = new User();
 			Position pos = new Position();
-			user.setId(Integer.parseInt(id));
-			user.setName(name);
-				pos.setId(Integer.parseInt(position));
+			
+			try {
+				user.setId(Integer.parseInt(id));
+				user.setName(name);
+					pos.setId(Integer.parseInt(position));
+			} catch (NumberFormatException ex) {
+				ex.printStackTrace();
+				
+				return "error";
+			}
 			user.setPosition(pos);
 			user.setEmail(email);
 			
@@ -172,6 +182,29 @@ public class UsersService {
 		return usersRepository.retrieveUser(em, id);
 	}
 	
+	public void editUser(String id, String name, String position, String password) {		
+		User user = new User(Integer.parseInt(id));
+		Position pos = new Position();
+		user.setName(name);
+			
+		try {
+			pos.setId(Integer.parseInt(position));
+		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return;
+		}
+		user.setPosition(pos);		
+		
+		if(password != null && !password.isEmpty()) {
+			user.setPassword(Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString());
+		} 
+		
+		usersRepository.editUserByView(em, user);
+	}
+	
+	
+	// Helper Function
 	protected String getRandomPassword() {
         String PasswordChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         StringBuilder sb = new StringBuilder();
@@ -184,18 +217,5 @@ public class UsersService {
         return generatedPassword;
     }
 
-	public void editUser(String id, String name, String position, String password) {		
-		User user = new User(Integer.parseInt(id));
-		Position pos = new Position();
-		user.setName(name);
-			pos.setId(Integer.parseInt(position));
-		user.setPosition(pos);		
-		
-		if(password != null && !password.isEmpty()) {
-			user.setPassword(Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString());
-		} 
-		
-		usersRepository.editUserByView(em, user);
-	}
 
 }
