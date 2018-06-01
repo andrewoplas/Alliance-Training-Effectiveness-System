@@ -142,7 +142,6 @@ public class TrainingPlanService {
 	}
 	
 	public boolean insertTraining(Training training) {
-		boolean result = false;
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
 		
@@ -175,6 +174,10 @@ public class TrainingPlanService {
 			tpRepository.insertSchedule(em, schedule);
 		} catch (ParseException ex) {
 			ex.printStackTrace();
+			
+			return false;
+		} catch (Exception ex) {
+			return false;
 		}
 		
 		// Save User involved
@@ -215,13 +218,14 @@ public class TrainingPlanService {
 			}
 			
 			tpRepository.insertUserEvent(em, userEvents.toArray(new UserEvent[userEvents.size()]));
-			result = true;
-			
 		} catch (NumberFormatException ex) {
 			ex.printStackTrace();
+			return false;
+		} catch (Exception ex) {
+			return false;
 		}
 		
-		return result;
+		return true;
 	}
 	
 	public boolean editTraining(Training training) {
@@ -256,6 +260,8 @@ public class TrainingPlanService {
 		} catch (ParseException ex) {
 			ex.printStackTrace();
 			
+			return false;
+		} catch (Exception ex) {
 			return false;
 		}
 		
@@ -303,6 +309,10 @@ public class TrainingPlanService {
 			tpRepository.editUserEvent(em, tp.getId(), userEvents.toArray(new UserEvent[userEvents.size()]), userIDS);
 			result = true;
 		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+			
+			return false;
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			
 			return false;

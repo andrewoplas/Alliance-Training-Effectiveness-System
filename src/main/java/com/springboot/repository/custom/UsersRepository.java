@@ -32,7 +32,7 @@ public class UsersRepository {
 		List data = null;
 		
 		Session session = em.unwrap(Session.class);		
-		StringBuilder stringQuery = new StringBuilder("SELECT u.id, u.name, p.description, u.email, t.title, e.role FROM user_event e INNER JOIN training_plan t ON t.id = e.trainingPlanID RIGHT JOIN User u ON e.userID = u.id LEFT JOIN Position p ON p.id = u.position  WHERE u.status = :status");
+		StringBuilder stringQuery = new StringBuilder("SELECT u.id, u.name, p.description, u.email, t.title, e.role, u.is_admin FROM user_event e INNER JOIN training_plan t ON t.id = e.trainingPlanID RIGHT JOIN User u ON e.userID = u.id LEFT JOIN Position p ON p.id = u.position  WHERE u.status = :status");
 		SQLQuery query = session.createSQLQuery(stringQuery.toString());
 		query.setParameter("status", "approved");
 		data = query.list();		
@@ -62,26 +62,26 @@ public class UsersRepository {
 		return users;		
 	}
 	
-	public void removeUser(EntityManager em, int id) {
+	public int removeUser(EntityManager em, int id) {
 		String sql = "DELETE FROM User WHERE id = :id";
 		Query query = em.createQuery(sql);
 		query.setParameter("id", id);
-		query.executeUpdate();
+		return query.executeUpdate();
 	}
 	
-	public void approveUser(EntityManager em, int id) {		
+	public int approveUser(EntityManager em, int id) {		
 		String sql = "UPDATE User SET status = :status WHERE id = :id";
 		Query query = em.createQuery(sql);
 		query.setParameter("status", "approved");
 		query.setParameter("id", id);
-		query.executeUpdate();
+		return query.executeUpdate();
 	}
 	
-	public void declineUser(EntityManager em, int id) {
+	public int declineUser(EntityManager em, int id) {
 		String sql = "DELETE FROM User WHERE id = :id";
 		Query query = em.createQuery(sql);
 		query.setParameter("id", id);
-		query.executeUpdate();
+		return query.executeUpdate();
 	}
 
 	public User retrieveUser(EntityManager em, String id) {

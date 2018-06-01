@@ -125,21 +125,27 @@ public class UserFormsService {
 		String[] answers = answersObj.getAnswers();
 		SaAssignment assignment = new SaAssignment(answersObj.getAssignmentID());
 		
-		int length = answersObj.getCategoryID().length;
-		for(int i=0; i<length; i++) {
-			SaAnswer answer = new SaAnswer();
-			answer.setSaCategory(new SaCategory(categoryID[i]));
-			answer.setAnswer(answers[i]);
-			answer.setSaAssignment(assignment);
+		try {
+			int length = answersObj.getCategoryID().length;
+			for(int i=0; i<length; i++) {
+				SaAnswer answer = new SaAnswer();
+				answer.setSaCategory(new SaCategory(categoryID[i]));
+				answer.setAnswer(answers[i]);
+				answer.setSaAssignment(assignment);
+				
+				// Insert SA Form Answer
+				formsRepository.insertAnswer(em, answer);
+			}
 			
-			// Insert SA Form Answer
-			formsRepository.insertAnswer(em, answer);
+			// Set SA assignment status to 'Answered'
+			formsRepository.updateSAAssignmentToAnswered(em, answersObj.getAssignmentID());
+		
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			
+			return false;
 		}
-		
-		// Set SA assignment status to 'Answered'
-		formsRepository.updateSAAssignmentToAnswered(em, answersObj.getAssignmentID());
-		
-		return true;
 	}
 
 	public FormAssignment retrieveFormAssignmentById(String assignmentID) {
@@ -171,6 +177,10 @@ public class UserFormsService {
 			return true;
 		} catch(NumberFormatException ex) {
 			ex.printStackTrace();
+			
+			return false;
+		} catch(Exception ex) {
+			ex.printStackTrace(s);
 			
 			return false;
 		}

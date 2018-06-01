@@ -39,19 +39,24 @@
     	            type: 'POST',
     	            data: {id: id},
     	            success: function(data, textStatus, jqXHR) {
-    	            	if(elem.next().hasClass('footable-row-detail')){
-    	            		elem.next().addClass('fadeOut animated');
-    	            		setTimeout(function(){
-    	            			elem.next().remove();
-    	        			}, 500);
+    	            	alert(data);
+    	            	if(data == true) {
+	    	            	if(elem.next().hasClass('footable-row-detail')){
+	    	            		elem.next().addClass('fadeOut animated');
+	    	            		setTimeout(function(){
+	    	            			elem.next().remove();
+	    	        			}, 500);
+	    	            	}
+	    	            	
+	    	            	elem.addClass('fadeOut animated');
+	    	            	setTimeout(function(){
+	    	    				elem.remove();
+	    	    			}, 500);
+	    	            	
+	    	            	swal("Deleted!", "Account of '" + name + "' is successfully deleted!", "success");
+    	            	} else {
+    	            		showErrorAlert();
     	            	}
-    	            	
-    	            	elem.addClass('fadeOut animated');
-    	            	setTimeout(function(){
-    	    				elem.remove();
-    	    			}, 500);
-    	            	
-    	            	swal("Deleted!", "Account of '" + name + "' is successfully deleted!", "success");
     	            },
     	            error: function(jqXHR, status, error) { 
     	            	showErrorAlert(); 

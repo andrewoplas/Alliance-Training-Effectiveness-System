@@ -99,13 +99,17 @@ $(document).ready(function() {
 			data: JSON.stringify(item),
 			success: function(data, textStatus, jqXHR) {
 				$("#ajax-process").modal('hide');
-				 swal({   
-                     title: "Success!",
-                     type: "success",
-                     text: "We have successfully edited the Skills Assessment Form",
-                     confirmButtonColor: "#1e88e5",
-                     showConfirmButton: true,
-            	 });
+				if(data == true) {
+					 swal({   
+	                     title: "Success!",
+	                     type: "success",
+	                     text: "We have successfully edited the Skills Assessment Form",
+	                     confirmButtonColor: "#1e88e5",
+	                     showConfirmButton: true,
+	            	 });
+				} else {
+					showErrorAlert();
+				}
             },
             error: function(jqXHR, status, error) {
             	$("#ajax-process").modal('hide');

@@ -77,29 +77,33 @@
 					date: date
 			},
 			success: function(data, textStatus, jqXHR) {
-				$.each( checkboxes, function() {
-					$(this).parents('tr').find('.timeIn').text($('#timepickerTimeIn').val());
+				if(data == true) {
+					$.each( checkboxes, function() {
+						$(this).parents('tr').find('.timeIn').text($('#timepickerTimeIn').val());
+						
+						if($(this).parents('tr').find('.timeOut span').text() == 'Absent') {
+							$(this).parents('tr').find('.timeOut span').remove();
+						}
+					});
 					
-					if($(this).parents('tr').find('.timeOut span').text() == 'Absent') {
-						$(this).parents('tr').find('.timeOut span').remove();
+					if($('#timeIn [name=user_id]').val().length > 0) {
+						var dataId = $('#timeIn [name=user_id]').val();
+						$('li.selected').find('[data-id=' + dataId + ']').find('.timeIn').text($('#timepickerTimeIn').val())
+						if($('li.selected').find('[data-id=' + dataId + ']').find('.timeOut span').text() == 'Absent') {
+							$('li.selected').find('[data-id=' + dataId + ']').find('.timeOut span').remove();
+						}
 					}
-				});
-				
-				if($('#timeIn [name=user_id]').val().length > 0) {
-					var dataId = $('#timeIn [name=user_id]').val();
-					$('li.selected').find('[data-id=' + dataId + ']').find('.timeIn').text($('#timepickerTimeIn').val())
-					if($('li.selected').find('[data-id=' + dataId + ']').find('.timeOut span').text() == 'Absent') {
-						$('li.selected').find('[data-id=' + dataId + ']').find('.timeOut span').remove();
-					}
+					
+					swal({   
+			            title: "Success",
+			            type: "success",
+			            text: "We have now set the Time In of these users.",
+			   	 	});
+					
+					$("#timeIn").modal('hide');
+				} else {
+					showErrorAlert();
 				}
-				
-				swal({   
-		            title: "Success",
-		            type: "success",
-		            text: "We have now set the Time In of these users.",
-		   	 	});
-				
-				$("#timeIn").modal('hide');
             },
             error: function(jqXHR, status, error) {
             	showErrorAlert();
@@ -184,8 +188,12 @@
 					id: id,
 			},
 			success: function(data, textStatus, jqXHR) {
-				elem.find('.timeIn').html('<span class="badge badge-danger">Absent</span>');
-				elem.find('.timeOut').html('<span class="badge badge-danger">Absent</span>');
+				if(data == true) {
+					elem.find('.timeIn').html('<span class="badge badge-danger">Absent</span>');
+					elem.find('.timeOut').html('<span class="badge badge-danger">Absent</span>');
+				} else {
+					showErrorAlert();
+				}
             },
             error: function(jqXHR, status, error) {
             	showErrorAlert();
@@ -208,8 +216,12 @@
 					id: id,
 			},
 			success: function(data, textStatus, jqXHR) {
+				if(data == true) {
 				elem.find('.timeIn').html('');
 				elem.find('.timeOut').html('');
+				} else {
+					showErrorAlert();
+				}
             },
             error: function(jqXHR, status, error) {
             	showErrorAlert();

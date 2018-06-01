@@ -76,7 +76,13 @@
                            text: "Email already used. Please sign in if you already have an account.",   
                        });
 	                }
-	            }
+	            }, error: function() {
+	            	swal({   
+                        title: "Oopss!",
+                        type: "error",
+                        text: "Something went wrong as we process your request",   
+                    });
+	            },
 	        });
         } else {
         	return false;
@@ -211,7 +217,6 @@
 	            type: "POST",
 	            data: {email: input},
 	            success: function(data) {
-	            	console.log(data);
 	                if(data == true){
 	                	showValidateEmail(elem);
 	                } else {

@@ -62,6 +62,7 @@ public class UsersService {
 					cUser.setTraining(row[4].toString());
 				if(row[5] != null)
 					cUser.setRole(row[5].toString());
+				cUser.setIsAdmin((Integer)row[6]);
 				
 				cUsers.add(cUser);
 				track.add((Integer)row[0]);
@@ -83,28 +84,34 @@ public class UsersService {
 		return users;
 	}
 	
-	public void removeUser(String id) {
+	public boolean removeUser(String id) {
 		try {
-			usersRepository.removeUser(em, Integer.parseInt(id));
+			return usersRepository.removeUser(em, Integer.parseInt(id)) == 1;
 		} catch(Exception ex) {
 			ex.printStackTrace();
+			
+			return false;
 		}
 	}
 	
 	
-	public void approveUser(String id) {
+	public boolean approveUser(String id) {
 		try {
-			usersRepository.approveUser(em, Integer.parseInt(id));
+			return usersRepository.approveUser(em, Integer.parseInt(id)) == 1;
 		} catch(Exception ex) {
 			ex.printStackTrace();
+			
+			return false;
 		}
 	}
 	
-	public void declineUser(String id) {
+	public boolean declineUser(String id) {
 		try {
-			usersRepository.declineUser(em, Integer.parseInt(id));
+			return usersRepository.declineUser(em, Integer.parseInt(id)) == 1;
 		} catch(Exception ex) {
 			ex.printStackTrace();
+			
+			return false;
 		}
 	}
 	

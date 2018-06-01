@@ -15,12 +15,16 @@
             type: 'POST',
             data: {id: id},
             success: function(data, textStatus, jqXHR) {
-            	var row = table.row(elem).remove().draw();
-            	
-            	// Alert Position Bottom Left
-            	$(".myadmin-alert").fadeOut(100);
-            	$("#alert-approve").find('.name').text(name);
-                $("#alert-approve").fadeToggle(350);
+            	if(data == true) {
+	            	var row = table.row(elem).remove().draw();
+	            	
+	            	// Alert Position Bottom Left
+	            	$(".myadmin-alert").fadeOut(100);
+	            	$("#alert-approve").find('.name').text(name);
+	                $("#alert-approve").fadeToggle(350);
+            	} else {
+            		showErrorAlert();
+            	}
             },
             error: function(jqXHR, status, error) {
             	showErrorAlert();
@@ -38,16 +42,20 @@
             type: 'POST',
             data: {id: id},
             success: function(data, textStatus, jqXHR) {
-            	elem.addClass("fadeOut animated");
-            	
-            	setTimeout(function(){
-            		var row = table.row(elem).remove().draw();
-            	}, 500);
-            	
-            	// Alert Position Bottom Left
-            	$(".myadmin-alert").fadeOut(100);
-            	$("#alert-decline").find('.name').text(name);
-                $("#alert-decline").fadeToggle(350);
+            	if(data == true) {
+	            	elem.addClass("fadeOut animated");
+	            	
+	            	setTimeout(function(){
+	            		var row = table.row(elem).remove().draw();
+	            	}, 500);
+	            	
+	            	// Alert Position Bottom Left
+	            	$(".myadmin-alert").fadeOut(100);
+	            	$("#alert-decline").find('.name').text(name);
+	                $("#alert-decline").fadeToggle(350);
+            	} else {
+            		showErrorAlert();
+            	}
             },
             error: function(jqXHR, status, error) {
             	showErrorAlert();

@@ -61,9 +61,9 @@ public class FormsController {
 	@RequestMapping(value = "/skills-assessment", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<?> insertSkillsAssessment(@RequestBody SkillsAssessment[] sa, HttpServletRequest request) {
 		// Request to Save the Skills Assessment Form
-		formsService.insertSkillsAssessment(sa);
+		boolean result = formsService.insertSkillsAssessment(sa);
 		
-		return ResponseEntity.ok(true);
+		return ResponseEntity.ok(result);
 	}
 	
 	@RequestMapping(value = "/skills-assessment/view/{trainingPlanID}")
@@ -249,9 +249,9 @@ public class FormsController {
 		String formID = request.getParameter("formID");
 		String trainingPlanID = request.getParameter("trainingPlanID");
 		
-		formsService.releaseForm(formID, tpService.retrieveTraining(trainingPlanID));
+		boolean result = formsService.releaseForm(formID, tpService.retrieveTraining(trainingPlanID));
 		
-		return ResponseEntity.ok(true);
+		return ResponseEntity.ok(result);
 	}
 	
 	@RequestMapping(value = "/view/answer/{assignmentID}")

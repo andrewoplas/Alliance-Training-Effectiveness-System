@@ -81,7 +81,7 @@ public class FormsService {
 		}
 	}
 
-	public void insertSkillsAssessment(SkillsAssessment[] sa) {
+	public boolean insertSkillsAssessment(SkillsAssessment[] sa) {
 		// Create entities from ResponseBody
 		List<SaCategory> categories = new ArrayList<SaCategory>();
 		ArrayList<Integer> categoryIDS = new ArrayList<Integer>();
@@ -101,12 +101,19 @@ public class FormsService {
 			}
 		}
 		
-		// Delete removed category
-		if(categoryIDS.size() == 0) { categoryIDS.add(0); }
-		formsRepository.deleteSkillsAssessment(em, categoryIDS);
-		
-		// Calls Insert Method
-		insertSA(categories, null);
+		try {
+			// Delete removed category
+			if(categoryIDS.size() == 0) { categoryIDS.add(0); }
+			formsRepository.deleteSkillsAssessment(em, categoryIDS);
+			
+			// Calls Insert Method
+			insertSA(categories, null);
+			
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
 	}
 	
 	public void insertSA(List<SaCategory> categories, SaCategory parent) {
@@ -172,35 +179,41 @@ public class FormsService {
 			formQuestions.add(formQuestion);
 		}
 		
-		// Delete removed questions
-		if(questionIDS.size() == 0) { questionIDS.add(0); }
-		formsRepository.deleteQuestions(em, formid, questionIDS);
-		
-		// Merge or Persist
-		for(FormQuestion question : formQuestions) {
-			if(question.getId() == 0) {
-				// Insert Questions
-				question = formsRepository.insertQuestion(em, question);
-			} else {
-				// Update Questions
-				formsRepository.updateQuestion(em, question);
-			}
+		try {
+			// Delete removed questions
+			if(questionIDS.size() == 0) { questionIDS.add(0); }
+			formsRepository.deleteQuestions(em, formid, questionIDS);
 			
-			if(question.getFormOptionsCount() > 0) {
-				List<FormOption> options = question.getFormOptions();
+			// Merge or Persist
+			for(FormQuestion question : formQuestions) {
+				if(question.getId() == 0) {
+					// Insert Questions
+					question = formsRepository.insertQuestion(em, question);
+				} else {
+					// Update Questions
+					formsRepository.updateQuestion(em, question);
+				}
 				
-				// Delete removed questions
-				formsRepository.deleteOption(em, question.getId(), question.getFormOptionIDS());
-				
-				for(FormOption option : options) {
-					// Insert Options
-					option.setFormQuestion(question);
-					formsRepository.mergeOptions(em, option);
+				if(question.getFormOptionsCount() > 0) {
+					List<FormOption> options = question.getFormOptions();
+					
+					// Delete removed questions
+					formsRepository.deleteOption(em, question.getId(), question.getFormOptionIDS());
+					
+					for(FormOption option : options) {
+						// Insert Options
+						option.setFormQuestion(question);
+						formsRepository.mergeOptions(em, option);
+					}
 				}
 			}
+			
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			
+			return false;
 		}
-		
-		return true;
 	}
 
 	public Form retrieveForm(int formID) {
@@ -244,6 +257,8 @@ public class FormsService {
 			
 			return true;
 		} catch (NumberFormatException ex) {
+			return false;
+		} catch (Exception ex) {
 			return false;
 		}
 	}

@@ -72,9 +72,12 @@
 				                                        		<i class="mdi mdi-account-edit"></i>
 			                                        		</button>
 		                                        		</a>
+		                                        		
+		                                        		<c:if test="${ user.isAdmin == 0 }">
 														<button type="button" class="btn-remove btn btn-danger btn-outline btn-circle p-t-0 p-b-0" data-toggle="tooltip" title="Delete" data-placement="top">
 															<i class="mdi mdi-delete"></i>
 														</button>
+														</c:if>
 			                                        </td>
 			                                        <td>
 			                                        	<ul class="list-group m-b-10">

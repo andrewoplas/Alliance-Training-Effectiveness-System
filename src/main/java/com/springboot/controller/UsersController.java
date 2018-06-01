@@ -119,8 +119,9 @@ public class UsersController {
 		// Request to remove user
 		String id = request.getParameter("id");
 		
-		usersService.removeUser(id);
-		return ResponseEntity.ok(id);
+		boolean result = usersService.removeUser(id);
+		
+		return ResponseEntity.ok(result);
 	}	
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
@@ -160,8 +161,8 @@ public class UsersController {
 		// Request to approve user (set status to 'approved')
 		String id = request.getParameter("id");
 		
-		usersService.approveUser(id);
-		return ResponseEntity.ok(id);
+		boolean result = usersService.approveUser(id);
+		return ResponseEntity.ok(result);
 	}
 	
 	@RequestMapping(value = "/decline", method = RequestMethod.POST)
@@ -169,8 +170,8 @@ public class UsersController {
 		// Request to decline user (remove user)
 		String id = request.getParameter("id");
 		
-		usersService.declineUser(id);
-		return ResponseEntity.ok(id);
+		boolean result = usersService.declineUser(id);
+		return ResponseEntity.ok(result);
 	}
 		
 }
