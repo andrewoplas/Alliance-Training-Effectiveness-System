@@ -45,7 +45,7 @@
 										<c:when test="${ category.saCategories.size() > 0 }">
 											<c:set var="categories" value="${ category.saCategories }" scope="request" />
 											<c:set var="counter" value="${ counter + 1 }" scope="request" />
-											<jsp:include page="fragments/skillsAssessmentList.jsp"/>
+											<jsp:include page="../fragments/skillsAssessmentList.jsp"/>
 										</c:when>
 										
 										<c:otherwise>

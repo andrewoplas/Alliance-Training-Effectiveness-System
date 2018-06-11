@@ -53,6 +53,19 @@ public class TrainingPlanService {
 		}
 	}
 	
+	public List<TrainingPlan> retrieveOngoingTrainings() {
+		List<TrainingPlan> trainings = retrieveTrainings();
+		List<TrainingPlan> ongoing = new ArrayList<TrainingPlan>();
+		
+		for(TrainingPlan training : trainings) {
+			if(training.getStatus().equals("Ongoing")) {
+				ongoing.add(training);
+			}
+		}
+		
+		return ongoing;
+	}
+	
 	public List<TrainingPlan> retrieveTrainingByQuarter(int quarter) {
 		List<TrainingPlan> trainings = null;
 		

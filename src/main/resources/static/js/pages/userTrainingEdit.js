@@ -155,7 +155,7 @@ $(document).ready(function() {
                          showConfirmButton: true,
                 	 }, function(isConfirm){   
                          if (isConfirm) {     
-                        	 window.location.href = "/ates/general/training/list";   
+                        	 window.location.href = "/ates/general/training";   
                          } 
                      });
                  } else {

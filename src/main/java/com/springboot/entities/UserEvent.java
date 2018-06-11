@@ -273,6 +273,16 @@ public class UserEvent implements Serializable {
 		
 		return null;
 	}
+	
+	public FormAssignment getTNAAssignment() {
+		for(FormAssignment formAssignment : formAssignments) {
+			if(formAssignment.getForm().getDescription().contains("Training Needs")) {
+				return formAssignment;
+			}
+		}
+		
+		return null;
+	}
 
 }
 

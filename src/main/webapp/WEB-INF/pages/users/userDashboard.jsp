@@ -94,76 +94,7 @@
 			
 			<!-- Second Row -->
 			<div class="row">
-				<div class="col-lg-4 col-md-6 col-sm-12">
-					<div class="white-box">
-						<h3 class="box-title">History</h3>
-						<ul class="feeds">
-							<li>
-								<div class="bg-info">
-									<i class="fa fa-bell-o text-white"></i>
-								</div> You have 4 pending tasks. <span class="text-muted">Just
-									Now</span>
-							</li>
-							<li>
-								<div class="bg-success">
-									<i class="ti-server text-white"></i>
-								</div> Server #1 overloaded.<span class="text-muted">2 Hours ago</span>
-							</li>
-							<li>
-								<div class="bg-warning">
-									<i class="ti-shopping-cart text-white"></i>
-								</div> New order received.<span class="text-muted">31 May</span>
-							</li>
-							<li>
-								<div class="bg-danger">
-									<i class="ti-user text-white"></i>
-								</div> New user registered.<span class="text-muted">30 May</span>
-							</li>
-							<li>
-								<div class="bg-inverse">
-									<i class="fa fa-bell-o text-white"></i>
-								</div> New Version just arrived. <span class="text-muted">27 May</span>
-							</li>
-							<li>
-								<div class="bg-info">
-									<i class="fa fa-bell-o text-white"></i>
-								</div> You have 4 pending tasks. <span class="text-muted">Just
-									Now</span>
-							</li>
-							<li>
-								<div class="bg-success">
-									<i class="ti-server text-white"></i>
-								</div> Server #1 overloaded.<span class="text-muted">2 Hours ago</span>
-							</li>
-							<li>
-								<div class="bg-warning">
-									<i class="ti-shopping-cart text-white"></i>
-								</div> New order received.<span class="text-muted">31 May</span>
-							</li>
-							<li>
-								<div class="bg-danger">
-									<i class="ti-user text-white"></i>
-								</div> New user registered.<span class="text-muted">30 May</span>
-							</li>
-							<li>
-								<div class="bg-danger">
-									<i class="ti-user text-white"></i>
-								</div> New user registered.<span class="text-muted">30 May</span>
-							</li>
-							<li>
-								<div class="bg-inverse">
-									<i class="fa fa-bell-o text-white"></i>
-								</div> New Version just arrived. <span class="text-muted">27 May</span>
-							</li>
-							<li>
-								<div class="bg-purple">
-									<i class="ti-settings text-white"></i>
-								</div> You have 4 pending tasks. <span class="text-muted">27 May</span>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-8 col-sm-12">
+				<div class="col-sm-12">
 					<div id="calendar"></div>
 				</div>
 			</div>

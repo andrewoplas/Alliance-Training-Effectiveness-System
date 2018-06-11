@@ -141,6 +141,17 @@
 																</span>
 															</a>
 		                                        		</c:if>
+		                                        		
+		                                        		<c:set var="TEA" value="${ userEvent.getTNAAssignment() }" />
+		                                        		<c:if test="${ TNA != null && TNA.status == 'unanswered' }">
+		                                        			<a href="/ates/general/training/form/answer/${ TNA.id }">
+																<span class="badge badge-info m-r-5"
+																	data-toggle="tooltip" title="" data-placement="top"
+																	data-original-title="Answer Training Needs Analysis Form">
+																	TEA
+																</span>
+															</a>
+		                                        		</c:if>
 		                                        		                      		
 													</td>
 													

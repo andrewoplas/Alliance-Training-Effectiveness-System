@@ -239,9 +239,16 @@ public class FormsService {
 
 	public boolean releaseForm(String formID, TrainingPlan training) {
 		List<UserEvent> participants = tpService.retrieveTrainingUserEvent(training, "Participant", false);
-		
+				
 		try {
 			int form = Integer.parseInt(formID);
+			
+			if(form == 3) {
+				participants.addAll(tpService.retrieveTrainingUserEvent(training, "Supervisor", false));
+			} else if (form == 4) {
+				participants.addAll(tpService.retrieveTrainingUserEvent(training, "Supervisor", false));
+				participants.addAll(tpService.retrieveTrainingUserEvent(training, "Facilitator", false));
+			}
 			
 			// Create entity and persist
 			for(UserEvent participant : participants) {

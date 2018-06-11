@@ -34,7 +34,7 @@ public class DashboardController {
 		int userCount = usersService.retrieveApprovedUsers().size();
 		int pendingUserCount = usersService.retrievePendingUsers().size();
 		int trainingCount = tpService.retrieveTrainings().size();
-		int trainingRequestCount = 0;
+		int trainingOngoingCount = tpService.retrieveOngoingTrainings().size();
 		
 		List<UserEvent> userEvents = tpService.retrieveUserEvents();
 		List<List<UserEvent>> userEventsQuarter = tpService.retrieveTrainingByQuarter();
@@ -51,7 +51,7 @@ public class DashboardController {
 		map.addAttribute("userCount", userCount);
 		map.addAttribute("pendingUserCount", pendingUserCount);
 		map.addAttribute("trainingCount", trainingCount);
-		map.addAttribute("trainingRequestCount", trainingRequestCount);
+		map.addAttribute("trainingOngoingCount", trainingOngoingCount);
 		
 		return "dashboard";
 	}

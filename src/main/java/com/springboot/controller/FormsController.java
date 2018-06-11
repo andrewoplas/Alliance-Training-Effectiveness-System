@@ -180,6 +180,7 @@ public class FormsController {
 		
 		if(training != null) {
 			List<UserEvent> participants = tpService.retrieveTrainingUserEvent(training, "Participant", false);
+			participants.addAll(tpService.retrieveTrainingUserEvent(training, "Supervisor", false));
 			Form form = formsService.retrieveForm(3);
 			
 			map.addAttribute("form", form);
@@ -210,13 +211,12 @@ public class FormsController {
 		TrainingPlan training = tpService.retrieveTraining(trainingPlanID);
 		
 		if(training != null) {
-			List<UserEvent> participants = tpService.retrieveTrainingUserEvent(training, "Participant", false);
 			Form form = formsService.retrieveForm(4);
 			
 			map.addAttribute("form", form);
 			map.addAttribute("questions", form.getFormQuestions());
 			map.addAttribute("training", training);
-			map.addAttribute("userEvents", participants);
+			map.addAttribute("userEvents", training.getUserEvents());
 		} else {
 			return "redirect:/error/404";
 		}

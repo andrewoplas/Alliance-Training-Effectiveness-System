@@ -44,9 +44,7 @@
 										<c:set var="unanswered" value="0" />
 										<c:set var="answered" value="0" />
 										
-										<c:forEach var="userEvent" items="${ userEvents }">
-											<c:if test="${ userEvent.role == 'Participant' || userEvent.role == 'Supervisor' }">
-												
+										<c:forEach var="userEvent" items="${ userEvents }">												
 												<c:set var="formAssignment" value="${ userEvent.getFormAssignment(form.id) }" />
 											
 											
@@ -55,6 +53,10 @@
 														${ userEvent.user.name } 
 														<c:if test="${ userEvent.role == 'Supervisor' }">
 															<span class="badge badge-info m-l-5" data-toggle="tooltip" title="Supervisor" data-placement="top">S</span>
+														</c:if>
+														
+														<c:if test="${ userEvent.role.contains('Facilitator') }">
+															<span class="badge badge-info m-l-5" data-toggle="tooltip" title="Facilitator" data-placement="top">F</span>
 														</c:if>
 													</td>
 													<td width="20%" class="text-center status">
@@ -104,7 +106,6 @@
 														</c:if>
 													</td>
 												</tr>
-											</c:if>
 										</c:forEach>
 										
 									</tbody>
